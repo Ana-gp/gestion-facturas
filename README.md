@@ -31,7 +31,17 @@ Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su e
 - `docs/` documentos del proyecto (competencia, público, modelo de negocio, legal, arquitectura, funciones, requisitos de diseño, pruebas de lectura)
 - `tests/tickets/` tickets y facturas reales para las pruebas de lectura
 
-## Orden para empezar
-- **Bloque 1**: #1 competencia (junto con #2, es la base de todo).
-- **Bloque 2**: #6 prueba de concepto de lectura con IA (su coste por factura fija los precios del #3).
-- **Bloque 3**: #2 público objetivo y #10 banco de tickets.
+## Orden de trabajo
+Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese orden; varios pueden ir en paralelo si sus dependencias ya están cerradas. Cada issue indica de cuáles depende.
+
+| Fase | Orden | Qué |
+|---|---|---|
+| 1. Documentos MD | 01–09 | Público objetivo → competencia → banco de tickets → funciones extra → stack → prueba IA → modelo de datos → modelo de negocio → legal |
+| 2. Requisitos de diseño | 10–11 | Mapa de pantallas → requisitos de diseño |
+| 3. Prototipo | 12 | Prototipo navegable (los tres) |
+| 4. Web: base | 13–15 | Despliegue → login → guardar originales |
+| 4. Web: núcleo | 16–23 | Subida (arrastrar, foto) → lectura IA → corrección → listado → moneda → duplicados → Excel |
+| 4. Web: resto | 24–30 | Correo, compartir, precios, límites de plan, landing, panel, avisos |
+| 4. Cierre | 31 | Prueba de lectura con tickets reales |
+
+Con la fase 4 hasta el orden 23 ya se cumplen casi todos los requisitos obligatorios: es el producto mínimo que tiene que funcionar sí o sí.
