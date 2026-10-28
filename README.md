@@ -17,6 +17,7 @@ Cada persona lleva un bloque de principio a fin: documentos, diseño, backend y 
 | **2. Subida y lectura** | 05 stack, 06 prueba IA, 07 modelo de datos | 10 mapa de pantallas | 15 originales, 16 arrastrar, 17 foto móvil, 18 lectura IA, 24 correo, 25 compartir (PWA) |
 | **3. Revisión y exportación** | 01 público objetivo, 03 banco de tickets, 04 funciones extra | — | 19 corrección, 20 listado, 21 moneda, 22 duplicados, 23 Excel, 30 avisos, 31 pruebas de lectura |
 | **Los tres** | | 12 prototipo | |
+
 Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su etiqueta `bloque-N` y se asigna los issues.
 
 ## Cómo trabajamos
