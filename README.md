@@ -13,9 +13,9 @@ Cada persona lleva un bloque de principio a fin: documentos, diseño, backend y 
 
 | Bloque | Documentos | Diseño | Backend | Frontend |
 |---|---|---|---|---|
-| **1. Cuenta y negocio** | #1 competencia, #3 modelo de negocio, #4 legal | #9 requisitos de diseño | #12 repo y despliegue, #13 login | #24 precios, #25 landing y legal, #26 panel |
-| **2. Subida y lectura** | #5 stack y arquitectura, #6 prueba IA | #8 mapa de pantallas | #16 reenvío por correo, #18 originales, #19 lectura IA | #14 foto móvil, #15 arrastrar, #17 compartir (PWA) |
-| **3. Revisión y exportación** | #2 público objetivo, #7 funciones extra | #10 banco de tickets | #20 moneda, #22 duplicados, #23 Excel | #21 corrección, #27 avisos, #28 pruebas de lectura |
+| **1. Cuenta y negocio** | #1 competencia, #3 modelo de negocio, #4 legal | #9 requisitos de diseño | #12 repo y despliegue, #13 login, #31 límites de plan | #24 precios, #25 landing y legal, #26 panel |
+| **2. Subida y lectura** | #5 stack y arquitectura, #6 prueba IA, #29 modelo de datos | #8 mapa de pantallas | #16 reenvío por correo, #18 originales, #19 lectura IA | #14 foto móvil, #15 arrastrar, #17 compartir (PWA) |
+| **3. Revisión y exportación** | #2 público objetivo, #7 funciones extra | #10 banco de tickets | #20 moneda, #22 duplicados, #23 Excel | #21 corrección, #30 listado, #27 avisos, #28 pruebas de lectura |
 | **Todo el equipo** | | #11 prototipo | | |
 
 Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su etiqueta `bloque-N` y se asigna los issues.
