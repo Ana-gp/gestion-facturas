@@ -11,13 +11,12 @@ Plataforma web de gestión de facturas y tickets por suscripción (proyecto fina
 ## Reparto por bloques
 Cada persona lleva un bloque de principio a fin: documentos, diseño, backend y frontend de sus funciones. Así todos tocamos de todo sin pisarnos.
 
-| Bloque | Documentos | Diseño | Backend | Frontend |
-|---|---|---|---|---|
-| **1. Cuenta y negocio** | #1 competencia, #3 modelo de negocio, #4 legal | #9 requisitos de diseño | #12 repo y despliegue, #13 login, #31 límites de plan | #24 precios, #25 landing y legal, #26 panel |
-| **2. Subida y lectura** | #5 stack y arquitectura, #6 prueba IA, #29 modelo de datos | #8 mapa de pantallas | #16 reenvío por correo, #18 originales, #19 lectura IA | #14 foto móvil, #15 arrastrar, #17 compartir (PWA) |
-| **3. Revisión y exportación** | #2 público objetivo, #7 funciones extra | #10 banco de tickets | #20 moneda, #22 duplicados, #23 Excel | #21 corrección, #30 listado, #27 avisos, #28 pruebas de lectura |
-| **Todo el equipo** | | #11 prototipo | | |
-
+| Bloque | Fase 1 · Documentos | Fase 2–3 · Diseño | Fase 4 · Web |
+|---|---|---|---|
+| **1. Cuenta y negocio** | 02 competencia, 08 modelo de negocio, 09 legal | 11 requisitos de diseño | 13 despliegue, 14 login, 26 precios, 27 límites de plan, 28 landing y legal, 29 panel |
+| **2. Subida y lectura** | 05 stack, 06 prueba IA, 07 modelo de datos | 10 mapa de pantallas | 15 originales, 16 arrastrar, 17 foto móvil, 18 lectura IA, 24 correo, 25 compartir (PWA) |
+| **3. Revisión y exportación** | 01 público objetivo, 03 banco de tickets, 04 funciones extra | — | 19 corrección, 20 listado, 21 moneda, 22 duplicados, 23 Excel, 30 avisos, 31 pruebas de lectura |
+| **Los tres** | | 12 prototipo | |
 Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su etiqueta `bloque-N` y se asigna los issues.
 
 ## Cómo trabajamos
