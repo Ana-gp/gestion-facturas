@@ -1,6 +1,6 @@
 # 01 · Público objetivo y propuesta de valor
 
-**Tarea:** #2 (orden 01) · **Bloque:** 3 (revisión y exportación) · **Responsable:** Javier · **Última actualización:** 29/10/2026
+Tarea: #2 (orden 01) · Bloque 3 (revisión y exportación) · Responsable: Ana · Última actualización: 29/10/2026
 
 > **Estado:** aprobado por el equipo. Pendiente de añadir la entrevista a un autónomo.
 > Leyenda: **[Confirmado]** dato o requisito comprobado · **[Supuesto]** hipótesis provisional que se usa para avanzar y debe validarse · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información. Etiquetas según `docs/guia-estilo.md`.
@@ -11,7 +11,7 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 **Por qué los autónomos:**
 - Tienen exactamente el problema que plantea el enunciado: tickets sueltos, facturas en el correo y prisas cada trimestre.
-- Son muchos: ✅ en España hay **3.472.357 autónomos** afiliados al RETA (julio de 2026), un 1,7 % más que un año antes. [Fuente: Merca2, datos de la Seguridad Social](https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/)
+- Son muchos **[Confirmado]**: en España hay **3.472.357 autónomos** afiliados al RETA (julio de 2026), un 1,7 % más que un año antes. [Fuente: Merca2, datos de la Seguridad Social](https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/)
 - Las herramientas fuertes del mercado están pensadas para empresas con empleados o para llevar la contabilidad completa, no para una persona que solo quiere tener sus gastos en orden.
 
 ### Públicos descartados por ahora
