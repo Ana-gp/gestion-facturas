@@ -198,7 +198,7 @@ Aciertos = número de ✅ ÷ número de campos que existen en el ticket (sin con
 | B · Mistral OCR 4.1 | | | | | | | Sí (endpoint UE) | Sí |
 | C · Azure Document Intelligence | | | | | | | Sí (región UE) | No |
 
-Campos que más fallan: A · número de factura en T2 (tomó otro número impreso en el ticket). Ningún motor ha inventado datos ausentes: en los campos N/A devolvió vacío.
+Campos que más fallan: A · número de factura en T2 (tomó otro número impreso en el ticket). A no inventó datos ausentes: en los campos N/A devolvió vacío.
 
 ## 8. Criterios de decisión (recomendación)
 
