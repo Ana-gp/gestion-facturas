@@ -40,7 +40,7 @@ Trabajamos por fases: cada uno hace las tareas de su bloque en la fase en curso.
 ## Estilo de los documentos
 Todos los documentos siguen la [guía de estilo](docs/guia-estilo.md): sin iconos, con las mismas etiquetas de estado (**[Confirmado]**, **[Supuesto]**, **[Propuesta]**, **[Pendiente]**) y de resultados (**Correcto**, **Incorrecto**, **Vacío**, **No aplica**). Quien revisa un pull request comprueba también el estilo.
 
-## Stack (propuesta del #5, pendiente de validar)
+## Stack (aceptado para el MVP del curso, #5)
 | Pieza | Elección |
 |---|---|
 | Frontend y backend | Next.js (React) |

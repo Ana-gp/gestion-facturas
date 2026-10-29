@@ -1,15 +1,16 @@
 # 05 · Stack y arquitectura
 
-Issue: #5 · Bloque 2 (subida y lectura) · Responsable: Mireia
+Tarea: #5 (orden 05) · Bloque 2 (subida y lectura) · Responsable: Mireia
 Depende de: #2 (público objetivo) · Alimenta: #12 (despliegue), #13 (login), #29 (modelo de datos), #18 (originales), #16 (correo), #17 (PWA), #14 (foto), #15 (arrastrar) y #19 (lectura con IA)
 
-> **Estado: PROPUESTA del 29/10/2026, pendiente de validar por Anaí y Javier.** Elegida por Mireia entre tres opciones (apartado 4). No hay nada instalado ni probado todavía: este documento dice *qué* usaremos y *por qué*, no que ya funcione.
+> **Estado: stack ACEPTADO para el MVP del curso el 29/10/2026.** Elegido por Mireia entre tres opciones (apartado 4) y aprobado por Javier en la revisión del PR #36. Los puntos del apartado 7 siguen abiertos y se resuelven durante el despliegue (#12) y el login (#13), sin ampliar el alcance. No hay nada instalado ni probado todavía: este documento dice *qué* usaremos y *por qué*, no que ya funcione.
 
-Leyenda:
+Leyenda (según la [guía de estilo](guia-estilo.md)):
 
-- **Hecho**: comprobado en una fuente oficial, con fecha de consulta (29/10/2026). Fuentes en el apartado 9.
-- **Supuesto**: lo damos por bueno sin haberlo podido comprobar.
-- **Recomendación**: propuesta nuestra, que el equipo puede cambiar.
+- **[Confirmado]**: comprobado en una fuente oficial, con fecha de consulta (29/10/2026). Fuentes en el apartado 9.
+- **[Supuesto]**: lo damos por bueno sin haberlo podido comprobar.
+- **[Propuesta]**: decisión o recomendación del equipo, que se puede cambiar.
+- **[Pendiente]**: falta información para poder afirmarlo o decidirlo.
 
 ## 1. Decisión (resumen)
 
@@ -26,7 +27,7 @@ Leyenda:
 | Exportación a Excel | Librería de JavaScript (p. ej. ExcelJS o SheetJS) | Crear el `.xlsx` en la propia web, sin servicio externo |
 | Web instalable | **PWA** (manifest de Next.js) | Instalar en la pantalla de inicio y, en Android, aparecer en "Compartir" |
 
-Coste fijo durante el curso: **0 €** con los planes gratis (**Hecho** para los límites del apartado 3). Ninguna de estas cuentas debería pedir tarjeta (ver apartado 3: en dos casos es **supuesto**).
+Coste fijo durante el curso: **0 €** con los planes gratis (**[Confirmado]** para los límites del apartado 3). Ninguna de estas cuentas debería pedir tarjeta (ver apartado 3: en dos casos es **[Supuesto]**).
 
 ### Glosario
 
@@ -45,16 +46,16 @@ Coste fijo durante el curso: **0 €** con los planes gratis (**Hecho** para los
 1. **Cumple todos los requisitos obligatorios con planes gratis** (tabla del apartado 5).
 2. **Sin tarjeta**: es una condición del equipo. Firebase la exige para guardar archivos (apartado 4).
 3. **Datos en la UE**: usuarios, facturas y originales se guardan en Fráncfort; las funciones de Vercel también corren allí.
-4. **Fácil de construir con IA y de mantener**: Next.js + Supabase es una combinación muy extendida en tutoriales y asistentes (**supuesto** razonable), y Supabase trae ya hechos el login, la recuperación y la separación de datos.
+4. **Fácil de construir con IA y de mantener**: Next.js + Supabase es una combinación muy extendida en tutoriales y asistentes (**[Supuesto]** razonable), y Supabase trae ya hechos el login, la recuperación y la separación de datos.
 5. **Encaja con el público (#2, autónomos con gestoría)**: móvil primero (PWA y foto desde la web) y coste fijo 0 € mientras se valida, coherente con un precio bajo.
 
 ## 3. Planes gratis, tarjeta y región de cada servicio
 
-| Servicio | Límites del plan gratis (**Hecho**) | ¿Pide tarjeta? | Región |
+| Servicio | Límites del plan gratis (**[Confirmado]**) | ¿Pide tarjeta? | Región |
 |---|---|---|---|
-| Vercel Hobby | 1.000.000 de invocaciones de funciones/mes, 100 GB de transferencia, 4 h de CPU activa, funciones de hasta 300 s, 100 despliegues/día. **Solo uso personal y no comercial** | No (la tarjeta se pide al pasar a Pro) — **Hecho indirecto** | Funciones en **una** región, a elegir: `fra1` — **Hecho** |
-| Supabase Free | BD de 500 MB, 1 GB de archivos, 50.000 usuarios activos/mes, 5 GB de transferencia, 2 proyectos. **Se pausa tras 1 semana sin uso**. Archivos de hasta 50 MB (fuente secundaria) | **Supuesto: no** (la web no lo dice por escrito; se entra con GitHub). Confirmarlo al crear la cuenta | Fráncfort `eu-central-1` (también Irlanda, París, Estocolmo) — **Hecho** |
-| Resend Free | 3.000 correos/mes y 100/día, **contando enviados y recibidos** | **No indicado**: confirmar al crear la cuenta | **No indicado** para la recepción. **Supuesto**: fuera de la UE |
+| Vercel Hobby | 1.000.000 de invocaciones de funciones/mes, 100 GB de transferencia, 4 h de CPU activa, funciones de hasta 300 s, 100 despliegues/día. **Solo uso personal y no comercial** | No (la tarjeta se pide al pasar a Pro) — **[Confirmado]** de forma indirecta | Funciones en **una** región, a elegir: `fra1` — **[Confirmado]** |
+| Supabase Free | BD de 500 MB, 1 GB de archivos, 50.000 usuarios activos/mes, 5 GB de transferencia, 2 proyectos. **Se pausa tras 1 semana sin uso**. Archivos de hasta 50 MB (fuente secundaria) | **[Supuesto]** no (la web no lo dice por escrito; se entra con GitHub). Confirmarlo al crear la cuenta | Fráncfort `eu-central-1` (también Irlanda, París, Estocolmo) — **[Confirmado]** |
+| Resend Free | 3.000 correos/mes y 100/día, **contando enviados y recibidos** | **[Pendiente]**: no lo indica; confirmar al crear la cuenta | **[Pendiente]**: no lo indica para la recepción. **[Supuesto]**: fuera de la UE |
 | Gemini API (plan gratis) | Límites por minuto y por día, visibles en AI Studio | No | No garantizado en la UE |
 
 Si al crear la cuenta de Supabase o Resend apareciera la petición de tarjeta, **parar y avisar al equipo**: el plan B es la opción C del apartado 4.
@@ -63,11 +64,11 @@ Si al crear la cuenta de Supabase o Resend apareciera la petición de tarjeta, *
 
 | Opción | Qué era | Por qué se descarta |
 |---|---|---|
-| **B · Firebase** (Hosting, Auth, Firestore, Storage, Functions) | Todo dentro de Google, igual que Gemini | Cloud Storage for Firebase **exige el plan Blaze** (*"a requirement to use Cloud Storage for Firebase"*) y las Cloud Functions no están en el plan gratis Spark — **Hecho**. Blaze necesita medio de pago. Sin eso no se pueden guardar los originales (#18) |
-| **C · Appwrite Cloud** (usuarios, BD, archivos, funciones y hosting en Fráncfort) | Todo en uno y en la UE | No descartada del todo: es el **plan B**. Contras: no se ha podido confirmar si el plan gratis pide tarjeta (la fuente secundaria se contradice), hay menos tutoriales y su base de datos no es SQL clásico, lo que complica la exportación por periodos y los duplicados (**supuesto**) |
-| **Netlify** como hosting en lugar de Vercel | Plan gratis que permite uso comercial | Cambiar la región de las funciones a la UE solo está en Pro/Enterprise — **Hecho**. En gratis correrían en Ohio (EE. UU.) |
-| **Postmark** para el correo entrante | Servicio veterano de correo | En el plan gratis **no incluye** la recepción de correos (solo Pro y Platform) — **Hecho** |
-| **Vertex AI "express mode"** para la IA | Vertex sin tarjeta durante 90 días | Sus condiciones **prohíben tratar datos personales** — **Hecho**. Una factura lleva NIF y nombres |
+| **B · Firebase** (Hosting, Auth, Firestore, Storage, Functions) | Todo dentro de Google, igual que Gemini | Cloud Storage for Firebase **exige el plan Blaze** (*"a requirement to use Cloud Storage for Firebase"*) y las Cloud Functions no están en el plan gratis Spark — **[Confirmado]**. Blaze necesita medio de pago. Sin eso no se pueden guardar los originales (#18) |
+| **C · Appwrite Cloud** (usuarios, BD, archivos, funciones y hosting en Fráncfort) | Todo en uno y en la UE | No descartada del todo: es el **plan B**. Contras: no se ha podido confirmar si el plan gratis pide tarjeta (la fuente secundaria se contradice), hay menos tutoriales y su base de datos no es SQL clásico, lo que complica la exportación por periodos y los duplicados (**[Supuesto]**) |
+| **Netlify** como hosting en lugar de Vercel | Plan gratis que permite uso comercial | Cambiar la región de las funciones a la UE solo está en Pro/Enterprise — **[Confirmado]**. En gratis correrían en Ohio (EE. UU.) |
+| **Postmark** para el correo entrante | Servicio veterano de correo | En el plan gratis **no incluye** la recepción de correos (solo Pro y Platform) — **[Confirmado]** |
+| **Vertex AI "express mode"** para la IA | Vertex sin tarjeta durante 90 días | Sus condiciones **prohíben tratar datos personales** — **[Confirmado]**. Una factura lleva NIF y nombres |
 
 ## 5. Cómo cubre cada requisito
 
@@ -76,7 +77,7 @@ Si al crear la cuenta de Supabase o Resend apareciera la petición de tarjeta, *
 | Usuario y contraseña, recuperación | Supabase Auth con correo y contraseña. Para enviar el correo de recuperación hace falta un SMTP propio (ver apartado 7) | #13 |
 | Cada usuario ve solo lo suyo | Políticas RLS en todas las tablas y en el *bucket* (`user_id = auth.uid()`). Criterio de aceptación de #13: probarlo con dos cuentas | #13 |
 | Foto desde el móvil | Botón con `<input type="file" accept="image/*" capture="environment">`, que abre la cámara. Vercel da HTTPS por defecto | #14 |
-| Arrastrar PDF o imagen | Zona de arrastre en el ordenador; acepta PDF, JPG, PNG y HEIC (**supuesto** de formatos, a fijar en #15) | #15 |
+| Arrastrar PDF o imagen | Zona de arrastre en el ordenador; acepta PDF, JPG, PNG y HEIC (**[Supuesto]** de formatos, a fijar en #15) | #15 |
 | Reenvío por correo | Resend recibe en `facturas-<código>@<id>.resend.app`, avisa por *webhook* a `/api/correo-entrante`, comprobamos que el remitente es uno de los correos autorizados del usuario y cada adjunto entra como factura | #16 |
 | Original enlazado a sus datos | El archivo va directo del navegador al *bucket* privado `originales/<user_id>/…`; la fila de la factura guarda su ruta. Se ve con un enlace temporal firmado | #18 |
 | Lectura automática | Una ruta de API de Next.js descarga el archivo del *bucket*, lo envía a Gemini con la instrucción de `docs/prueba-ia.md` (apartado 10) y guarda el JSON. La clave de Gemini solo está en el servidor | #19 |
@@ -85,14 +86,14 @@ Si al crear la cuenta de Supabase o Resend apareciera la petición de tarjeta, *
 | Duplicados | Huella SHA-256 del archivo + comparación de NIF del emisor, número y total | #22 |
 | Exportar a Excel | Librería JavaScript que genera el `.xlsx` del periodo elegido | #23 |
 | Página de precios | Página de Next.js | #24 |
-| PWA y Compartir | Manifest con `share_target`. **Hecho**: funciona en Chrome Android, Samsung Internet y Chrome de escritorio; **no en Safari de iPhone ni en Firefox**. En iPhone la vía rápida es el reenvío por correo | #17 |
+| PWA y Compartir | Manifest con `share_target`. **[Confirmado]**: funciona en Chrome Android, Samsung Internet y Chrome de escritorio; **no en Safari de iPhone ni en Firefox**. En iPhone la vía rápida es el reenvío por correo | #17 |
 
 ## 6. Diagrama de arquitectura
 
 ```mermaid
 flowchart LR
-    U["👤 Autónomo<br/>móvil u ordenador"]
-    MAIL["📧 Correo con factura<br/>reenviado por el usuario"]
+    U["Autónomo<br/>(móvil u ordenador)"]
+    MAIL["Correo con factura<br/>reenviado por el usuario"]
 
     subgraph VERCEL["Vercel · funciones en Fráncfort (fra1)"]
         WEB["Web Next.js<br/>pantallas + PWA"]
@@ -132,14 +133,14 @@ Cómo leerlo: el usuario solo habla con la web. La web guarda el original direct
 
 | # | Qué | Quién (propuesta) | Cómo se da por cerrado |
 |---|---|---|---|
-| 1 | **Validar esta propuesta** | Anaí y Javier | Revisión y aprobación del PR |
-| 2 | Que **Supabase** y **Resend** no pidan tarjeta al crear la cuenta | Javier (#12) y Mireia (#16) | Cuenta creada sin tarjeta; si la piden, parar y pasar al plan B |
-| 3 | Correo de recuperación: elegir **SMTP**. **Supuesto**: Resend solo envía a cualquier destinatario con un dominio propio verificado (cuesta dinero). Opción sin dominio para el curso (**supuesto**, a probar): una cuenta de Gmail del equipo con "contraseña de aplicación" | Javier (#13) | Llega el correo de recuperación a una cuenta que no es del equipo |
-| 4 | **IA en el curso:** Gemini API gratis, la web usada solo por el equipo, con tickets tapados y sin clientes reales. Las condiciones de Google dicen que para ofrecer la web a usuarios del EEE hay que usar servicios de pago — **Hecho** | Equipo | Acordado en la revisión del PR |
-| 5 | **IA en un lanzamiento real:** Vertex AI en el endpoint `eu`. **Hecho**: exige cuenta de facturación con tarjeta u otro medio de pago. Además, **sin confirmar** que `gemini-3.5-flash-lite` esté disponible en `eu`. Decisión del equipo, fuera del alcance del curso | Equipo | Fuera del MVP |
-| 6 | **Uso comercial:** Vercel Hobby no lo permite. Si se cobrara a clientes, pasar a Vercel Pro (20 $/mes por persona) o cambiar de hosting | Equipo / #3 (modelo de negocio) | Anotado en el modelo de negocio |
+| 1 | **Validar esta propuesta** | Anaí y Javier | Aprobada por Javier el 29/10/2026 (PR #36) |
+| 2 | Que **Supabase** y **Resend** no pidan tarjeta al crear la cuenta. No se da por confirmado hasta crearlas | Javier (#12) y Mireia (#16) | Cuenta creada sin tarjeta; si la piden, parar y pasar al plan B |
+| 3 | Correo de recuperación. **Acordado:** en local, **Mailpit** (programa que "atrapa" los correos de prueba en el ordenador, sin enviarlos de verdad); en la demo desplegada, un **SMTP personalizado**. Gmail con "contraseña de aplicación" es solo una alternativa temporal, **no decidida** hasta probarla. **[Supuesto]**: Resend solo envía a cualquier destinatario con un dominio propio verificado | Javier (#13) | En local, el correo aparece en Mailpit; en la demo, llega el correo de recuperación a una dirección externa al equipo |
+| 4 | **IA en el curso:** Gemini API gratis, **solo para pruebas académicas con documentos ficticios o anonimizados**, sin usuarios externos. Las condiciones de Google dicen que para ofrecer la web a usuarios del EEE hay que usar servicios de pago — **[Confirmado]**. Antes de abrirla a usuarios externos del EEE, revisar las condiciones aplicables y la modalidad necesaria | Equipo | Acordado en la revisión del PR #36 |
+| 5 | **IA en un lanzamiento real:** Vertex AI en el endpoint `eu`. **[Confirmado]**: exige cuenta de facturación con tarjeta u otro medio de pago. Además, **[Pendiente]** confirmar que `gemini-3.5-flash-lite` esté disponible en `eu`. Decisión del equipo, fuera del alcance del curso | Equipo | Fuera del MVP |
+| 6 | **Uso comercial:** Vercel Hobby es para uso personal y no comercial. **Acordado:** se mantiene para la demo académica; si se comercializa Ticketon, revisar el alojamiento (p. ej. Vercel Pro, 20 $/mes por persona, u otro hosting) | Equipo / #3 (modelo de negocio) | Acordado en la revisión del PR #36; anotar en el modelo de negocio |
 | 7 | **Dónde procesa Resend los correos** (no consta). Afecta a la normativa | Javier (#4, legal) | Respuesta documentada en el doc legal |
-| 8 | **Límite de tamaño** de las peticiones a las funciones de Vercel. **Supuesto**: es bajo (unos pocos MB), por eso el original se sube directo a Supabase y no pasa por la función | Mireia (#18) | Probado con una foto de móvil de más de 5 MB |
+| 8 | **Límite de tamaño** de las peticiones a las funciones de Vercel. **[Supuesto]**: es bajo (unos pocos MB), por eso el original se sube directo a Supabase y no pasa por la función | Mireia (#18) | Probado con una foto de móvil de más de 5 MB |
 | 9 | **Pausa de Supabase** tras 1 semana sin uso: acordarse de entrar antes de la presentación | Equipo | — |
 | 10 | **API del BCE**: comprobar que es pública y sin registro, y qué hacer en fines de semana y festivos (no hay tipo publicado) | Anaí (#20, moneda) | Conversión probada con una factura en dólares |
 
