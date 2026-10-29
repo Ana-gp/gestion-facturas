@@ -3,7 +3,7 @@
 Tarea: #8 (orden 10) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 29/10/2026
 Depende de: #2 (público objetivo) y #7 (funciones adicionales). Usa también #5 (arquitectura), #29 (modelo de datos), #3 (modelo de negocio) y #4 (normativa) · Alimenta: #9 (requisitos de diseño) y #11 (prototipo)
 
-**Estado:** **[Propuesta]**. Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Pendiente de la revisión de Ana y Javier. No hay ninguna pantalla construida: este documento dice *qué pantallas habrá y cómo se pasa de una a otra*, no cómo se ven ni que funcionen.
+**Estado:** **[Propuesta]**. Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Aprobado por Ana el 29/10/2026 en el PR #54, con dos cambios incorporados el mismo día (apartado 9). Pendiente de la revisión de Javier. No hay ninguna pantalla construida: este documento dice *qué pantallas habrá y cómo se pasa de una a otra*, no cómo se ven ni que funcionen.
 
 Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
@@ -75,7 +75,7 @@ Cada usuario ve **solo sus datos** en todas estas pantallas (RLS, [modelo de dat
 | P11 | **Comparar posible duplicado** | Las dos imágenes (una sobre otra en el móvil, lado a lado en el ordenador), los datos clave de cada una y el motivo del aviso ("mismo archivo", "mismo NIF, número y total" o "mismo emisor, fecha y total") | Borrar una de las dos; marcar "no es duplicado"; volver sin decidir | Requisito 5 · #22 | Obligatoria | Todos |
 | P12 | **Original a pantalla completa** | La foto o el PDF original, con zoom | Ampliar, descargar el original, volver | Requisito 6 · #18 | Obligatoria | Todos |
 | P13 | **Exportar** | Elegir periodo: mes, trimestre o año (#23). Resumen: número de documentos, total en € y cuántos tienen avisos. Acceso al Cierre de trimestre | Descargar el Excel del periodo; revisar los pendientes; abrir el Cierre de trimestre | Requisito 7 · #23 | Obligatoria | Todos |
-| P14 | **Cierre de trimestre** ("Prepara tu entrega a la gestoría") | Tres pasos (#50): 1) pendientes del trimestre: tickets sin NIF, datos por revisar y posibles duplicados; 2) resumen: total de gastos, IVA por tipo y gasto por categoría; 3) paquete .zip con el Excel del periodo y los originales ordenados | Resolver pendientes (abre P10); continuar; descargar el paquete. Ningún texto promete nada fiscal (#50) | #50 · #7 | Extra | Autónomo y Autónomo Plus. En Gratis se ve bloqueado (DP7) |
+| P14 | **Cierre de trimestre** ("Prepara tu entrega a la gestoría") | Tres pasos (#50): 1) pendientes del trimestre: tickets sin NIF del receptor, datos por revisar y posibles duplicados; 2) resumen: total de gastos, IVA por tipo y gasto por categoría; 3) paquete .zip con el Excel del periodo y los originales ordenados | Resolver pendientes (abre P10); continuar; descargar el paquete. Ningún texto promete nada fiscal (#50) | #50 · #7 | Extra | Autónomo y Autónomo Plus. En Gratis se ve bloqueado (DP7) |
 | P15 | **Cuenta y plan** | Nombre y NIF propio (sirve para avisar si una factura va a nombre de otro); plan actual y documentos usados este mes; enlace a Reenvío por correo; instalar en el móvil; cerrar sesión | Cambiar nombre y NIF; ver o cambiar de plan (lleva a P01); cerrar sesión. **[Pendiente #4]** Darse de baja y borrar la cuenta | #13, #31, #17 | Obligatoria (sesión y plan) | Todos |
 | P16 | **Reenvío por correo** | La dirección propia (`facturas-<código>@…`) con botón Copiar; la lista de **correos autorizados** (desde los que reenvía); instrucciones cortas para reenviar desde Gmail y Outlook, y aviso de que los correos de otras direcciones se descartan (DP5) | Copiar la dirección; añadir o quitar correos autorizados | Requisito 2 · #16 | Obligatoria | Todos |
 | P17 | **Panel con cifras** | Documentos y gasto del mes, gasto por categoría, comparación con el mes pasado (enunciado, funciones adicionales) | Mirar; ir a la lista filtrada | #26 · #7 | **Si da tiempo** | **[Pendiente]** (`funciones.md`, apartado 5) |
@@ -93,12 +93,12 @@ No cuenta como "dos clics" tener que abrir otra pantalla o un formulario aparte.
 
 | Elemento | Dónde aparece | Sale de | Tipo |
 |---|---|---|---|
-| **Avisos dentro de la web** (no por correo): posible duplicado, ticket sin NIF del receptor y trimestre a punto de cerrar | En la ficha (P10), como etiqueta y filtro en P07 y como franja arriba en P07 (DP9) | Requisito 5 · #22 · #27 · #7 | Duplicado: obligatorio. Los otros dos: extra, en todos los planes |
+| **Avisos dentro de la web** (no por correo): posible duplicado, ticket sin NIF del receptor (el que suele faltar en los tickets y necesita la gestoría: `modelo-datos.md` D5 y PR #55) y trimestre a punto de cerrar | En la ficha (P10), como etiqueta y filtro en P07 y como franja arriba en P07 (DP9) | Requisito 5 · #22 · #27 · #7 | Duplicado: obligatorio. Los otros dos: extra, en todos los planes |
 | **Instalar en el móvil (PWA)** | Botón en P15 y franja la primera vez que entra desde el móvil **[Propuesta]** | #17 · #7 | Extra, todos los planes |
 | **Compartir desde el móvil** | Al elegir "Compartir" en un PDF, Ticketon aparece en la lista y lleva a P09. **[Confirmado]** Funciona en Chrome para Android, Samsung Internet y Chrome de escritorio, no en Safari de iPhone ni en Firefox ([funciones](funciones.md)) | #17 · #7 | Extra, incluido en la instalación en el móvil |
 | **Avisos del límite del plan** | P09, P07 y P15, con enlace a Precios | #31 | Obligatoria (el plan Gratis tiene límite) |
 
-**[Pendiente #27]** Cuántos días antes del fin de trimestre sale el aviso "trimestre a punto de cerrar".
+**[Propuesta]** de Ana (29/10/2026): el aviso "trimestre a punto de cerrar" se muestra desde 15 días antes del fin del trimestre hasta que termina (#27).
 
 ## 4. Estados importantes
 
@@ -107,7 +107,7 @@ No cuenta como "dos clics" tener que abrir otra pantalla o un formulario aparte.
 | E1 | **Cargando / subiendo** | P07, P09, P13 | Barra de progreso por archivo | Esperar; cancelar la subida | #18 |
 | E2 | **Leyendo con IA** | P09 | "Leyendo tu ticket…". **[Supuesto]** Tarda unos segundos; medirlo en #19 | Esperar; al terminar pasa sola a P10 | #19, DP3 |
 | E3 | **Error de lectura** | P09, P10 | "No hemos podido leer este documento. El original está guardado." | Volver a leer (no gasta cupo, D4) o rellenar los datos a mano en P10 | #19, `modelo-datos.md` D4 y D7 |
-| E4 | **Archivo repetido** (misma huella, antes de leer) | P09 | "Ya subiste este archivo el dd/mm." No se lee ni cuenta para el cupo | Ver el que ya está. **[Pendiente #22]** Si se deja subirlo igualmente | #22, D1 y D4 |
+| E4 | **Archivo repetido** (misma huella, antes de leer) | P09 | "Ya subiste este archivo el dd/mm." No se lee ni cuenta para el cupo | Ver el que ya está. No se puede subir otra vez: con la misma huella es exactamente el mismo archivo **[Propuesta]** de Ana (29/10/2026) | #22, D1 y D4 |
 | E5 | **Posible duplicado** (después de leer) | P10, P07 | Franja de aviso con el motivo | Comparar (P11); "no es duplicado"; dejarlo para luego. **Nunca bloquea** | Requisito 5 · #22, D1 |
 | E6 | **Límite del plan alcanzado** | P09, P07, P15 | "Has usado tus 10 documentos de este mes." El original **sí** se guarda, sin leer, y se lee cuando vuelva a haber cupo (DP8) | Ver planes (P01) | #31, D4 |
 | E7 | **Sin documentos todavía** | P07 | Explicación de una línea y las tres vías: botón Foto, zona de arrastre y la dirección de reenvío | Subir el primero | #8 |
@@ -339,7 +339,7 @@ flowchart TD
     A["P13 Exportar<br/>Prepara tu entrega a la gestoría"] --> B{"¿Tiene plan de pago?"}
     B -->|"No, plan Gratis"| B1["Se ve bloqueado<br/>con enlace a P01 Precios"]
     B -->|"Sí"| C["P14 Elige trimestre y año"]
-    C --> D["Paso 1 · Pendientes:<br/>tickets sin NIF, datos por revisar,<br/>posibles duplicados"]
+    C --> D["Paso 1 · Pendientes:<br/>tickets sin NIF del receptor,<br/>datos por revisar, posibles duplicados"]
     D --> E{"¿Quedan pendientes?"}
     E -->|"Abre uno"| P10["P10 Revisar y corregir"]
     P10 --> D
@@ -348,7 +348,7 @@ flowchart TD
     G --> H["Descarga un .zip<br/>para la gestoría"]
 ```
 
-Notas: **[Confirmado]** El plan Gratis mantiene la exportación a Excel normal (P13) (#50). Se puede continuar con pendientes, igual que en la exportación (DP6). **[Pendiente]** Que generar un .zip con muchos originales funcione dentro de los límites de las funciones de Vercel ([arquitectura](arquitectura.md), apartado 3); comprobarlo al construir #50.
+Notas: **[Confirmado]** El plan Gratis mantiene la exportación a Excel normal (P13) (#50). Se puede continuar con pendientes, igual que en la exportación (DP6). **[Propuesta]** de Ana (29/10/2026): el .zip se genera en el navegador del usuario, descargando los originales, para no depender de los límites de las funciones de Vercel ([arquitectura](arquitectura.md), apartado 3). **[Pendiente]** Comprobarlo al construir #50.
 
 ## 6. Decisiones
 
@@ -430,10 +430,8 @@ Se pueden cambiar en la revisión del PR sin rehacer el mapa:
 | 2 | Cómo se informa de la privacidad al registrarse (P02), textos de P06 y baja de la cuenta | #25 y #4 · Javier | El diseño de P02 | Decidido en `legal.md` |
 | 3 | Cuándo se leen los documentos guardados sin leer por falta de cupo (DP8) | #31 · Javier | — | Decidido en #31 |
 | 4 | Formatos y tamaño máximo de archivo (E8) | #15 · Mireia | — | Fijado y probado con una foto de más de 5 MB |
-| 5 | Si se deja subir igualmente un archivo repetido (E4) | #22 · Ana | — | Decidido en #22 |
-| 6 | Cuándo sale el aviso "trimestre a punto de cerrar" | #27 · Ana | — | Decidido en #27 |
-| 7 | Que el .zip del Cierre de trimestre quepa en los límites de Vercel | #50 · Ana | El cierre de #50 | Probado con un trimestre de ejemplo |
-| 8 | Plan en el que va el Panel con cifras | #26 · Javier | — | Decidido en `funciones.md` |
+| 5 | Generar el .zip del Cierre de trimestre en el navegador (propuesta de Ana) y comprobar que funciona | #50 · Ana | El cierre de #50 | Probado con un trimestre de ejemplo |
+| 6 | Plan en el que va el Panel con cifras | #26 · Javier | — | Decidido en `funciones.md` |
 
 ## 9. Registro de decisiones
 
@@ -441,7 +439,9 @@ Se pueden cambiar en la revisión del PR sin rehacer el mapa:
 |---|---|---|
 | 29/10/2026 | Borrador del mapa: 18 pantallas, 11 estados y 7 flujos | Mireia |
 | 29/10/2026 | DP1 a DP9: opción A en todas | Mireia |
-| [Pendiente] | Revisión | Ana y Javier |
+| 29/10/2026 | Aprobado en el PR #54 con dos cambios: aviso "ticket sin NIF del receptor" y nombre "Ana" | Ana |
+| 29/10/2026 | Propuestas para los pendientes: no volver a subir un archivo repetido (E4), aviso de trimestre desde 15 días antes del cierre (3.5) y .zip generado en el navegador (5.7) | Ana |
+| [Pendiente] | Revisión | Javier |
 
 ## 10. Fuentes
 
