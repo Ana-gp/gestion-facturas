@@ -1,6 +1,6 @@
 # Tickets de prueba
 
-Gasolinera arrugado, supermercado con varios IVA, PDF de suscripción en inglés, foto torcida con poca luz y todos los que haya. Ver issue #10.
+Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciado exige como mínimo cuatro: uno de gasolinera arrugado, uno de supermercado con varios tipos de IVA, una factura en PDF de una suscripción en inglés y una foto torcida y con poca luz.
 
 | Archivo | Qué es |
 |---|---|
@@ -12,6 +12,6 @@ Gasolinera arrugado, supermercado con varios IVA, PDF de suscripción en inglés
 | `extra-carrefour.pdf` | Ticket PDF, un tipo de IVA |
 | `extra-druni-catalan.pdf` | Ticket PDF, 2 tipos de IVA, en catalán |
 
-Faltan: un ticket real de gasolinera arrugado y una factura en una moneda distinta del euro.
+**Faltan:** un ticket real de gasolinera arrugado y una factura en una moneda distinta del euro.
 
 Los datos personales que no se usan en la prueba están pixelados o tachados.
