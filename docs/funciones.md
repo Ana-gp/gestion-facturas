@@ -113,4 +113,4 @@ Planes y precios según el [modelo de negocio](modelo-negocio.md).
 - [Estudio de competencia](competencia.md), conclusión provisional.
 - [Modelo de negocio](modelo-negocio.md), planes propuestos.
 - [Arquitectura](arquitectura.md) y [caniuse, `share_target`](https://caniuse.com/mdn-manifests_webapp_share_target): compatibilidad de compartir desde el móvil.
-- Entrevista a una autónoma con gestoría, 29/10/2026. Se añadirá a [público objetivo](publico-objetivo.md).
+- Entrevista a una socia de Arco Iris CB (comunidad de bienes, sector educación), 29/10/2026: [público objetivo](publico-objetivo.md), apartado 3.
