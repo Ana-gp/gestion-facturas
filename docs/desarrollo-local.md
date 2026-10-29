@@ -1,10 +1,14 @@
 # Desarrollo local de Ticketon
 
+Tarea: #12 (orden 13) · Bloque 4 (web) · Responsable: Javier · Última actualización: 29/10/2026
+
 **Estado:** guía inicial de la base técnica. Todavía no acredita que el proyecto se haya instalado, compilado o desplegado.
+
+Leyenda: **[Confirmado]** dato respaldado por una fuente o resultado documentado; **[Supuesto]** hipótesis provisional que debe validarse; **[Propuesta]** decisión del equipo que puede cambiar; **[Pendiente]** información aún no resuelta. Etiquetas según `docs/guia-estilo.md`.
 
 ## Requisitos
 
-- Node.js 20.9 o posterior.
+- Node.js 22 (versión fijada en `.nvmrc`).
 - npm.
 - Acceso al repositorio de GitHub.
 
@@ -46,10 +50,10 @@ No añadas una clave `service_role` de Supabase al navegador ni a variables `NEX
 
 ## Pendiente
 
-- Crear y probar las cuentas de servicios.
-- Configurar las variables reales en el entorno de despliegue.
-- Conectar Supabase Auth después de coordinar el modelo de datos de la issue #29.
-- Confirmar el despliegue automático desde `main`.
+- [ ] Crear y probar las cuentas de servicios.
+- [ ] Configurar las variables reales en el entorno de despliegue.
+- [ ] Conectar Supabase Auth después de coordinar el modelo de datos de la issue #29.
+- [ ] Confirmar el despliegue automático desde `main`.
 
 
 ## Despliegue en Vercel (pendiente de validar)
