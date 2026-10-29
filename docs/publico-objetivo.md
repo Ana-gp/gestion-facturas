@@ -1,11 +1,12 @@
 # 01 · Público objetivo y propuesta de valor
 
-> **Estado:** aprobado por el equipo. Pendiente de añadir la entrevista a un autónomo.
-> Leyenda: ✅ confirmado · 💡 propuesta · ⏳ pendiente
+**Estado:** [Propuesta] público objetivo inicial elegido por el equipo; falta validar con una entrevista a un autónomo.
+
+Leyenda: **[Confirmado]** respaldado por el enunciado o una fuente; **[Propuesta]** decisión que puede cambiar; **[Pendiente]** falta información o validación.
 
 ---
 
-## 1. Público elegido 💡
+## 1. Público elegido [Propuesta]
 
 Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabajan con una gestoría para sus impuestos.
 
@@ -23,7 +24,7 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 ---
 
-## 2. Perfil de usuario 💡
+## 2. Perfil de usuario [Supuesto]
 
 **Quién es:** trabaja por su cuenta (comercial, diseñador, fontanero, formador, fotógrafo, consultor…). Usa el móvil para casi todo y tiene una gestoría que le lleva los impuestos. No quiere aprender contabilidad.
 
@@ -43,13 +44,13 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 ---
 
-## 3. Problema que resolvemos ✅
+## 3. Problema que resolvemos [Confirmado]
 
 Del propio enunciado: los tickets arrugados en la cartera, los PDFs perdidos en el correo y la tarde de cada trimestre juntándolo todo para la gestoría. **Lo que no se encuentra no se deduce, y eso es dinero que se pierde.**
 
 ---
 
-## 4. Propuesta de valor 💡
+## 4. Propuesta de valor [Propuesta]
 
 > Haz una foto al ticket y olvídate. Cada trimestre tienes todos tus gastos ordenados, con el original, listos para enviar a tu gestoría. No pierdes ni un justificante.
 
