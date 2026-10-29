@@ -1,6 +1,8 @@
-# Gestión de facturas
+# Ticketon
 
-Herramienta web por suscripción para que los autónomos tengan sus tickets y facturas ordenados y listos para enviar a su gestoría. Proyecto final en equipo.
+**Ticketon** es el nombre del producto web del proyecto. El repositorio conserva el nombre técnico `gestion-facturas`.
+
+Aplicación web por suscripción para que autónomos organicen sus tickets y facturas, conserven los originales y preparen la documentación que enviarán a su gestoría. El MVP no sustituye el criterio fiscal de la gestoría ni garantiza que un gasto sea deducible. Proyecto final en equipo.
 
 ## Equipo
 
@@ -8,7 +10,7 @@ Herramienta web por suscripción para que los autónomos tengan sus tickets y fa
 |---|---|
 | Ana | 3. Revisión y exportación |
 | Mireia | 2. Subida y lectura |
-| Por confirmar | 1. Cuenta y negocio |
+| Javier | 1. Cuenta y negocio |
 
 ## Entregables (milestones)
 1. Documentos MD previos
@@ -33,13 +35,35 @@ Trabajamos por fases: cada uno hace las tareas de su bloque en la fase en curso.
 2. Crea una rama por issue: `git checkout -b 12-login` (número y nombre corto).
 3. Commits pequeños y con mensaje claro.
 4. Abre un pull request hacia `main` con `Closes #número` en la descripción.
-5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directo a `main`.
+5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directamente a `main`.
 
 ## Estilo de los documentos
 Todos los documentos siguen la [guía de estilo](docs/guia-estilo.md): sin iconos, con las mismas etiquetas de estado (**[Confirmado]**, **[Supuesto]**, **[Propuesta]**, **[Pendiente]**) y de resultados (**Correcto**, **Incorrecto**, **Vacío**, **No aplica**). Quien revisa un pull request comprueba también el estilo.
 
+## Stack (propuesta del #5, pendiente de validar)
+| Pieza | Elección |
+|---|---|
+| Frontend y backend | Next.js (React) |
+| Hosting | Vercel (plan Hobby, funciones en Fráncfort `fra1`) |
+| Usuarios, base de datos y archivos | Supabase (región Fráncfort `eu-central-1`) |
+| Correo entrante | Resend |
+| Lectura con IA | Gemini 3.5 Flash Lite (ver `docs/prueba-ia.md`) |
+
+Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`](docs/arquitectura.md). Las claves (Gemini, Supabase, Resend) van en variables de entorno, nunca en el repositorio. **Importante:** el plan Vercel Hobby no permite uso comercial; cualquier lanzamiento de pago exige revisar hosting, costes y condiciones de los proveedores antes de vender suscripciones.
+
+## Documentación
+Índice completo, con responsable y estado de cada documento, en [`docs/README.md`](docs/README.md).
+
+- [Estudio de competencia](docs/competencia.md)
+- [Público objetivo y propuesta de valor](docs/publico-objetivo.md)
+- [Modelo de negocio y costes](docs/modelo-negocio.md)
+- [Normativa aplicable](docs/legal.md)
+- [Arquitectura](docs/arquitectura.md)
+- [Prueba de concepto de IA](docs/prueba-ia.md)
+- [Guía de estilo](docs/guia-estilo.md)
+
 ## Estructura
-- `docs/` documentos del proyecto y guía de estilo. Ver el [índice de documentos](docs/README.md)
+- `docs/` documentos del proyecto y guía de estilo
 - `tests/tickets/` tickets y facturas reales para las pruebas de lectura, con los datos personales tapados
 - `tests/resultados-ia/` respuestas completas de cada motor de IA en la prueba de lectura
 
@@ -56,7 +80,7 @@ Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese or
 | 4. Web: resto | 24–30 | Correo, compartir, precios, límites de plan, landing, panel, avisos |
 | 4. Cierre | 31 | Prueba de lectura con tickets reales |
 
-Con la fase 4 hasta el orden 23 ya se cumplen casi todos los requisitos obligatorios: es el producto mínimo que tiene que funcionar sí o sí.
+Con la fase 4 hasta el orden 23 se cubre el núcleo del MVP obligatorio. El objetivo es priorizar primero una aplicación funcional y probarla antes de ampliar el alcance.
 
 ## Uso de la IA en el proyecto
 

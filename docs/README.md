@@ -7,6 +7,10 @@
 | [Público objetivo y propuesta de valor](publico-objetivo.md) | 01 (#2) | Ana | Aprobado. Pendiente de la entrevista a un autónomo |
 | [Prueba de concepto de lectura con IA](prueba-ia.md) | 06 (#6) | Mireia | Terminado |
 | [Valores reales de los tickets](valores-reales-tickets.xlsx) | 06 (#6) | Mireia | Terminado |
+| [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Subido sin revisión |
+| [Stack y arquitectura](arquitectura.md) | 05 (#5) | Mireia | Subido sin revisión |
+| [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Subido sin revisión |
+| [Normativa aplicable](legal.md) | 09 (#4) | Javier | Subido sin revisión |
 | [Guía de estilo](guia-estilo.md) | Todas | Equipo | En revisión |
 
-Los demás documentos de la fase 1 (competencia, funciones adicionales, stack, modelo de datos, modelo de negocio y normativa) se añadirán a este índice al crearlos.
+Faltan por crear los documentos de funciones adicionales (04) y modelo de datos (07).
