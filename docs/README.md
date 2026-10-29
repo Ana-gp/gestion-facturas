@@ -7,10 +7,10 @@
 | [Público objetivo y propuesta de valor](publico-objetivo.md) | 01 (#2) | Ana | Aprobado. Pendiente de la entrevista a un autónomo |
 | [Prueba de concepto de lectura con IA](prueba-ia.md) | 06 (#6) | Mireia | Terminado |
 | [Valores reales de los tickets](valores-reales-tickets.xlsx) | 06 (#6) | Mireia | Terminado |
-| [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Subido sin revisión |
-| [Stack y arquitectura](arquitectura.md) | 05 (#5) | Mireia | Subido sin revisión |
-| [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Subido sin revisión |
-| [Normativa aplicable](legal.md) | 09 (#4) | Javier | Subido sin revisión |
+| [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Revisión solicitada; correcciones en PR #41 |
+| [Stack y arquitectura](arquitectura.md) | 05 (#5) | Mireia | PR #40 pendiente de revisión y resolución de conflictos |
+| [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Revisión solicitada; correcciones en PR #42 |
+| [Normativa aplicable](legal.md) | 09 (#4) | Javier | Revisión solicitada; correcciones en PR #43 |
 | [Guía de estilo](guia-estilo.md) | Todas | Equipo | En revisión |
 
-Faltan por crear los documentos de funciones adicionales (04) y modelo de datos (07).
+Pendientes de crear o completar: funciones adicionales (04, issue #7) y modelo de datos (07, issue #29). La prueba de IA (#6) no se cerrará hasta completar o resolver con el equipo los casos pendientes de la issue #10. Los estados de revisión se actualizan a medida que el equipo valida las PR.
