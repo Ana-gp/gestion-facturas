@@ -67,6 +67,8 @@ Fórmula para el coste fijo por cliente: coste fijo mensual / clientes activos. 
 
 **Punto de equilibrio ilustrativo [Supuesto]:** si el plan Autónomo cuesta 4,99 €/mes con IVA del 21 % incluido, la base antes de IVA es aproximadamente 4,12 €. Dividiendo el coste fijo estimado de 40,42 €/mes entre 4,12 €, hacen falta **10 clientes de pago** para cubrir únicamente ese coste fijo (9,81, redondeado hacia arriba). No incluye IA, correo, pagos, soporte, mantenimiento, otros impuestos ni posibles sobrecostes de infraestructura; por tanto, no es el punto de equilibrio comercial completo.
 
+**Punto de equilibrio ilustrativo [Supuesto]:** si el plan Autónomo cuesta 4,99 €/mes con IVA del 21 % incluido, la base antes de IVA es aproximadamente 4,12 €. Dividiendo el coste fijo estimado de 40,42 €/mes entre 4,12 €, hacen falta **10 clientes de pago** para cubrir únicamente ese coste fijo (9,81, redondeado hacia arriba). No incluye IA, correo, pagos, soporte, mantenimiento, otros impuestos ni posibles sobrecostes de infraestructura; por tanto, no es el punto de equilibrio comercial completo.
+
 | Partida | Situación | Acción necesaria |
 |---|---|---|
 | Lectura con IA | Estimada en la prueba de concepto | Revisar precios y consumo antes de la entrega y antes de un lanzamiento |
