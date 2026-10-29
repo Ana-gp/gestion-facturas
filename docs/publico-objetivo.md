@@ -1,10 +1,9 @@
 # 01 · Público objetivo y propuesta de valor
 
-**Estado:** [Propuesta] público objetivo inicial elegido por el equipo; falta validar con una entrevista a un autónomo.
+**Tarea:** #2 (orden 01) · **Bloque:** 3 (revisión y exportación) · **Responsable:** Javier · **Última actualización:** 29/10/2026
 
-Leyenda: **[Confirmado]** respaldado por el enunciado o una fuente; **[Supuesto]** hipótesis provisional que se usa para avanzar y debe validarse; **[Propuesta]** decisión que puede cambiar; **[Pendiente]** falta información o validación.
-
----
+> **Estado:** aprobado por el equipo. Pendiente de añadir la entrevista a un autónomo.
+> Leyenda: **[Confirmado]** dato o requisito comprobado · **[Supuesto]** hipótesis provisional que se usa para avanzar y debe validarse · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información. Etiquetas según `docs/guia-estilo.md`.
 
 ## 1. Público elegido [Propuesta]
 
@@ -21,8 +20,6 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 |---|---|
 | **Pymes con empleados** | Necesitan equipos, aprobaciones de gastos y tarjetas de empresa. Ahí Captio, Pleo y Spendesk son muy fuertes. |
 | **Gestorías** | Es un buen público para el futuro (ver apartado 7), pero exige funciones más complejas. Empezamos por el autónomo. |
-
----
 
 ## 2. Perfil de usuario [Supuesto]
 
@@ -42,21 +39,15 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 **Qué necesita:** subir un ticket en el momento sin dejar lo que está haciendo, confiar en que no se pierde nada y entregar el trimestre a su gestoría sin esfuerzo.
 
----
-
 ## 3. Problema que resolvemos [Confirmado]
 
 Del propio enunciado: los tickets arrugados en la cartera, los PDFs perdidos en el correo y la tarde de cada trimestre juntándolo todo para la gestoría. **Lo que no se encuentra no se deduce, y eso es dinero que se pierde.**
-
----
 
 ## 4. Propuesta de valor [Propuesta]
 
 > Haz una foto al ticket y olvídate. Cada trimestre tienes todos tus gastos ordenados, con el original, listos para enviar a tu gestoría. No pierdes ni un justificante.
 
 La herramienta guarda y ordena los justificantes; **qué gastos se pueden deducir lo decide la gestoría**, no la herramienta.
-
----
 
 ## 5. Por qué podrían elegirnos frente a la competencia [Supuesto]
 
@@ -70,8 +61,6 @@ El estudio de competencia (#1) ya está disponible, pero la diferenciación toda
 
 **Hipótesis de posicionamiento:** una forma sencilla y centrada en la gestoría de reunir justificantes y revisar los datos, sin tener que cambiar de programa contable. No afirmaremos que sea la más rápida hasta medirlo.
 
----
-
 ## 6. Qué implica para el resto del proyecto
 
 | Tarea | Qué cambia por esta decisión |
@@ -81,15 +70,11 @@ El estudio de competencia (#1) ya está disponible, pero la diferenciación toda
 | **10–11 · Diseño** | Móvil primero: subir un ticket en pocos toques. |
 | **23 · Excel** | Las columnas deben ser las que la gestoría del autónomo necesita. |
 
----
-
 ## 7. Para el futuro
 
 - **Gestorías:** un plan para que la gestoría vea directamente los gastos de todos sus clientes autónomos, sin que se los envíen. Podría ser el plan más caro más adelante.
 
----
-
-## 8. Pendiente [Pendiente]
+## 8. Pendiente
 
 - **Validar con un autónomo real:** una entrevista corta. Preguntas propuestas:
   - ¿Cómo guardas hoy tus tickets y facturas?
