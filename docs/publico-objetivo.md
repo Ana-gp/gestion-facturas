@@ -51,7 +51,9 @@ Del propio enunciado: los tickets arrugados en la cartera, los PDFs perdidos en 
 
 ## 4. Propuesta de valor 💡
 
-> Haz una foto al ticket y olvídate. Cada trimestre tienes todos tus gastos ordenados, con el original, listos para enviar a tu gestoría. No pierdes ni una deducción.
+> Haz una foto al ticket y olvídate. Cada trimestre tienes todos tus gastos ordenados, con el original, listos para enviar a tu gestoría. No pierdes ni un justificante.
+
+La herramienta guarda y ordena los justificantes; **qué gastos se pueden deducir lo decide la gestoría**, no la herramienta.
 
 ---
 
