@@ -48,7 +48,7 @@ No añadas una clave `service_role` de Supabase al navegador ni a variables `NEX
 - Abrir un PR a `main`, enlazar la issue y pedir revisión a otro miembro del equipo.
 - No fusionar el PR sin la revisión acordada.
 
-## Pendiente
+## Pendiente [Pendiente]
 
 - [ ] Crear y probar las cuentas de servicios.
 - [ ] Configurar las variables reales en el entorno de despliegue.
@@ -56,7 +56,7 @@ No añadas una clave `service_role` de Supabase al navegador ni a variables `NEX
 - [ ] Confirmar el despliegue automático desde `main`.
 
 
-## Despliegue en Vercel (pendiente de validar)
+## Despliegue en Vercel [Pendiente]
 
 1. Un miembro del equipo con permisos debe importar el repositorio de GitHub en Vercel y autorizar la integración.
 2. Confirmar que el framework detectado es Next.js, que la raíz del proyecto es la raíz del repositorio y que el comando de build es `npm run build`.
