@@ -1,122 +1,221 @@
 # Estudio de competencia
 
-**Proyecto:** Plataforma web de gestión de facturas y tickets  
-**Fecha de consulta:** 29 de octubre de 2026  
-**Estado:** análisis inicial; el posicionamiento definitivo queda condicionado a la validación del público objetivo de la issue #2.
+**Proyecto:** Plataforma web de gestión de facturas y tickets para autónomos y pequeñas empresas  
+**Fecha de revisión:** 29 de octubre de 2026  
+**Estado:** análisis documental inicial. La recomendación de posicionamiento queda pendiente de validar el público objetivo y la propuesta de valor de la issue #2.  
+**Fuentes:** se priorizan páginas oficiales de producto, precios y ayuda. Las funcionalidades comerciales se describen como afirmaciones del proveedor; no equivalen a una prueba independiente del rendimiento real.
 
-## 1. Objetivo y método
+## 1. Objetivo y alcance
 
-Comparar Captio (Emburse), Pleo, Spendesk, Holded y Quipu para identificar su público, propuesta de valor, funciones relevantes, modelo de precios y posibles oportunidades para el proyecto.
+El objetivo es analizar cinco soluciones mencionadas en el planteamiento del proyecto —Captio (Emburse), Pleo, Spendesk, Holded y Quipu— para comprender:
 
-Se han priorizado las páginas oficiales de producto y precios. Las opiniones de directorios externos se usan solo como señales cualitativas, no como prueba de que un problema afecte a todos los clientes. Los precios y promociones pueden cambiar; no son directamente comparables si varían el número de usuarios, la periodicidad, los límites o los servicios incluidos.
+- A qué tipo de cliente se dirigen y qué problema resuelven.
+- Qué funcionalidades ofrecen relacionadas con la captura, lectura, revisión y gestión de gastos.
+- Cómo estructuran sus precios y límites públicos.
+- Qué aspectos están bien cubiertos por el mercado y dónde puede haber oportunidades para nuestro MVP.
+- Qué hipótesis requieren validación antes de convertirlas en decisiones de producto o mensajes comerciales.
 
-## 2. Comparativa resumida
+Este documento es un **estudio de escritorio**. No se han contratado demos ni probado todas las aplicaciones con una cuenta real. Por ello, cuando la documentación pública no permite confirmar una función, se indica como «no verificado» en vez de afirmar que el competidor no la tiene.
 
-| Solución | Público y enfoque principal | Funciones relevantes | Precio público consultado | Implicación para el proyecto |
+## 2. Cómo interpretar la comparación
+
+Las cinco soluciones no son equivalentes:
+
+- **Competidores más cercanos por amplitud de gestión para autónomos y pymes:** Holded y Quipu. Incluyen funciones de facturación, gestión financiera o fiscal además de los gastos.
+- **Referentes de gestión de gastos y procesos empresariales:** Captio, Pleo y Spendesk. Destacan en la captura de justificantes, control de gastos, tarjetas, reembolsos, aprobaciones o políticas de empresa; su modelo y público pueden ser distintos de los de un autónomo que solo quiere organizar documentos para su gestoría.
+
+Que una función aparezca en una web oficial significa que el proveedor la anuncia, no que hayamos medido su precisión, facilidad de uso o satisfacción del cliente. «No verificado» significa que no se encontró evidencia suficiente en las páginas consultadas; no significa que la función no exista.
+
+## 3. Resumen comparativo
+
+| Solución | Público y propuesta principal | Funciones relacionadas con nuestro producto | Precio público consultado | Tipo de competencia |
 |---|---|---|---|---|
-| **Emburse Captio** | Empresas que necesitan gestionar gastos de viaje y empleados, aplicar políticas y controlar procesos de aprobación. | Captura desde móvil, OCR/lectura automatizada, envío de gastos por email, informes, multidivisa, alertas, flujos de aprobación e integraciones. | Los planes oficiales consultados solicitan demostración o presupuesto; no publican una tarifa comparable para todos los clientes. | Es una referencia para la captura de justificantes y la gestión de gastos, pero su propuesta se orienta a procesos empresariales y de viajes. No debemos asumir que es directamente comparable con un producto sencillo para un autónomo. |
-| **Pleo** | Empresas y equipos que quieren controlar gastos, tarjetas y reembolsos. | Tarjetas físicas/virtuales, seguimiento de gastos, notas automatizadas, integraciones contables; en planes superiores, reembolsos, kilometraje, aprobaciones y revisión de gastos con IA. | La página consultada muestra Start a 8 €/usuario/mes; Build a 14 € y Optimise a 18 €/usuario/mes, con distintas condiciones de facturación y mínimos de usuarios según el plan. | Buen referente para segmentar por usuarios y nivel de control. Su foco en tarjetas y equipos es distinto de organizar documentos y entregarlos a una gestoría. |
-| **Spendesk** | Empresas que necesitan centralizar pagos, tarjetas, compras y control presupuestario. | OCR de recibos, tarjetas físicas y virtuales, recordatorios, reembolsos, presupuestos, flujos de aprobación, informes e integraciones. | Precio personalizado. La web explica que el coste combina una cuota fija de plataforma y costes variables por transacción. | Referencia para procesos de aprobación y control financiero. El precio requiere contacto comercial y está diseñado para un contexto empresarial más amplio. |
-| **Holded** | Autónomos, pymes y asesorías que buscan una plataforma amplia de gestión empresarial. | Facturación, gastos y tickets con IA, bancos, contabilidad, informes, aplicación móvil y colaboración con la asesoría. | La página oficial consultada muestra planes desde 15 €/mes, además de planes superiores; precios sin IVA y promociones temporales. | Es un competidor especialmente relevante en España. Compite con una oferta integral, por lo que no conviene intentar replicar todo su ERP: el MVP debe centrarse en un problema concreto. |
-| **Quipu** | Autónomos, empresas y asesorías; facturación, impuestos y gestión administrativa. | Lector automático de facturas/tickets con validación humana, categorías, aplicación móvil, exportación, conciliación bancaria y funciones de tesorería según plan. | La página consultada publica Starter a 8,50 €/mes, Solution a 15 €/mes y Premium a 29,50 €/mes en la modalidad mensual mostrada. Los límites de escaneos cambian por plan y hay promociones. | Es uno de los referentes más próximos por público y lectura documental. Los límites de escaneos ilustran cómo vincular el consumo de OCR al precio del plan. |
+| **Emburse Captio** | Empresas que gestionan gastos de empleados y viajes, políticas de gasto y aprobaciones. | App móvil y web, lectura automatizada, extracción de gastos por email, informes, multidivisa, flujos de aprobación y descarga en PDF/CSV/Excel. | Planes por segmento con solicitud de demo o presupuesto; no hay una tarifa pública única comparable para un autónomo. | Referente de gestión de gastos empresarial; competidor indirecto por enfoque y escala. |
+| **Pleo** | Empresas y equipos que controlan pagos, tarjetas, gastos y reembolsos. | Tarjetas, seguimiento de gastos, captura de recibos, OCR de facturas en España, integraciones contables y funciones de aprobación/revisión según plan. La ayuda documenta la edición de campos sugeridos por OCR. | Start: 8 €/usuario/mes con facturación mensual. Build: 14 €/usuario/mes y Optimise: 18 €/usuario/mes, con facturación anual y mínimo de 3 usuarios en esos planes. Comprobar condiciones vigentes antes de usar estos importes comercialmente. | Referente de control de gastos de equipos; competencia indirecta. |
+| **Spendesk** | Empresas que centralizan pagos, compras, tarjetas, reembolsos y presupuestos. | OCR de recibos, recordatorios para recopilarlos, asociación de recibos a gastos, aprobaciones, informes e integraciones. La documentación de ayuda describe comprobaciones de duplicados. | Presupuesto personalizado. El proveedor explica una cuota fija de plataforma más un componente variable por transacciones. | Referente empresarial de gestión de gastos; competencia indirecta. |
+| **Holded** | Autónomos, pymes y asesorías que buscan una plataforma amplia de gestión empresarial. | Escáner OCR con carga desde ordenador, email y app móvil/compartir desde otras apps; extracción de campos, revisión junto al original, estados, edición y conversión a documento de compra. Ofrece acceso a asesorías. | La página oficial muestra Plus a 15 €/mes y planes superiores; la oferta consultada incluye descuentos temporales del 50 % durante tres meses. Precios sin IVA; hay límites por plan para facturas y otros módulos. El escáner se anuncia como ilimitado. | Competidor directo por público y gestión de documentos, aunque su alcance es mucho más amplio. |
+| **Quipu** | Autónomos, empresas y asesorías que gestionan facturación, gastos e impuestos. | Lector de facturas/tickets con validación humana, app móvil, detección de duplicados, exportación de datos y otras funciones de gestión administrativa. | La página consultada muestra Starter 8,50 €/mes, Solution 15 €/mes y Premium 29,50 €/mes; incluyen respectivamente 30, 250 y 350 escaneos mensuales. La página también muestra una promoción temporal y precios anuales distintos. | Competidor directo especialmente relevante por público, lector documental y límites por escaneo. |
 
-## 3. Análisis por competidor
+### Fuentes oficiales principales
 
-### 3.1. Emburse Captio
+- Captio: [producto](https://www.emburse.com/es/productos/captio) · [precios y funcionalidades](https://www.emburse.com/es/productos/precios)
+- Pleo: [precios y planes](https://www.pleo.io/es/pricing) · [OCR de recibos en España](https://pleohelp.freshdesk.com/en/support/solutions/articles/103000399820-automatic-receipt-type-detection-ocr-in-spain)
+- Spendesk: [precios y funcionalidades](https://www.spendesk.com/es/pricing/) · [detección de duplicados](https://helpcenter.spendesk.com/en/articles/4670792-how-spendesk-prevents-duplicate-receipts-invoices-expense-claims) · [almacenamiento y digitalización](https://helpcenter.spendesk.com/es/articles/4168049-sellado-y-digitalizacion-de-documentos-recibos-electronicos)
+- Holded: [precios](https://www.holded.com/es/precios) · [documentación del escáner](https://help.holded.com/es/articles/6908098-escaner-que-es-y-como-funciona) · [revisión de documentos](https://help.holded.com/es/articles/6908247-escaner-convertir-tus-gastos-en-documentos-de-compra) · [bandeja de entrada](https://help.holded.com/es/articles/6908905-escaner-utilizar-la-bandeja-de-entrada)
+- Quipu: [precios](https://getquipu.com/es/plan-de-precios) · [digitalización, OCR y duplicados](https://getquipu.com/es/digitalizacion-facturas)
 
-**Propuesta observada:** digitalizar y controlar los gastos de viaje y de empleados, con políticas, aprobaciones, alertas y análisis de gasto.
+## 4. Análisis por solución
 
-**Puntos fuertes observables:** combina aplicación móvil y web, captura automatizada, envío de gastos por email, multidivisa, exportaciones e integración con otros sistemas. En su web también presenta captura homologada por la AEAT y custodia del justificante; estas afirmaciones pertenecen al proveedor y no equivalen a una evaluación independiente del producto.
+### 4.1. Emburse Captio
 
-**Precio y límites:** la página oficial consultada presenta niveles Professional, Corporate y Enterprise, con solicitud de demostración o presupuesto. No debe compararse como si tuviera una tarifa pública fija por usuario.
+**Propuesta observada.** Digitalizar y controlar los gastos de empleados y viajes mediante una aplicación móvil/web, reglas, alertas, informes y procesos de aprobación.
 
-**Oportunidad para nuestro producto:** ofrecer una experiencia de menor complejidad centrada en recopilar, revisar y exportar facturas y tickets para la gestoría. Esto es una hipótesis de posicionamiento, no una afirmación de que Captio carezca de esas funciones.
+**Capacidades relevantes.** Su web enumera captura ilimitada mediante app, lectura automatizada con revisión de calidad humana, extracción de gastos por email, multidivisa y descarga en PDF, CSV y Excel. La oferta también contempla flujos de aprobación y controles de integridad. La empresa presenta captura homologada por la AEAT; esa afirmación es del proveedor y no debe extrapolarse a cualquier proceso de digitalización ni interpretarse como asesoramiento fiscal.
 
-Fuentes:
-- [Captio: producto y funcionalidades](https://www.emburse.com/es/productos/captio)
-- [Emburse: precios](https://www.emburse.com/es/productos/precios)
+**Precio y encaje.** La página presenta Professional (hasta 30 usuarios), Corporate (a partir de 30) y Enterprise con precio a medida, todos mediante demostración/contacto. No es correcto asignarle un precio estimado ni compararlo directamente con una tarifa mensual individual de software para autónomos.
 
-### 3.2. Pleo
+**Puntos fuertes observables.** Flujos de gastos maduros, captura por varias vías, multidivisa, informes y controles para organizaciones.
 
-**Propuesta observada:** controlar los gastos de equipos mediante tarjetas, seguimiento, reembolsos y procesos de aprobación.
+**Limitaciones de la evidencia.** No se ha probado la plataforma ni se han verificado las condiciones exactas de todas las funciones, el coste total o la facilidad de uso para autónomos.
 
-**Puntos fuertes observables:** precios por usuario publicados para varios planes, seguimiento de gastos, integración con sistemas contables y funciones avanzadas de control según plan.
+**Implicación para el proyecto.** Captio demuestra que la captura de justificantes, la lectura automatizada y la exportación no son diferenciales por sí solas. Puede servir como referencia funcional, pero el posicionamiento del MVP debería responder a un perfil de cliente más concreto si la investigación de usuarios lo confirma.
 
-**Precio y límites:** Start se muestra a 8 €/usuario/mes. Build (14 €) y Optimise (18 €) aparecen con facturación anual y mínimo de tres usuarios; por tanto, no se debe multiplicar el precio de forma aislada sin considerar el tamaño mínimo del equipo y la periodicidad.
+### 4.2. Pleo
 
-**Oportunidad para nuestro producto:** valorar una estructura de planes fácil de entender, pero evitar copiar el modelo de tarjetas o el enfoque de gestión de equipos si no forma parte del alcance del MVP.
+**Propuesta observada.** Controlar los gastos de equipos con tarjetas, seguimiento, reembolsos y procesos de aprobación.
 
-Fuente:
-- [Pleo: planes y precios](https://www.pleo.io/es/pricing)
+**Capacidades relevantes.** La página de precios describe tarjetas físicas y virtuales, seguimiento en tiempo real, notas de gasto automatizadas e integraciones contables. Los planes superiores añaden, entre otras funciones, reembolsos, kilometraje, aprobaciones y revisión de gastos con IA. Su ayuda sobre España explica que el OCR puede sugerir si un documento es ticket o factura y extraer campos que el usuario puede revisar y editar.
 
-### 3.3. Spendesk
+**Precio y condiciones.** La página consultada muestra Start a 8 €/usuario/mes con facturación mensual. Build (14 €) y Optimise (18 €) indican facturación anual y mínimo de tres usuarios. Debe comprobarse de nuevo la página antes de una decisión comercial, ya que las tarifas y condiciones cambian.
 
-**Propuesta observada:** gestionar de forma centralizada el gasto de empresa, los pagos, las compras y los presupuestos.
+**Puntos fuertes observables.** Control del gasto en equipos, tarjetas, automatización, integraciones y escalado de funciones por plan.
 
-**Puntos fuertes observables:** tarjetas, OCR de recibos, reglas y recordatorios, reembolsos, presupuestos en tiempo real, aprobaciones, integraciones y API.
+**Limitaciones de la evidencia.** No hemos realizado una prueba de producto ni confirmado que todas las funciones relevantes estén disponibles en las mismas condiciones para todos los mercados y planes.
 
-**Precio y límites:** la página oficial no ofrece un precio estándar comparable; explica una cuota fija de plataforma más costes variables según transacciones.
+**Implicación para el proyecto.** Pleo sirve para estudiar cómo agrupar funciones por planes, pero su propuesta gira en torno al gasto corporativo y las tarjetas. No deberíamos copiar ese enfoque si el MVP se centra en organizar documentos para la gestoría.
 
-**Oportunidad para nuestro producto:** mantener una propuesta de valor mucho más acotada y una tarifa comprensible para un autónomo o negocio pequeño, siempre que la estimación de costes demuestre que es sostenible.
+### 4.3. Spendesk
 
-Fuente:
-- [Spendesk: precios y funcionalidades](https://www.spendesk.com/es/pricing/)
+**Propuesta observada.** Centralizar el gasto de empresa, pagos, compras, presupuestos, tarjetas y reembolsos.
 
-### 3.4. Holded
+**Capacidades relevantes.** La web anuncia OCR de recibos, recordatorios para recopilar justificantes, asociación de recibos a gastos, informes e integraciones. La ayuda explica detección de duplicados tanto por checksum del archivo como por combinación de campos de la solicitud. La documentación sobre digitalización describe almacenamiento con sellado temporal y condiciones específicas para la digitalización en España.
 
-**Propuesta observada:** plataforma de gestión empresarial que reúne facturación, gastos, bancos, contabilidad y otras áreas del negocio.
+**Precio y condiciones.** Spendesk solicita presupuesto. La web describe dos componentes: cuota fija por acceso a la plataforma y costes variables según las transacciones. Por ello, no se debe inventar un precio por usuario ni compararlo como si fuera una suscripción plana.
 
-**Puntos fuertes observables:** integración de procesos en una sola plataforma, escáner de gastos, aplicación móvil y acceso de la asesoría en determinadas condiciones.
+**Puntos fuertes observables.** Control de gastos, detección de duplicados, procesos empresariales e integración con otros sistemas.
 
-**Precio y límites:** la página oficial consultada muestra planes desde 15 €/mes, precios sin IVA y promociones temporales. Los límites anuales de facturas y las funcionalidades varían por plan. Los importes deben volver a comprobarse antes de tomar decisiones de precios.
+**Limitaciones de la evidencia.** No se ha probado el producto, no se dispone de un presupuesto y no se ha medido su conveniencia para un autónomo con pocos documentos.
 
-**Señales de usuarios:** algunas opiniones publicadas en Capterra valoran la facilidad de uso y la amplitud funcional; otras mencionan dificultades con ciertas importaciones o percepción de precio elevado. Son experiencias individuales y no permiten generalizar sobre todos los clientes.
+**Implicación para el proyecto.** La detección de duplicados y la asociación de justificantes con gastos tampoco son ideas inéditas. El proyecto deberá centrarse en el conjunto del flujo y en la experiencia para su público, no en presentar una función aislada como exclusiva.
 
-**Oportunidad para nuestro producto:** no competir por amplitud funcional. Diferenciarse, si la investigación del público lo confirma, por un flujo corto y claro: incorporar justificante, comprobar los campos extraídos, resolver pendientes y exportar el periodo.
+### 4.4. Holded
 
-Fuentes:
-- [Holded: precios](https://www.holded.com/es/precios)
-- [Holded para autónomos](https://www.holded.com/es/autonomos)
-- [Opiniones de Holded en Capterra](https://www.capterra.es/software/153384/holded)
+**Propuesta observada.** Plataforma amplia para autónomos, pymes y asesorías que combina facturación, gastos, bancos y contabilidad.
 
-### 3.5. Quipu
+**Capacidades relevantes.** Su documentación oficial describe tres vías de entrada al escáner: subir archivos o arrastrarlos desde el ordenador, reenviar adjuntos a una bandeja de entrada por email y hacer una foto desde la aplicación móvil o compartir PDF/imágenes desde otras apps. El OCR extrae datos y los presenta para revisión; el visor permite ver el original a la izquierda y los datos a la derecha, corregir campos y crear el documento contable. El sistema distingue estados como Procesando, Revisar, Hecho y Error. La empresa anuncia escáner ilimitado en sus planes actuales consultados.
 
-**Propuesta observada:** facilitar facturación, gestión de gastos, impuestos y tareas administrativas de autónomos, empresas y asesorías.
+**Precio y condiciones.** La página de precios consultada muestra Plus a 15 €/mes y otros planes de mayor precio, junto con una promoción temporal del 50 % durante tres meses. Los precios se muestran sin IVA. La oferta y los límites de facturas, usuarios y otros módulos dependen del plan. El precio promocional no debe confundirse con la tarifa ordinaria.
 
-**Puntos fuertes observables:** lector automático de facturas y tickets con validación humana, aplicación móvil, funciones contables y límites de escaneo definidos por plan. La página consultada muestra 30 escaneos mensuales en Starter, 250 en Solution y 350 en Premium.
+**Puntos fuertes observables.** Es la referencia más clara para comparar el recorrido de captura completo: móvil, correo, carga web, OCR, revisión junto al original y conversión a documento. También ofrece colaboración con asesorías.
 
-**Precio y límites:** la página oficial publica 8,50 €/mes para Starter, 15 €/mes para Solution y 29,50 €/mes para Premium en la modalidad mensual mostrada. También presenta descuentos temporales y precios anuales diferentes.
+**Limitaciones de la evidencia.** No se ha probado el recorrido con los cuatro documentos del proyecto, ni medido la tasa de acierto, la cantidad de correcciones o el tiempo necesario para completar la tarea. Que el producto tenga muchas funciones no demuestra que sea difícil de usar.
 
-**Señales de usuarios:** en Capterra hay reseñas positivas sobre el ahorro de tiempo y otras que describen problemas con la búsqueda, el escaneo o el tiempo de procesamiento. Las reseñas son limitadas, algunas antiguas y no demuestran que esos problemas sean generales o sigan existiendo hoy.
+**Implicación para el proyecto.** No podemos diferenciar el producto simplemente ofreciendo los tres métodos de captura, OCR, campos editables o acceso a la gestoría: Holded ya documenta esos flujos. La posible oportunidad debe probarse comparando el esfuerzo real para completar una tarea concreta, el foco de la interfaz y las necesidades de un segmento específico.
 
-**Oportunidad para nuestro producto:** la lectura documental y el público autónomo hacen que Quipu sea una referencia cercana. Debemos validar si existe una necesidad diferenciada en la preparación y revisión de justificantes para la gestoría, en lugar de asumir que el OCR por sí solo basta para destacar.
+### 4.5. Quipu
 
-Fuentes:
-- [Quipu: planes y precios](https://getquipu.com/es/plan-de-precios)
-- [Quipu para autónomos](https://getquipu.com/es/autonomos)
-- [Opiniones de Quipu en Capterra](https://www.capterra.es/software/189268/quipu)
+**Propuesta observada.** Automatizar facturación y gestión administrativa para autónomos, empresas y asesorías, con funciones de gastos e impuestos.
 
-## 4. Oportunidades estratégicas para el MVP
+**Capacidades relevantes.** La página oficial describe un lector de facturas y tickets con validación humana, aplicación móvil y detección de duplicados. La tabla de precios muestra límites mensuales de 30 escaneos en Starter, 250 en Solution y 350 en Premium; también permite comprar paquetes adicionales de 50 lecturas por 10 € según las condiciones publicadas. Ofrece exportación de información en Excel y otras funciones de gestión.
 
-Las siguientes conclusiones son hipótesis que se deben validar con el público objetivo de la issue #2:
+**Precio y condiciones.** La página consultada muestra 8,50 €/mes, 15 €/mes y 29,50 €/mes para los tres planes en la modalidad mensual mostrada. También ofrece descuentos temporales y tarifas anuales diferentes. Deben comprobarse de nuevo antes de fijar precios propios.
 
-1. **Especialización en el flujo de justificantes.** En vez de construir otro ERP, resolver bien la incorporación, revisión, organización y exportación de tickets y facturas de gasto.
-2. **Facilidad de uso.** Reducir pasos y mostrar el documento original junto a los campos extraídos y editables.
-3. **Transparencia de la extracción.** Distinguir claramente datos extraídos, datos corregidos por el usuario, campos ausentes y documentos pendientes.
-4. **Preparación para la gestoría.** Ofrecer exportación por periodo y un resumen de documentos revisados o pendientes. No presentarlo como una declaración tributaria ni como garantía de deducibilidad.
-5. **Precios previsibles.** Explorar planes con límites explícitos de documentos o lecturas, basados en el coste real de IA y almacenamiento. No fijar precios definitivos hasta cerrar las issues #6 y #7 y calcular los costes.
-6. **Captura cómoda.** Priorizar los métodos de captura que exige el proyecto: foto móvil, carga de PDF/imagen y vía rápida para incorporar PDFs recibidos por correo o compartidos desde el móvil.
+**Puntos fuertes observables.** Público próximo al proyecto, lectura documental, validación humana y límites de consumo visibles que conectan el coste de escaneo con el plan contratado.
 
-## 5. Qué no debemos concluir todavía
+**Limitaciones de la evidencia.** No se ha probado la calidad del lector en documentos similares a los cuatro tickets de nuestro repositorio ni se ha comprobado cuánto tiempo ahorra a un usuario en un caso real.
 
-- No hay pruebas suficientes para afirmar que los cinco competidores tengan precios demasiado altos, mala usabilidad o un OCR poco fiable.
-- Las reseñas de directorios son indicios cualitativos, no pruebas representativas.
-- Las tarifas de planes distintos no son directamente comparables: pueden variar los usuarios mínimos, escaneos, límites, servicios incluidos, impuestos y periodicidad.
-- La oportunidad de diferenciación debe contrastarse con el público objetivo de la issue #2 antes de cerrar la propuesta de valor.
-- El proyecto no debe prometer deducibilidad fiscal automática ni homologación o digitalización certificada sin verificar los requisitos aplicables.
+**Implicación para el proyecto.** Quipu es uno de los referentes prioritarios. Para destacar no basta con ofrecer OCR: deberíamos comparar precisión en los documentos de prueba, facilidad de corregir datos, gestión de pendientes y calidad del archivo exportado, sin asumir de antemano que seremos mejores.
 
-## 6. Conclusión provisional
+## 5. Comparación de capacidades relacionadas con el MVP
 
-El mercado ya cuenta con soluciones capaces de digitalizar justificantes y gestionar gastos. La oportunidad no consiste en afirmar que esas funciones no existen, sino en comprobar si podemos resolver un caso de uso más concreto y sencillo para nuestro público: reunir los justificantes, revisar los datos extraídos, detectar lo que falta y entregar la documentación organizada a la gestoría.
+La siguiente tabla recoge únicamente lo respaldado por la documentación pública consultada. «No verificado» no equivale a «no disponible».
 
-**Siguiente paso:** validar el público objetivo y la propuesta de valor de la issue #2; después, revisar esta comparativa con ese perfil en mente y completar las conclusiones antes de cerrar la issue #1.
+| Capacidad | Captio | Pleo | Spendesk | Holded | Quipu |
+|---|---|---|---|---|---|
+| Captura desde aplicación móvil | Sí, documentada | Sí, documentada | Sí, documentada | Sí, documentada | Sí, documentada |
+| Carga web de documentos | Sí, plataforma web y adjuntos; detalles de formatos no contrastados aquí | Sí, adjuntar foto/archivo al gasto | Sí, escritorio y subida de archivos | Sí, subir/arrastrar archivos | Sí, admite documentos en el lector |
+| Incorporación por email | Sí, extracción de gastos vía email | Hay captura de recibos por email en documentación del proveedor; comprobar condiciones/plan | Sí, recordatorios y flujos de recibos; método exacto de entrada debe verificarse en ayuda | Sí, bandeja de entrada dedicada | No verificado en las fuentes revisadas |
+| OCR/lectura automatizada | Sí | Sí | Sí | Sí | Sí |
+| Corrección humana o del usuario | Se anuncia revisión de calidad humana | Campos OCR editables por el usuario | El usuario puede modificar datos de la solicitud; flujo exacto de revisión de OCR no probado | Sí, visor original + datos editables | Se anuncia validación humana; interfaz exacta no probada |
+| Detección de duplicados | No verificado en las fuentes revisadas | Confirmada en algunos planes/documentación; verificar alcance por plan | Sí, documentada en ayuda | No verificado para duplicados de justificantes en las fuentes revisadas | Sí, anunciada por el proveedor |
+| Original asociado al gasto | Adjuntar imágenes y descargar documentos; conservación exacta no evaluada | Adjuntar recibos a gastos; detalles de conservación no evaluados | Almacenamiento de recibos documentado | Original visible durante la revisión e historial del escáner | El lector procesa tickets/facturas; detalles completos de conservación no probados aquí |
+| Exportación | PDF, CSV y Excel documentados | Exportaciones contables e integraciones; formato exacto depende de configuración | Informes e integraciones; Excel específico no confirmado aquí | Exportaciones de datos disponibles; validar formato exacto de gastos | Exportación Excel documentada |
+| Flujos de aprobación empresariales | Sí | En planes superiores | Sí | Funcionalidades de gestión/roles según plan; no equiparable a flujos especializados sin prueba | No verificado para el mismo flujo empresarial |
+
+### Qué demuestra esta matriz y qué no
+
+La matriz muestra que muchas funciones obligatorias del proyecto ya existen en soluciones comerciales. Eso no invalida el proyecto académico, pero sí descarta presentar esas funciones por separado como una innovación comercial exclusiva.
+
+No demuestra cuál es la solución más rápida, precisa, barata o sencilla. Para afirmarlo, se necesitaría una prueba práctica equivalente con los mismos documentos, una tarea definida y métricas comunes.
+
+## 6. Comparación de precios: cómo leerla correctamente
+
+Los precios siguientes son una referencia de las páginas oficiales consultadas, no una comparación de coste total equivalente.
+
+| Solución | Precio público consultado | Modelo y cautelas |
+|---|---|---|
+| Captio | No se publica una tarifa única comparable; se solicita demo/presupuesto. | Oferta segmentada por tamaño y funcionalidades empresariales. |
+| Pleo | Start: 8 €/usuario/mes; Build: 14 €/usuario/mes; Optimise: 18 €/usuario/mes. | Start muestra facturación mensual; Build y Optimise, anual y mínimo de tres usuarios. Confirmar condiciones antes de comparar. |
+| Spendesk | Presupuesto personalizado. | Cuota fija de plataforma más coste variable por transacciones. |
+| Holded | Plus desde 15 €/mes; planes superiores desde 29 €/mes en la página consultada. | Precios sin IVA, promociones temporales y límites de uso/usuarios según plan; escáner anunciado como ilimitado. |
+| Quipu | Starter 8,50 €/mes; Solution 15 €/mes; Premium 29,50 €/mes. | Límites de 30/250/350 escaneos al mes y paquetes adicionales de lecturas; descuentos temporales y precios anuales diferentes. |
+
+**Conclusión de precios:** no hay base suficiente para concluir que el mercado sea «demasiado caro» ni que debamos competir por ser el más barato. Primero hay que estimar el coste de IA, almacenamiento, soporte y operación, y definir el volumen de documentos del público objetivo. Después podremos comparar el precio por usuario y por documento procesado con un escenario realista.
+
+## 7. Posibles oportunidades para nuestro producto
+
+Las oportunidades de esta sección son **hipótesis de producto**, no ventajas demostradas frente a los competidores.
+
+### 7.1. Centrar la experiencia en una tarea concreta
+
+Hipótesis: algunos autónomos que trabajan con gestoría no necesitan una plataforma integral de contabilidad para resolver la tarea de recopilar, revisar y entregar justificantes.
+
+**Cómo validarla:** entrevistar a usuarios del perfil de la issue #2 y pedirles que expliquen cómo preparan hoy la documentación del mes o trimestre, qué herramientas utilizan, qué pasos repiten y qué problemas les ocurren realmente.
+
+### 7.2. Optimizar el flujo completo, no una función aislada
+
+Hipótesis: puede aportar valor una experiencia que lleve al usuario desde el justificante recibido hasta una exportación clara, mostrando qué está pendiente y qué debe revisar.
+
+**Cómo validarla:** comparar el número de pasos, errores y tiempo de una tarea equivalente en herramientas existentes y en nuestro prototipo. No afirmar que el flujo será más simple hasta medirlo.
+
+### 7.3. Hacer visibles los errores y la incertidumbre del OCR
+
+Hipótesis: puede ser útil diferenciar los datos extraídos automáticamente de los confirmados por el usuario, destacar campos ausentes y facilitar la corrección junto al documento original.
+
+**Cómo validarla:** usar los cuatro documentos de prueba del repositorio —ticket arrugado, ticket con varios tipos de IVA, factura en inglés y foto con poca luz— y registrar campos correctos, errores, correcciones y fallos por documento. No basta con evaluar el OCR por una impresión general ni con un único porcentaje agregado.
+
+### 7.4. Preparar un paquete claro para la gestoría
+
+Hipótesis: una exportación organizada por periodo, con datos y originales asociados y un resumen de documentos pendientes, puede ser útil para el usuario y su gestoría.
+
+**Cómo validarla:** pedir a una gestoría o a un autónomo que trabaje con ella que revise una exportación de ejemplo y confirme qué campos, columnas, nombres de archivos y separación de IVA necesita. No presentar el resultado como declaración tributaria oficial ni garantizar deducibilidad fiscal.
+
+### 7.5. Precio sencillo, sostenible y vinculado al uso
+
+Hipótesis: un plan sencillo con un límite claro de documentos podría ser más comprensible para ciertos autónomos que un producto integral o un modelo empresarial de costes personalizados.
+
+**Cómo validarla:** cerrar el coste real por documento y por usuario, estimar el volumen mensual del perfil elegido y calcular escenarios conservadores, medios y altos. No fijar el precio final antes de completar las issues de costes de IA (#6) y funcionalidades/planes (#7).
+
+## 8. Qué no debemos afirmar en la web comercial
+
+Hasta disponer de evidencia, no deberíamos utilizar mensajes como:
+
+- «El OCR más preciso» o «cero errores».
+- «Más fácil que Holded/Quipu/Pleo».
+- «La opción más barata del mercado».
+- «Nuestros competidores no permiten enviar tickets por email».
+- «Garantizamos que todos los gastos son deducibles».
+- «Sustituye a tu gestoría» o «presenta tus impuestos automáticamente», si el producto no hace realmente esas tareas y no se han verificado los requisitos legales.
+
+Sí podemos comunicar de forma factual las funciones que el producto implemente y pruebe, por ejemplo: «revisa los datos extraídos antes de exportar» o «consulta qué documentos siguen pendientes», siempre que la versión final lo permita.
+
+## 9. Limitaciones del estudio y próximos pasos
+
+Este análisis no incluye pruebas con cuentas reales, mediciones independientes de OCR, entrevistas de clientes, presupuestos personalizados de Captio/Spendesk ni evaluación completa de todas las condiciones de cada plan. Las páginas comerciales cambian con frecuencia, por lo que los precios deben volver a verificarse antes de decidir la tarifa propia o presentar cifras en una demo.
+
+Antes de cerrar la issue #1:
+
+1. **Alinear con la issue #2** el público objetivo y la propuesta de valor que el equipo elija; evitar cerrar un posicionamiento que contradiga esa decisión.
+2. **Validar con al menos algunos usuarios del perfil definido** el flujo actual de trabajo y sus problemas reales. Registrar respuestas y distinguir observaciones de interpretaciones.
+3. **Comprobar los competidores prioritarios de forma práctica**, empezando por Holded y Quipu: realizar las tareas que sea posible probar con demo o prueba gratuita, registrar límites, pasos y resultados. Si no se puede probar una función, mantenerla como «no verificada».
+4. **Definir una prueba reproducible de nuestro MVP** con los cuatro tickets del repositorio y comparar precisión por campo, tiempo de corrección y calidad de exportación.
+5. **Revisar precios y costes** cuando estén disponibles los datos de las issues #6 y #7.
+6. **Convertir los hallazgos validados en una propuesta de valor concreta**, con un público definido, un problema demostrado y una promesa que el producto pueda cumplir.
+
+## 10. Conclusión provisional
+
+El análisis de las páginas oficiales indica que el mercado ya ofrece captura móvil, carga de documentos, OCR, revisión humana o manual, detección de duplicados, exportaciones y conexión con procesos contables en distintas combinaciones. Por tanto, esas capacidades forman parte del mínimo competitivo del producto y no deben presentarse automáticamente como diferenciales.
+
+La oportunidad más razonable que merece validarse es **resolver con claridad y poco esfuerzo un flujo específico de justificantes para el perfil de autónomo que se acuerde en la issue #2**, ayudándole a recopilar documentos, corregir datos, detectar pendientes y preparar la entrega a su gestoría. No se afirma todavía que esta necesidad esté desatendida ni que vayamos a superar a los competidores.
+
+El estudio estará listo para cerrar cuando las conclusiones estén alineadas con el público objetivo, las afirmaciones funcionales estén respaldadas por fuentes o pruebas y el equipo haya registrado qué oportunidades quedan validadas, descartadas o pendientes.
