@@ -46,14 +46,24 @@ Por qué estos tres (**recomendación**):
 
 Archivos en `tests/tickets/` (los aporta el issue #10).
 
-| ID | Ticket | Archivo | ¿Disponible? |
+| ID | Ticket pedido | Archivo | Estado |
 |---|---|---|---|
-| T1 | Gasolinera arrugado | | ☐ |
-| T2 | Supermercado con varios tipos de IVA | | ☐ |
-| T3 | Factura PDF de suscripción en inglés (otra moneda) | | ☐ |
-| T4 | Foto torcida o con poca luz | | ☐ |
+| T1 | Gasolinera arrugado | `T1-alcampo-arrugado.jpg` | ⚠️ **Sustituto provisional**: supermercado muy arrugado con 2 tipos de IVA, **no es de gasolinera**. Sustituir cuando alguien del equipo aporte uno de gasolinera |
+| T2 | Supermercado con varios tipos de IVA | `T2-eroski-varios-iva.jpg` | ✅ 3 tipos de IVA (4 %, 10 % y 21 %); foto además algo torcida |
+| T3 | Factura PDF de suscripción en inglés | `T3-claude-pro-ingles.pdf` | ✅ PDF en inglés de una suscripción. ⚠️ Está **en euros**: la detección de otra moneda queda **pendiente** hasta tener una factura en otra moneda |
+| T4 | Foto torcida o con poca luz | `T4-cerveceria-poca-luz.jpg` | ✅ Luz cálida y dedos tapando parte del total (no muy torcida) |
 
-**Privacidad:** usar solo tickets propios o de alguien del equipo que lo autorice. Si un ticket lleva datos personales que no son necesarios para la prueba (nombre, dirección, últimos dígitos de tarjeta), taparlos antes de subirlo al repositorio.
+Tickets extra (el issue #10 pide "tantos más como haya"):
+
+| ID | Archivo | Por qué es interesante |
+|---|---|---|
+| E1 | `extra-aucalsa-peaje.jpg` | Peaje con "IVA 21 % incluido" sin desglose: la base y la cuota hay que calcularlas |
+| E2 | `extra-carrefour.pdf` | PDF de ticket con un solo tipo de IVA |
+| E3 | `extra-druni-catalan.pdf` | 2 tipos de IVA y parte del texto en catalán |
+
+Para los extras se puede usar la misma tabla de campos que en el apartado 5.
+
+**Privacidad:** se usan solo tickets propios. Antes de subirlos se han tapado los datos personales que no forman parte de la prueba: números de tarjeta, números de socio o cliente, nombres del personal y, en T3, el nombre, la dirección y el correo del receptor (pixelado en las fotos; tachado con eliminación real del texto en los PDF). Por eso, en T3 el nombre del receptor no se puede comprobar; el receptor no tiene NIF en esa factura.
 
 ## 4. Cómo se rellenan las tablas
 
