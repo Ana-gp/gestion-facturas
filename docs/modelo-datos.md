@@ -218,7 +218,7 @@ Se guarda **antes** de leer con la IA: si la lectura falla, el original ya está
 | moneda | texto (3) | Sí | Código ISO 4217: `EUR`, `USD`. Por defecto `EUR` |
 | tipo_cambio | numérico (6 decimales) | No | Unidades de la moneda por 1 € (convención del BCE: 1 € = 1,1133 $). Vacío si es EUR |
 | tipo_cambio_fecha | fecha | Si hay tipo | Día del tipo aplicado |
-| tipo_cambio_fuente | lista | Si hay tipo | `BCE` o `manual` |
+| tipo_cambio_fuente | lista | Si hay tipo | `BDE` (Banco de España) o `manual` |
 | total_eur | numérico | No* | `total ÷ tipo_cambio` redondeado a 2 decimales, o igual que `total` si es EUR. Vacío mientras falte el tipo de cambio |
 | categoria_id | número | No* | Su categoría |
 | estado_revision | lista | Sí | `pendiente` o `revisada` (confirmada por el usuario) |
@@ -291,12 +291,13 @@ La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuar
 - **[Confirmado]** en el repositorio: la instrucción actual (`docs/prueba-ia.md`, apartado 10) **no pide confianza**. De dónde sale lo decide #19. **[Propuesta]** Reglas nuestras: campo vacío = `baja`; bases + cuotas ≠ total = `baja` en importes; NIF con formato extraño = `media`. **[Supuesto]** Que un porcentaje que la IA se pone a sí misma no es fiable; no se ha probado.
 - Descartado: tabla aparte (unas 13 filas por factura y más programación) y dos columnas por campo (unas 26 columnas más).
 
-### D3 · Tipo de cambio (#20): fecha de la factura o el último publicado antes **[Propuesta]**
+### D3 · Tipo de cambio (#20): fuente y fecha fiscal por confirmar en la implementación **[Propuesta]**
 
-- Se usa el tipo de referencia del BCE del **día de la factura**. Si ese día no hay tipo (fin de semana o festivo), el **último publicado antes**. Se guardan el tipo, su fecha y la fuente, y el usuario lo puede corregir (`tipo_cambio_fuente = manual`). Mientras no haya tipo, la factura queda con la conversión pendiente y no se puede marcar como revisada.
-- **[Confirmado]** El BCE publica los tipos hacia las 16:00 (hora central europea) cada día hábil, excepto los días de cierre de TARGET, y los publica "solo a efectos informativos". Fuente: BCE, consultado el 29/10/2026.
-- **[Supuesto]** Según una fuente secundaria (blog de Invoo, 20/05/2026), el artículo 79.Once de la Ley del IVA establece el tipo de cambio vendedor del Banco de España vigente en el devengo. No se ha podido leer el texto oficial del BOE. **[Pendiente]** Confirmarlo con una gestoría; si fuera otro tipo, solo cambia `tipo_cambio_fuente` y la ruta que lo consulta, no las tablas.
-- Descartado: fecha de subida (el importe dependería de cuándo se sube) y fecha de pago (no la tenemos).
+- **[Confirmado]** El artículo 79.Uno/Once de la Ley 37/1992 del IVA (artículo 79, apartado once) establece que, cuando la contraprestación se fija en moneda distinta del euro, se aplica el tipo de cambio vendedor fijado por el Banco de España vigente en el momento del devengo. La AEAT también indica que el contravalor debe consignarse en euros aplicando ese tipo a la fecha de devengo. Fuentes oficiales: [BOE, Ley del IVA, art. 79](https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740) y [AEAT, registro de facturas en divisas](https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/iva/iva-libros-registro-iva-traves-aeat/preguntas-frecuentes/2-registro-cuestiones-comunes.html?faqId=b8b26c3d02bc9510VgnVCM100000dc381e0aRCRD).
+- Por tanto, no debemos presentar automáticamente el tipo de referencia del BCE de la fecha de factura como si fuera el criterio fiscal confirmado. El BCE indica que sus tipos se publican con fines informativos y desaconseja su uso para transacciones: [tipos de referencia del BCE](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html).
+- **[Propuesta]** Guardar moneda original, importe original, tipo aplicado, fecha efectiva del tipo, fuente y total convertido a EUR. La fuente se registra como `BDE` (Banco de España) o `manual`. No marcar la conversión como fiscalmente validada ni la factura como revisada si no se ha confirmado la fecha de devengo y el tipo aplicable.
+- **[Pendiente]** Preguntar a una gestoría cómo obtener operativamente el tipo vendedor del Banco de España para el devengo de cada caso y si existe una serie automatizable adecuada. Hasta validarlo, permitir conversión manual con fuente y fecha registradas; si no hay tipo confirmado, dejar `total_eur` vacío y la factura pendiente.
+- La fecha de la factura no debe tratarse automáticamente como fecha de devengo en todos los casos. La fecha de subida nunca debe determinar el tipo aplicado.
 
 ### D4 · Límite del plan (#31): contador que solo sube, por mes natural **[Propuesta]**
 
@@ -446,7 +447,7 @@ Esto es el **diseño**. Que funcione en Supabase **no** queda comprobado con est
 | 1 | Ejecutar el SQL en Supabase y repetir las pruebas del apartado 7 con dos cuentas reales, incluidas las políticas de Storage y la vista | #12 y #13 · Javier | El paso a la web (fase 4) | Las pruebas pasan en Supabase |
 | 2 | **[Supuesto]** Que el proyecto de Supabase use PostgreSQL 15 o superior (la vista usa `security_invoker` y el duplicado usa `on delete set null (columna)`) | #12 · Javier | El punto 1 | Versión comprobada al crear el proyecto |
 | 3 | Añadir a la instrucción de la IA: `tipo_documento`, retención y confianza | #19 · Mireia | — | Prueba con los 7 tickets |
-| 4 | Tipo de cambio que exige la norma del IVA (BCE o Banco de España) | #20 · Equipo, con una gestoría | — | Respuesta documentada |
+| 4 | Tipo de cambio vendedor del Banco de España y fecha de devengo; forma práctica de obtenerlo | #20 · Equipo, con una gestoría | — | Respuesta documentada |
 | 5 | **Enlace al original en el Excel**: `ruta_storage` no es un enlace que pueda abrir la gestoría (no tiene cuenta y los enlaces firmados caducan). Opciones: enlace temporal largo, ZIP con los originales o solo el nombre del archivo | #23 · Bloque 3 | **Sí: el cierre de #23** | Decidido en #23 |
 | 6 | Columnas definitivas del Excel (la vista `exportacion_gestoria` es un punto de partida, no la exportación final) | #23 · Bloque 3 | El cierre de #23 | Decidido en #23 |
 | 7 | Probar con documentos reales un ticket de gasolinera y una factura en otra moneda (hoy no hay ninguno en `tests/tickets/`) | #10 y #31 · Equipo | El cierre de #6 y #31 | Añadidos y probados |
@@ -461,7 +462,9 @@ Fuera de alcance del MVP: varias empresas o gestorías con acceso a varios clien
 
 - Supabase · Row Level Security: https://supabase.com/docs/guides/database/postgres/row-level-security
 - Supabase · Control de acceso de Storage: https://supabase.com/docs/guides/storage/security/access-control
-- BCE · Tipos de referencia del euro: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+- BOE · Ley 37/1992 del IVA, artículo 79: https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740
+- AEAT · Registro de facturas en divisas: https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/iva/iva-libros-registro-iva-traves-aeat/preguntas-frecuentes/2-registro-cuestiones-comunes.html?faqId=b8b26c3d02bc9510VgnVCM100000dc381e0aRCRD
+- BCE · Tipos de referencia del euro (solo informativos): https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
 - Fuente secundaria · Invoo, "Facturar en USD o GBP siendo autónomo" (20/05/2026), sobre el artículo 79.Once de la Ley del IVA: https://invoo.es/es/blog/guias/facturar-usd-gbp-autonomo-tipo-cambio-iva/
 - BOE · Ley 37/1992 del IVA, texto consolidado (no se pudo leer el artículo 79 con la herramienta): https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740
 
