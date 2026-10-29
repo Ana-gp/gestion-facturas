@@ -68,7 +68,7 @@ Si se utiliza un proveedor externo de IA, antes de integrar documentos reales ha
 5. Qué subencargados intervienen y qué contrato de tratamiento ofrece.
 6. Cómo se borran los datos y cómo se gestionan incidentes.
 
-## 3.3. Proveedores seleccionados: datos, ubicación y verificaciones pendientes
+### 3.4. Proveedores seleccionados: datos, ubicación y verificaciones pendientes
 
 La ubicación de una región de alojamiento no demuestra por sí sola que todos los proveedores, subencargados, registros, copias y operaciones de soporte procesen los datos exclusivamente en la UE. Deben comprobarse los contratos y la documentación vigentes antes de usar documentos personales reales.
 
