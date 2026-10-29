@@ -13,6 +13,7 @@
 | [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Aprobado |
 | [Normativa aplicable](legal.md) | 09 (#4) | Javier | Aprobado |
 | [Funciones adicionales](funciones.md) | 04 (#7) | Ana | En revisión |
+| [Mapa de pantallas y flujos de usuario](mapa-pantallas.md) | 10 (#8) | Mireia | En revisión |
 | [Guía de estilo](guia-estilo.md) | Todas | Equipo | Aprobado |
 
 La prueba de IA (#6) no se cerrará hasta completar o resolver con el equipo los casos pendientes de la issue #10. Los estados de revisión se actualizan a medida que el equipo valida las PR.
