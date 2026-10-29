@@ -31,9 +31,9 @@ Estos importes son [Propuesta] de trabajo para contrastar con el público objeti
 | Función | Gratis | Autónomo | Autónomo Plus |
 |---|---|---|---|
 | Límite de documentos procesados al mes | 10 | 100 | 300 |
-| Subida y conservación del original | Propuesta: sí | Propuesta: sí | Propuesta: sí |
-| Lectura automática y corrección manual | Propuesta: sí | Propuesta: sí | Propuesta: sí |
-| Exportación básica para gestoría | Propuesta: sí | Propuesta: sí | Propuesta: sí |
+| Subida y conservación del original | [Propuesta] Sí | [Propuesta] Sí | [Propuesta] Sí |
+| Lectura automática y corrección manual | [Propuesta] Sí | [Propuesta] Sí | [Propuesta] Sí |
+| Exportación básica para gestoría | [Propuesta] Sí | [Propuesta] Sí | [Propuesta] Sí |
 | Funciones adicionales o avanzadas | Por decidir tras #7 | Por decidir tras #7 | Por decidir tras #7 |
 
 Las funciones indicadas son [Propuesta], no funciones implementadas. La tabla debe ajustarse a la decisión de #7 y a lo que funcione en la aplicación. No se propone todavía un plan para gestorías: requeriría permisos multiusuario, separación por clientes y un modelo de datos más complejo.
@@ -61,7 +61,7 @@ El coste de IA calculado en el apartado 3 no incluye hosting ni almacenamiento. 
 | Reparto ilustrativo del fijo | 10 clientes activos: 4,50 USD/cliente/mes; 50: 0,90 USD; 100: 0,45 USD | Mismo proyecto y plan base; no incluye costes variables | Solo reparto aritmético del fijo de 45 USD; no es un coste total por cliente ni una previsión de demanda |
 | Crecimiento | [Pendiente] estimar funciones/transferencia y posibles plazas de despliegue adicionales | [Pendiente] estimar almacenamiento, transferencia, copias y tamaño de cómputo | No calculado; depende del uso y de recursos adicionales |
 
-Las cifras anteriores son una estimación base en USD, no un presupuesto final. Vercel indica que Pro se factura con una cuota de 20 USD/mes e incluye 20 USD de crédito de uso; Supabase Pro parte de 25 USD/mes y el precio depende de recursos adicionales. El coste real puede superar los 45 USD si se exceden las cuotas, se añaden plazas/servicios o se requiere más cómputo. No convierto estos importes a euros porque el cambio aplicable y las comisiones de pago deben comprobarse al contratar. Fuentes oficiales consultadas el 29/10/2026: [Vercel Pro](https://vercel.com/docs/plans/pro-plan) y [precios de Supabase](https://supabase.com/pricing).
+Las cifras anteriores son una estimación base en USD, no un presupuesto final. Vercel indica que Pro se factura con una cuota de 20 USD/mes e incluye 20 USD de crédito de uso; Supabase Pro parte de 25 USD/mes y el precio depende de recursos adicionales. El coste real puede superar los 45 USD si se exceden las cuotas, se añaden plazas/servicios o se requiere más cómputo. Estos importes no se convierten a euros porque el cambio aplicable y las comisiones de pago deben comprobarse al contratar. Fuentes oficiales consultadas el 29/10/2026: [Vercel Pro](https://vercel.com/docs/plans/pro-plan) y [precios de Supabase](https://supabase.com/pricing).
 
 Fórmula para el coste fijo por cliente: coste fijo mensual / clientes activos. Después se deben sumar costes variables por IA, correo, almacenamiento/transferencia excedidos, pagos, soporte, mantenimiento e impuestos.
 
