@@ -4,7 +4,7 @@
 
 | Documento | Tarea | Responsable | Estado |
 |---|---|---|---|
-| [Público objetivo y propuesta de valor](publico-objetivo.md) | 01 (#2) | Ana | Aprobado. Correcciones en PR #41; pendiente de añadir la entrevista |
+| [Público objetivo y propuesta de valor](publico-objetivo.md) | 01 (#2) | Ana | Aprobado, con entrevista a una autónoma |
 | [Prueba de concepto de lectura con IA](prueba-ia.md) | 06 (#6) | Mireia | Terminado |
 | [Valores reales de los tickets](valores-reales-tickets.xlsx) | 06 (#6) | Mireia | Terminado |
 | [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Revisión solicitada; correcciones en PR #41 |
