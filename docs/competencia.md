@@ -1,8 +1,11 @@
 # Estudio de competencia
 
+Tarea: #1 (orden 02) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Última actualización: 29/10/2026
+
 **Proyecto:** Ticketon, herramienta para autónomos que trabajan con una gestoría y quieren ordenar sus justificantes  
-**Fecha de revisión:** 29 de octubre de 2026  
+**Fecha de revisión:** 29/10/2026  
 **Estado:** análisis documental inicial alineado con el público objetivo elegido en #2. La propuesta de valor y la disposición a pagar siguen pendientes de validación con usuarios reales.  
+Leyenda: **[Confirmado]** dato respaldado por una fuente o resultado documentado; **[Supuesto]** hipótesis provisional que debe validarse; **[Propuesta]** decisión del equipo que puede cambiar; **[Pendiente]** información aún no resuelta. Etiquetas según `docs/guia-estilo.md`.
 **Fuentes:** se priorizan páginas oficiales de producto, precios y ayuda. Las funcionalidades comerciales se describen como afirmaciones del proveedor; no equivalen a una prueba independiente del rendimiento real.
 
 ## 1. Objetivo y alcance
