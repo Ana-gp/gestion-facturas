@@ -57,10 +57,13 @@ El coste de IA calculado en el apartado 3 no incluye hosting ni almacenamiento. 
 
 | Escenario ilustrativo (no presupuesto) | Vercel | Supabase | Coste fijo mensual conjunto antes de correo, IA, pagos, soporte e impuestos |
 |---|---|---|---|
-| MVP comercial mínimo | [Pendiente] verificar plan comercial y precio vigente | [Pendiente] verificar plan y recursos necesarios | No calculado: faltan precios confirmados y medición de uso |
-| Crecimiento | [Pendiente] estimar funciones/transferencia | [Pendiente] estimar base de datos, almacenamiento y transferencia | No calculado |
+| MVP comercial mínimo | [Confirmado] Vercel Pro: 20 USD/mes de cuota de plataforma, incluye una plaza de despliegue y 20 USD de crédito de uso | [Confirmado] Supabase Pro: desde 25 USD/mes; incluye crédito de cómputo suficiente para un proyecto Micro y cuotas incluidas | **45 USD/mes de base** antes de consumos adicionales, correo, IA, pagos, soporte e impuestos |
+| Reparto ilustrativo del fijo | 10 clientes activos: 4,50 USD/cliente/mes; 50: 0,90 USD; 100: 0,45 USD | Mismo proyecto y plan base; no incluye costes variables | Solo reparto aritmético del fijo de 45 USD; no es un coste total por cliente ni una previsión de demanda |
+| Crecimiento | [Pendiente] estimar funciones/transferencia y posibles plazas de despliegue adicionales | [Pendiente] estimar almacenamiento, transferencia, copias y tamaño de cómputo | No calculado; depende del uso y de recursos adicionales |
 
-No voy a inventar un coste de servidor ni repartirlo por cliente sin una base verificable. Para cerrar esta parte hay que registrar las tarifas oficiales vigentes, especificar el escenario de uso y mostrar la fórmula: coste fijo mensual / clientes activos, más costes variables por cliente.
+Las cifras anteriores son una estimación base en USD, no un presupuesto final. Vercel indica que Pro se factura con una cuota de 20 USD/mes e incluye 20 USD de crédito de uso; Supabase Pro parte de 25 USD/mes y el precio depende de recursos adicionales. El coste real puede superar los 45 USD si se exceden las cuotas, se añaden plazas/servicios o se requiere más cómputo. No convierto estos importes a euros porque el cambio aplicable y las comisiones de pago deben comprobarse al contratar. Fuentes oficiales consultadas el 29/10/2026: [Vercel Pro](https://vercel.com/docs/plans/pro-plan) y [precios de Supabase](https://supabase.com/pricing).
+
+Fórmula para el coste fijo por cliente: coste fijo mensual / clientes activos. Después se deben sumar costes variables por IA, correo, almacenamiento/transferencia excedidos, pagos, soporte, mantenimiento e impuestos.
 
 | Partida | Situación | Acción necesaria |
 |---|---|---|
@@ -76,7 +79,7 @@ El plan gratuito de hosting puede servir para el trabajo académico según las c
 
 ## 5. ¿Tienen sentido los precios propuestos?
 
-Los precios de 4,99 € y 8,99 € son [Supuesto] hipótesis comerciales, no resultados de una investigación de disposición a pagar. Quipu es una referencia cercana: el estudio de competencia recoge precios ordinarios publicados de 17 €, 30 € y 59 €/mes, con 30, 250 y 350 lecturas mensuales respectivamente; sus planes y alcance no son equivalentes a Ticketon, por lo que la comparación orienta pero no justifica por sí sola nuestros precios.
+Los precios de 4,99 € y 8,99 € son [Supuesto] hipótesis comerciales, no resultados de una investigación de disposición a pagar. Quipu es una referencia cercana: su página oficial consultada el 29/10/2026 muestra precios ordinarios de 17 €, 30 € y 59 €/mes, con 30, 250 y 350 lecturas mensuales respectivamente; la promoción del 50 % durante tres meses no es la tarifa ordinaria. Sus planes y alcance no son equivalentes a Ticketon, por lo que la comparación orienta pero no justifica por sí sola nuestros precios. Fuente: [precios de Quipu](https://getquipu.com/es/plan-de-precios).
 
 La lectura con IA sería solo una parte del coste a esos volúmenes; los gastos fijos de hosting, base de datos, correo, soporte, mantenimiento, pagos e impuestos son necesarios para calcular margen. Por ahora no hay base para afirmar que 4,99 € u 8,99 € sean rentables.
 
