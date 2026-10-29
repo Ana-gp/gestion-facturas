@@ -3,7 +3,7 @@
 Tarea: #2 (orden 01) · Bloque 3 (revisión y exportación) · Responsable: Ana · Última actualización: 29/10/2026
 
 > **Estado:** aprobado por el equipo. Pendiente de añadir la entrevista a un autónomo.
-> Leyenda: **[Confirmado]** dato o requisito comprobado · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información. Etiquetas según `docs/guia-estilo.md`.
+> Leyenda: **[Confirmado]** dato o requisito comprobado · **[Supuesto]** hipótesis provisional que se usa para avanzar y debe validarse · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información. Etiquetas según `docs/guia-estilo.md`.
 
 ## 1. Público elegido [Propuesta]
 
@@ -21,7 +21,7 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 | **Pymes con empleados** | Necesitan equipos, aprobaciones de gastos y tarjetas de empresa. Ahí Captio, Pleo y Spendesk son muy fuertes. |
 | **Gestorías** | Es un buen público para el futuro (ver apartado 7), pero exige funciones más complejas. Empezamos por el autónomo. |
 
-## 2. Perfil de usuario [Propuesta]
+## 2. Perfil de usuario [Supuesto]
 
 **Quién es:** trabaja por su cuenta (comercial, diseñador, fontanero, formador, fotógrafo, consultor…). Usa el móvil para casi todo y tiene una gestoría que le lleva los impuestos. No quiere aprender contabilidad.
 
@@ -41,7 +41,7 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 ## 3. Problema que resolvemos [Confirmado]
 
-Del propio enunciado: los tickets arrugados en la cartera, los PDF perdidos en el correo y la tarde de cada trimestre juntándolo todo para la gestoría. **Lo que no se encuentra no se deduce, y eso es dinero que se pierde.**
+Del propio enunciado: los tickets arrugados en la cartera, los PDFs perdidos en el correo y la tarde de cada trimestre juntándolo todo para la gestoría. **Lo que no se encuentra no se deduce, y eso es dinero que se pierde.**
 
 ## 4. Propuesta de valor [Propuesta]
 
@@ -49,17 +49,17 @@ Del propio enunciado: los tickets arrugados en la cartera, los PDF perdidos en e
 
 La herramienta guarda y ordena los justificantes; **qué gastos se pueden deducir lo decide la gestoría**, no la herramienta.
 
-## 5. Por qué nos pagarían a nosotros y no a la competencia [Pendiente]
+## 5. Por qué podrían elegirnos frente a la competencia [Supuesto]
 
-*A confirmar con el estudio de competencia (02).*
+El estudio de competencia (#1) ya está disponible, pero la diferenciación todavía debe validarse con autónomos. No podemos afirmar que las alternativas sean difíciles de usar sin probarlas con usuarios.
 
 | Frente a | Ellos | Nosotros |
 |---|---|---|
-| **Holded, Quipu** | Programas de contabilidad y facturación completos. Hay que aprender a usarlos. | Solo recoge y ordena gastos. Sin saber contabilidad y sin cambiar de gestoría. |
-| **Captio, Pleo, Spendesk** | Pensados para empresas con empleados, aprobaciones y tarjetas. | Pensado para una persona sola y a precio de autónomo. |
-| **WhatsApp, correo, papel** | Gratis, pero se pierde todo. | Igual de rápido que hacer una foto, pero ordenado y con el original guardado. |
+| **Holded, Quipu** | Ofrecen gestión administrativa más amplia y ya incluyen funciones de captura/lectura de documentos. No se ha comparado su facilidad de uso con pruebas de usuario. | Ticketon propone centrarse en reunir justificantes y preparar la entrega a la gestoría, sin sustituir el programa contable existente. Esta ventaja de enfoque aún debe validarse. |
+| **Captio, Pleo, Spendesk** | Se orientan principalmente a procesos de gasto y control empresarial, aunque sus capacidades y públicos varían por producto y plan. | Ticketon se plantea para el flujo individual de un autónomo con gestoría; el precio competitivo aún no está validado. |
+| **WhatsApp, correo, papel** | Son vías conocidas y a menudo gratuitas, pero la organización y recuperación dependen del hábito de cada persona. No se ha medido su tasa real de pérdida de documentos. | Ticketon pretende reunir originales y datos en un único lugar y facilitar una exportación por periodo; la facilidad y el ahorro de tiempo deben probarse. |
 
-**Nuestra diferencia en una frase:** la forma más rápida de que un autónomo tenga sus gastos en orden, sin aprender contabilidad.
+**Hipótesis de posicionamiento:** una forma sencilla y centrada en la gestoría de reunir justificantes y revisar los datos, sin tener que cambiar de programa contable. No afirmaremos que sea la más rápida hasta medirlo.
 
 ## 6. Qué implica para el resto del proyecto
 
@@ -80,9 +80,9 @@ La herramienta guarda y ordena los justificantes; **qué gastos se pueden deduci
   - ¿Cómo guardas hoy tus tickets y facturas?
   - ¿Cuánto tiempo te lleva cada trimestre?
   - ¿Has perdido alguna vez un gasto que podías deducir?
-- **Confirmar la comparación con la competencia** cuando esté el estudio (02).
+- **Validar la comparación con la competencia** mediante pruebas de uso comparables y entrevistas; el estudio documental por sí solo no demuestra facilidad de uso ni superioridad.
 
 ## Fuentes
 
-- Merca2, a partir de datos de la Seguridad Social: "España supera por primera vez los 22,5 millones de afiliados a la Seguridad Social en julio" (05/08/2026). Consultado el 29/10/2026. https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/
-- Enunciado del proyecto: "Proyecto final: Plataforma para gestión de facturas" (apartados "El problema" y "Prueba de lectura").
+- Merca2, a partir de datos de la Seguridad Social: «España supera por primera vez los 22,5 millones de afiliados a la Seguridad Social en julio» (05/08/2026). Consultado el 29/10/2026. https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/
+- Enunciado del proyecto: «Proyecto final: Plataforma para gestión de facturas» (apartados «El problema» y «Prueba de lectura»).
