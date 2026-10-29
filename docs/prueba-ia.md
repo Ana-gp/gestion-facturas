@@ -63,6 +63,8 @@ Tickets extra (el issue #10 pide "tantos más como haya"):
 
 Para los extras se puede usar la misma tabla de campos que en el apartado 5.
 
+**Valores reales:** transcritos por Claude a partir de las imágenes el 29/10/2026 y **revisados y validados por Mireia** el mismo día. La hoja completa, con los extras y las notas, está en `docs/valores-reales-tickets.xlsx`. En T1 no aparecen ni el NIF del emisor ni el número de factura.
+
 **Privacidad:** se usan solo tickets propios. Antes de subirlos se han tapado los datos personales que no forman parte de la prueba: números de tarjeta, números de socio o cliente, nombres del personal y, en T3, el nombre, la dirección y el correo del receptor (pixelado en las fotos; tachado con eliminación real del texto en los PDF). Por eso, en T3 el nombre del receptor no se puede comprobar; el receptor no tiene NIF en esa factura.
 
 ## 4. Cómo se rellenan las tablas
@@ -84,61 +86,61 @@ Categorías provisionales (**supuesto**, a revisar cuando se cierren #2 y #7): C
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | | | | | |
-| Emisor | | | | | |
-| NIF del emisor | | | | | |
-| NIF del receptor | | | | | |
-| Número de factura / ticket | | | | | |
-| IVA 1: tipo (%) | | | | | |
-| IVA 1: base imponible | | | | | |
-| IVA 1: cuota | | | | | |
-| IVA 2: tipo (%) | | | | | |
-| IVA 2: base imponible | | | | | |
-| IVA 2: cuota | | | | | |
-| Base imponible total | | | | | |
-| Total | | | | | |
-| Moneda | | | | | |
-| Categoría | | | | | |
+| Fecha | 2026-09-08 | | | | |
+| Emisor | Alcampo Santa Nonia | | | | |
+| NIF del emisor | N/A | | | | |
+| NIF del receptor | N/A | | | | |
+| Número de factura / ticket | N/A | | | | |
+| IVA 1: tipo (%) | 4 | | | | |
+| IVA 1: base imponible | 4,05 | | | | |
+| IVA 1: cuota | 0,15 | | | | |
+| IVA 2: tipo (%) | 21 | | | | |
+| IVA 2: base imponible | 1,31 | | | | |
+| IVA 2: cuota | 0,28 | | | | |
+| Base imponible total | 5,36 | | | | |
+| Total | 5,79 | | | | |
+| Moneda | EUR | | | | |
+| Categoría | Alimentación | | | | |
 
 ### T2 · Supermercado con varios tipos de IVA
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | | | | | |
-| Emisor | | | | | |
-| NIF del emisor | | | | | |
-| NIF del receptor | | | | | |
-| Número de factura / ticket | | | | | |
-| IVA 1: tipo (%) | | | | | |
-| IVA 1: base imponible | | | | | |
-| IVA 1: cuota | | | | | |
-| IVA 2: tipo (%) | | | | | |
-| IVA 2: base imponible | | | | | |
-| IVA 2: cuota | | | | | |
-| IVA 3: tipo (%) | | | | | |
-| IVA 3: base imponible | | | | | |
-| IVA 3: cuota | | | | | |
-| Base imponible total | | | | | |
-| Total | | | | | |
-| Moneda | | | | | |
-| Categoría | | | | | |
+| Fecha | 2025-09-02 | | | | |
+| Emisor | Vego Supermercados S.A.U. | | | | |
+| NIF del emisor | A36651313 | | | | |
+| NIF del receptor | N/A | | | | |
+| Número de factura / ticket | 132740032509026056 | | | | |
+| IVA 1: tipo (%) | 10 | | | | |
+| IVA 1: base imponible | 44,58 | | | | |
+| IVA 1: cuota | 4,46 | | | | |
+| IVA 2: tipo (%) | 21 | | | | |
+| IVA 2: base imponible | 10,29 | | | | |
+| IVA 2: cuota | 2,16 | | | | |
+| IVA 3: tipo (%) | 4 | | | | |
+| IVA 3: base imponible | 51,64 | | | | |
+| IVA 3: cuota | 2,07 | | | | |
+| Base imponible total | 106,51 | | | | |
+| Total | 115,20 | | | | |
+| Moneda | EUR | | | | |
+| Categoría | Alimentación | | | | |
 
 ### T3 · Factura PDF de suscripción en inglés
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | | | | | |
-| Emisor | | | | | |
-| NIF / VAT ID del emisor | | | | | |
-| NIF del receptor | | | | | |
-| Número de factura | | | | | |
-| IVA 1: tipo (%) | | | | | |
-| IVA 1: base imponible | | | | | |
-| IVA 1: cuota | | | | | |
-| Base imponible total | | | | | |
-| Total | | | | | |
-| Moneda | | | | | |
-| Categoría | | | | | |
+| Fecha | 2026-10-14 | | | | |
+| Emisor | Anthropic Ireland, Limited | | | | |
+| NIF / VAT ID del emisor | IE4276970QH | | | | |
+| NIF del receptor | N/A | | | | |
+| Número de factura | 9BF0758D-8771996 | | | | |
+| IVA 1: tipo (%) | 21 | | | | |
+| IVA 1: base imponible | 18,00 | | | | |
+| IVA 1: cuota | 3,78 | | | | |
+| Base imponible total | 18,00 | | | | |
+| Total | 21,78 | | | | |
+| Moneda | EUR | | | | |
+| Categoría | Software y suscripciones | | | | |
 
 La conversión a euros **no se mide aquí**: el motor solo tiene que detectar bien la moneda. La conversión se hará con el tipo de cambio del BCE en la fecha de la factura (issue #20).
 
@@ -146,21 +148,21 @@ La conversión a euros **no se mide aquí**: el motor solo tiene que detectar bi
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | | | | | |
-| Emisor | | | | | |
-| NIF del emisor | | | | | |
-| NIF del receptor | | | | | |
-| Número de factura / ticket | | | | | |
-| IVA 1: tipo (%) | | | | | |
-| IVA 1: base imponible | | | | | |
-| IVA 1: cuota | | | | | |
-| IVA 2: tipo (%) | | | | | |
-| IVA 2: base imponible | | | | | |
-| IVA 2: cuota | | | | | |
-| Base imponible total | | | | | |
-| Total | | | | | |
-| Moneda | | | | | |
-| Categoría | | | | | |
+| Fecha | 2026-08-29 | | | | |
+| Emisor | Cerveceria Celtica S.L. | | | | |
+| NIF del emisor | B24610297 | | | | |
+| NIF del receptor | N/A | | | | |
+| Número de factura / ticket | 1 / 388087 | | | | |
+| IVA 1: tipo (%) | 10 | | | | |
+| IVA 1: base imponible | 19,09 | | | | |
+| IVA 1: cuota | 1,91 | | | | |
+| IVA 2: tipo (%) | N/A | | | | |
+| IVA 2: base imponible | N/A | | | | |
+| IVA 2: cuota | N/A | | | | |
+| Base imponible total | 19,09 | | | | |
+| Total | 21,00 | | | | |
+| Moneda | EUR | | | | |
+| Categoría | Restauración y dietas | | | | |
 
 ## 6. Coste por factura
 
