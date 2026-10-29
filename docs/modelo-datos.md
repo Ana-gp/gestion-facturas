@@ -5,7 +5,7 @@ Depende de: #5 (stack y arquitectura) · Alimenta: #13, #16, #18, #19, #20, #21,
 
 **Estado:** **[Propuesta]** del 29/10/2026. Las decisiones del apartado 4 las tomó Mireia el 29/10/2026 a partir de las opciones comparadas. Pendiente de revisión por el equipo. **No hay nada creado en Supabase**: el SQL de [`modelo-datos.sql`](modelo-datos.sql) es un borrador probado solo en una base de datos PostgreSQL local de pruebas (apartado 7).
 
-Etiquetas (según `docs/guia-estilo.md`, PR #35):
+Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
 - **[Confirmado]**: comprobado en una fuente o en el repositorio, con enlace y fecha de consulta.
 - **[Supuesto]**: lo damos por bueno para avanzar; se indica qué hay que comprobar.
@@ -400,19 +400,19 @@ Resultado: **42 comprobaciones correctas de 42**. Además de los tickets:
 | Prueba | Resultado |
 |---|---|
 | El usuario B no ve, cambia ni borra las facturas de A, aunque conozca su id | Correcto |
-| B no puede añadir una línea a una factura de A, crear un documento a nombre de A ni guardar un archivo en la carpeta de A | Rechazado |
-| B no puede cambiarse de plan, poner a cero su contador, cambiar `datos_ia` ni llamar a `reservar_lectura` | Rechazado |
+| B no puede añadir una línea a una factura de A, crear un documento a nombre de A ni guardar un archivo en la carpeta de A | Correcto (se rechaza) |
+| B no puede cambiarse de plan, poner a cero su contador, cambiar `datos_ia` ni llamar a `reservar_lectura` | Correcto (se rechaza) |
 | Sin sesión no se ven facturas; sí los 3 planes | Correcto |
 | T2 subido otra vez: aviso por "mismo archivo" y por "mismo NIF, número y total" (aunque el número llevara espacios) | Correcto |
 | T1 fotografiado otra vez (sin NIF ni número): aviso por "mismo emisor, fecha y total" | Correcto |
 | B no encuentra duplicados entre las facturas de A | Correcto |
-| Marcar como revisada una factura sin categoría | Rechazado |
-| Tipo de cambio en una factura en EUR | Rechazado |
-| Factura **ficticia** de 20,00 $ con 1 € = 1,1133 $ | 17,96 € |
-| Factura **ficticia** con retención: 100 + 21 − 15 = 106 € | Cuadra |
+| Marcar como revisada una factura sin categoría | Correcto (se rechaza) |
+| Tipo de cambio en una factura en EUR | Correcto (se rechaza) |
+| Factura **ficticia** de 20,00 $ con 1 € = 1,1133 $ | Correcto: 17,96 € |
+| Factura **ficticia** con retención: 100 + 21 − 15 = 106 € | Correcto |
 | Plan Gratis: 10 lecturas sí, la 11.ª no; releer no suma; borrar no devuelve hueco | Correcto |
 | Vista de exportación de A: 11 filas (una por línea de IVA) y suma de totales 212,85 € (sin contar dos veces) | Correcto |
-| Sobrescribir un original en Storage | 0 archivos cambiados |
+| Sobrescribir un original en Storage | Correcto (0 archivos cambiados) |
 
 **[Pendiente]** No hay en el banco ningún ticket de gasolinera ni ninguna factura en otra moneda (`tests/tickets/README.md`). El modelo los contempla, pero no se han comprobado con un documento real.
 
@@ -443,4 +443,4 @@ Fuera de alcance del MVP: varias empresas o gestorías con acceso a varios clien
 - Fuente secundaria · Invoo, "Facturar en USD o GBP siendo autónomo" (20/05/2026), sobre el artículo 79.Once de la Ley del IVA: https://invoo.es/es/blog/guias/facturar-usd-gbp-autonomo-tipo-cambio-iva/
 - BOE · Ley 37/1992 del IVA, texto consolidado (no se pudo leer el artículo 79 con la herramienta): https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740
 
-Documentos internos: `docs/arquitectura.md`, `docs/prueba-ia.md`, `docs/modelo-negocio.md`, `docs/legal.md`, `docs/publico-objetivo.md`, `docs/valores-reales-tickets.xlsx` y la guía de estilo del PR #35.
+Documentos internos: `docs/arquitectura.md`, `docs/prueba-ia.md`, `docs/modelo-negocio.md`, `docs/legal.md`, `docs/publico-objetivo.md`, `docs/valores-reales-tickets.xlsx` y `docs/guia-estilo.md`.
