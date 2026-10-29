@@ -84,7 +84,7 @@ El estudio de competencia (#1) ya está disponible, pero la diferenciación toda
 |---|---|
 | **04 · Funciones extra** | Priorizar lo que ahorra tiempo al autónomo: avisos de trimestre y de ticket sin NIF, instalación en el móvil. |
 | **08 · Modelo de negocio** | Precio bajo, pensado para un autónomo. Debe cubrir el coste de IA por factura (06). Se puede comparar con las horas que ahorra cada trimestre (apartado 3). |
-| **09 · Normativa** | La autónoma entrevistada guarda sus facturas 4 años por costumbre: conservar los originales mientras la cuenta esté activa encaja con su forma de trabajar. |
+| **09 · Normativa** | La entrevistada indica que guarda facturas de cuatro años anteriores por costumbre. Es un dato sobre su práctica, no una conclusión legal. El plazo aplicable y la política de conservación, exportación y eliminación de originales deben definirse en la tarea de normativa; no se debe vincular su conservación únicamente a que la cuenta siga activa. |
 | **10–11 · Diseño** | Móvil primero: subir un ticket en pocos toques. |
 | **23 · Excel** | Las columnas deben ser las que la gestoría del autónomo necesita. |
 
