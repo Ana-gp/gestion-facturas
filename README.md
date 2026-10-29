@@ -1,6 +1,8 @@
-# Gestión de facturas
+# Ticketon
 
-Plataforma web de gestión de facturas y tickets por suscripción (proyecto final en equipo).
+**Ticketon** es el nombre del producto web del proyecto. El repositorio conserva el nombre técnico `gestion-facturas`.
+
+Aplicación web para que autónomos organicen sus tickets y facturas, conserven los originales y preparen la documentación que enviarán a su gestoría. El MVP no sustituye el criterio fiscal de la gestoría ni garantiza que un gasto sea deducible.
 
 ## Entregables (milestones)
 1. Documentos MD previos
@@ -25,7 +27,7 @@ Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su e
 2. Crea una rama por issue: `git checkout -b 12-login` (número y nombre corto).
 3. Commits pequeños y con mensaje claro.
 4. Abre un Pull Request hacia `main` con `Closes #número` en la descripción.
-5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directo a `main`.
+5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directamente a `main`.
 
 ## Stack (propuesta del #5, pendiente de validar)
 | Pieza | Elección |
@@ -36,12 +38,16 @@ Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su e
 | Correo entrante | Resend |
 | Lectura con IA | Gemini 3.5 Flash Lite (ver `docs/prueba-ia.md`) |
 
-Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`](docs/arquitectura.md). Las claves (Gemini, Supabase, Resend) van en variables de entorno, nunca en el repositorio.
+Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`](docs/arquitectura.md). Las claves (Gemini, Supabase, Resend) van en variables de entorno, nunca en el repositorio. **Importante:** el plan Vercel Hobby no permite uso comercial; cualquier lanzamiento de pago exige revisar hosting, costes y condiciones de los proveedores antes de vender suscripciones.
 
-## Estructura
-- `docs/` documentos del proyecto (competencia, público, modelo de negocio, legal, arquitectura, funciones, requisitos de diseño, pruebas de lectura)
-  - `docs/arquitectura.md` stack, diagrama de arquitectura y pendientes (#5)
-- `tests/tickets/` tickets y facturas reales para las pruebas de lectura
+## Documentación
+- [Estudio de competencia](docs/competencia.md)
+- [Público objetivo y propuesta de valor](docs/publico-objetivo.md)
+- [Modelo de negocio y costes](docs/modelo-negocio.md)
+- [Normativa aplicable](docs/legal.md)
+- [Arquitectura](docs/arquitectura.md)
+- [Prueba de concepto de IA](docs/prueba-ia.md)
+- `tests/tickets/`: documentos para las pruebas de lectura
 
 ## Orden de trabajo
 Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese orden; varios pueden ir en paralelo si sus dependencias ya están cerradas. Cada issue indica de cuáles depende.
@@ -56,4 +62,4 @@ Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese or
 | 4. Web: resto | 24–30 | Correo, compartir, precios, límites de plan, landing, panel, avisos |
 | 4. Cierre | 31 | Prueba de lectura con tickets reales |
 
-Con la fase 4 hasta el orden 23 ya se cumplen casi todos los requisitos obligatorios: es el producto mínimo que tiene que funcionar sí o sí.
+Con la fase 4 hasta el orden 23 se cubre el núcleo del MVP obligatorio. El objetivo es priorizar primero una aplicación funcional y probarla antes de ampliar el alcance.
