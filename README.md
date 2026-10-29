@@ -1,6 +1,14 @@
 # Gestión de facturas
 
-Plataforma web de gestión de facturas y tickets por suscripción (proyecto final en equipo).
+Herramienta web por suscripción para que los autónomos tengan sus tickets y facturas ordenados y listos para enviar a su gestoría. Proyecto final en equipo.
+
+## Equipo
+
+| Integrante | Bloque |
+|---|---|
+| Ana | 3. Revisión y exportación |
+| Mireia | 2. Subida y lectura |
+| Por confirmar | 1. Cuenta y negocio |
 
 ## Entregables (milestones)
 1. Documentos MD previos
@@ -18,21 +26,22 @@ Cada persona lleva un bloque de principio a fin: documentos, diseño, backend y 
 | **3. Revisión y exportación** | 01 público objetivo, 03 banco de tickets, 04 funciones extra | — | 19 corrección, 20 listado, 21 moneda, 22 duplicados, 23 Excel, 30 avisos, 31 pruebas de lectura |
 | **Los tres** | | 12 prototipo | |
 
-Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su etiqueta `bloque-N` y se asigna los issues.
+Trabajamos por fases: cada uno hace las tareas de su bloque en la fase en curso. En la pestaña Issues, cada uno filtra por su etiqueta `bloque-N` y se asigna sus tareas.
 
 ## Cómo trabajamos
 1. Antes de empezar un issue, asígnatelo y muévelo a *In Progress* en el tablero.
 2. Crea una rama por issue: `git checkout -b 12-login` (número y nombre corto).
 3. Commits pequeños y con mensaje claro.
-4. Abre un Pull Request hacia `main` con `Closes #número` en la descripción.
+4. Abre un pull request hacia `main` con `Closes #número` en la descripción.
 5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directo a `main`.
 
 ## Estilo de los documentos
 Todos los documentos siguen la [guía de estilo](docs/guia-estilo.md): sin iconos, con las mismas etiquetas de estado (**[Confirmado]**, **[Propuesta]**, **[Pendiente]**) y de resultados (**Correcto**, **Incorrecto**, **Vacío**, **No aplica**). Quien revisa un pull request comprueba también el estilo.
 
 ## Estructura
-- `docs/` documentos del proyecto y la guía de estilo (competencia, público, modelo de negocio, legal, arquitectura, funciones, requisitos de diseño, pruebas de lectura)
-- `tests/tickets/` tickets y facturas reales para las pruebas de lectura
+- `docs/` documentos del proyecto y guía de estilo. Ver el [índice de documentos](docs/README.md)
+- `tests/tickets/` tickets y facturas reales para las pruebas de lectura, con los datos personales tapados
+- `tests/resultados-ia/` respuestas completas de cada motor de IA en la prueba de lectura
 
 ## Orden de trabajo
 Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese orden; varios pueden ir en paralelo si sus dependencias ya están cerradas. Cada issue indica de cuáles depende.
@@ -48,3 +57,9 @@ Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese or
 | 4. Cierre | 31 | Prueba de lectura con tickets reales |
 
 Con la fase 4 hasta el orden 23 ya se cumplen casi todos los requisitos obligatorios: es el producto mínimo que tiene que funcionar sí o sí.
+
+## Uso de la IA en el proyecto
+
+- **Para redactar y organizar el trabajo:** asistentes de IA (Claude y ChatGPT). Cada documento lo revisa y aprueba una persona del equipo antes de unirlo a `main`, y los datos externos se comprueban en su fuente.
+- **Dentro del producto:** la lectura automática de tickets usa un modelo de IA. Se compararon Gemini y Mistral con tickets reales y se eligió Gemini 3.5 Flash Lite. Ver [prueba de lectura con IA](docs/prueba-ia.md).
+- Las decisiones las toma el equipo; cada documento indica quién decidió y cuándo.
