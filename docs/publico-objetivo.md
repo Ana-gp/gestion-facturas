@@ -2,7 +2,7 @@
 
 **Estado:** [Propuesta] público objetivo inicial elegido por el equipo; falta validar con una entrevista a un autónomo.
 
-Leyenda: **[Confirmado]** respaldado por el enunciado o una fuente; **[Propuesta]** decisión que puede cambiar; **[Pendiente]** falta información o validación.
+Leyenda: **[Confirmado]** respaldado por el enunciado o una fuente; **[Supuesto]** hipótesis provisional que se usa para avanzar y debe validarse; **[Propuesta]** decisión que puede cambiar; **[Pendiente]** falta información o validación.
 
 ---
 
