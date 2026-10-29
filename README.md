@@ -29,7 +29,7 @@ Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su e
 4. Abre un Pull Request hacia `main` con `Closes #número` en la descripción.
 5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directamente a `main`.
 
-## Stack (propuesta del #5, pendiente de validar)
+## Stack (aceptado para el MVP del curso, #5)
 | Pieza | Elección |
 |---|---|
 | Frontend y backend | Next.js (React) |
