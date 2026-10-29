@@ -92,6 +92,8 @@ No debemos reducir todas las obligaciones a «cuatro años» ni prometer «seis 
 
 Estas reglas no significan que todos los documentos de todos los usuarios tengan exactamente el mismo plazo. El servicio debe evitar un borrado automático arbitrario de documentos que el cliente necesita conservar.
 
+**Observación de entrevista [Supuesto]:** una autónoma entrevistada indicó que conserva sus facturas durante cuatro años «por si acaso». Es un testimonio individual útil para conocer su hábito, pero no constituye una regla jurídica ni permite generalizar al resto del público objetivo.
+
 **Decisión propuesta para el MVP:** conservar los originales y los datos asociados mientras la cuenta esté activa, permitir al usuario exportarlos y definir una política transparente de cierre y eliminación de cuenta. Antes de decidir plazos definitivos, revisar el modelo con asesoría jurídica/fiscal y contemplar los bloqueos de borrado que puedan ser necesarios por obligaciones legales. No anunciar que la plataforma sustituye por sí sola la obligación de conservación del cliente.
 
 ## 5. ¿Necesitamos digitalización certificada de la AEAT?
