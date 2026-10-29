@@ -133,7 +133,7 @@ Cómo leerlo: el usuario solo habla con la web. La web guarda el original direct
 
 | # | Qué | Quién (propuesta) | Cómo se da por cerrado |
 |---|---|---|---|
-| 1 | **Validar esta propuesta** | Anaí y Javier | Aprobada por Javier el 29/10/2026 (PR #36) |
+| 1 | **Validar esta propuesta** | Ana y Javier | Aprobada por Javier el 29/10/2026 (PR #36) |
 | 2 | Que **Supabase** y **Resend** no pidan tarjeta al crear la cuenta. No se da por confirmado hasta crearlas | Javier (#12) y Mireia (#16) | Cuenta creada sin tarjeta; si la piden, parar y pasar al plan B |
 | 3 | Correo de recuperación. **Acordado:** en local, **Mailpit** (programa que "atrapa" los correos de prueba en el ordenador, sin enviarlos de verdad); en la demo desplegada, un **SMTP personalizado**. Gmail con "contraseña de aplicación" es solo una alternativa temporal, **no decidida** hasta probarla. **[Supuesto]**: Resend solo envía a cualquier destinatario con un dominio propio verificado | Javier (#13) | En local, el correo aparece en Mailpit; en la demo, llega el correo de recuperación a una dirección externa al equipo |
 | 4 | **IA en el curso:** Gemini API gratis, **solo para pruebas académicas con documentos ficticios o anonimizados**, sin usuarios externos. Las condiciones de Google dicen que para ofrecer la web a usuarios del EEE hay que usar servicios de pago — **[Confirmado]**. Antes de abrirla a usuarios externos del EEE, revisar las condiciones aplicables y la modalidad necesaria | Equipo | Acordado en la revisión del PR #36 |
@@ -142,7 +142,7 @@ Cómo leerlo: el usuario solo habla con la web. La web guarda el original direct
 | 7 | **Dónde procesa Resend los correos** (no consta). Afecta a la normativa | Javier (#4, legal) | Respuesta documentada en el doc legal |
 | 8 | **Límite de tamaño** de las peticiones a las funciones de Vercel. **[Supuesto]**: es bajo (unos pocos MB), por eso el original se sube directo a Supabase y no pasa por la función | Mireia (#18) | Probado con una foto de móvil de más de 5 MB |
 | 9 | **Pausa de Supabase** tras 1 semana sin uso: acordarse de entrar antes de la presentación | Equipo | — |
-| 10 | **API del BCE**: comprobar que es pública y sin registro, y qué hacer en fines de semana y festivos (no hay tipo publicado) | Anaí (#20, moneda) | Conversión probada con una factura en dólares |
+| 10 | **API del BCE**: comprobar que es pública y sin registro, y qué hacer en fines de semana y festivos (no hay tipo publicado) | Ana (#20, moneda) | Conversión probada con una factura en dólares |
 
 ### Si cambiara el público objetivo (#2)
 
