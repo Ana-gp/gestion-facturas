@@ -131,7 +131,7 @@ create table public.facturas (
   total                 numeric(12,2),
   moneda                text not null default 'EUR' check (moneda ~ '^[A-Z]{3}$'),
   -- Convención del BCE: unidades de la moneda por 1 euro (1 € = 1,1133 $).
-  -- total_eur = total / tipo_cambio.
+  -- total_eur = round(total / tipo_cambio, 2). Lo comprueba un CHECK.
   tipo_cambio           numeric(14,6) check (tipo_cambio > 0),
   tipo_cambio_fecha     date,
   tipo_cambio_fuente    text check (tipo_cambio_fuente in ('BCE', 'manual')),
@@ -141,7 +141,7 @@ create table public.facturas (
   -- {"fecha": {"confianza": "alta", "corregido": false}, "numero": {...}}
   campos_revision       jsonb not null default '{}'::jsonb check (jsonb_typeof(campos_revision) = 'object'),
   datos_ia              jsonb,               -- respuesta original de la IA, sin tocar
-  posible_duplicado_de  uuid references public.facturas (id) on delete set null,
+  posible_duplicado_de  uuid,                -- otra factura DEL MISMO usuario (FK compuesta abajo)
   duplicado_descartado  boolean not null default false,
   creado_en             timestamptz not null default now(),
   actualizado_en        timestamptz not null default now(),
@@ -155,12 +155,22 @@ create table public.facturas (
   -- El documento tiene que ser del mismo usuario.
   foreign key (documento_id, user_id) references public.documentos (id, user_id) on delete cascade,
   unique (id, user_id),
+  -- El posible duplicado tiene que ser del mismo usuario (no basta con la API).
+  -- Si se borra la otra factura, solo se vacía este campo, no user_id.
+  -- "set null (columna)" requiere PostgreSQL 15 o superior.
+  foreign key (posible_duplicado_de, user_id) references public.facturas (id, user_id)
+    on delete set null (posible_duplicado_de),
   check (posible_duplicado_de is null or posible_duplicado_de <> id),
   -- Si es EUR no hay tipo de cambio y el total en euros es el mismo.
   check (moneda <> 'EUR' or (tipo_cambio is null and total_eur is not distinct from total)),
+  -- Si es otra moneda, total_eur solo puede ser exactamente total / tipo_cambio
+  -- redondeado a 2 decimales. Sin tipo de cambio (conversión pendiente),
+  -- total_eur tiene que quedar vacío.
+  check (moneda = 'EUR' or total_eur is not distinct from round(total / tipo_cambio, 2)),
   -- Si es otra moneda y hay tipo, se guardan su fecha y su fuente.
   check (tipo_cambio is null or (tipo_cambio_fecha is not null and tipo_cambio_fuente is not null)),
-  -- Para marcarla como revisada tiene que tener lo mínimo.
+  -- Para marcarla como revisada tiene que tener lo mínimo. En otra moneda,
+  -- total_eur no vacío implica que hay tipo de cambio (por el CHECK anterior).
   check (estado_revision = 'pendiente' or (
          fecha is not null and emisor_nombre is not null and total is not null
          and total_eur is not null and categoria_id is not null))
@@ -175,13 +185,15 @@ create table public.lineas_iva (
   factura_id  uuid not null,
   orden       smallint not null default 1,
   tipo_iva    numeric(5,2) not null check (tipo_iva between 0 and 100),
-  base        numeric(12,2),
-  cuota       numeric(12,2),
-  base_eur    numeric(12,2),
-  cuota_eur   numeric(12,2),
+  base        numeric(12,2),             -- en la moneda de la factura
+  cuota       numeric(12,2),             -- en la moneda de la factura
+  -- Sin columnas en euros: se calculan en la vista con el tipo de la factura,
+  -- así nunca pueden descuadrar con él.
   origen      text not null default 'impreso' check (origen in ('impreso', 'calculado')),
   -- La factura tiene que ser del mismo usuario; si se borra, se borran sus líneas.
-  foreign key (factura_id, user_id) references public.facturas (id, user_id) on delete cascade
+  foreign key (factura_id, user_id) references public.facturas (id, user_id) on delete cascade,
+  -- Dos líneas de la misma factura no pueden tener el mismo orden.
+  unique (factura_id, orden)
 );
 create index lineas_iva_factura on public.lineas_iva (factura_id);
 
@@ -392,8 +404,12 @@ $$;
 -- ---------------------------------------------------------------------
 -- Una fila por línea de IVA. "security_invoker" hace que se apliquen las
 -- reglas RLS de quien la consulta (requiere PostgreSQL 15 o superior).
--- El total solo aparece en la primera línea para no sumarlo dos veces.
--- [Pendiente] Columnas definitivas y enlace al original: los decide #23.
+-- El total y la retención solo aparecen en la primera línea de cada factura
+-- (row_number = 1), para no sumarlos dos veces.
+-- Los importes en euros se calculan con el tipo de cambio de la factura.
+-- AVISO: es un PUNTO DE PARTIDA, no la exportación final. ruta_storage NO es
+-- un enlace que pueda abrir la gestoría. [Pendiente] bloqueante para cerrar
+-- #23: cómo se entrega el original y las columnas definitivas.
 
 create view public.exportacion_gestoria with (security_invoker = true) as
 select
@@ -409,17 +425,19 @@ select
   f.moneda,
   f.tipo_cambio,
   f.tipo_cambio_fecha,
-  l.orden                                as linea,
+  row_number() over (partition by f.id order by l.orden, l.id) as linea,
   count(l.id) over (partition by f.id)   as lineas_de_la_factura,
   l.tipo_iva,
   l.base,
   l.cuota,
-  coalesce(l.base_eur,  case when f.moneda = 'EUR' then l.base  end) as base_eur,
-  coalesce(l.cuota_eur, case when f.moneda = 'EUR' then l.cuota end) as cuota_eur,
+  case when f.moneda = 'EUR' then l.base  else round(l.base  / f.tipo_cambio, 2) end as base_eur,
+  case when f.moneda = 'EUR' then l.cuota else round(l.cuota / f.tipo_cambio, 2) end as cuota_eur,
   l.origen                               as origen_linea,
-  case when l.orden is null or l.orden = min(l.orden) over (partition by f.id)
-       then f.retencion_importe end      as retencion_importe,
-  case when l.orden is null or l.orden = min(l.orden) over (partition by f.id)
+  case when row_number() over (partition by f.id order by l.orden, l.id) = 1
+       then case when f.moneda = 'EUR' then f.retencion_importe
+                 else round(f.retencion_importe / f.tipo_cambio, 2) end
+  end                                    as retencion_eur,
+  case when row_number() over (partition by f.id order by l.orden, l.id) = 1
        then f.total_eur end              as total_eur,
   f.estado_revision,
   d.ruta_storage

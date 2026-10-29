@@ -3,7 +3,7 @@
 Tarea: #29 (orden 07) · Bloque 2 (subida y lectura) · Responsable: Mireia
 Depende de: #5 (stack y arquitectura) · Alimenta: #13, #16, #18, #19, #20, #21, #22, #23 y #31
 
-**Estado:** **[Propuesta]** del 29/10/2026. Las decisiones del apartado 4 las tomó Mireia el 29/10/2026 a partir de las opciones comparadas. Pendiente de revisión por el equipo. **No hay nada creado en Supabase**: el SQL de [`modelo-datos.sql`](modelo-datos.sql) es un borrador probado solo en una base de datos PostgreSQL local de pruebas (apartado 7).
+**Estado:** **[Propuesta]** del 29/10/2026. Las decisiones del apartado 4 las tomó Mireia el 29/10/2026 a partir de las opciones comparadas. Revisado por Javier el 29/10/2026 (cambios pedidos en el PR #44, incorporados el mismo día: apartados 3.6, 3.7, 7 y 8). **No hay nada creado en Supabase**: el SQL de [`modelo-datos.sql`](modelo-datos.sql) es un borrador probado solo en una base de datos PostgreSQL local de pruebas (apartado 7).
 
 Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
@@ -133,8 +133,7 @@ erDiagram
         numeric tipo_iva
         numeric base
         numeric cuota
-        numeric base_eur
-        numeric cuota_eur
+        smallint orden
         text origen
     }
     CATEGORIAS {
@@ -220,12 +219,12 @@ Se guarda **antes** de leer con la IA: si la lectura falla, el original ya está
 | tipo_cambio | numérico (6 decimales) | No | Unidades de la moneda por 1 € (convención del BCE: 1 € = 1,1133 $). Vacío si es EUR |
 | tipo_cambio_fecha | fecha | Si hay tipo | Día del tipo aplicado |
 | tipo_cambio_fuente | lista | Si hay tipo | `BCE` o `manual` |
-| total_eur | numérico | No* | `total ÷ tipo_cambio`, o igual que `total` si es EUR |
+| total_eur | numérico | No* | `total ÷ tipo_cambio` redondeado a 2 decimales, o igual que `total` si es EUR. Vacío mientras falte el tipo de cambio |
 | categoria_id | número | No* | Su categoría |
 | estado_revision | lista | Sí | `pendiente` o `revisada` (confirmada por el usuario) |
 | campos_revision | JSON | Sí | Confianza y corrección por campo (D2) |
 | datos_ia | JSON | No | Respuesta original de la IA, sin tocar |
-| posible_duplicado_de | uuid | No | Otra factura que se le parece (D1) |
+| posible_duplicado_de | uuid | No | Otra factura **del mismo usuario** que se le parece (D1) |
 | duplicado_descartado | sí/no | Sí | El usuario indicó "no es duplicado" |
 | emisor_nif_norm, numero_norm | texto (calculado) | — | NIF y número sin espacios, guiones ni barras, en mayúsculas, para comparar duplicados |
 | creado_en, actualizado_en | fecha y hora | Sí | |
@@ -235,8 +234,12 @@ Se guarda **antes** de leer con la IA: si la lectura falla, el original ya está
 **Normas que comprueba la base de datos:**
 
 - Si la moneda es EUR, no hay tipo de cambio y `total_eur` = `total`.
+- Si la moneda **no** es EUR:
+  - sin tipo de cambio, la conversión está pendiente y `total_eur` tiene que estar vacío;
+  - con tipo de cambio, `total_eur` tiene que ser exactamente `total ÷ tipo_cambio` redondeado a 2 decimales. No se admite un importe en euros "a mano" que no cuadre.
 - Si hay tipo de cambio, se guardan su fecha y su fuente.
-- Una factura no puede ser duplicada de sí misma.
+- Como `revisada` exige `total_eur`, **una factura en otra moneda no se puede marcar como revisada sin convertirla**.
+- `posible_duplicado_de` solo puede apuntar a una factura del mismo usuario (clave foránea doble `id` + `user_id`). Si se borra la otra factura, el enlace se vacía. Una factura no puede ser duplicada de sí misma.
 - **No** se obliga a que el total cuadre: un céntimo de diferencia en un ticket real impediría guardarlo. Si no cuadra, la pantalla de corrección (#21) avisa. **[Propuesta]**
 
 ### 3.7 `lineas_iva`
@@ -245,11 +248,12 @@ Se guarda **antes** de leer con la IA: si la lectura falla, el original ya está
 |---|---|---|---|
 | id, user_id | uuid | Sí | |
 | factura_id | uuid | Sí | Su factura (del mismo usuario; si se borra la factura, se borran sus líneas) |
-| orden | número | Sí | 1, 2, 3… en el orden del ticket |
+| orden | número | Sí | 1, 2, 3… en el orden del ticket. **No se puede repetir** dentro de la misma factura |
 | tipo_iva | numérico | Sí | 21, 10, 4, 0… |
-| base, cuota | numérico | No | En la moneda original |
-| base_eur, cuota_eur | numérico | No | En euros (solo se rellenan si la moneda no es EUR) |
+| base, cuota | numérico | No | En la moneda de la factura |
 | origen | lista | Sí | `impreso` (viene en el ticket) o `calculado` (lo calculamos nosotros) |
+
+**Importes en euros de cada línea:** no se guardan. Se calculan al exportar con el tipo de cambio de la factura (`base ÷ tipo_cambio`), así nunca pueden descuadrar con él. **[Propuesta]** Al redondear cada línea, la suma de las líneas en euros puede diferir en 1 céntimo de `total_eur`; el Excel debe tomar `total_eur` como total.
 
 ### 3.8 `categorias`
 
@@ -267,7 +271,7 @@ Se avisa (nunca se bloquea) si, entre las facturas **del mismo usuario**:
 2. Tienen el **mismo NIF del emisor, número y total** (misma factura en otro archivo: foto y PDF del correo).
 3. Si falta el NIF o el número (tickets como T1 o el peaje E1): **mismo emisor, fecha y total**.
 
-La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuario puede ver la otra factura y marcar "no es duplicado" (`duplicado_descartado`).
+La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuario puede ver la otra factura y marcar "no es duplicado" (`duplicado_descartado`). La base de datos impide que `posible_duplicado_de` apunte a una factura de otro usuario aunque la ruta de servidor se equivoque.
 
 - Descartado: solo huella (no detecta el mismo ticket fotografiado dos veces) y bloquear (#22 pide avisar; un falso aviso haría perder un ticket).
 - **[Supuesto]** La huella se calcula en el navegador antes de subir, para avisar de un archivo repetido sin gastar una lectura. Comprobar en #22 que funciona en móvil.
@@ -289,7 +293,7 @@ La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuar
 
 ### D3 · Tipo de cambio (#20): fecha de la factura o el último publicado antes **[Propuesta]**
 
-- Se usa el tipo de referencia del BCE del **día de la factura**. Si ese día no hay tipo (fin de semana o festivo), el **último publicado antes**. Se guardan el tipo, su fecha y la fuente, y el usuario lo puede corregir (`tipo_cambio_fuente = manual`).
+- Se usa el tipo de referencia del BCE del **día de la factura**. Si ese día no hay tipo (fin de semana o festivo), el **último publicado antes**. Se guardan el tipo, su fecha y la fuente, y el usuario lo puede corregir (`tipo_cambio_fuente = manual`). Mientras no haya tipo, la factura queda con la conversión pendiente y no se puede marcar como revisada.
 - **[Confirmado]** El BCE publica los tipos hacia las 16:00 (hora central europea) cada día hábil, excepto los días de cierre de TARGET, y los publica "solo a efectos informativos". Fuente: BCE, consultado el 29/10/2026.
 - **[Supuesto]** Según una fuente secundaria (blog de Invoo, 20/05/2026), el artículo 79.Once de la Ley del IVA establece el tipo de cambio vendedor del Banco de España vigente en el devengo. No se ha podido leer el texto oficial del BOE. **[Pendiente]** Confirmarlo con una gestoría; si fuera otro tipo, solo cambia `tipo_cambio_fuente` y la ruta que lo consulta, no las tablas.
 - Descartado: fecha de subida (el importe dependería de cuándo se sube) y fecha de pago (no la tenemos).
@@ -355,7 +359,7 @@ La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuar
 
 ### Otras protecciones
 
-- Una línea de IVA solo puede apuntar a una factura **del mismo usuario**, y una factura a un documento del mismo usuario. Lo comprueba la base de datos con claves foráneas dobles (`id` + `user_id`), además de RLS.
+- Una línea de IVA solo puede apuntar a una factura **del mismo usuario**, una factura a un documento del mismo usuario y un posible duplicado a otra factura del mismo usuario. Lo comprueba la base de datos con claves foráneas dobles (`id` + `user_id`), además de RLS.
 - `ruta_storage` tiene que empezar por el id del propio usuario.
 - `buscar_duplicados` y la vista de exportación respetan RLS: solo buscan entre los datos de quien pregunta.
 
@@ -364,7 +368,7 @@ La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuar
 | Requisito | Dónde se resuelve | Issue |
 |---|---|---|
 | Usuario, factura, líneas de IVA, archivo original, categoría, plan (#29) | Tablas del apartado 3 | #29 |
-| Moneda original, tipo de cambio, importe en EUR (#29) | `facturas.moneda`, `tipo_cambio`, `tipo_cambio_fecha`, `tipo_cambio_fuente`, `total_eur`; `lineas_iva.base_eur` y `cuota_eur` | #29, #20 |
+| Moneda original, tipo de cambio, importe en EUR (#29) | `facturas.moneda`, `tipo_cambio`, `tipo_cambio_fecha`, `tipo_cambio_fuente`, `total_eur` (comprobado con el tipo); euros de cada línea calculados en la vista de exportación | #29, #20 |
 | Confianza de la IA por dato y si se corrigió (#29) | `facturas.campos_revision` + `datos_ia` (D2) | #29, #19, #21 |
 | Huella del archivo para duplicados (#29) | `documentos.huella_sha256` | #29, #22 |
 | Cada usuario ve solo lo suyo | RLS en todas las tablas y en Storage (apartado 5) | #13 |
@@ -375,7 +379,7 @@ La función `buscar_duplicados` devuelve las coincidencias y el motivo. El usuar
 | Importe original, tipo aplicado e importe en EUR | D3 | #20 |
 | Corregir y resaltar dudosos o vacíos | `campos_revision`, `estado_revision`, permisos de corrección | #21 |
 | Mismo archivo / misma factura / aviso con opción de ver la otra | D1, `buscar_duplicados`, `posible_duplicado_de` | #22 |
-| Periodo, una fila por tipo de IVA, enlace al original | Vista `exportacion_gestoria`, índice por fecha | #23 |
+| Periodo, una fila por tipo de IVA, enlace al original | Vista `exportacion_gestoria` (punto de partida, no la exportación final) e índice por fecha. **[Pendiente] bloqueante**: el enlace al original (apartado 8) | #23 |
 | Límite por plan, aviso y contador del mes | D4: `planes`, `suscripciones`, `uso_mensual`, `reservar_lectura` | #31 |
 | Conservar el original enlazado a sus datos (enunciado) | `documentos` 1:1 `facturas`; sin sobrescritura; sin borrado en cascada desde la cuenta | #18 |
 
@@ -395,7 +399,7 @@ Los 7 tickets se cargaron a partir de `docs/valores-reales-tickets.xlsx` con un 
 | E2 Carrefour | 21 % | 8,26 + 1,73 = 9,99 € | Número alfanumérico |
 | E3 Druni | 21 % y 4 % | 24,95 + 3,94 = 28,89 € | 2 tipos de IVA |
 
-Resultado: **42 comprobaciones correctas de 42**. Además de los tickets:
+Resultado: **53 comprobaciones correctas de 53** (42 iniciales y 11 añadidas tras la revisión de Javier). Además de los tickets:
 
 | Prueba | Resultado |
 |---|---|
@@ -413,25 +417,43 @@ Resultado: **42 comprobaciones correctas de 42**. Además de los tickets:
 | Plan Gratis: 10 lecturas sí, la 11.ª no; releer no suma; borrar no devuelve hueco | Correcto |
 | Vista de exportación de A: 11 filas (una por línea de IVA) y suma de totales 212,85 € (sin contar dos veces) | Correcto |
 | Sobrescribir un original en Storage | Correcto (0 archivos cambiados) |
+| Factura en dólares sin tipo de cambio pero con un importe en euros inventado | Correcto (se rechaza) |
+| Factura en dólares con un importe en euros que no cuadra con el tipo | Correcto (se rechaza) |
+| Factura en dólares pendiente de convertir: se guarda con `total_eur` vacío, pero no se puede marcar como revisada | Correcto |
+| Dos líneas de IVA con el mismo orden en una factura | Correcto (se rechaza) |
+| Enlazar como duplicado una factura de otro usuario (desde el servidor) | Correcto (se rechaza) |
+| Borrar la factura original de un duplicado: el enlace se vacía y el dueño no cambia | Correcto |
+| Vista de exportación: línea en dólares pasada a euros con el tipo de la factura (17,96 €) | Correcto |
+| Vista de exportación: factura sin líneas sale una vez, con su retención | Correcto |
+| Vista de exportación: un solo total por factura | Correcto |
 
 **[Pendiente]** No hay en el banco ningún ticket de gasolinera ni ninguna factura en otra moneda (`tests/tickets/README.md`). El modelo los contempla, pero no se han comprobado con un documento real.
 
-## 8. Pendientes
+## 8. Qué queda decidido y qué sigue pendiente
 
-| # | Qué | Quién (propuesta) | Cómo se cierra |
-|---|---|---|---|
-| 1 | Revisar este modelo contra los requisitos | Javier | Aprobación del PR |
-| 2 | Ejecutar el SQL en Supabase y repetir las pruebas de RLS con dos cuentas reales | Javier (#12, #13) | Las pruebas del apartado 7 pasan en Supabase |
-| 3 | **[Supuesto]** Que el proyecto de Supabase use PostgreSQL 15 o superior (la vista de exportación usa `security_invoker`) | Javier (#12) | Versión comprobada al crear el proyecto |
-| 4 | Añadir a la instrucción de la IA: `tipo_documento`, retención y confianza | Mireia (#19) | Prueba con los 7 tickets |
-| 5 | Tipo de cambio que exige la norma del IVA (BCE o Banco de España) | Equipo, con una gestoría | Respuesta documentada |
-| 6 | Enlace al original en el Excel: la gestoría no tiene cuenta y los enlaces firmados caducan. Opciones: enlace temporal largo, ZIP con los originales o solo el nombre del archivo | Bloque 3 (#23) | Decidido en #23 |
-| 7 | Columnas definitivas del Excel (la vista es un punto de partida) | Bloque 3 (#23) | Decidido en #23 |
-| 8 | Política de baja de cuenta y plazos de conservación. Hasta entonces, nada se borra en cascada al eliminar un usuario | Javier (legal) | Decisión documentada en `docs/legal.md` |
-| 9 | Borrar un documento: la fila y el archivo de Storage se borran por separado. **[Supuesto]** El archivo se borra con la API de Storage, no con SQL | Mireia (#18) | Probado al borrar un documento |
-| 10 | Facturas rectificativas o devoluciones con importes negativos: el modelo las admite, pero no hay reglas de aviso | Bloque 3 | Fuera del MVP salvo que aparezca un caso |
-| 11 | Validar los nombres de las 10 categorías | Equipo | Lista aprobada |
-| 12 | Tickets de gasolinera y en otra moneda | Equipo (#31) | Añadidos a `tests/tickets/` |
+### 8.1 Decidido para el MVP (si se aprueba este PR) **[Propuesta]**
+
+- Las tablas, campos y relaciones del apartado 3.
+- Las decisiones D1 a D7 del apartado 4.
+- Las reglas de seguridad del apartado 5 y las normas de integridad de los apartados 3.6 y 3.7.
+
+Esto es el **diseño**. Que funcione en Supabase **no** queda comprobado con este PR: las pruebas del apartado 7 son locales.
+
+### 8.2 Pendiente, por issue
+
+| # | Qué | Issue y responsable (propuesta) | Bloquea | Cómo se cierra |
+|---|---|---|---|---|
+| 1 | Ejecutar el SQL en Supabase y repetir las pruebas del apartado 7 con dos cuentas reales, incluidas las políticas de Storage y la vista | #12 y #13 · Javier | El paso a la web (fase 4) | Las pruebas pasan en Supabase |
+| 2 | **[Supuesto]** Que el proyecto de Supabase use PostgreSQL 15 o superior (la vista usa `security_invoker` y el duplicado usa `on delete set null (columna)`) | #12 · Javier | El punto 1 | Versión comprobada al crear el proyecto |
+| 3 | Añadir a la instrucción de la IA: `tipo_documento`, retención y confianza | #19 · Mireia | — | Prueba con los 7 tickets |
+| 4 | Tipo de cambio que exige la norma del IVA (BCE o Banco de España) | #20 · Equipo, con una gestoría | — | Respuesta documentada |
+| 5 | **Enlace al original en el Excel**: `ruta_storage` no es un enlace que pueda abrir la gestoría (no tiene cuenta y los enlaces firmados caducan). Opciones: enlace temporal largo, ZIP con los originales o solo el nombre del archivo | #23 · Bloque 3 | **Sí: el cierre de #23** | Decidido en #23 |
+| 6 | Columnas definitivas del Excel (la vista `exportacion_gestoria` es un punto de partida, no la exportación final) | #23 · Bloque 3 | El cierre de #23 | Decidido en #23 |
+| 7 | Probar con documentos reales un ticket de gasolinera y una factura en otra moneda (hoy no hay ninguno en `tests/tickets/`) | #10 y #31 · Equipo | El cierre de #6 y #31 | Añadidos y probados |
+| 8 | Política de baja de cuenta y plazos de conservación. Hasta entonces, nada se borra en cascada al eliminar un usuario | Legal · Javier | — | Decisión documentada en `docs/legal.md` |
+| 9 | Borrar un documento: la fila y el archivo de Storage se borran por separado. **[Supuesto]** El archivo se borra con la API de Storage, no con SQL | #18 · Mireia | — | Probado al borrar un documento |
+| 10 | Facturas rectificativas o devoluciones con importes negativos: el modelo las admite, pero no hay reglas de aviso | Bloque 3 | — | Fuera del MVP salvo que aparezca un caso |
+| 11 | Validar los nombres de las 10 categorías | Equipo | — | Lista aprobada |
 
 Fuera de alcance del MVP: varias empresas o gestorías con acceso a varios clientes, categorías propias de cada usuario, recargo de equivalencia y conexión con bancos.
 
