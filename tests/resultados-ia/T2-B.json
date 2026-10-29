@@ -1,0 +1,10 @@
+{
+  "motor": "B · Mistral OCR (modelo mistral-ocr-latest)",
+  "herramienta": "Consola de Mistral (Document AI, OCR simple sin esquema)",
+  "fecha": "2026-10-29",
+  "ajustes": "Sin formato de respuesta (el esquema JSON falló en la consola); extracción de cuadros delimitadores activada por defecto; tablas en markdown en línea",
+  "ticket": "T2",
+  "paginas": 1,
+  "texto_ocr_resumido": "TLF 00725000 / FACTURA SIMPLIFICADA / 13274003250802B056 / VEGO SUPERMERCADOS S.A.U. / C. BURGO NUEVO 32-3 CIF: A36651313 / C:3274 02-09-2025 11:21 142 03 1 6056 / ... / TOTAL A PAGAR 115.20 / ... / IVA incluido / 10,0% IVA DE 44,58 4,46 / 21,0% IVA DE 10,29 2,16 / 4,0% IVA DE 51,64 2,07",
+  "coste_estimado_usd": 0.004
+}

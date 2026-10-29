@@ -1,0 +1,10 @@
+{
+  "motor": "B · Mistral OCR (modelo mistral-ocr-latest)",
+  "herramienta": "Consola de Mistral (Document AI, OCR simple sin esquema)",
+  "fecha": "2026-10-29",
+  "ajustes": "Sin formato de respuesta (el esquema JSON falló en la consola); extracción de cuadros delimitadores activada por defecto; tablas en markdown en línea",
+  "ticket": "T3",
+  "paginas": 1,
+  "texto_ocr_resumido": "Invoice / Invoice number 9BF0758D-8771996 / Date of issue October 14, 2026 / Anthropic Ireland, Limited / ... / IE VAT IE4276970QH / ... / Claude Pro Oct 14-Nov 14, 2026 / 1 / €18.00 / 21% / €18.00 / Subtotal €18.00 / Total excluding tax €18.00 / VAT - Spain (21% on €18.00) €3.78 / Total €21.78 / Amount due €21.78",
+  "coste_estimado_usd": 0.004
+}
