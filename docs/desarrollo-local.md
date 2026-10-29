@@ -30,7 +30,7 @@ Estas comprobaciones deben ejecutarse en un entorno con las dependencias instala
 | Variable | Uso | Exposición |
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto Supabase | Pública |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave publicable de Supabase; requiere políticas RLS correctas | Pública |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Clave publicable de Supabase; requiere políticas RLS correctas | Pública |
 | `GEMINI_API_KEY` | Acceso del servidor a Gemini | Secreta |
 | `RESEND_API_KEY` | Acceso del servidor a Resend | Secreta |
 
