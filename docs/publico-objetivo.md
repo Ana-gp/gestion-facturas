@@ -81,3 +81,8 @@ El estudio de competencia (#1) ya está disponible, pero la diferenciación toda
   - ¿Cuánto tiempo te lleva cada trimestre?
   - ¿Has perdido alguna vez un gasto que podías deducir?
 - **Validar la comparación con la competencia** mediante pruebas de uso comparables y entrevistas; el estudio documental por sí solo no demuestra facilidad de uso ni superioridad.
+
+## Fuentes
+
+- Merca2, a partir de datos de la Seguridad Social: «España supera por primera vez los 22,5 millones de afiliados a la Seguridad Social en julio» (05/08/2026). Consultado el 29/10/2026. https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/
+- Enunciado del proyecto: «Proyecto final: Plataforma para gestión de facturas» (apartados «El problema» y «Prueba de lectura»).
