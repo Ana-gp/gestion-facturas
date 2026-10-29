@@ -26,7 +26,7 @@ Fecha de consulta de todas las fuentes: **29/10/2026**. Los precios están en d�
 |---|---|---|---|
 | Tipo | Modelo de IA general que "ve" imágenes y PDF; le pedimos los datos con una instrucción (*prompt*) | OCR especializado en documentos + extracción estructurada (*annotations*) | OCR especializado con modelos ya entrenados para facturas (*prebuilt invoice*) y tickets (*prebuilt receipt*) |
 | Precio oficial | `gemini-3.5-flash-lite`: 0,30 $ por millón de tokens de entrada y 2,50 $ por millón de salida. `gemini-3.1-flash-lite`: 0,25 $ / 1,50 $. **Hecho** | 4 $ por 1.000 páginas (solo OCR) y 5 $ por 1.000 páginas con extracción estructurada. Endpoint UE: +10 %. **Hecho** | 10 $ por 1.000 páginas en modelos *prebuilt*; 500 páginas gratis al mes en el plan F0. **Hecho en fuente secundaria** (la página oficial de Microsoft no cargó al consultarla) |
-| Coste por factura | Depende de los tokens: se mide en la prueba | ≈ 0,005 $ por página (0,0055 $ con endpoint UE) | ≈ 0,01 $ por página |
+| Coste por factura | Depende de los tokens: se mide en la prueba (resultado: ≈ 0,0009 $, ver apartado 6) | **Solo OCR:** ≈ 0,004 $ por página (4 $ / 1.000). **OCR + extracción de campos:** ≈ 0,005 $ por página (5 $ / 1.000). Con endpoint UE, +10 %: 0,0044 $ y 0,0055 $. En la prueba se usó solo OCR, por eso el apartado 6 usa 0,004 $ | ≈ 0,01 $ por página |
 | ¿Datos en la UE? | **No garantizado** con la API de Google AI Studio. Sí es posible con Vertex AI en región UE (otra configuración) | Por defecto, almacenamiento en la UE; para procesar solo en la UE hay que usar el endpoint `api.eu.mistral.ai` (+10 %). No confirmado que OCR esté disponible en ese endpoint | Se procesa en la región donde se crea el recurso (p. ej. *West Europe*); entrada y resultados se borran a las 24 h |
 | ¿Se puede probar sin programar? | Sí: Google AI Studio (web) | Sí, el OCR simple en la consola web (Document AI). La extracción con esquema JSON falló en la consola el 29/10/2026 | Sí, Document Intelligence Studio (web), pero la cuenta exige tarjeta: **descartado** |
 | Categoría del gasto | Sí, si se la pedimos en el *prompt* | Sí, si se la pedimos en el esquema de extracción | **No**: habría que añadirla con otro paso |
@@ -167,6 +167,8 @@ La conversión a euros **no se mide aquí**: el motor solo tiene que detectar bi
 
 ## 6. Coste por factura
 
+Los precios de los proveedores están en dólares; al final de este apartado se pasan a euros.
+
 Para Gemini, AI Studio muestra los tokens de entrada y de salida de cada respuesta. Fórmula:
 
 `coste = (tokens de entrada × precio de entrada + tokens de salida × precio de salida) ÷ 1.000.000`
@@ -181,7 +183,17 @@ Para Mistral y Azure el coste es por página: `coste = páginas × precio por p�
 | T4 | 1 | 1.379 | 196 | 0,000904 | 0,004 | No probado |
 | **Media por factura** | | 1.244 | 219 | **0,00092** | **0,004** (solo OCR) | No probado |
 
-Tipo de cambio usado para pasar a euros: ______ (fuente BCE, fecha ______).
+Tipo de cambio usado para pasar a euros: **1 € = 1,1133 $** (tipo de referencia del BCE del 28/10/2026, el último publicado al consultarlo el 29/10/2026). Fuente: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+
+| Ticket | A · coste (€) | B · coste (€) |
+|---|---|---|
+| T1 | 0,000825 | 0,0036 |
+| T2 | 0,001011 | 0,0036 |
+| T3 | 0,000658 | 0,0036 |
+| T4 | 0,000812 | 0,0036 |
+| **Media por factura** | **0,00083 €** | **0,0036 €** (solo OCR) |
+
+Para #3 (precios): con A, leer 1.000 facturas cuesta unos **0,83 €**. Es un **supuesto** que hay que revisar al fijar los precios, porque el tipo de cambio y los precios de Google pueden cambiar.
 
 Lectura de A: unos **0,0009 $ por factura**, es decir, menos de 1 $ por cada 1.000 facturas leídas (estimación de AI Studio con los precios actuales de `gemini-3.5-flash-lite`). Las fotos de ticket consumieron 1.101 tokens cada una y el PDF, menos.
 
