@@ -12,7 +12,8 @@
 | [Modelo de datos y base de datos](modelo-datos.md) y [borrador SQL](modelo-datos.sql) | 07 (#29) | Mireia | Aprobado |
 | [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Aprobado |
 | [Normativa aplicable](legal.md) | 09 (#4) | Javier | Aprobado |
-| [Funciones adicionales](funciones.md) | 04 (#7) | Ana | En revisión |
+| [Funciones adicionales](funciones.md) | 04 (#7) | Ana | Aprobado |
+| [Ejemplo de exportación a Excel](ejemplo-exportacion.xlsx) | 23 (#23) | Ana | Propuesta en revisión; decisión de columnas en el issue #23 |
 | [Guía de estilo](guia-estilo.md) | Todas | Equipo | Aprobado |
 
 La prueba de IA (#6) no se cerrará hasta completar o resolver con el equipo los casos pendientes de la issue #10. Los estados de revisión se actualizan a medida que el equipo valida las PR.
