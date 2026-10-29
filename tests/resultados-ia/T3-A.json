@@ -1,0 +1,28 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), chat temporal",
+  "fecha": "2026-10-29",
+  "ajustes": "Thinking level: Minimal (por defecto); Grounding with Google Search desactivado; misma instrucción del apartado 10 en una sola línea",
+  "ticket": "T3",
+  "respuesta": {
+    "fecha": "2026-10-14",
+    "emisor": "Anthropic Ireland, Limited",
+    "nif_emisor": "IE4276970QH",
+    "nif_receptor": null,
+    "numero_factura": "9BF0758D-8771996",
+    "lineas_iva": [
+      {
+        "tipo": 21,
+        "base": 18.0,
+        "cuota": 3.78
+      }
+    ],
+    "base_imponible_total": 18.0,
+    "total": 21.78,
+    "moneda": "EUR",
+    "categoria": "Software y suscripciones"
+  },
+  "tokens_entrada": 839,
+  "tokens_salida": 192,
+  "coste_estimado_usd": 0.000732
+}

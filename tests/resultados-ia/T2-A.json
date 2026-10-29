@@ -1,0 +1,38 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), chat temporal",
+  "fecha": "2026-10-29",
+  "ajustes": "Thinking level: Minimal (por defecto); Grounding with Google Search desactivado; misma instrucción del apartado 10 en una sola línea",
+  "ticket": "T2",
+  "respuesta": {
+    "fecha": "2025-09-02",
+    "emisor": "VEGO SUPERMERCADOS S.A.U.",
+    "nif_emisor": "A36651313",
+    "nif_receptor": null,
+    "numero_factura": "32742765031756805107",
+    "lineas_iva": [
+      {
+        "tipo": 10.0,
+        "base": 44.58,
+        "cuota": 4.46
+      },
+      {
+        "tipo": 21.0,
+        "base": 10.29,
+        "cuota": 2.16
+      },
+      {
+        "tipo": 4.0,
+        "base": 51.64,
+        "cuota": 2.07
+      }
+    ],
+    "base_imponible_total": 106.51,
+    "total": 115.2,
+    "moneda": "EUR",
+    "categoria": "Alimentación"
+  },
+  "tokens_entrada": 1379,
+  "tokens_salida": 285,
+  "coste_estimado_usd": 0.001126
+}

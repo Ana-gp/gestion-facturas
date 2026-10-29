@@ -1,0 +1,10 @@
+{
+  "motor": "B · Mistral OCR (modelo mistral-ocr-latest)",
+  "herramienta": "Consola de Mistral (Document AI, OCR simple sin esquema)",
+  "fecha": "2026-10-29",
+  "ajustes": "Sin formato de respuesta (el esquema JSON falló en la consola); extracción de cuadros delimitadores activada por defecto; tablas en markdown en línea",
+  "ticket": "T4",
+  "paginas": 1,
+  "texto_ocr_resumido": "CERVECERIA CELTICA / CERVECERIA CELTICA S.L. / C/ CERVANTES 10 / 24002 LEON / Tlf. 987006364 / B24610297 / Factura simplificada. / 29/08/26 23:33 Num. 1 / 388087 / ... / % Imp Base Imp. Total Imp / 10,00 19,09 1,91 / Importe Cobrado (IMP. Inc.) / TARJETA 21,00 / TAL FUROS 21,00 / OR SU VISITA",
+  "coste_estimado_usd": 0.004
+}

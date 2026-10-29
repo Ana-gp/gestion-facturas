@@ -1,0 +1,10 @@
+{
+  "motor": "B · Mistral OCR (modelo mistral-ocr-latest)",
+  "herramienta": "Consola de Mistral (Document AI, OCR simple sin esquema)",
+  "fecha": "2026-10-29",
+  "ajustes": "Sin formato de respuesta (el esquema JSON falló en la consola); extracción de cuadros delimitadores activada por defecto; tablas en markdown en línea",
+  "ticket": "T1",
+  "paginas": 1,
+  "texto_ocr_resumido": "ALCAMPO SANTA NONIA / FACTURA SIMPLIFICADA / PAN MOLDE / PAN MOLDE 1,40 / PAN MOLDE 1,40 C / RED BULL S.FREE 5,79 / €* TOT 5,79 / € TARJETA 5,79 / € CAMBIO ,00 / NUM. TOTAL ART. VENDIDOS = 4 / Imp. % Base Cuota / C IVA 4,00 4,05 ,15 / A IVA 21,00 1,31 ,28 / PARA EL CLIENTE / ESTABLECIMIENTO: ALCAMPO SANTA NONIA / LOCALIDAD: 9002 LEON (CASTILLA LEON) / FECHA / HORA: 08/09/26 - 13:28 / ...",
+  "coste_estimado_usd": 0.004
+}
