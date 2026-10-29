@@ -1,0 +1,28 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), chat temporal",
+  "fecha": "2026-10-29",
+  "ajustes": "Thinking level: Minimal (por defecto); Grounding with Google Search desactivado; misma instrucción del apartado 10 en una sola línea",
+  "ticket": "T4",
+  "respuesta": {
+    "fecha": "2026-08-29",
+    "emisor": "CERVECERIA CELTICA S.L.",
+    "nif_emisor": "B24610297",
+    "nif_receptor": null,
+    "numero_factura": "1 / 388087",
+    "lineas_iva": [
+      {
+        "tipo": 10.0,
+        "base": 19.09,
+        "cuota": 1.91
+      }
+    ],
+    "base_imponible_total": 19.09,
+    "total": 21.0,
+    "moneda": "EUR",
+    "categoria": "Restauración y dietas"
+  },
+  "tokens_entrada": 1379,
+  "tokens_salida": 196,
+  "coste_estimado_usd": 0.000904
+}

@@ -86,61 +86,61 @@ Categorías provisionales (**supuesto**, a revisar cuando se cierren #2 y #7): C
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | 2026-09-08 | | | | |
-| Emisor | Alcampo Santa Nonia | | | | |
-| NIF del emisor | N/A | | | | |
-| NIF del receptor | N/A | | | | |
-| Número de factura / ticket | N/A | | | | |
-| IVA 1: tipo (%) | 4 | | | | |
-| IVA 1: base imponible | 4,05 | | | | |
-| IVA 1: cuota | 0,15 | | | | |
-| IVA 2: tipo (%) | 21 | | | | |
-| IVA 2: base imponible | 1,31 | | | | |
-| IVA 2: cuota | 0,28 | | | | |
-| Base imponible total | 5,36 | | | | |
-| Total | 5,79 | | | | |
-| Moneda | EUR | | | | |
-| Categoría | Alimentación | | | | |
+| Fecha | 2026-09-08 | ✅ | | |  |
+| Emisor | Alcampo Santa Nonia | ✅ | | |  |
+| NIF del emisor | N/A | N/A ✅ | | | Lo deja vacío (correcto) |
+| NIF del receptor | N/A | N/A ✅ | | | Lo deja vacío (correcto) |
+| Número de factura / ticket | N/A | N/A ✅ | | | Lo deja vacío (correcto) |
+| IVA 1: tipo (%) | 4 | ✅ | | |  |
+| IVA 1: base imponible | 4,05 | ✅ | | |  |
+| IVA 1: cuota | 0,15 | ✅ | | |  |
+| IVA 2: tipo (%) | 21 | ✅ | | |  |
+| IVA 2: base imponible | 1,31 | ✅ | | |  |
+| IVA 2: cuota | 0,28 | ✅ | | |  |
+| Base imponible total | 5,36 | ✅ | | |  |
+| Total | 5,79 | ✅ | | |  |
+| Moneda | EUR | ✅ | | |  |
+| Categoría | Alimentación | ✅ | | |  |
 
 ### T2 · Supermercado con varios tipos de IVA
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | 2025-09-02 | | | | |
-| Emisor | Vego Supermercados S.A.U. | | | | |
-| NIF del emisor | A36651313 | | | | |
-| NIF del receptor | N/A | | | | |
-| Número de factura / ticket | 132740032509026056 | | | | |
-| IVA 1: tipo (%) | 10 | | | | |
-| IVA 1: base imponible | 44,58 | | | | |
-| IVA 1: cuota | 4,46 | | | | |
-| IVA 2: tipo (%) | 21 | | | | |
-| IVA 2: base imponible | 10,29 | | | | |
-| IVA 2: cuota | 2,16 | | | | |
-| IVA 3: tipo (%) | 4 | | | | |
-| IVA 3: base imponible | 51,64 | | | | |
-| IVA 3: cuota | 2,07 | | | | |
-| Base imponible total | 106,51 | | | | |
-| Total | 115,20 | | | | |
-| Moneda | EUR | | | | |
-| Categoría | Alimentación | | | | |
+| Fecha | 2025-09-02 | ✅ | | |  |
+| Emisor | Vego Supermercados S.A.U. | ✅ | | |  |
+| NIF del emisor | A36651313 | ✅ | | |  |
+| NIF del receptor | N/A | N/A ✅ | | | Lo deja vacío (correcto) |
+| Número de factura / ticket | 132740032509026056 | ❌ | | | Leyó 32742765031756805107: el número bajo el código de barras, no el de la factura simplificada |
+| IVA 1: tipo (%) | 10 | ✅ | | |  |
+| IVA 1: base imponible | 44,58 | ✅ | | |  |
+| IVA 1: cuota | 4,46 | ✅ | | |  |
+| IVA 2: tipo (%) | 21 | ✅ | | |  |
+| IVA 2: base imponible | 10,29 | ✅ | | |  |
+| IVA 2: cuota | 2,16 | ✅ | | |  |
+| IVA 3: tipo (%) | 4 | ✅ | | |  |
+| IVA 3: base imponible | 51,64 | ✅ | | |  |
+| IVA 3: cuota | 2,07 | ✅ | | |  |
+| Base imponible total | 106,51 | ✅ | | |  |
+| Total | 115,20 | ✅ | | |  |
+| Moneda | EUR | ✅ | | |  |
+| Categoría | Alimentación | ✅ | | |  |
 
 ### T3 · Factura PDF de suscripción en inglés
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | 2026-10-14 | | | | |
-| Emisor | Anthropic Ireland, Limited | | | | |
-| NIF / VAT ID del emisor | IE4276970QH | | | | |
-| NIF del receptor | N/A | | | | |
-| Número de factura | 9BF0758D-8771996 | | | | |
-| IVA 1: tipo (%) | 21 | | | | |
-| IVA 1: base imponible | 18,00 | | | | |
-| IVA 1: cuota | 3,78 | | | | |
-| Base imponible total | 18,00 | | | | |
-| Total | 21,78 | | | | |
-| Moneda | EUR | | | | |
-| Categoría | Software y suscripciones | | | | |
+| Fecha | 2026-10-14 | ✅ | | |  |
+| Emisor | Anthropic Ireland, Limited | ✅ | | |  |
+| NIF / VAT ID del emisor | IE4276970QH | ✅ | | |  |
+| NIF del receptor | N/A | N/A ✅ | | | Lo deja vacío (correcto) |
+| Número de factura | 9BF0758D-8771996 | ✅ | | |  |
+| IVA 1: tipo (%) | 21 | ✅ | | |  |
+| IVA 1: base imponible | 18,00 | ✅ | | |  |
+| IVA 1: cuota | 3,78 | ✅ | | |  |
+| Base imponible total | 18,00 | ✅ | | |  |
+| Total | 21,78 | ✅ | | |  |
+| Moneda | EUR | ✅ | | |  |
+| Categoría | Software y suscripciones | ✅ | | |  |
 
 La conversión a euros **no se mide aquí**: el motor solo tiene que detectar bien la moneda. La conversión se hará con el tipo de cambio del BCE en la fecha de la factura (issue #20).
 
@@ -148,21 +148,21 @@ La conversión a euros **no se mide aquí**: el motor solo tiene que detectar bi
 
 | Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
 |---|---|---|---|---|---|
-| Fecha | 2026-08-29 | | | | |
-| Emisor | Cerveceria Celtica S.L. | | | | |
-| NIF del emisor | B24610297 | | | | |
-| NIF del receptor | N/A | | | | |
-| Número de factura / ticket | 1 / 388087 | | | | |
-| IVA 1: tipo (%) | 10 | | | | |
-| IVA 1: base imponible | 19,09 | | | | |
-| IVA 1: cuota | 1,91 | | | | |
-| IVA 2: tipo (%) | N/A | | | | |
-| IVA 2: base imponible | N/A | | | | |
-| IVA 2: cuota | N/A | | | | |
-| Base imponible total | 19,09 | | | | |
-| Total | 21,00 | | | | |
-| Moneda | EUR | | | | |
-| Categoría | Restauración y dietas | | | | |
+| Fecha | 2026-08-29 | ✅ | | |  |
+| Emisor | Cerveceria Celtica S.L. | ✅ | | |  |
+| NIF del emisor | B24610297 | ✅ | | |  |
+| NIF del receptor | N/A | N/A ✅ | | | Lo deja vacío (correcto) |
+| Número de factura / ticket | 1 / 388087 | ✅ | | |  |
+| IVA 1: tipo (%) | 10 | ✅ | | |  |
+| IVA 1: base imponible | 19,09 | ✅ | | |  |
+| IVA 1: cuota | 1,91 | ✅ | | |  |
+| IVA 2: tipo (%) | N/A | N/A ✅ | | |  |
+| IVA 2: base imponible | N/A | N/A ✅ | | |  |
+| IVA 2: cuota | N/A | N/A ✅ | | |  |
+| Base imponible total | 19,09 | ✅ | | |  |
+| Total | 21,00 | ✅ | | |  |
+| Moneda | EUR | ✅ | | |  |
+| Categoría | Restauración y dietas | ✅ | | |  |
 
 ## 6. Coste por factura
 
@@ -174,25 +174,31 @@ Para Mistral y Azure el coste es por página: `coste = páginas × precio por p�
 
 | Ticket | Páginas | A · tokens entrada | A · tokens salida | A · coste ($) | B · coste ($) | C · coste ($) |
 |---|---|---|---|---|---|---|
-| T1 | | | | | | |
-| T2 | | | | | | |
-| T3 | | | | | | |
-| T4 | | | | | | |
-| **Media por factura** | | | | | | |
+| T1 | 1 | 1.379 | 202 | 0,000919 | | |
+| T2 | 1 | 1.379 | 285 | 0,001126 | | |
+| T3 | 1 | 839 | 192 | 0,000732 | | |
+| T4 | 1 | 1.379 | 196 | 0,000904 | | |
+| **Media por factura** | | 1.244 | 219 | **0,00092** | | |
 
 Tipo de cambio usado para pasar a euros: ______ (fuente BCE, fecha ______).
 
+Lectura de A: unos **0,0009 $ por factura**, es decir, menos de 1 $ por cada 1.000 facturas leídas (estimación de AI Studio con los precios actuales de `gemini-3.5-flash-lite`). Las fotos de ticket consumieron 1.101 tokens cada una y el PDF, menos.
+
 ## 7. Resumen
+
+**Cómo se hizo la prueba de A (29/10/2026):** Google AI Studio en la web, modelo `gemini-3.5-flash-lite`, nivel de razonamiento *Minimal* (el que trae por defecto), búsqueda de Google desactivada, un chat temporal nuevo por ticket y la instrucción del apartado 10 escrita en una sola línea. Una sola ejecución por ticket. Los tokens y el coste son los que muestra AI Studio en su detalle de uso, que los indica como estimación de lo que costaría la misma petición por API; en AI Studio sin clave de API no se cobra. Respuestas completas en `tests/resultados-ia/T*-A.json`.
+
+**Límites (supuestos y advertencias):** 4 tickets y una ejecución cada uno no bastan para dar una tasa de acierto fiable; T1 no es de gasolinera; T3 está en euros, así que la detección de otra moneda sigue sin probar. Las fotos se enviaron tras pasarlas por el chat de Claude, que puede recomprimirlas.
 
 Aciertos = número de ✅ ÷ número de campos que existen en el ticket (sin contar los N/A).
 
 | Motor | T1 | T2 | T3 | T4 | Total aciertos | Coste medio por factura | ¿Datos en la UE? | ¿Categoría? |
 |---|---|---|---|---|---|---|---|---|
-| A · Gemini Flash-Lite | | | | | | | No garantizado | Sí |
+| A · Gemini 3.5 Flash Lite | 12/12 | 16/17 | 11/11 | 11/11 | **50/51 (98 %)** | 0,00092 $ | No garantizado | Sí |
 | B · Mistral OCR 4.1 | | | | | | | Sí (endpoint UE) | Sí |
 | C · Azure Document Intelligence | | | | | | | Sí (región UE) | No |
 
-Campos que más fallan: ______
+Campos que más fallan: A · número de factura en T2 (tomó otro número impreso en el ticket). Ningún motor ha inventado datos ausentes: en los campos N/A devolvió vacío.
 
 ## 8. Criterios de decisión (recomendación)
 
