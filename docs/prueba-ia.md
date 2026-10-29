@@ -3,7 +3,7 @@
 Issue: #6 · Bloque 2 (subida y lectura) · Responsable: Mireia
 Depende de: #5 (stack) y #10 (banco de tickets) · Alimenta: #5 (elección del motor), #3 (precios), #19 (lectura automática)
 
-> **Estado: PENDIENTE DE PRUEBA.** Ninguna tabla de resultados está rellenada todavía. Hasta que lo esté, no se puede afirmar que ningún motor lea bien nuestros tickets.
+> **Estado: PRUEBA REALIZADA el 29/10/2026 con A (Gemini) y B (Mistral). C (Azure) descartado.** Motor elegido: **Gemini 3.5 Flash Lite** (ver apartado 9). Los resultados valen para estos 4 tickets y una ejecución cada uno; no garantizan el mismo acierto con cualquier documento.
 
 ## 1. Objetivo
 
@@ -223,13 +223,29 @@ Si dos motores empatan en precisión, se elige el que trate los datos en la UE.
 
 ## 9. Decisión
 
-Motor elegido: ______
+Motor elegido: **A · Gemini 3.5 Flash Lite** (`gemini-3.5-flash-lite`). Decidido por Mireia el 29/10/2026, a partir de la recomendación de este documento.
 
-Motivo: ______
+Motivo:
 
-Configuración necesaria (cuenta, región, modelo exacto): ______
+- Lee el documento, ordena los campos y asigna la categoría en un solo paso; Mistral OCR solo devuelve texto y necesitaría un segundo paso.
+- Precisión prácticamente igual con nuestros tickets (43/44 frente a 42/44 en los campos impresos) y 4/4 en la categoría.
+- Coste estimado de unos 0,0009 $ por factura, unas 4 veces menos que solo el OCR de Mistral. Este dato es el que usa #3 para los precios.
 
-Riesgos y qué hará la pantalla de corrección (#21) para cubrirlos: ______
+Configuración necesaria (**recomendación**, a confirmar en #5 y #4):
+
+- **Desarrollo y pruebas:** API de Gemini (Google AI Studio) con una clave que guarda el equipo, nunca en el código del repositorio.
+- **Web real:** Gemini a través de **Vertex AI con región de la UE** (multirregión `eu` o una región europea), para que el tratamiento quede en la UE. Requiere una cuenta de pago de Google Cloud: decisión pendiente del equipo.
+- **No usar el nivel gratuito con datos de clientes:** según las condiciones de Google, el contenido del servicio gratuito puede usarse para mejorar sus productos.
+- Precio de referencia: 0,30 $ por millón de tokens de entrada y 2,50 $ por millón de salida (consultado el 29/10/2026). Revisar antes de fijar precios, porque Google ha anunciado subidas en otros modelos Flash.
+
+Alternativa si el equipo exige tratamiento en la UE sin cuenta de Google Cloud: **B · Mistral** (endpoint `api.eu.mistral.ai`), añadiendo un paso de extracción estructurada y repitiendo la prueba.
+
+Riesgos y qué hará la pantalla de corrección (#21) para cubrirlos:
+
+- **Número de factura:** fue el único campo que falló, al confundirlo con otro número del ticket. La pantalla de corrección debe mostrarlo junto a la imagen para comprobarlo de un vistazo.
+- **Datos ausentes:** el motor deja vacíos los que no aparecen. La pantalla debe marcar esos campos para que el usuario los rellene si los conoce.
+- **Moneda distinta del euro:** sin probar. Queda pendiente para #20 y #31.
+- **Muestra pequeña:** repetir la prueba con más tickets en #31, incluido uno real de gasolinera.
 
 ## 10. Instrucción común para los motores que la admiten
 
