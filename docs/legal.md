@@ -188,7 +188,7 @@ Para el MVP, las prioridades normativas son la protección de datos, el aislamie
 
 Este documento es una base de trabajo para el TFG, no una certificación de cumplimiento. El cumplimiento real dependerá de la arquitectura implementada, los proveedores elegidos, los contratos, la configuración de seguridad y el funcionamiento efectivo del producto.
 
-## 10. Fuentes oficiales
+## 12. Fuentes oficiales
 
 1. [Reglamento (UE) 2016/679 (RGPD), EUR-Lex](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32016R0679)
 2. [Ley Orgánica 3/2018 (LOPDGDD), BOE — texto consolidado](https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673)
