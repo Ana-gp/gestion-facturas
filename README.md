@@ -47,6 +47,7 @@ Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`
 - [Normativa aplicable](docs/legal.md)
 - [Arquitectura](docs/arquitectura.md)
 - [Prueba de concepto de IA](docs/prueba-ia.md)
+- [Modelo de datos](docs/modelo-datos.md) y [borrador SQL](docs/modelo-datos.sql)
 - `tests/tickets/`: documentos para las pruebas de lectura
 
 ## Orden de trabajo
