@@ -60,6 +60,7 @@ Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`
 - [Normativa aplicable](docs/legal.md)
 - [Arquitectura](docs/arquitectura.md)
 - [Prueba de concepto de IA](docs/prueba-ia.md)
+- [Modelo de datos](docs/modelo-datos.md) y [borrador SQL](docs/modelo-datos.sql)
 - [Guía de estilo](docs/guia-estilo.md)
 
 ## Estructura
