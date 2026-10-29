@@ -1,17 +1,17 @@
 # 01 · Público objetivo y propuesta de valor
 
 > **Estado:** aprobado por el equipo. Pendiente de añadir la entrevista a un autónomo.
-> Leyenda: ✅ confirmado · 💡 propuesta · ⏳ pendiente
+> Leyenda: **[Confirmado]** dato o requisito comprobado · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información
 
 ---
 
-## 1. Público elegido 💡
+## 1. Público elegido [Propuesta]
 
 Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabajan con una gestoría para sus impuestos.
 
 **Por qué los autónomos:**
 - Tienen exactamente el problema que plantea el enunciado: tickets sueltos, facturas en el correo y prisas cada trimestre.
-- Son muchos: ✅ en España hay **3.472.357 autónomos** afiliados al RETA (julio de 2026), un 1,7 % más que un año antes. [Fuente: Merca2, datos de la Seguridad Social](https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/)
+- Son muchos **[Confirmado]**: en España hay **3.472.357 autónomos** afiliados al RETA (julio de 2026), un 1,7 % más que un año antes. [Fuente: Merca2, datos de la Seguridad Social](https://www.merca2.es/2026/08/05/afiliados-seguridad-social-julio-record-2431094/)
 - Las herramientas fuertes del mercado están pensadas para empresas con empleados o para llevar la contabilidad completa, no para una persona que solo quiere tener sus gastos en orden.
 
 ### Públicos descartados por ahora
@@ -23,7 +23,7 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 ---
 
-## 2. Perfil de usuario 💡
+## 2. Perfil de usuario [Propuesta]
 
 **Quién es:** trabaja por su cuenta (comercial, diseñador, fontanero, formador, fotógrafo, consultor…). Usa el móvil para casi todo y tiene una gestoría que le lleva los impuestos. No quiere aprender contabilidad.
 
@@ -43,13 +43,13 @@ Nuestra herramienta se dirige a **autónomos** de cualquier actividad que trabaj
 
 ---
 
-## 3. Problema que resolvemos ✅
+## 3. Problema que resolvemos [Confirmado]
 
 Del propio enunciado: los tickets arrugados en la cartera, los PDFs perdidos en el correo y la tarde de cada trimestre juntándolo todo para la gestoría. **Lo que no se encuentra no se deduce, y eso es dinero que se pierde.**
 
 ---
 
-## 4. Propuesta de valor 💡
+## 4. Propuesta de valor [Propuesta]
 
 > Haz una foto al ticket y olvídate. Cada trimestre tienes todos tus gastos ordenados, con el original, listos para enviar a tu gestoría. No pierdes ni un justificante.
 
@@ -57,7 +57,7 @@ La herramienta guarda y ordena los justificantes; **qué gastos se pueden deduci
 
 ---
 
-## 5. Por qué nos pagarían a nosotros y no a la competencia ⏳
+## 5. Por qué nos pagarían a nosotros y no a la competencia [Pendiente]
 
 *A confirmar con el estudio de competencia (02).*
 
@@ -88,7 +88,7 @@ La herramienta guarda y ordena los justificantes; **qué gastos se pueden deduci
 
 ---
 
-## 8. Pendiente ⏳
+## 8. Pendiente
 
 - **Validar con un autónomo real:** una entrevista corta. Preguntas propuestas:
   - ¿Cómo guardas hoy tus tickets y facturas?
