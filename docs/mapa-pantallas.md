@@ -3,7 +3,7 @@
 Tarea: #8 (orden 10) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 29/10/2026
 Depende de: #2 (público objetivo) y #7 (funciones adicionales). Usa también #5 (arquitectura), #29 (modelo de datos), #3 (modelo de negocio) y #4 (normativa) · Alimenta: #9 (requisitos de diseño) y #11 (prototipo)
 
-**Estado:** **[Propuesta]**. Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Pendiente de la revisión de Anaí y Javier. No hay ninguna pantalla construida: este documento dice *qué pantallas habrá y cómo se pasa de una a otra*, no cómo se ven ni que funcionen.
+**Estado:** **[Propuesta]**. Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Pendiente de la revisión de Ana y Javier. No hay ninguna pantalla construida: este documento dice *qué pantallas habrá y cómo se pasa de una a otra*, no cómo se ven ni que funcionen.
 
 Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
@@ -93,7 +93,7 @@ No cuenta como "dos clics" tener que abrir otra pantalla o un formulario aparte.
 
 | Elemento | Dónde aparece | Sale de | Tipo |
 |---|---|---|---|
-| **Avisos dentro de la web** (no por correo): posible duplicado, ticket sin NIF del emisor y trimestre a punto de cerrar | En la ficha (P10), como etiqueta y filtro en P07 y como franja arriba en P07 (DP9) | Requisito 5 · #22 · #27 · #7 | Duplicado: obligatorio. Los otros dos: extra, en todos los planes |
+| **Avisos dentro de la web** (no por correo): posible duplicado, ticket sin NIF del receptor y trimestre a punto de cerrar | En la ficha (P10), como etiqueta y filtro en P07 y como franja arriba en P07 (DP9) | Requisito 5 · #22 · #27 · #7 | Duplicado: obligatorio. Los otros dos: extra, en todos los planes |
 | **Instalar en el móvil (PWA)** | Botón en P15 y franja la primera vez que entra desde el móvil **[Propuesta]** | #17 · #7 | Extra, todos los planes |
 | **Compartir desde el móvil** | Al elegir "Compartir" en un PDF, Ticketon aparece en la lista y lleva a P09. **[Confirmado]** Funciona en Chrome para Android, Samsung Internet y Chrome de escritorio, no en Safari de iPhone ni en Firefox ([funciones](funciones.md)) | #17 · #7 | Extra, incluido en la instalación en el móvil |
 | **Avisos del límite del plan** | P09, P07 y P15, con enlace a Precios | #31 | Obligatoria (el plan Gratis tiene límite) |
@@ -430,9 +430,9 @@ Se pueden cambiar en la revisión del PR sin rehacer el mapa:
 | 2 | Cómo se informa de la privacidad al registrarse (P02), textos de P06 y baja de la cuenta | #25 y #4 · Javier | El diseño de P02 | Decidido en `legal.md` |
 | 3 | Cuándo se leen los documentos guardados sin leer por falta de cupo (DP8) | #31 · Javier | — | Decidido en #31 |
 | 4 | Formatos y tamaño máximo de archivo (E8) | #15 · Mireia | — | Fijado y probado con una foto de más de 5 MB |
-| 5 | Si se deja subir igualmente un archivo repetido (E4) | #22 · Anaí | — | Decidido en #22 |
-| 6 | Cuándo sale el aviso "trimestre a punto de cerrar" | #27 · Anaí | — | Decidido en #27 |
-| 7 | Que el .zip del Cierre de trimestre quepa en los límites de Vercel | #50 · Anaí | El cierre de #50 | Probado con un trimestre de ejemplo |
+| 5 | Si se deja subir igualmente un archivo repetido (E4) | #22 · Ana | — | Decidido en #22 |
+| 6 | Cuándo sale el aviso "trimestre a punto de cerrar" | #27 · Ana | — | Decidido en #27 |
+| 7 | Que el .zip del Cierre de trimestre quepa en los límites de Vercel | #50 · Ana | El cierre de #50 | Probado con un trimestre de ejemplo |
 | 8 | Plan en el que va el Panel con cifras | #26 · Javier | — | Decidido en `funciones.md` |
 
 ## 9. Registro de decisiones
@@ -441,7 +441,7 @@ Se pueden cambiar en la revisión del PR sin rehacer el mapa:
 |---|---|---|
 | 29/10/2026 | Borrador del mapa: 18 pantallas, 11 estados y 7 flujos | Mireia |
 | 29/10/2026 | DP1 a DP9: opción A en todas | Mireia |
-| [Pendiente] | Revisión | Anaí y Javier |
+| [Pendiente] | Revisión | Ana y Javier |
 
 ## 10. Fuentes
 
