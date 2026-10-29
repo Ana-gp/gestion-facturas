@@ -36,7 +36,7 @@ Trabajamos por fases: cada uno hace las tareas de su bloque en la fase en curso.
 5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directo a `main`.
 
 ## Estilo de los documentos
-Todos los documentos siguen la [guía de estilo](docs/guia-estilo.md): sin iconos, con las mismas etiquetas de estado (**[Confirmado]**, **[Propuesta]**, **[Pendiente]**) y de resultados (**Correcto**, **Incorrecto**, **Vacío**, **No aplica**). Quien revisa un pull request comprueba también el estilo.
+Todos los documentos siguen la [guía de estilo](docs/guia-estilo.md): sin iconos, con las mismas etiquetas de estado (**[Confirmado]**, **[Supuesto]**, **[Propuesta]**, **[Pendiente]**) y de resultados (**Correcto**, **Incorrecto**, **Vacío**, **No aplica**). Quien revisa un pull request comprueba también el estilo.
 
 ## Estructura
 - `docs/` documentos del proyecto y guía de estilo. Ver el [índice de documentos](docs/README.md)

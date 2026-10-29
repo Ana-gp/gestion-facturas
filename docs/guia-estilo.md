@@ -15,10 +15,15 @@ Para indicar qué tan segura es una información:
 | Etiqueta | Cuándo se usa |
 |---|---|
 | **[Confirmado]** | Comprobado en una fuente o en el enunciado. Lleva enlace y fecha de consulta. |
+| **[Supuesto]** | Lo damos por bueno para avanzar, pero no está comprobado. Se indica qué habría que comprobar. |
 | **[Propuesta]** | Decisión o recomendación del equipo. Se puede cambiar. |
-| **[Pendiente]** | Falta información o comprobarlo. |
+| **[Pendiente]** | Falta información para poder afirmarlo o decidirlo. |
 
-Se escriben entre corchetes y en negrita, al lado del título o del dato al que se refieren. Cada documento explica la leyenda al principio.
+Se escriben entre corchetes y en negrita, al lado del título o del dato al que se refieren. Cada documento explica al principio las etiquetas que usa.
+
+Estas cuatro etiquetas cubren lo que pide el enunciado: distinguir hechos (Confirmado), supuestos (Supuesto) y recomendaciones (Propuesta), y en normativa, lo verificado, los supuestos y lo que hay que confirmar (Pendiente).
+
+Diferencia entre Supuesto y Pendiente: un supuesto se usa igualmente para avanzar (por ejemplo, el coste de 0,83 € por 1.000 facturas); lo pendiente no se puede usar hasta tener la información.
 
 "En progreso" no se usa en los documentos: el estado de una tarea se ve en el tablero de GitHub (Todo / In Progress / Done).
 

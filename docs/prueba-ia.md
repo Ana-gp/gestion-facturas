@@ -15,8 +15,8 @@ Comparar 2 o 3 motores de IA con los 4 tickets obligatorios y decidir cuál usam
 Leyenda usada en este documento:
 
 - **[Confirmado]**: comprobado en una fuente oficial, con fecha de consulta.
+- **[Supuesto]**: algo que damos por bueno para avanzar sin haberlo comprobado aún.
 - **[Propuesta]**: decisión o recomendación nuestra, que el equipo puede cambiar.
-- **[Pendiente]**: algo que damos por bueno sin haberlo comprobado aún.
 
 Etiquetas según `docs/guia-estilo.md`.
 
@@ -81,7 +81,7 @@ Para los extras se puede usar la misma tabla de campos que en el apartado 5.
 3. Si algo es Incorrecto, apuntar en "Notas" qué dio (por ejemplo, "leyó 12,30 en vez de 12,80").
 4. Guardar la respuesta completa de cada motor en `tests/resultados-ia/` con el nombre `T1-A.json`, `T1-B.json`, etc.
 
-Categorías provisionales (**[Pendiente]**, a revisar cuando se cierren #2 y #7): Combustible y transporte · Alimentación · Restauración y dietas · Software y suscripciones · Telefonía e internet · Material de oficina · Suministros · Alojamiento y viajes · Formación · Otros.
+Categorías provisionales (**[Supuesto]**, a revisar cuando se cierren #2 y #7): Combustible y transporte · Alimentación · Restauración y dietas · Software y suscripciones · Telefonía e internet · Material de oficina · Suministros · Alojamiento y viajes · Formación · Otros.
 
 ## 5. Resultados por ticket
 
@@ -195,11 +195,11 @@ Tipo de cambio usado para pasar a euros: **1 € = 1,1133 $** (tipo de referenci
 | T4 | 0,000812 | 0,0036 |
 | **Media por factura** | **0,00083 €** | **0,0036 €** (solo OCR) |
 
-Para #3 (precios): con A, leer 1.000 facturas cuesta unos **0,83 €**. Es un dato **[Pendiente]** que hay que revisar al fijar los precios, porque el tipo de cambio y los precios de Google pueden cambiar.
+Para #3 (precios): con A, leer 1.000 facturas cuesta unos **0,83 €**. Es un **[Supuesto]** que hay que revisar al fijar los precios, porque el tipo de cambio y los precios de Google pueden cambiar.
 
 Lectura de A: unos **0,0009 $ por factura**, es decir, menos de 1 $ por cada 1.000 facturas leídas (estimación de AI Studio con los precios actuales de `gemini-3.5-flash-lite`). Las fotos de ticket consumieron 1.101 tokens cada una y el PDF, menos.
 
-Lectura de B: 4 $ por cada 1.000 páginas según la lista de precios oficial de Mistral OCR 4.1 (0,004 $ por página de ticket). **[Pendiente]** Falta confirmar que `mistral-ocr-latest` corresponda a OCR 4.1 en la fecha de la prueba. Es solo el OCR: para obtener los campos ordenados y la categoría haría falta un segundo paso (extracción estructurada, 5 $ por 1.000 páginas, u otro modelo), que sumaría coste. La consola no muestra el coste de cada lectura.
+Lectura de B: 4 $ por cada 1.000 páginas según la lista de precios oficial de Mistral OCR 4.1 (0,004 $ por página de ticket). **[Supuesto]** Damos por hecho que `mistral-ocr-latest` corresponde a OCR 4.1 en la fecha de la prueba. Es solo el OCR: para obtener los campos ordenados y la categoría haría falta un segundo paso (extracción estructurada, 5 $ por 1.000 páginas, u otro modelo), que sumaría coste. La consola no muestra el coste de cada lectura.
 
 ## 7. Resumen
 
@@ -207,7 +207,7 @@ Lectura de B: 4 $ por cada 1.000 páginas según la lista de precios oficial de 
 
 **Cómo se hizo la prueba de A (29/10/2026):** Google AI Studio en la web, modelo `gemini-3.5-flash-lite`, nivel de razonamiento *Minimal* (el que trae por defecto), búsqueda de Google desactivada, un chat temporal nuevo por ticket y la instrucción del apartado 10 escrita en una sola línea. Una sola ejecución por ticket. Los tokens y el coste son los que muestra AI Studio en su detalle de uso, que los indica como estimación de lo que costaría la misma petición por API; en AI Studio sin clave de API no se cobra. Respuestas completas en `tests/resultados-ia/T*-A.json`.
 
-**Límites:** 4 tickets y una ejecución cada uno no bastan para dar una tasa de acierto fiable; T1 no es de gasolinera; T3 está en euros, así que la detección de otra moneda sigue sin probar. Las fotos se enviaron tras pasarlas por el chat de Claude, que puede recomprimirlas.
+**Límites y advertencias:** 4 tickets y una ejecución cada uno no bastan para dar una tasa de acierto fiable; T1 no es de gasolinera; T3 está en euros, así que la detección de otra moneda sigue sin probar. Las fotos se enviaron tras pasarlas por el chat de Claude, que puede recomprimirlas.
 
 Aciertos = número de campos Correcto ÷ número de campos que existen en el ticket (sin contar los No aplica).
 
