@@ -1,8 +1,10 @@
 # 09 · Normativa aplicable y cómo la abordamos
 
-**Proyecto:** Plataforma web para organizar facturas y tickets de autónomos.  
+**Proyecto:** Ticketon, plataforma para organizar facturas y tickets de autónomos.  
 **Fecha de revisión:** 29 de octubre de 2026.  
-**Estado:** análisis inicial para el TFG; debe revisarse cuando se definan arquitectura, proveedores y funciones definitivas. No sustituye asesoramiento jurídico o fiscal.
+**Estado:** análisis inicial para el trabajo final del curso; debe revisarse cuando se definan arquitectura, proveedores y funciones definitivas. No sustituye asesoramiento jurídico o fiscal.
+
+Leyenda: **[Confirmado]** norma o condición respaldada por fuente identificada; **[Supuesto]** hipótesis aún no verificada; **[Propuesta]** medida recomendada; **[Pendiente]** asunto que requiere comprobación antes de usar el servicio con documentos reales o lanzar comercialmente.
 
 ## 1. Alcance del producto
 
@@ -65,6 +67,19 @@ Si se utiliza un proveedor externo de IA, antes de integrar documentos reales ha
 4. En qué países se procesan y almacenan.
 5. Qué subencargados intervienen y qué contrato de tratamiento ofrece.
 6. Cómo se borran los datos y cómo se gestionan incidentes.
+
+## 3.3. Proveedores seleccionados: datos, ubicación y verificaciones pendientes
+
+La ubicación de una región de alojamiento no demuestra por sí sola que todos los proveedores, subencargados, registros, copias y operaciones de soporte procesen los datos exclusivamente en la UE. Deben comprobarse los contratos y la documentación vigentes antes de usar documentos personales reales.
+
+| Proveedor | Función prevista y datos que podría recibir | Ubicación/condiciones | Estado y acción necesaria |
+|---|---|---|---|
+| Vercel | [Propuesta] aloja la web y ejecuta rutas de servidor; podría tratar datos de sesión, registros y metadatos de solicitudes. Los originales deben subirse directamente al almacenamiento y no incluirse en logs. | [Confirmado en la arquitectura propuesta] región de funciones `fra1` (Fráncfort). Esto no confirma por sí solo la ubicación de todos los servicios auxiliares ni transferencias. | [Pendiente] revisar DPA, subencargados, logs, retención y condiciones del plan antes de usuarios reales. Hobby solo para demo académica. |
+| Supabase | [Propuesta] Auth, base de datos y archivos originales; tratará credenciales de cuenta y datos fiscales/personales contenidos en justificantes. | [Confirmado en la arquitectura propuesta] proyecto en Fráncfort (`eu-central-1`); no equivale a confirmar que cada operación auxiliar ocurra solo en la UE. | [Pendiente] verificar DPA, subencargados, backups, retención, políticas RLS y permisos de Storage; probar aislamiento con dos cuentas. |
+| Resend | [Propuesta] recepción de emails y adjuntos de facturas; el contenido puede contener datos personales y fiscales. | [Supuesto] no se ha confirmado la ubicación de todo el tratamiento de entrada, almacenamiento temporal, logs y subencargados. | [Pendiente] verificar región, retención de contenido, DPA, subencargados, transferencias y controles de remitente antes de activarlo con datos reales. |
+| Gemini API, plan gratuito | [Confirmado según las condiciones de uso documentadas en la prueba IA] los documentos enviados se procesan por un proveedor externo; las condiciones del plan gratuito pueden permitir uso del contenido para mejorar servicios y revisión humana, y restringen el envío de datos sensibles/personales. | No debe suponerse que el plan gratuito ofrece las mismas condiciones de privacidad o tratamiento que un servicio empresarial. | [Propuesta] limitarlo a pruebas académicas con documentos ficticios o debidamente anonimizados. [Pendiente] para uso comercial, revisar modalidad de pago/Vertex AI, DPA, región, retención, entrenamiento, subencargados y transferencias; no habilitar con documentos reales hasta validarlo. |
+
+La tabla es una evaluación inicial de riesgos, no una certificación de cumplimiento. Las condiciones de los proveedores pueden cambiar y deben consultarse en sus páginas oficiales y contratos al configurar cada cuenta.
 
 ## 4. Conservación de facturas y documentos
 
@@ -148,7 +163,24 @@ No se debe mostrar un banner que diga que el usuario acepta cookies por seguir n
 - [ ] No publicitar homologación AEAT, digitalización certificada, cumplimiento total ni garantías fiscales sin evidencia y revisión jurídica.
 - [ ] Revisar el marco normativo vigente de nuevo si se añaden emisión de facturas, facturación electrónica o funcionalidades fiscales.
 
-## 9. Conclusión
+## 9. Preguntas para una persona experta (abogada o asesoría fiscal)
+
+Antes de una prueba con usuarios externos o un lanzamiento comercial, resolver estas cuestiones con una persona cualificada según el tratamiento y las funciones definitivas:
+
+1. ¿Qué roles de responsable/encargado corresponden a Ticketon y al autónomo para cada finalidad y qué acuerdos contractuales se necesitan?
+2. ¿Qué plazos de conservación aplican a los originales y datos exportados en cada supuesto, y qué política de borrado debe ofrecer el producto?
+3. ¿Qué garantías y mecanismos de transferencia internacional hacen falta para Vercel, Supabase, Resend y el proveedor de IA, incluidos sus subencargados?
+4. ¿Qué base jurídica, información y controles son necesarios para el tratamiento de los documentos y para los datos recibidos por correo?
+5. ¿Qué obligaciones de contratación, facturación, IVA, desistimiento y transparencia se aplican si se cobra una suscripción a autónomos?
+6. ¿Qué cambia si se añade emisión de facturas, facturación electrónica, Verifactu o una función que pretenda sustituir legalmente el papel?
+
+## 10. Normas y funciones fuera del alcance actual
+
+- **Reglamento de IA de la UE:** [Pendiente] revisar su aplicabilidad concreta según la función, proveedor, papel de Ticketon y calendario vigente antes de un lanzamiento. No se declara automáticamente que Ticketon esté sujeto o exento de todas sus obligaciones.
+- **Verifactu y normativa de sistemas informáticos de facturación:** fuera del alcance funcional descrito porque Ticketon no emite facturas ni genera registros de facturación propios. Si ese alcance cambia, deberá reabrirse el análisis y validarse con asesoría.
+- **Digitalización certificada:** el MVP no pretende sustituir legalmente los originales en papel ni afirmar homologación AEAT.
+
+## 11. Conclusión
 
 Para el MVP, las prioridades normativas son la protección de datos, el aislamiento de la información de cada usuario, la seguridad de documentos y cuentas, la revisión de los proveedores de IA/OCR, una política de conservación coherente y la información legal de la web.
 
