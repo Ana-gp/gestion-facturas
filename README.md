@@ -27,8 +27,20 @@ Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su e
 4. Abre un Pull Request hacia `main` con `Closes #número` en la descripción.
 5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directo a `main`.
 
+## Stack (propuesta del #5, pendiente de validar)
+| Pieza | Elección |
+|---|---|
+| Frontend y backend | Next.js (React) |
+| Hosting | Vercel (plan Hobby, funciones en Fráncfort `fra1`) |
+| Usuarios, base de datos y archivos | Supabase (región Fráncfort `eu-central-1`) |
+| Correo entrante | Resend |
+| Lectura con IA | Gemini 3.5 Flash Lite (ver `docs/prueba-ia.md`) |
+
+Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`](docs/arquitectura.md). Las claves (Gemini, Supabase, Resend) van en variables de entorno, nunca en el repositorio.
+
 ## Estructura
 - `docs/` documentos del proyecto (competencia, público, modelo de negocio, legal, arquitectura, funciones, requisitos de diseño, pruebas de lectura)
+  - `docs/arquitectura.md` stack, diagrama de arquitectura y pendientes (#5)
 - `tests/tickets/` tickets y facturas reales para las pruebas de lectura
 
 ## Orden de trabajo
