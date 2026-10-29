@@ -1,7 +1,9 @@
 # 01 · Público objetivo y propuesta de valor
 
+Tarea: #2 (orden 01) · Bloque 3 (revisión y exportación) · Responsable: Ana
+
 > **Estado:** aprobado por el equipo. Pendiente de añadir la entrevista a un autónomo.
-> Leyenda: **[Confirmado]** dato o requisito comprobado · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información
+> Leyenda: **[Confirmado]** dato o requisito comprobado · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información. Etiquetas según `docs/guia-estilo.md`.
 
 ---
 

@@ -27,8 +27,11 @@ Decidimos entre los tres quién se queda cada bloque, y cada uno filtra por su e
 4. Abre un Pull Request hacia `main` con `Closes #número` en la descripción.
 5. Lo revisa alguien de otro bloque antes de unirlo, así los tres conocemos todo el código. Nadie sube directo a `main`.
 
+## Estilo de los documentos
+Todos los documentos siguen la [guía de estilo](docs/guia-estilo.md): sin iconos, con las mismas etiquetas de estado (**[Confirmado]**, **[Propuesta]**, **[Pendiente]**) y de resultados (**Correcto**, **Incorrecto**, **Vacío**, **No aplica**). Quien revisa un pull request comprueba también el estilo.
+
 ## Estructura
-- `docs/` documentos del proyecto (competencia, público, modelo de negocio, legal, arquitectura, funciones, requisitos de diseño, pruebas de lectura)
+- `docs/` documentos del proyecto y la guía de estilo (competencia, público, modelo de negocio, legal, arquitectura, funciones, requisitos de diseño, pruebas de lectura)
 - `tests/tickets/` tickets y facturas reales para las pruebas de lectura
 
 ## Orden de trabajo
