@@ -1,7 +1,9 @@
 # 09 · Normativa aplicable y cómo la abordamos
 
+Tarea: #4 (orden 09) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Última actualización: 29/10/2026
+
 **Proyecto:** Ticketon, plataforma para organizar facturas y tickets de autónomos.  
-**Fecha de revisión:** 29 de octubre de 2026.  
+**Fecha de revisión:** 29/10/2026.  
 **Estado:** análisis inicial para el trabajo final del curso; debe revisarse cuando se definan arquitectura, proveedores y funciones definitivas. No sustituye asesoramiento jurídico o fiscal.
 
 Leyenda: **[Confirmado]** norma o condición respaldada por fuente identificada; **[Supuesto]** hipótesis aún no verificada; **[Propuesta]** medida recomendada; **[Pendiente]** asunto que requiere comprobación antes de usar el servicio con documentos reales o lanzar comercialmente.
