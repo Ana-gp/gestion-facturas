@@ -3,7 +3,7 @@
 Issue: #5 · Bloque 2 (subida y lectura) · Responsable: Mireia
 Depende de: #2 (público objetivo) · Alimenta: #12 (despliegue), #13 (login), #29 (modelo de datos), #18 (originales), #16 (correo), #17 (PWA), #14 (foto), #15 (arrastrar) y #19 (lectura con IA)
 
-> **Estado: PROPUESTA del 29/10/2026, pendiente de validar por Anaí y Javier.** Elegida por Mireia entre tres opciones (apartado 4). No hay nada instalado ni probado todavía: este documento dice *qué* usaremos y *por qué*, no que ya funcione.
+> **Estado: stack ACEPTADO para el MVP del curso el 29/10/2026.** Elegido por Mireia entre tres opciones (apartado 4) y aprobado por Javier en la revisión del PR #36. Los puntos del apartado 7 siguen abiertos y se resuelven durante el despliegue (#12) y el login (#13), sin ampliar el alcance. No hay nada instalado ni probado todavía: este documento dice *qué* usaremos y *por qué*, no que ya funcione.
 
 Leyenda:
 
@@ -132,12 +132,12 @@ Cómo leerlo: el usuario solo habla con la web. La web guarda el original direct
 
 | # | Qué | Quién (propuesta) | Cómo se da por cerrado |
 |---|---|---|---|
-| 1 | **Validar esta propuesta** | Anaí y Javier | Revisión y aprobación del PR |
-| 2 | Que **Supabase** y **Resend** no pidan tarjeta al crear la cuenta | Javier (#12) y Mireia (#16) | Cuenta creada sin tarjeta; si la piden, parar y pasar al plan B |
-| 3 | Correo de recuperación: elegir **SMTP**. **Supuesto**: Resend solo envía a cualquier destinatario con un dominio propio verificado (cuesta dinero). Opción sin dominio para el curso (**supuesto**, a probar): una cuenta de Gmail del equipo con "contraseña de aplicación" | Javier (#13) | Llega el correo de recuperación a una cuenta que no es del equipo |
-| 4 | **IA en el curso:** Gemini API gratis, la web usada solo por el equipo, con tickets tapados y sin clientes reales. Las condiciones de Google dicen que para ofrecer la web a usuarios del EEE hay que usar servicios de pago — **Hecho** | Equipo | Acordado en la revisión del PR |
+| 1 | **Validar esta propuesta** | Anaí y Javier | ✅ Aprobada por Javier el 29/10/2026 (PR #36) |
+| 2 | Que **Supabase** y **Resend** no pidan tarjeta al crear la cuenta. No se da por confirmado hasta crearlas | Javier (#12) y Mireia (#16) | Cuenta creada sin tarjeta; si la piden, parar y pasar al plan B |
+| 3 | Correo de recuperación. **Acordado:** en local, **Mailpit** (programa que "atrapa" los correos de prueba en el ordenador, sin enviarlos de verdad); en la demo desplegada, un **SMTP personalizado**. Gmail con "contraseña de aplicación" es solo una alternativa temporal, **no decidida** hasta probarla. **Supuesto**: Resend solo envía a cualquier destinatario con un dominio propio verificado | Javier (#13) | En local, el correo aparece en Mailpit; en la demo, llega el correo de recuperación a una dirección externa al equipo |
+| 4 | **IA en el curso:** Gemini API gratis, **solo para pruebas académicas con documentos ficticios o anonimizados**, sin usuarios externos. Las condiciones de Google dicen que para ofrecer la web a usuarios del EEE hay que usar servicios de pago — **Hecho**. Antes de abrirla a usuarios externos del EEE, revisar las condiciones aplicables y la modalidad necesaria | Equipo | ✅ Acordado en la revisión del PR #36 |
 | 5 | **IA en un lanzamiento real:** Vertex AI en el endpoint `eu`. **Hecho**: exige cuenta de facturación con tarjeta u otro medio de pago. Además, **sin confirmar** que `gemini-3.5-flash-lite` esté disponible en `eu`. Decisión del equipo, fuera del alcance del curso | Equipo | Fuera del MVP |
-| 6 | **Uso comercial:** Vercel Hobby no lo permite. Si se cobrara a clientes, pasar a Vercel Pro (20 $/mes por persona) o cambiar de hosting | Equipo / #3 (modelo de negocio) | Anotado en el modelo de negocio |
+| 6 | **Uso comercial:** Vercel Hobby es para uso personal y no comercial. **Acordado:** se mantiene para la demo académica; si se comercializa Ticketon, revisar el alojamiento (p. ej. Vercel Pro, 20 $/mes por persona, u otro hosting) | Equipo / #3 (modelo de negocio) | ✅ Acordado en la revisión del PR #36; anotar en el modelo de negocio |
 | 7 | **Dónde procesa Resend los correos** (no consta). Afecta a la normativa | Javier (#4, legal) | Respuesta documentada en el doc legal |
 | 8 | **Límite de tamaño** de las peticiones a las funciones de Vercel. **Supuesto**: es bajo (unos pocos MB), por eso el original se sube directo a Supabase y no pasa por la función | Mireia (#18) | Probado con una foto de móvil de más de 5 MB |
 | 9 | **Pausa de Supabase** tras 1 semana sin uso: acordarse de entrar antes de la presentación | Equipo | — |
