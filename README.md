@@ -78,10 +78,22 @@ Los issues llevan delante su número de orden (01, 02…). Se trabajan en ese or
 | 3. Prototipo | 12 | Prototipo navegable (los tres) |
 | 4. Web: base | 13–15 | Despliegue → login → guardar originales |
 | 4. Web: núcleo | 16–23 | Subida (arrastrar, foto) → lectura IA → corrección → listado → moneda → duplicados → Excel |
-| 4. Web: resto | 24–30 | Correo, compartir, precios, límites de plan, landing, panel, avisos |
+| 4. Web: resto | 24–30 | Reenvío por correo, compartir desde el móvil, precios, límites de plan, landing, panel, avisos |
 | 4. Cierre | 31 | Prueba de lectura con tickets reales |
 
-Con la fase 4 hasta el orden 23 se cubre el núcleo del MVP obligatorio. El objetivo es priorizar primero una aplicación funcional y probarla antes de ampliar el alcance.
+### Qué es obligatorio
+
+Los issues con la etiqueta `obligatorio` son los que exige el enunciado. Cada uno cita la frase del enunciado que lo justifica.
+
+| Fase | Obligatorio | No obligatorio |
+|---|---|---|
+| 1. Documentos MD | 01 público objetivo, 03 banco de tickets, 04 funciones adicionales, 08 modelo de negocio, 09 normativa | 02 competencia (recomendada), 05 stack, 06 prueba IA, 07 modelo de datos (necesarias para construir la web) |
+| 2–3. Diseño y prototipo | 11 requisitos de diseño, 12 prototipo | 10 mapa de pantallas (base para el 11) |
+| 4. Web | 14 login, 15 originales, 16 arrastrar, 17 foto móvil, 18 lectura IA, 19 corrección, 21 moneda, 22 duplicados, 23 Excel, 24 reenvío por correo, 26 página de precios, 31 prueba de lectura | 13 despliegue (necesario para la demo), 20 listado (basta uno básico), 25 compartir desde el móvil, 27 límites de plan, 28 landing y textos legales, 29 panel, 30 avisos |
+
+El reenvío por correo (24) cubre la tercera vía de subida que pide el enunciado; compartir desde el móvil (25) pasa a función adicional. **[Propuesta]** pendiente de confirmar en el equipo.
+
+Prioridad: primero lo obligatorio y que la aplicación funcione; después, las funciones adicionales que se elijan en la tarea 04.
 
 ## Uso de la IA en el proyecto
 
