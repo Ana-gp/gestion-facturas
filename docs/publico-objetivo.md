@@ -57,17 +57,17 @@ La herramienta guarda y ordena los justificantes; **qué gastos se pueden deduci
 
 ---
 
-## 5. Por qué nos pagarían a nosotros y no a la competencia ⏳
+## 5. Por qué podrían elegirnos frente a la competencia [Supuesto]
 
-*A confirmar con el estudio de competencia (02).*
+El estudio de competencia (#1) ya está disponible, pero la diferenciación todavía debe validarse con autónomos. No podemos afirmar que las alternativas sean difíciles de usar sin probarlas con usuarios.
 
 | Frente a | Ellos | Nosotros |
 |---|---|---|
-| **Holded, Quipu** | Programas de contabilidad y facturación completos. Hay que aprender a usarlos. | Solo recoge y ordena gastos. Sin saber contabilidad y sin cambiar de gestoría. |
-| **Captio, Pleo, Spendesk** | Pensados para empresas con empleados, aprobaciones y tarjetas. | Pensado para una persona sola y a precio de autónomo. |
-| **WhatsApp, correo, papel** | Gratis, pero se pierde todo. | Igual de rápido que hacer una foto, pero ordenado y con el original guardado. |
+| **Holded, Quipu** | Ofrecen gestión administrativa más amplia y ya incluyen funciones de captura/lectura de documentos. No se ha comparado su facilidad de uso con pruebas de usuario. | Ticketon propone centrarse en reunir justificantes y preparar la entrega a la gestoría, sin sustituir el programa contable existente. Esta ventaja de enfoque aún debe validarse. |
+| **Captio, Pleo, Spendesk** | Se orientan principalmente a procesos de gasto y control empresarial, aunque sus capacidades y públicos varían por producto y plan. | Ticketon se plantea para el flujo individual de un autónomo con gestoría; el precio competitivo aún no está validado. |
+| **WhatsApp, correo, papel** | Son vías conocidas y a menudo gratuitas, pero la organización y recuperación dependen del hábito de cada persona. No se ha medido su tasa real de pérdida de documentos. | Ticketon pretende reunir originales y datos en un único lugar y facilitar una exportación por periodo; la facilidad y el ahorro de tiempo deben probarse. |
 
-**Nuestra diferencia en una frase:** la forma más rápida de que un autónomo tenga sus gastos en orden, sin aprender contabilidad.
+**Hipótesis de posicionamiento:** una forma sencilla y centrada en la gestoría de reunir justificantes y revisar los datos, sin tener que cambiar de programa contable. No afirmaremos que sea la más rápida hasta medirlo.
 
 ---
 
@@ -88,10 +88,10 @@ La herramienta guarda y ordena los justificantes; **qué gastos se pueden deduci
 
 ---
 
-## 8. Pendiente ⏳
+## 8. Pendiente [Pendiente]
 
 - **Validar con un autónomo real:** una entrevista corta. Preguntas propuestas:
   - ¿Cómo guardas hoy tus tickets y facturas?
   - ¿Cuánto tiempo te lleva cada trimestre?
   - ¿Has perdido alguna vez un gasto que podías deducir?
-- **Confirmar la comparación con la competencia** cuando esté el estudio (02).
+- **Validar la comparación con la competencia** mediante pruebas de uso comparables y entrevistas; el estudio documental por sí solo no demuestra facilidad de uso ni superioridad.
