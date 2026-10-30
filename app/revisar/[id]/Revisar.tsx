@@ -93,7 +93,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const [estado, setEstado] = useState<"editando" | "revisada" | "confirmar-borrado" | "borrado">("editando");
 
   const aRevisar = new Set(camposARevisar(datos, revision));
-  const avisos = avisosDeLaFicha(datos, { posibleDuplicado: ficha.posibleDuplicado });
+  const avisos = avisosDeLaFicha(datos, { posibleDuplicado: ficha.posibleDuplicadoDe !== null });
   const falta = faltaParaRevisada(datos);
   const cuotasRaras = new Map(lineasQueNoCuadran(datos).map((l) => [l.indice, l.cuotaEsperada]));
   const esPdf = ficha.original.toLowerCase().endsWith(".pdf");

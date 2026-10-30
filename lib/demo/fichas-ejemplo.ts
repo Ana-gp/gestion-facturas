@@ -7,6 +7,10 @@
  * corregir el usuario:
  * - T1: la IA cambió una letra del emisor ("VILLIQUEJIDA" en lugar de "Villaquejida").
  * - T4b: la IA dejó vacío el NIF del emisor porque en la foto apenas se lee.
+ * - Mercadona de cerca y de lejos: dos fotos del mismo ticket (PR #59), para
+ *   probar duplicados. Son archivos distintos, así que no coincide la huella:
+ *   los une la regla "mismo NIF del emisor, número y total". Sin pasar por
+ *   Gemini; se usan los valores reales.
  * - Bodega Aurrera: todavía sin pasar por Gemini; se usan los valores reales
  *   (PR #62). Está en pesos mexicanos y falta el tipo de cambio, y las cuentas
  *   no cuadran porque el ticket no imprime la base al 0 % ni cuenta el IEPS.
@@ -23,7 +27,10 @@ export type FichaEjemplo = {
   datos: DatosRevision;
   /** Confianza que da la IA a cada campo (columna `campos_revision`). */
   revisionIa: CamposRevision;
-  posibleDuplicado: boolean;
+  /** Id de la otra ficha si la base de datos lo marca como posible duplicado (`posible_duplicado_de`). */
+  posibleDuplicadoDe: string | null;
+  /** SHA-256 del archivo original (columna `huella_sha256` de `documentos`). */
+  huella: string;
 };
 
 export const CATEGORIAS = [
@@ -64,7 +71,8 @@ export const FICHAS_EJEMPLO: FichaEjemplo[] = [
       ],
     },
     revisionIa: {},
-    posibleDuplicado: true,
+    posibleDuplicadoDe: null,
+    huella: "ejemplo-t4b",
   },
   {
     id: "t1",
@@ -88,7 +96,8 @@ export const FICHAS_EJEMPLO: FichaEjemplo[] = [
     // El emisor tiene una letra mal pero parece correcto: ninguna regla lo marca.
     // Es el caso para el que sirve ver la foto junto a los datos.
     revisionIa: {},
-    posibleDuplicado: false,
+    posibleDuplicadoDe: null,
+    huella: "ejemplo-t1",
   },
   {
     id: "e5",
@@ -110,6 +119,61 @@ export const FICHAS_EJEMPLO: FichaEjemplo[] = [
       lineas: [{ tipoIva: 8, base: 323.62, cuota: 25.89 }],
     },
     revisionIa: {},
-    posibleDuplicado: false,
+    posibleDuplicadoDe: null,
+    huella: "ejemplo-e5",
+  },
+  {
+    id: "mc",
+    tipoDocumento: "ticket",
+    nombreArchivo: "extra-mercadona-cerca.jpg",
+    original: "/ejemplos/extra-mercadona-cerca.jpg",
+    datos: {
+      fecha: "2026-10-23",
+      emisorNombre: "Mercadona, S.A.",
+      emisorNif: "A46103834",
+      receptorNif: null,
+      numero: "2939-015-397739",
+      categoria: "Alimentación",
+      moneda: "EUR",
+      total: 13.1,
+      totalEur: 13.1,
+      tipoCambio: null,
+      retencionImporte: null,
+      lineas: [
+        { tipoIva: 4, base: 6.37, cuota: 0.25 },
+        { tipoIva: 10, base: 5.75, cuota: 0.58 },
+        { tipoIva: 21, base: 0.12, cuota: 0.03 },
+      ],
+    },
+    revisionIa: {},
+    posibleDuplicadoDe: null,
+    huella: "ejemplo-mercadona-cerca",
+  },
+  {
+    id: "ml",
+    tipoDocumento: "ticket",
+    nombreArchivo: "extra-mercadona-lejos.jpg",
+    original: "/ejemplos/extra-mercadona-lejos.jpg",
+    datos: {
+      fecha: "2026-10-23",
+      emisorNombre: "Mercadona, S.A.",
+      emisorNif: "A46103834",
+      receptorNif: null,
+      numero: "2939-015-397739",
+      categoria: "Alimentación",
+      moneda: "EUR",
+      total: 13.1,
+      totalEur: 13.1,
+      tipoCambio: null,
+      retencionImporte: null,
+      lineas: [
+        { tipoIva: 4, base: 6.37, cuota: 0.25 },
+        { tipoIva: 10, base: 5.75, cuota: 0.58 },
+        { tipoIva: 21, base: 0.12, cuota: 0.03 },
+      ],
+    },
+    revisionIa: {},
+    posibleDuplicadoDe: "mc",
+    huella: "ejemplo-mercadona-lejos",
   },
 ];
