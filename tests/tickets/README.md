@@ -16,9 +16,10 @@ Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciad
 | `extra-mercadona-cerca.jpg` | Supermercado con 3 tipos de IVA (4 %, 10 % y 21 %), foto de cerca |
 | `extra-mercadona-lejos.jpg` | El mismo ticket fotografiado de lejos y en ángulo: prueba de duplicado (mismo NIF, número y total) |
 | `extra-santander-pesos-mexicanos.jpg` | Comprobante de pago de servicios del Banco Santander (México), en pesos mexicanos. **No es una factura:** no lleva NIF/RFC del emisor ni IVA. Sirve para probar la detección de otra moneda. **Trampa:** el importe va con "$" pero no son dólares: la pista es "(MN)" (moneda nacional) y la sucursal de Tapachula, Chiapas. Moneda correcta: MXN |
+| `extra-bodega-aurrera-mxn.jpg` | Ticket de supermercado de Bodega Aurrera (México), en pesos mexicanos, con RFC del emisor e IVA desglosado. Es el caso principal de otra moneda. **Trampas:** el "$" son pesos (pone "PESOS 02/100 M.N."); la fecha 06/01/24 es el 6 de enero de 2024, en formato día/mes; el IVA es del 8 % (zona fronteriza), y el IEPS, otro impuesto mexicano, no es IVA y no debe contarse como línea de IVA. Los productos marcados con "T" van al 0 % y el ticket no imprime esa base |
 
 **Faltan:**
-- Una factura en una moneda distinta del euro (requisito 3). El comprobante de Santander en pesos cubre la detección de la moneda, pero no es una factura.
+- Una factura en una moneda distinta del euro (requisito 3): cubierto en parte con el ticket de Bodega Aurrera en pesos mexicanos, que lleva RFC del emisor e IVA. Es un ticket, no una factura completa.
 - Una factura con NIF del receptor (requisito 3).
 
 Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket, en las fotos de Mercadona, las cuatro últimas cifras de la tarjeta, y en el comprobante de Santander, la referencia del pago.
