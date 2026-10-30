@@ -493,3 +493,27 @@
     width: 100%;
   }
 }
+
+/* Tipo de cambio (#20): propuesta que el usuario acepta o rechaza. */
+.cambio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.propuesta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd9f0;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  line-height: 1.5;
+}
+
+.propuesta p {
+  margin: 0;
+}

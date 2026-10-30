@@ -21,6 +21,7 @@ import {
   type DatosRevision,
 } from "@/lib/revision/comprobaciones";
 import { CATEGORIAS, type FichaEjemplo } from "@/lib/demo/fichas-ejemplo";
+import { notaDeLaFecha, textoDelTipo, totalEnEuros, type FuenteTipoCambio, type TipoDeCambio } from "@/lib/moneda/conversion";
 
 type Props = {
   ficha: FichaEjemplo;
@@ -78,7 +79,7 @@ function mostrarFecha(iso: string | null): string {
 
 function conTotalEnEuros(d: DatosRevision): DatosRevision {
   if (d.moneda === "EUR") return { ...d, tipoCambio: null, totalEur: d.total };
-  const totalEur = d.total !== null && d.tipoCambio ? redondear(d.total / d.tipoCambio) : null;
+  const totalEur = d.total !== null && d.tipoCambio ? totalEnEuros(d.total, d.tipoCambio) : null;
   return { ...d, totalEur };
 }
 
@@ -91,6 +92,11 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [ampliada, setAmpliada] = useState(false);
   const [estado, setEstado] = useState<"editando" | "revisada" | "confirmar-borrado" | "borrado">("editando");
+  // Tipo de cambio (#20): fecha y fuente del tipo aplicado, y la propuesta pendiente de aceptar.
+  const [origenTipo, setOrigenTipo] = useState<{ fecha: string | null; fuente: FuenteTipoCambio } | null>(null);
+  const [propuesta, setPropuesta] = useState<TipoDeCambio | null>(null);
+  const [buscando, setBuscando] = useState(false);
+  const [errorTipo, setErrorTipo] = useState<string | null>(null);
 
   const aRevisar = new Set(camposARevisar(datos, revision));
   const avisos = avisosDeLaFicha(datos, { posibleDuplicado: ficha.posibleDuplicadoDe !== null });
@@ -236,7 +242,13 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
     valor: datos.moneda,
     inicial: datos.moneda,
     guardar: (t) => {
-      actualizar("moneda", (d) => ({ ...d, moneda: t, tipoCambio: t === "EUR" ? null : d.tipoCambio }));
+      if (t !== datos.moneda) {
+        // Otra moneda: el tipo anterior ya no vale.
+        setOrigenTipo(null);
+        setPropuesta(null);
+        setErrorTipo(null);
+      }
+      actualizar("moneda", (d) => ({ ...d, moneda: t, tipoCambio: t === d.moneda ? d.tipoCambio : null }));
       return null;
     },
   };
@@ -250,9 +262,38 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
       const n = leerNumero(t);
       if (n === null || Number.isNaN(n) || n <= 0) return `Escribe cuántos ${datos.moneda} vale 1 euro, por ejemplo 1,1133.`;
       actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: redondear(n, 6) }));
+      setOrigenTipo({ fecha: datos.fecha, fuente: "manual" });
+      setPropuesta(null);
       return null;
     },
   };
+
+  async function buscarTipo() {
+    if (!datos.fecha) {
+      setErrorTipo("Pon primero la fecha de la factura.");
+      return;
+    }
+    setBuscando(true);
+    setErrorTipo(null);
+    setPropuesta(null);
+    try {
+      const respuesta = await fetch(`/api/tipo-cambio?moneda=${encodeURIComponent(datos.moneda)}&fecha=${datos.fecha}`);
+      const cuerpo = await respuesta.json();
+      if (!respuesta.ok) setErrorTipo(cuerpo.error ?? "No se ha podido consultar el tipo de cambio.");
+      else setPropuesta(cuerpo as TipoDeCambio);
+    } catch {
+      setErrorTipo("No se ha podido consultar el tipo de cambio. Inténtalo más tarde o escríbelo a mano.");
+    } finally {
+      setBuscando(false);
+    }
+  }
+
+  function aceptarPropuesta() {
+    if (!propuesta) return;
+    actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: propuesta.tipo }));
+    setOrigenTipo({ fecha: propuesta.fecha, fuente: propuesta.fuente });
+    setPropuesta(null);
+  }
 
   // --- Pintar un campo --------------------------------------------------------
 
@@ -475,6 +516,39 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
             {datos.moneda !== "EUR" && (
               <>
                 {fila(tipoCambio)}
+                <div className={styles.cambio}>
+                  {origenTipo && datos.tipoCambio && (
+                    <p className={styles.ayuda}>
+                      {origenTipo.fuente === "BDE"
+                        ? `Tipo oficial del euro publicado por el Banco de España, del ${mostrarFecha(origenTipo.fecha)}.`
+                        : "Tipo escrito por ti."}
+                    </p>
+                  )}
+                  {!propuesta && (
+                    <button type="button" className={styles.secundaria} onClick={buscarTipo} disabled={buscando || editando !== null}>
+                      {buscando ? "Buscando…" : datos.tipoCambio ? "Buscar otra vez el tipo de cambio" : "Buscar el tipo de cambio"}
+                    </button>
+                  )}
+                  {propuesta && (
+                    <div className={styles.propuesta} role="status">
+                      <p>
+                        <strong>Tipo propuesto: {textoDelTipo(propuesta.tipo, propuesta.moneda)}</strong>, del {mostrarFecha(propuesta.fecha)}.
+                        Es el tipo oficial del euro que publica el Banco de España.
+                      </p>
+                      {datos.fecha && notaDeLaFecha(propuesta.fecha, datos.fecha) && <p>{notaDeLaFecha(propuesta.fecha, datos.fecha)}</p>}
+                      <p className={styles.ayuda}>Si la fecha de devengo no es la de la factura, consulta con tu gestoría y escribe el tipo a mano.</p>
+                      <div className={styles.secundarias}>
+                        <button type="button" className={styles.listo} onClick={aceptarPropuesta}>
+                          Usar este tipo
+                        </button>
+                        <button type="button" className={styles.cancelar} onClick={() => setPropuesta(null)}>
+                          No usarlo
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {errorTipo && <p className={styles.errorCampo}>{errorTipo}</p>}
+                </div>
                 <div className={styles.fila}>
                   <span className={styles.etiqueta}>Total en euros</span>
                   <p className={styles.calculado}>
