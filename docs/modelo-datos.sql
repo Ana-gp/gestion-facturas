@@ -329,6 +329,9 @@ end $$;
 
 create trigger crear_perfil_y_plan after insert on auth.users
   for each row execute function public.al_crear_usuario();
+-- Nadie la puede llamar directamente (aviso del Security Advisor de Supabase):
+-- solo la ejecuta el trigger al crear un usuario, igual que reservar_lectura.
+revoke execute on function public.al_crear_usuario() from public, anon, authenticated;
 
 -- Antes de leer un documento con la IA (#31): ¿le queda cupo este mes?
 -- Si sí, suma 1 y lo marca como contado. Volver a leer el mismo no suma.

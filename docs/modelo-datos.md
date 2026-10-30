@@ -159,7 +159,7 @@ Todas las tablas con datos de un usuario llevan `user_id`, que es la columna en 
 | codigo_correo | texto, único | Sí | Código aleatorio de 12 caracteres para su dirección de reenvío (#16) |
 | creado_en | fecha y hora | Sí | Fecha de alta |
 
-Se crea solo al registrarse (disparador `al_crear_usuario`), junto con una suscripción al plan Gratis.
+Se crea solo al registrarse (disparador `al_crear_usuario`), junto con una suscripción al plan Gratis. La función tiene permisos especiales (`security definer`) para poder escribir en esas tablas, así que nadie la puede llamar directamente: solo la ejecuta la base de datos al crear un usuario, igual que `reservar_lectura` solo la puede llamar el servidor. Lo pidió el Security Advisor de Supabase el 30/10/2026.
 
 ### 3.2 `planes` y `suscripciones`
 

@@ -20,6 +20,7 @@ Stack y regiones acordados en [arquitectura](arquitectura.md). Tablas, permisos 
 5. **SQL Editor** > **New query**: pegar el archivo [`modelo-datos.sql`](modelo-datos.sql) entero y pulsar **Run** una sola vez. Debe terminar con "Success. No rows returned".
    - Crea las tablas, la seguridad por filas, las funciones, la vista del Excel y el bucket privado `originales` con un máximo de 10 MB por archivo y solo PDF, JPG, PNG y HEIC.
    - No se puede ejecutar dos veces en el mismo proyecto. Si da un error a mitad, copiar el mensaje y avisar antes de repetir nada.
+   - Después, abrir **Advisors** > **Security Advisor** y comprobar que no hay avisos. Las dos funciones con permisos especiales (`al_crear_usuario` y `reservar_lectura`) no las pueden llamar los usuarios: lo quita el propio SQL con `revoke execute`.
 6. Comprobar en **Table Editor** que aparecen las tablas `planes` (3 filas), `categorias`, `perfiles`, `suscripciones`, `uso_mensual`, `remitentes_autorizados`, `documentos`, `facturas` y `lineas_iva`, y en **Storage** el bucket `originales` marcado como privado.
 7. **Authentication** > **URL Configuration**:
    - Site URL: `http://localhost:3000` mientras no haya dirección de Vercel. Se cambia por la de Vercel cuando exista.
@@ -110,6 +111,7 @@ El SQL se cargó en un PostgreSQL 16 local con imitaciones de Supabase (`auth.us
 | URL de Auth configuradas | Mireia | 30/10/2026 | **[Confirmado]** Site URL `http://localhost:3000` (venía por defecto) y una sola Redirect URL, `http://localhost:3000/**`. Falta añadir la de Vercel (apartado 4.2, paso 7) |
 | URL del proyecto y clave publicable localizadas | Mireia | 30/10/2026 | **[Confirmado]** Con las dos, una consulta de solo lectura a `planes` devuelve los 3 planes sin iniciar sesión. Se pasan por el grupo, no se suben a GitHub (apartado 3) |
 | Clave de Gemini creada | Mireia | 30/10/2026 | **[Confirmado]** Creada en Google AI Studio y guardada en un gestor de contraseñas. Nivel gratuito, sin facturación configurada ni tarjeta |
+| Aviso del Security Advisor sobre `al_crear_usuario` corregido | | | **[Pendiente]** El SQL se ejecutó antes de añadir el `revoke execute` de esta función: hay que ejecutar esa línea a mano en el SQL Editor y comprobar que el Security Advisor ya no la marca |
 | Equipo con acceso a Supabase | | | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). **[Pendiente]** Faltan los correos de GitHub de Ana y Javier para enviar la invitación como Developer |
 | Repositorio público (apartado 4) | Ana | 30/10/2026 | |
 | Vercel conectado y desplegando `main` | | | |
