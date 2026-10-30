@@ -3,7 +3,7 @@
 Issue: #6 · Bloque 2 (subida y lectura) · Responsable: Mireia
 Depende de: #5 (stack) y #10 (banco de tickets) · Alimenta: #5 (elección del motor), #3 (precios), #19 (lectura automática)
 
-> **Estado: PRUEBA REALIZADA el 29/10/2026 con A (Gemini) y B (Mistral); el 30/10/2026 se añadieron, solo con A, el T1 real de gasolinera y T4b, la foto torcida y con poca luz. C (Azure) descartado.** Motor elegido: **Gemini 3.5 Flash Lite** (ver apartado 9). Los resultados valen para estos tickets y una ejecución cada uno; no garantizan el mismo acierto con cualquier documento.
+> **Estado: PRUEBA REALIZADA el 29/10/2026 con A (Gemini) y B (Mistral); el 30/10/2026 se añadieron, solo con A, el T1 real de gasolinera, T4b (foto torcida y con poca luz) y E5 (ticket en pesos mexicanos). C (Azure) descartado.** Motor elegido: **Gemini 3.5 Flash Lite** (ver apartado 9). Los resultados valen para estos tickets y una ejecución cada uno; no garantizan el mismo acierto con cualquier documento.
 
 ## 1. Objetivo
 
@@ -64,6 +64,7 @@ Tickets extra (el issue #10 pide "tantos más como haya"):
 | E2 | `extra-carrefour.pdf` | PDF de ticket con un solo tipo de IVA |
 | E3 | `extra-druni-catalan.pdf` | 2 tipos de IVA y parte del texto en catalán |
 | E4 | `T1-alcampo-arrugado.jpg` | Supermercado muy arrugado con 2 tipos de IVA. Fue el sustituto provisional de T1 en la prueba del 29/10/2026; sus resultados se conservan en el apartado 5 |
+| E5 | `extra-bodega-aurrera-mxn.jpg` | **Otra moneda** (pesos mexicanos, requisito 3), con RFC del emisor e IVA del 8 %. Aportado en el PR #62. **Trampas:** el "$" son pesos; la fecha 06/01/24 es el 6 de enero; el IEPS no es IVA; el número válido es el TR# 01976, no el TC# largo |
 
 Para los extras se puede usar la misma tabla de campos que en el apartado 5.
 
@@ -79,7 +80,7 @@ Para los extras se puede usar la misma tabla de campos que en el apartado 5.
    - **Incorrecto**: da un valor distinto del real.
    - **Vacío**: no devuelve nada en un campo que sí aparece en el ticket.
    - **No evaluable** (solo en B): no evaluable con OCR simple, porque el dato no está impreso tal cual (una suma, la categoría) y haría falta un paso más para obtenerlo.
-   - **No aplica**: el dato no existe en el ticket (por ejemplo, el NIF del receptor en un ticket de supermercado). Si el motor lo deja vacío, es lo correcto; si se lo inventa, es Incorrecto.
+   - **No aplica**: el dato no existe en el ticket (por ejemplo, el NIF del receptor en un ticket de supermercado). Si el motor lo deja vacío, es lo correcto; si se lo inventa, es Incorrecto. Una línea de IVA inventada cuenta como **un solo error**, aunque ocupe tres filas (tipo, base y cuota).
 3. Si algo es Incorrecto, apuntar en "Notas" qué dio (por ejemplo, "leyó 12,30 en vez de 12,80").
 4. Guardar la respuesta completa de cada motor en `tests/resultados-ia/` con el nombre `T1-A.json`, `T1-B.json`, etc. (los del ticket de Alcampo se guardan como `E4-alcampo-A.json` y `E4-alcampo-B.json`).
 
@@ -216,6 +217,30 @@ Ticket `T4b-mercadona-torcida-poca-luz.jpg`, probado el 30/10/2026 solo con A. V
 | Moneda | EUR | Correcto | No probado | No probado |  |
 | Categoría | Alimentación | Correcto | No probado | No probado |  |
 
+### E5 · Ticket en pesos mexicanos (otra moneda)
+
+Ticket `extra-bodega-aurrera-mxn.jpg`, probado el 30/10/2026 solo con A. Valores reales del PR #62.
+
+| Campo | Valor real | A · Gemini | B · Mistral | C · Azure | Notas |
+|---|---|---|---|---|---|
+| Fecha | 2024-01-06 | Correcto | No probado | No probado | Leyó 06/01/24 como 6 de enero, no como 1 de junio |
+| Emisor | Nueva Wal Mart de México S. de R.L. de C.V. | Correcto | No probado | No probado | Devolvió "NUEVA WAL MART DE MEXICO S DE RL DE CV", tal como está impreso |
+| NIF del emisor | NWM9709244W4 (RFC) | Correcto | No probado | No probado |  |
+| NIF del receptor | No aplica | No aplica | No probado | No probado | Lo deja vacío (correcto) |
+| Número de factura / ticket | 01976 (TR#) | Correcto | No probado | No probado | No tomó el TC# largo |
+| IVA 1: tipo (%) | 8 | Correcto | No probado | No probado |  |
+| IVA 1: base imponible | 323,62 | Correcto | No probado | No probado |  |
+| IVA 1: cuota | 25,89 | Correcto | No probado | No probado |  |
+| IVA 2: tipo (%) | No aplica | Incorrecto | No probado | No probado | **Metió el IEPS como si fuera IVA:** 8 %, base 22,22 y cuota 1,78. Una línea inventada: cuenta como 1 error |
+| IVA 2: base imponible | No aplica | (mismo error) | No probado | No probado |  |
+| IVA 2: cuota | No aplica | (mismo error) | No probado | No probado |  |
+| Base imponible total | 323,62 | Incorrecto | No probado | No probado | Devolvió 345,84: suma también la base del IEPS |
+| Total | 635,02 | Correcto | No probado | No probado |  |
+| Moneda | MXN | Correcto | No probado | No probado | No la confundió con USD |
+| Categoría | Alimentación | Correcto | No probado | No probado |  |
+
+Resultado: **10/12** (11 campos existentes, de los que acierta 10, más 1 línea de IVA inventada). Supera tres de las cuatro trampas (moneda, fecha y número) y cae en la del IEPS. La conversión a euros no se mide aquí (#20).
+
 ## 6. Coste por factura
 
 Los precios de los proveedores están en dólares; al final de este apartado se pasan a euros.
@@ -235,6 +260,7 @@ Para Mistral y Azure el coste es por página: `coste = páginas × precio por p�
 | T4b | 1 | 1.371 | 259 | 0,001059 | No probado | No probado |
 | **Media por factura (T1–T4b)** | | 1.269 | 226 | **0,00095** | **0,004** (solo OCR; T2–T4) | No probado |
 | E4 · Alcampo (extra) | 1 | 1.379 | 202 | 0,000919 | 0,004 | No probado |
+| E5 · Pesos mexicanos (extra) | 1 | 1.343 | 235 | 0,000990 | No probado | No probado |
 
 Tipo de cambio usado para pasar a euros: **1 € = 1,1133 $** (tipo de referencia del BCE del 28/10/2026, el último publicado al consultarlo el 29/10/2026). Fuente: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
 
@@ -247,6 +273,7 @@ Tipo de cambio usado para pasar a euros: **1 € = 1,1133 $** (tipo de referenci
 | T4b | 0,000951 | No probado |
 | **Media por factura (T1–T4b)** | **0,00085 €** | **0,0036 €** (solo OCR) |
 | E4 · Alcampo (extra) | 0,000825 | 0,0036 |
+| E5 · Pesos mexicanos (extra) | 0,000889 | No probado |
 
 Para #3 (precios): con A, leer 1.000 facturas cuesta unos **0,85 €** con los cinco tickets T1–T4b (0,83 € con el cálculo del 29/10/2026). T4b gasta algo más porque su respuesta es más larga (tres tipos de IVA). La diferencia es de unos 2 céntimos por cada 1.000 facturas: el modelo de negocio puede quedarse con 0,83 €. Es un **[Supuesto]** que hay que revisar al fijar los precios, porque el tipo de cambio y los precios de Google pueden cambiar.
 
@@ -260,21 +287,21 @@ Lectura de B: 4 $ por cada 1.000 páginas según la lista de precios oficial de 
 
 **Cómo se hizo la prueba de A (29/10/2026; T1 de gasolinera el 30/10/2026):** Google AI Studio en la web, modelo `gemini-3.5-flash-lite`, nivel de razonamiento *Minimal* (el que trae por defecto), búsqueda de Google desactivada, un chat temporal nuevo por ticket y la instrucción del apartado 10 escrita en una sola línea. Una sola ejecución por ticket. Los tokens y el coste son los que muestra AI Studio en su detalle de uso, que los indica como estimación de lo que costaría la misma petición por API; en AI Studio sin clave de API no se cobra. Respuestas completas en `tests/resultados-ia/T*-A.json` y `E4-alcampo-A.json`. El T1 de gasolinera se ejecutó el 30/10/2026 con la misma configuración, desde el asistente de Claude en Chrome; la imagen se subió como `image.jpg`.
 
-**Límites y advertencias:** 5 tickets y una ejecución cada uno no bastan para dar una tasa de acierto fiable; T1 y T4b solo se probaron con A, y la foto de T1 es de baja resolución; T3 está en euros, así que la detección de otra moneda sigue sin probar; ningún ticket tiene NIF del receptor. Las fotos se enviaron tras pasarlas por el chat de Claude, que puede recomprimirlas.
+**Límites y advertencias:** 5 tickets y una ejecución cada uno no bastan para dar una tasa de acierto fiable; T1, T4b y E5 solo se probaron con A, y la foto de T1 es de baja resolución; la otra moneda solo se ha probado con un ticket (E5, pesos mexicanos); ningún ticket tiene NIF del receptor. Las fotos se enviaron tras pasarlas por el chat de Claude, que puede recomprimirlas.
 
-Aciertos = número de campos Correcto ÷ número de campos que existen en el ticket (sin contar los No aplica).
+Aciertos = número de campos Correcto ÷ (número de campos que existen en el ticket, sin contar los No aplica, + líneas de IVA inventadas, que cuentan como un error cada una).
 
-| Motor | T1 | T2 | T3 | T4 | T4b | Total T1–T4b | E4 (extra) | Coste medio por factura | ¿Datos en la UE? | ¿Categoría? |
-|---|---|---|---|---|---|---|---|---|---|---|
-| A · Gemini 3.5 Flash Lite | 10/11 | 16/17 | 11/11 | 11/11 | 16/17 | **64/67 (96 %)** | 12/12 | 0,00095 $ | No garantizado | Sí |
-| B · Mistral OCR (OCR simple) | No probado | 13/14 | 10/10 | 9/10 | No probado | **32/34 (94 %)** de los campos impresos (T2–T4) | 10/10 | 0,004 $ (solo OCR) | Sí (endpoint UE) | No medido |
-| C · Azure Document Intelligence | — | — | — | — | — | **No probado** | — | — | Sí (región UE) | No |
+| Motor | T1 | T2 | T3 | T4 | T4b | Total T1–T4b | E4 (extra) | E5 (extra, MXN) | Coste medio por factura | ¿Datos en la UE? | ¿Categoría? |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| A · Gemini 3.5 Flash Lite | 10/11 | 16/17 | 11/11 | 11/11 | 16/17 | **64/67 (96 %)** | 12/12 | 10/12 | 0,00095 $ | No garantizado | Sí |
+| B · Mistral OCR (OCR simple) | No probado | 13/14 | 10/10 | 9/10 | No probado | **32/34 (94 %)** de los campos impresos (T2–T4) | 10/10 | No probado | 0,004 $ (solo OCR) | Sí (endpoint UE) | No medido |
+| C · Azure Document Intelligence | — | — | — | — | — | **No probado** | — | — | — | Sí (región UE) | No |
 
 En los **cuatro casos obligatorios del enunciado** (T1 gasolinera arrugado, T2 varios IVA, T3 PDF en inglés y T4b torcida con poca luz), A acierta **53/56 (95 %)**.
 
 Hasta el 30/10/2026 este resumen contaba el ticket de Alcampo como T1 (A: 50/51; B: 42/44). Con el ticket real de gasolinera, A quedó en 48/50 (T1–T4); con T4b, añadido el 30/10/2026, en 64/67.
 
-Campos que más fallan: el número de factura de T2 (A tomó otro número del ticket; B leyó mal dos caracteres), el nombre del emisor en T1 (A cambió una letra: "VILLIQUEJIDA"), el NIF del emisor en T4b (A lo dejó vacío porque en la foto apenas se lee) y, en B, la palabra "EUROS" tapada por el dedo en T4. A no inventó datos ausentes: en los campos No aplica devolvió vacío.
+Campos que más fallan: el número de factura de T2 (A tomó otro número del ticket; B leyó mal dos caracteres), el nombre del emisor en T1 (A cambió una letra: "VILLIQUEJIDA"), el NIF del emisor en T4b (A lo dejó vacío porque en la foto apenas se lee), el IEPS de E5 (A lo metió como una línea de IVA más y sumó su base a la base total) y, en B, la palabra "EUROS" tapada por el dedo en T4. A no inventó datos que no aparecen en el ticket (dejó vacíos el NIF del receptor y los números ausentes), pero sí clasificó mal un impuesto que sí aparece: el IEPS de E5.
 
 **Comparación justa:** A y B no se midieron igual. A devolvió los campos ya ordenados; B solo el texto, y se comprobó si cada dato impreso aparecía bien leído. Si a A se le cuentan solo esos mismos 44 campos impresos (E4, T2, T3 y T4, los tickets que pasaron ambos motores), acierta 43/44 (falla el número de T2).
 
@@ -299,7 +326,7 @@ Motor elegido: **A · Gemini 3.5 Flash Lite** (`gemini-3.5-flash-lite`). Decidid
 Motivo:
 
 - Lee el documento, ordena los campos y asigna la categoría en un solo paso; Mistral OCR solo devuelve texto y necesitaría un segundo paso.
-- Precisión prácticamente igual con los tickets que pasaron ambos motores (43/44 frente a 42/44 en los campos impresos) y acierto en la categoría de todos los tickets probados. Con los tickets añadidos el 30/10/2026, A acierta 10/11 en el T1 de gasolinera y 16/17 en la foto torcida y con poca luz (T4b).
+- Precisión prácticamente igual con los tickets que pasaron ambos motores (43/44 frente a 42/44 en los campos impresos) y acierto en la categoría de todos los tickets probados. Con los tickets añadidos el 30/10/2026, A acierta 10/11 en el T1 de gasolinera, 16/17 en la foto torcida y con poca luz (T4b) y 10/12 en el ticket en pesos mexicanos (E5), donde detecta bien la moneda (MXN).
 - Coste estimado de unos 0,0009 $ por factura, unas 4 veces menos que solo el OCR de Mistral. Este dato es el que usa #3 para los precios.
 
 Configuración necesaria (**[Propuesta]**, a confirmar en #5 y #4):
@@ -315,9 +342,10 @@ Riesgos y qué hará la pantalla de corrección (#21) para cubrirlos:
 
 - **Número de factura y nombre del emisor:** son los campos que fallaron (A confundió el número con otro del ticket en T2 y cambió una letra del emisor en T1). La pantalla de corrección debe mostrarlos junto a la imagen para comprobarlos de un vistazo. El NIF del emisor, que identifica a la empresa, se leyó bien en todos los tickets salvo en T4b, donde la foto apenas lo deja leer.
 - **Datos ausentes:** el motor deja vacíos los que no aparecen. La pantalla debe marcar esos campos para que el usuario los rellene si los conoce.
-- **Moneda distinta del euro:** sin probar. Queda pendiente para #20 y #31.
+- **Moneda distinta del euro:** probada con E5 (pesos mexicanos): A detectó bien MXN y la fecha en formato día/mes. La conversión a euros queda para #20.
+- **Impuestos que no son IVA:** en E5, A metió el IEPS mexicano como una línea de IVA y sumó su base a la base total. Es un error fiscal: llegaría al Excel de la gestoría como IVA. La pantalla de corrección ya lo detecta porque las cuentas no cuadran. **[Propuesta]** para #19: añadir a la instrucción la regla «Solo cuenta como IVA el impuesto que se llame IVA o VAT; otros impuestos no son líneas de IVA». No se ha cambiado en esta prueba, para que la comparación con los demás tickets siga siendo justa.
 - **NIF poco legible:** en fotos malas el NIF puede salir vacío (T4b). La pantalla debe pedirlo; si el emisor ya existe en los gastos del usuario, se puede proponer su NIF.
-- **Muestra pequeña:** repetir la prueba con más tickets en #31 (otra moneda, NIF del receptor y duplicados).
+- **Muestra pequeña:** repetir la prueba con más tickets en #31 (NIF del receptor, más monedas y duplicados).
 
 ## 10. Instrucción común para los motores que la admiten
 
