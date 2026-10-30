@@ -465,6 +465,5 @@ Fuera de alcance del MVP: varias empresas o gestorías con acceso a varios clien
 - BOE · Ley 37/1992 del IVA, artículo 79: https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740
 - AEAT · Registro de facturas en divisas: https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/iva/iva-libros-registro-iva-traves-aeat/preguntas-frecuentes/2-registro-cuestiones-comunes.html?faqId=b8b26c3d02bc9510VgnVCM100000dc381e0aRCRD
 - BCE · Tipos de referencia del euro (solo informativos): https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
-- Fuente secundaria · Invoo, "Facturar en USD o GBP siendo autónomo" (20/05/2026), sobre el artículo 79.Once de la Ley del IVA: https://invoo.es/es/blog/guias/facturar-usd-gbp-autonomo-tipo-cambio-iva/
 
 Documentos internos: `docs/arquitectura.md`, `docs/prueba-ia.md`, `docs/modelo-negocio.md`, `docs/legal.md`, `docs/publico-objetivo.md`, `docs/valores-reales-tickets.xlsx` y `docs/guia-estilo.md`.
