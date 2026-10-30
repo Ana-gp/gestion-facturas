@@ -1,0 +1,495 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min(100%, 1200px);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 32px 16px 56px;
+}
+
+.ejemplo {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.explicacion {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Escritorio: original a la izquierda y datos a la derecha. */
+.rejilla {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.original {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.marco {
+  overflow: auto;
+  max-height: calc(100svh - 80px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #e9ecf0;
+}
+
+.botonImagen {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.imagen {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.marcoAmpliado .botonImagen {
+  width: 200%;
+  cursor: zoom-out;
+}
+
+.pdf {
+  display: block;
+  width: 100%;
+  height: calc(100svh - 120px);
+  border: 0;
+}
+
+.pieOriginal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.pieOriginal a {
+  color: var(--accent);
+  font-weight: 600;
+  word-break: normal;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.avisos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aviso,
+.avisoNeutral {
+  padding: 12px 14px;
+  border-radius: 10px;
+  line-height: 1.5;
+}
+
+.aviso {
+  border: 1px solid #e6c98a;
+  background: #fdf6e7;
+  color: #5c4310;
+}
+
+.aviso a {
+  color: #5c4310;
+  font-weight: 700;
+}
+
+.avisoNeutral {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  margin: 0;
+  padding: 18px 20px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.grupo legend {
+  padding: 0 6px;
+  margin-left: -6px;
+  font-weight: 700;
+}
+
+.fila {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.etiqueta {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ayuda {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Clic 1: el dato es un botón que se vuelve editable. */
+.valor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  cursor: text;
+}
+
+.valor:hover {
+  border-color: var(--border);
+}
+
+.valorCompacto {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.valorRevisar {
+  border-color: #d9a441;
+  background: #fdf6e7;
+}
+
+.sinDato {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.marcas {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.marcaRevisar,
+.marcaCorregido {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.marcaRevisar {
+  align-self: flex-start;
+  margin: 0;
+  background: #f7e3b5;
+  color: #5c4310;
+}
+
+.marcaCorregido {
+  background: #e3f1e8;
+  color: #1f5c36;
+}
+
+.edicion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.entrada {
+  flex: 1 1 180px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.listo,
+.cancelar,
+.principal,
+.secundaria,
+.peligro,
+.peligroLleno,
+.anadir,
+.quitar {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.listo {
+  border: 0;
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.cancelar,
+.secundaria {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.secundaria:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.errorCampo {
+  flex-basis: 100%;
+  margin: 0;
+  color: #9b2c1f;
+  font-size: 0.85rem;
+}
+
+.lineas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cabeceraLineas,
+.linea {
+  display: grid;
+  grid-template-columns: minmax(70px, 0.8fr) minmax(0, 1.2fr) minmax(0, 1.2fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.cabeceraLineas {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.cabeceraLineas span:first-child {
+  text-align: left;
+}
+
+.linea .valorCompacto:first-child {
+  justify-content: flex-start;
+}
+
+.linea .edicion {
+  grid-column: 1 / -1;
+}
+
+.lineaBloque {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quitar {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.anadir {
+  align-self: flex-start;
+  border: 1px dashed var(--accent);
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.calculado {
+  margin: 0;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.falta {
+  margin: 0;
+  color: #5c4310;
+  line-height: 1.5;
+}
+
+.principal {
+  min-height: 52px;
+  border: 0;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 1.05rem;
+}
+
+.principal:disabled {
+  background: #9fb3d3;
+  cursor: not-allowed;
+}
+
+.estado {
+  margin: 0;
+  color: #1f5c36;
+  font-weight: 600;
+}
+
+.estado:empty {
+  display: none;
+}
+
+.secundarias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.peligro {
+  border: 1px solid #e3b8b1;
+  background: var(--surface);
+  color: #9b2c1f;
+}
+
+.peligroLleno {
+  border: 0;
+  background: #9b2c1f;
+  color: #ffffff;
+}
+
+.confirmar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid #e3b8b1;
+  border-radius: 10px;
+  background: #fcefed;
+}
+
+.confirmar p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.borrado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.borrado p {
+  margin: 0;
+}
+
+.borrado a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.pie {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Móvil (DP4): una columna, foto arriba y pequeña, datos debajo, a la vez. */
+@media (max-width: 860px) {
+  .rejilla {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .original {
+    position: static;
+  }
+
+  .marco {
+    max-height: 240px;
+  }
+
+  .marcoAmpliado {
+    max-height: 70svh;
+  }
+
+  .marcoAmpliado .botonImagen {
+    width: 160%;
+  }
+
+  .grupo {
+    padding: 14px 14px 16px;
+  }
+
+  .principal {
+    width: 100%;
+  }
+}
