@@ -12,11 +12,12 @@ Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciad
 | `extra-aucalsa-peaje.jpg` | Peaje, IVA incluido sin desglose |
 | `extra-carrefour.pdf` | Ticket PDF, un tipo de IVA |
 | `extra-druni-catalan.pdf` | Ticket PDF, 2 tipos de IVA, en catalán |
+| `extra-mercadona-cerca.jpg` | Supermercado con 3 tipos de IVA (4 %, 10 % y 21 %), foto de cerca |
+| `extra-mercadona-lejos.jpg` | El mismo ticket fotografiado de lejos y en ángulo: prueba de duplicado (mismo NIF, número y total) |
 
 **Faltan:**
 - Una foto torcida y con poca luz (T4 tiene poca luz pero no está torcida).
 - Una factura en una moneda distinta del euro (requisito 3).
 - Una factura con NIF del receptor (requisito 3).
-- La misma factura dos veces, por ejemplo foto y PDF (requisito 5).
 
 Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket.
