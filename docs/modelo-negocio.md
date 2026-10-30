@@ -75,7 +75,7 @@ Fórmula para el coste fijo por cliente: coste fijo mensual / clientes activos. 
 | Hosting | [Confirmado] La propuesta usa Vercel Hobby solo para la demo académica, no para vender suscripciones | [Pendiente] verificar tarifa comercial vigente de Vercel Pro u otra alternativa, región y consumo estimado |
 | Base de datos y originales | [Propuesta] Supabase Free para la demo; tiene límites y puede pausarse tras una semana sin uso | [Pendiente] verificar el coste del plan comercial y estimar almacenamiento/transferencia con un volumen explícito |
 | Correo entrante y recuperación | Resend propuesto para entrada; SMTP de recuperación pendiente de validar | Probar el flujo y confirmar cuotas, condiciones, dominio y coste |
-| Tipo de cambio | Se propone utilizar referencias del BCE | Verificar que la consulta y el tratamiento de días sin publicación funcionan sin servicios de pago |
+| Tipo de cambio | [Pendiente] Validar con una gestoría el tipo vendedor del Banco de España aplicable en la fecha de devengo y cómo obtenerlo. Hasta entonces, conversión manual con fuente y fecha registradas. | Verificar que la consulta y el tratamiento de días sin publicación funcionan sin servicios de pago |
 | Pagos y comisiones | No implementados | No añadir pagos al MVP hasta decidir si realmente se va a vender el servicio |
 | Soporte, mantenimiento e impuestos | No cuantificados | Reconocerlos como costes de operación en cualquier cálculo comercial |
 
