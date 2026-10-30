@@ -26,7 +26,10 @@ Stack y regiones acordados en [arquitectura](arquitectura.md). Tablas, permisos 
    - Redirect URLs: añadir `http://localhost:3000/**`. Necesario para el enlace de recuperar contraseña (#13).
 8. **Project Settings** > **API Keys**: copiar la **URL del proyecto** y la **clave publicable** (`sb_publishable_…`). Son las dos variables `NEXT_PUBLIC_…` de [`.env.example`](../.env.example).
    - La **clave secreta** (`sb_secret_…`) solo la usa el servidor. Nunca va en el navegador, en variables `NEXT_PUBLIC_…` ni en GitHub.
-9. Dar acceso al equipo: **Organization settings** > **Team** > invitar a Ana y Javier. **[Pendiente]** Comprobar si el plan Free lo permite; la documentación de Supabase no lo aclara (consultada el 30/10/2026). Si no lo permite, se comparten solo la URL y la clave publicable, que bastan para programar.
+9. Dar acceso al equipo: en la organización de Ticketon, **Team** > **Invite members** (en español, "Invitar a los miembros"). Se ponen los correos de GitHub de Ana y Javier separados por comas, se elige el rol **Developer** y se pulsa enviar.
+   - **[Confirmado]** El plan Free deja invitar, con los roles Owner, Administrator y Developer (comprobado en el panel de Supabase el 30/10/2026).
+   - **[Confirmado]** La invitación da acceso a **todos** los proyectos de la organización, no se puede limitar a uno. Por eso `ticketon` está en **su propia organización**, separada de otros proyectos de Mireia.
+   - **[Propuesta]** Rol **Developer**: pueden ver y usar los datos del proyecto, pero no cambiar su configuración. Si alguien necesita cambiar algo de Auth (por ejemplo, los correos de recuperar contraseña del #13), lo hace Mireia o se le sube a Administrator.
 
 ## 2. Clave de Gemini
 
