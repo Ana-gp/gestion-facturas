@@ -1,0 +1,38 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), ejecutado por el asistente de Claude en Chrome",
+  "fecha": "2026-10-30",
+  "ajustes": "Thinking level: Minimal; Grounding with Google Search y resto de herramientas desactivados; misma instrucción del apartado 10 en una sola línea",
+  "ticket": "T4b (T4b-mercadona-torcida-poca-luz.jpg, versión de main con la tarjeta pixelada; subido a AI Studio como image.jpg)",
+  "respuesta": {
+    "fecha": "2026-10-09",
+    "emisor": "MERCADONA S.A.",
+    "nif_emisor": null,
+    "nif_receptor": null,
+    "numero_factura": "2939-017-128100",
+    "lineas_iva": [
+      {
+        "tipo": 4,
+        "base": 10.66,
+        "cuota": 0.43
+      },
+      {
+        "tipo": 10,
+        "base": 29.95,
+        "cuota": 2.99
+      },
+      {
+        "tipo": 21,
+        "base": 10.33,
+        "cuota": 2.17
+      }
+    ],
+    "base_imponible_total": 50.94,
+    "total": 56.53,
+    "moneda": "EUR",
+    "categoria": "Alimentación"
+  },
+  "tokens_entrada": 1371,
+  "tokens_salida": 259,
+  "coste_estimado_usd": 0.001059
+}
