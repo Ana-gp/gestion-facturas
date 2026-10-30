@@ -9,8 +9,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./subir.module.css";
 import { ACEPTA, TAMANO_MAXIMO_MB, tamanoLegible, validarArchivo } from "@/lib/subida/archivos";
-import { huellaSha256, mensajeArchivoRepetido, type DocumentoExistente } from "@/lib/subida/huella";
-import { serviciosDePrueba, type UsoDelPlan } from "@/lib/subida/contrato";
+import { huellaSha256, mensajeArchivoRepetido } from "@/lib/subida/huella";
+import { serviciosDePrueba, type DocumentoEncontrado, type OrigenSubida, type UsoDelPlan } from "@/lib/subida/contrato";
 
 type Props = {
   uso: UsoDelPlan;
@@ -33,11 +33,12 @@ type Estado =
 type Elemento = {
   clave: string;
   archivo: File;
+  origen: OrigenSubida;
   estado: Estado;
   mensaje?: string;
   documentoId?: string;
   facturaId?: string;
-  repetido?: DocumentoExistente;
+  repetido?: DocumentoEncontrado;
 };
 
 const PASOS: { estado: Estado; texto: string }[] = [
@@ -91,7 +92,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
   }
 
   async function procesar(elemento: Elemento, unico: boolean) {
-    const { clave, archivo } = elemento;
+    const { clave, archivo, origen } = elemento;
     const validacion = validarArchivo(archivo);
     if (!validacion.valido) {
       cambiar(clave, { estado: "invalido", mensaje: validacion.mensaje });
@@ -106,7 +107,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
         return;
       }
       cambiar(clave, { estado: "subiendo" });
-      const { documentoId } = await servicios.subirDocumento(archivo, huella);
+      const { documentoId } = await servicios.subirDocumento(archivo, huella, origen);
       cambiar(clave, { documentoId });
       await leer(clave, documentoId, unico);
     } catch {
@@ -114,9 +115,9 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
     }
   }
 
-  async function anadir(lista: FileList | null) {
+  async function anadir(lista: FileList | null, origen: OrigenSubida) {
     if (!lista || lista.length === 0) return;
-    const nuevos: Elemento[] = [...lista].map((archivo) => ({ clave: `a${++contador}`, archivo, estado: "comprobando" }));
+    const nuevos: Elemento[] = [...lista].map((archivo) => ({ clave: `a${++contador}`, archivo, origen, estado: "comprobando" }));
     setElementos((actuales) => [...nuevos, ...actuales]);
     // De uno en uno, para que el contador del plan sea exacto.
     for (const e of nuevos) await procesar(e, nuevos.length === 1);
@@ -125,7 +126,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
   function soltar(e: DragEvent) {
     e.preventDefault();
     setArrastrando(false);
-    void anadir(e.dataTransfer.files);
+    void anadir(e.dataTransfer.files, "arrastrar");
   }
 
   async function copiar() {
@@ -174,7 +175,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
               Hacer foto
             </button>
             <p className={styles.ayuda}>Abre la cámara del móvil. Pon el ticket sobre una superficie lisa y con luz.</p>
-            <input ref={camara} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { void anadir(e.target.files); e.target.value = ""; }} />
+            <input ref={camara} type="file" accept="image/*" capture="environment" hidden onChange={(e) => { void anadir(e.target.files, "foto"); e.target.value = ""; }} />
           </div>
 
           <div
@@ -196,7 +197,8 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
             <p className={styles.ayuda}>
               PDF, JPG, PNG o HEIC. Hasta {TAMANO_MAXIMO_MB} MB por archivo. Puedes subir varios a la vez.
             </p>
-            <input ref={selector} type="file" accept={ACEPTA} multiple hidden onChange={(e) => { void anadir(e.target.files); e.target.value = ""; }} />
+            {/* Elegir desde el equipo cuenta como «arrastrar»: es la vía del ordenador (#15). */}
+            <input ref={selector} type="file" accept={ACEPTA} multiple hidden onChange={(e) => { void anadir(e.target.files, "arrastrar"); e.target.value = ""; }} />
           </div>
 
           <div className={styles.correo}>
@@ -250,7 +252,9 @@ function EstadoElemento({ elemento: e, onReintentar }: { elemento: Elemento; onR
     return (
       <p className={styles.aviso}>
         {mensajeArchivoRepetido(e.repetido)} No se ha vuelto a subir ni ha gastado lectura.{" "}
-        <Link href={`/revisar/${e.repetido.documentoId}`}>Ver el documento</Link>
+        <Link href={e.repetido.facturaId ? `/revisar/${e.repetido.facturaId}` : `/revisar/nuevo?documento=${e.repetido.documentoId}`}>
+          Ver el documento
+        </Link>
       </p>
     );
   }
@@ -269,7 +273,8 @@ function EstadoElemento({ elemento: e, onReintentar }: { elemento: Elemento; onR
           <button type="button" className={styles.secundaria} onClick={onReintentar}>
             Volver a leer
           </button>
-          <Link href="/revisar/nuevo">Rellenar los datos a mano</Link>
+          {/* Se pasa el documento para que la factura rellenada a mano quede enlazada a su original (requisito 6). */}
+          <Link href={`/revisar/nuevo?documento=${e.documentoId}`}>Rellenar los datos a mano</Link>
         </div>
       </div>
     );

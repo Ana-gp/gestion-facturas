@@ -46,9 +46,12 @@ test("tamaño legible", () => {
 test("servicio de prueba: sube, encuentra la huella repetida y lee", async () => {
   const s = serviciosDePrueba();
   assert.equal(await s.buscarPorHuella("h1"), null);
-  const { documentoId } = await s.subirDocumento(new File(["x"], "ticket.jpg"), "h1");
-  assert.equal((await s.buscarPorHuella("h1")).documentoId, documentoId);
+  const { documentoId } = await s.subirDocumento(new File(["x"], "ticket.jpg"), "h1", "foto");
+  const antes = await s.buscarPorHuella("h1");
+  assert.equal(antes.documentoId, documentoId);
+  assert.equal(antes.facturaId, null, "sin leer todavía no tiene factura");
   assert.deepEqual(await s.leerDocumento(documentoId), { estado: "leido", facturaId: "t4b" });
-  const otro = await s.subirDocumento(new File(["y"], "error-lectura.jpg"), "h2");
+  assert.equal((await s.buscarPorHuella("h1")).facturaId, "t4b", "después de leer, el repetido enlaza a su factura");
+  const otro = await s.subirDocumento(new File(["y"], "error-lectura.jpg"), "h2", "arrastrar");
   assert.equal((await s.leerDocumento(otro.documentoId)).estado, "error");
 });
