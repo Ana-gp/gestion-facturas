@@ -15,11 +15,12 @@ Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciad
 | `extra-druni-catalan.pdf` | Ticket PDF, 2 tipos de IVA, en catalán |
 | `extra-mercadona-cerca.jpg` | Supermercado con 3 tipos de IVA (4 %, 10 % y 21 %), foto de cerca |
 | `extra-mercadona-lejos.jpg` | El mismo ticket fotografiado de lejos y en ángulo: prueba de duplicado (mismo NIF, número y total) |
+| `extra-santander-pesos-mexicanos.jpg` | Comprobante de pago de servicios del Banco Santander (México), en pesos mexicanos. **No es una factura:** no lleva NIF/RFC del emisor ni IVA. Sirve para probar la detección de otra moneda. **Trampa:** el importe va con "$" pero no son dólares: la pista es "(MN)" (moneda nacional) y la sucursal de Tapachula, Chiapas. Moneda correcta: MXN |
 
 **Faltan:**
-- Una factura en una moneda distinta del euro (requisito 3).
+- Una factura en una moneda distinta del euro (requisito 3). El comprobante de Santander en pesos cubre la detección de la moneda, pero no es una factura.
 - Una factura con NIF del receptor (requisito 3).
 
-Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket, y en las fotos de Mercadona, las cuatro últimas cifras de la tarjeta.
+Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket, en las fotos de Mercadona, las cuatro últimas cifras de la tarjeta, y en el comprobante de Santander, la referencia del pago.
 
 **Trampas de la prueba:** algunas fotos llevan impresa la marca de la cámara del móvil, con el modelo y la fecha en que se hizo la foto. Esa fecha no es la del ticket: la IA debe leer la fecha impresa en el ticket. Es un caso real, porque muchos móviles añaden esa marca por defecto.
