@@ -313,7 +313,7 @@ Alternativa si el equipo exige tratamiento en la UE sin cuenta de Google Cloud: 
 
 Riesgos y qué hará la pantalla de corrección (#21) para cubrirlos:
 
-- **Número de factura y nombre del emisor:** son los campos que fallaron (A confundió el número con otro del ticket en T2 y cambió una letra del emisor en T1). La pantalla de corrección debe mostrarlos junto a la imagen para comprobarlos de un vistazo. El NIF del emisor, que identifica a la empresa, se leyó bien en todos los tickets que lo tienen.
+- **Número de factura y nombre del emisor:** son los campos que fallaron (A confundió el número con otro del ticket en T2 y cambió una letra del emisor en T1). La pantalla de corrección debe mostrarlos junto a la imagen para comprobarlos de un vistazo. El NIF del emisor, que identifica a la empresa, se leyó bien en todos los tickets salvo en T4b, donde la foto apenas lo deja leer.
 - **Datos ausentes:** el motor deja vacíos los que no aparecen. La pantalla debe marcar esos campos para que el usuario los rellene si los conoce.
 - **Moneda distinta del euro:** sin probar. Queda pendiente para #20 y #31.
 - **NIF poco legible:** en fotos malas el NIF puede salir vacío (T4b). La pantalla debe pedirlo; si el emisor ya existe en los gastos del usuario, se puede proponer su NIF.
