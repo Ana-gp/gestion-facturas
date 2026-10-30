@@ -20,4 +20,4 @@ Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciad
 - Una factura en una moneda distinta del euro (requisito 3).
 - Una factura con NIF del receptor (requisito 3).
 
-Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket.
+Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket, y en las dos fotos de Mercadona, las cuatro últimas cifras de la tarjeta.
