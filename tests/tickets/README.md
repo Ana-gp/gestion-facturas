@@ -9,6 +9,7 @@ Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciad
 | `T2-eroski-varios-iva.jpg` | Supermercado con 3 tipos de IVA |
 | `T3-claude-pro-ingles.pdf` | Factura PDF de suscripción en inglés (en euros) |
 | `T4-cerveceria-poca-luz.jpg` | Foto con luz difícil y parte tapada |
+| `T4b-mercadona-torcida-poca-luz.jpg` | Foto torcida (unos 35 grados) y con poca luz: el caso obligatorio de la prueba de lectura. Supermercado con 3 tipos de IVA |
 | `extra-aucalsa-peaje.jpg` | Peaje, IVA incluido sin desglose |
 | `extra-carrefour.pdf` | Ticket PDF, un tipo de IVA |
 | `extra-druni-catalan.pdf` | Ticket PDF, 2 tipos de IVA, en catalán |
@@ -16,8 +17,7 @@ Tickets y facturas reales para la prueba de lectura (tarea 03, #10). El enunciad
 | `extra-mercadona-lejos.jpg` | El mismo ticket fotografiado de lejos y en ángulo: prueba de duplicado (mismo NIF, número y total) |
 
 **Faltan:**
-- Una foto torcida y con poca luz (T4 tiene poca luz pero no está torcida).
 - Una factura en una moneda distinta del euro (requisito 3).
 - Una factura con NIF del receptor (requisito 3).
 
-Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket, y en las dos fotos de Mercadona, las cuatro últimas cifras de la tarjeta.
+Los datos personales que no se usan en la prueba están pixelados o tachados. En `T1-gasolinera-arrugado.jpg` se ha pixelado el correo electrónico que aparece en el ticket, y en las fotos de Mercadona, las cuatro últimas cifras de la tarjeta.
