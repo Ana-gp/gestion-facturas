@@ -2,7 +2,7 @@
 
 Tarea: #18 (orden 15) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 30/10/2026
 
-**Estado:** guía para crear los servicios. **[Pendiente]** Nada de lo que describe está creado todavía: cuando se complete un paso, se marca en el apartado 6 con la fecha.
+**Estado:** Supabase y la clave de Gemini creados el 30/10/2026 (apartado 6). **[Pendiente]** Invitar a Ana y Javier, conectar Vercel y repetir en Supabase las pruebas con dos cuentas reales (apartado 5).
 
 Leyenda (según la [guía de estilo](guia-estilo.md)): **[Confirmado]** comprobado en una fuente o en una prueba; **[Supuesto]** se da por bueno para avanzar; **[Propuesta]** decisión del equipo que se puede cambiar; **[Pendiente]** falta información o falta hacerlo.
 
@@ -26,7 +26,7 @@ Stack y regiones acordados en [arquitectura](arquitectura.md). Tablas, permisos 
    - Redirect URLs: añadir `http://localhost:3000/**`. Necesario para el enlace de recuperar contraseña (#13).
 8. **Project Settings** > **API Keys**: copiar la **URL del proyecto** y la **clave publicable** (`sb_publishable_…`). Son las dos variables `NEXT_PUBLIC_…` de [`.env.example`](../.env.example).
    - La **clave secreta** (`sb_secret_…`) solo la usa el servidor. Nunca va en el navegador, en variables `NEXT_PUBLIC_…` ni en GitHub.
-9. Dar acceso al equipo: en la organización de Ticketon, **Team** > **Invite members** (en español, "Invitar a los miembros"). Se ponen los correos de GitHub de Ana y Javier separados por comas, se elige el rol **Developer** y se pulsa enviar.
+9. Dar acceso al equipo: en la organización **TICKETON**, **Team** > **Invite members** (en español, "Invitar a los miembros"). Se ponen los correos de GitHub de Ana y Javier separados por comas, se elige el rol **Developer** y se pulsa enviar.
    - **[Confirmado]** El plan Free deja invitar, con los roles Owner, Administrator y Developer (comprobado en el panel de Supabase el 30/10/2026).
    - **[Confirmado]** La invitación da acceso a **todos** los proyectos de la organización, no se puede limitar a uno. Por eso `ticketon` está en **su propia organización**, separada de otros proyectos de Mireia.
    - **[Propuesta]** Rol **Developer**: pueden ver y usar los datos del proyecto, pero no cambiar su configuración. Si alguien necesita cambiar algo de Auth (por ejemplo, los correos de recuperar contraseña del #13), lo hace Mireia o se le sube a Administrator.
@@ -103,15 +103,16 @@ El SQL se cargó en un PostgreSQL 16 local con imitaciones de Supabase (`auth.us
 
 ## 6. Registro
 
-| Paso | Hecho por | Fecha |
-|---|---|---|
-| Proyecto de Supabase creado en Fráncfort | | |
-| SQL ejecutado sin errores | | |
-| URL de Auth configuradas | | |
-| Clave de Gemini creada | | |
-| Equipo con acceso a Supabase | | |
-| Repositorio público (apartado 4) | Ana | 30/10/2026 |
-| Vercel conectado y desplegando `main` | | |
-| Región de funciones `fra1` | | |
-| Dirección de Vercel en las Redirect URLs de Supabase | | |
-| Prueba de `/api/tipo-cambio` con MXN y 06/01/2024 | | |
+| Paso | Hecho por | Fecha | Cómo se comprobó |
+|---|---|---|---|
+| Proyecto de Supabase creado en Fráncfort | Mireia | 30/10/2026 | **[Confirmado]** Proyecto `ticketon` en su propia organización, **TICKETON**, plan Free, región Central EU (Frankfurt) `eu-central-1` en Project Settings > General. No pidió tarjeta |
+| SQL ejecutado sin errores | Mireia | 30/10/2026 | **[Confirmado]** `modelo-datos.sql` de la rama `18-supabase-sql`, ejecutado una vez: "Success. No rows returned", sin avisos. Consulta de comprobación: las 9 tablas, bucket `originales` privado con 10 MB (10485760 bytes) y PDF, JPG, PNG, HEIC y HEIF, y 3 filas en `planes` |
+| URL de Auth configuradas | Mireia | 30/10/2026 | **[Confirmado]** Site URL `http://localhost:3000` (venía por defecto) y una sola Redirect URL, `http://localhost:3000/**`. Falta añadir la de Vercel (apartado 4.2, paso 7) |
+| URL del proyecto y clave publicable localizadas | Mireia | 30/10/2026 | **[Confirmado]** Con las dos, una consulta de solo lectura a `planes` devuelve los 3 planes sin iniciar sesión. Se pasan por el grupo, no se suben a GitHub (apartado 3) |
+| Clave de Gemini creada | Mireia | 30/10/2026 | **[Confirmado]** Creada en Google AI Studio y guardada en un gestor de contraseñas. Nivel gratuito, sin facturación configurada ni tarjeta |
+| Equipo con acceso a Supabase | | | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). **[Pendiente]** Faltan los correos de GitHub de Ana y Javier para enviar la invitación como Developer |
+| Repositorio público (apartado 4) | Ana | 30/10/2026 | |
+| Vercel conectado y desplegando `main` | | | |
+| Región de funciones `fra1` | | | |
+| Dirección de Vercel en las Redirect URLs de Supabase | | | |
+| Prueba de `/api/tipo-cambio` con MXN y 06/01/2024 | | | |
