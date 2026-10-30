@@ -1,5 +1,7 @@
 # 08 · Modelo de negocio, planes y coste por cliente
 
+Tarea: #3 (orden 08) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Última actualización: 29/10/2026
+
 **Producto:** Ticketon  
 **Público inicial:** autónomos que trabajan con una gestoría y necesitan guardar y ordenar tickets y facturas.  
 **Estado:** propuesta inicial para el trabajo final del curso. Los precios, costes de infraestructura y márgenes son hipótesis; no son tarifas aprobadas ni demuestran rentabilidad.  
