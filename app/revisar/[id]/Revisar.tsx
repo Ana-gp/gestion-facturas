@@ -264,6 +264,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
       actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: redondear(n, 6) }));
       setOrigenTipo({ fecha: datos.fecha, fuente: "manual" });
       setPropuesta(null);
+      setErrorTipo(null);
       return null;
     },
   };
@@ -520,7 +521,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
                   {origenTipo && datos.tipoCambio && (
                     <p className={styles.ayuda}>
                       {origenTipo.fuente === "BDE"
-                        ? `Tipo oficial del euro publicado por el Banco de España, del ${mostrarFecha(origenTipo.fecha)}.`
+                        ? `Tipo oficial del euro del BCE, el mismo que publica el Banco de España, del ${mostrarFecha(origenTipo.fecha)}.`
                         : "Tipo escrito por ti."}
                     </p>
                   )}
@@ -533,7 +534,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
                     <div className={styles.propuesta} role="status">
                       <p>
                         <strong>Tipo propuesto: {textoDelTipo(propuesta.tipo, propuesta.moneda)}</strong>, del {mostrarFecha(propuesta.fecha)}.
-                        Es el tipo oficial del euro que publica el Banco de España.
+                        Es el tipo oficial del euro del BCE, el mismo que publica el Banco de España.
                       </p>
                       {datos.fecha && notaDeLaFecha(propuesta.fecha, datos.fecha) && <p>{notaDeLaFecha(propuesta.fecha, datos.fecha)}</p>}
                       <p className={styles.ayuda}>Si la fecha de devengo no es la de la factura, consulta con tu gestoría y escribe el tipo a mano.</p>

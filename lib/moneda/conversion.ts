@@ -14,6 +14,10 @@
  *   total_eur = round(total / tipo_cambio, 2), igual que el CHECK de la tabla.
  */
 
+/**
+ * `BDE` sigue la columna `tipo_cambio_fuente` del PR #46. El dato se consulta
+ * en la API del BCE, que es el mismo tipo que publica el Banco de España.
+ */
 export type FuenteTipoCambio = "BDE" | "manual";
 
 export type TipoDeCambio = {
