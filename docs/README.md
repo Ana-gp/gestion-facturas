@@ -15,5 +15,6 @@
 | [Funciones adicionales](funciones.md) | 04 (#7) | Ana | En revisión |
 | [Mapa de pantallas y flujos de usuario](mapa-pantallas.md) | 10 (#8) | Mireia | En revisión |
 | [Guía de estilo](guia-estilo.md) | Todas | Equipo | Aprobado |
+| [Desarrollo local de Ticketon](desarrollo-local.md) | 13 (#12) | Javier | En revisión (PR #39); despliegue en Vercel [Pendiente] |
 
 La prueba de IA (#6) no se cerrará hasta completar o resolver con el equipo los casos pendientes de la issue #10. Los estados de revisión se actualizan a medida que el equipo valida las PR.
