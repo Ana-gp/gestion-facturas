@@ -23,7 +23,7 @@ Leyenda (según la [guía de estilo](guia-estilo.md)):
 | Almacenamiento de originales | **Supabase Storage**, *bucket* privado, misma región | Foto o PDF original, en una carpeta por usuario |
 | Correo entrante (#16) | **Resend** (recepción) | Dirección `facturas-<código>@<id>.resend.app` por usuario; avisa a la web con un *webhook* |
 | Lectura con IA | **Gemini 3.5 Flash Lite** (decidido en #6) | Extraer los campos de la factura |
-| Tipo de cambio | **Tipos de referencia del BCE** | Pasar a euros con el tipo de la fecha de la factura |
+| Tipo de cambio | **Tipo de cambio del Banco de España**, que usa los tipos oficiales del euro publicados por el BCE; se consultan en la API del BCE y se **proponen** al usuario (#20, PR #46) | Pasar a euros con el tipo de la fecha de la factura. **[Pendiente]** Validar con una gestoría el tipo aplicable en el devengo (art. 79.Once de la Ley del IVA) |
 | Exportación a Excel | Librería de JavaScript (p. ej. ExcelJS o SheetJS) | Crear el `.xlsx` en la propia web, sin servicio externo |
 | Web instalable | **PWA** (manifest de Next.js) | Instalar en la pantalla de inicio y, en Android, aparecer en "Compartir" |
 
@@ -82,7 +82,7 @@ Si al crear la cuenta de Supabase o Resend apareciera la petición de tarjeta, *
 | Original enlazado a sus datos | El archivo va directo del navegador al *bucket* privado `originales/<user_id>/…`; la fila de la factura guarda su ruta. Se ve con un enlace temporal firmado | #18 |
 | Lectura automática | Una ruta de API de Next.js descarga el archivo del *bucket*, lo envía a Gemini con la instrucción de `docs/prueba-ia.md` (apartado 10) y guarda el JSON. La clave de Gemini solo está en el servidor | #19 |
 | Varios tipos de IVA | Tabla `lineas_iva` (varias por factura). Se detalla en #29 | #29 |
-| Moneda extranjera | Guardar moneda original, tipo del BCE de la fecha e importe en euros | #20 |
+| Moneda extranjera | Guardar moneda original, tipo aplicado (fuente `BDE` o `manual`), su fecha e importe en euros. El tipo se propone y el usuario lo acepta o lo cambia | #20 |
 | Duplicados | Huella SHA-256 del archivo + comparación de NIF del emisor, número y total | #22 |
 | Exportar a Excel | Librería JavaScript que genera el `.xlsx` del periodo elegido | #23 |
 | Página de precios | Página de Next.js | #24 |
@@ -108,7 +108,7 @@ flowchart LR
 
     RESEND["Resend<br/>recepción de correo"]
     GEM["Gemini 3.5 Flash Lite<br/>lectura con IA"]
-    BCE["BCE<br/>tipos de cambio"]
+    BCE["API del BCE<br/>tipos oficiales del euro"]
     SMTP["SMTP propio<br/>(pendiente, #13)"]
     GH["GitHub · main"]
 
@@ -118,7 +118,7 @@ flowchart LR
     WEB -- "pide la lectura" --> API
     API -- "lee el original" --> ST
     API -- "envía la imagen o el PDF" --> GEM
-    API -- "tipo del día" --> BCE
+    API -- "tipo propuesto" --> BCE
     API -- "guarda los datos" --> DB
     MAIL --> RESEND
     RESEND -- "webhook con adjuntos" --> API
@@ -142,7 +142,7 @@ Cómo leerlo: el usuario solo habla con la web. La web guarda el original direct
 | 7 | **Dónde procesa Resend los correos** (no consta). Afecta a la normativa | Javier (#4, legal) | Respuesta documentada en el doc legal |
 | 8 | **Límite de tamaño** de las peticiones a las funciones de Vercel. **[Supuesto]**: es bajo (unos pocos MB), por eso el original se sube directo a Supabase y no pasa por la función | Mireia (#18) | Probado con una foto de móvil de más de 5 MB |
 | 9 | **Pausa de Supabase** tras 1 semana sin uso: acordarse de entrar antes de la presentación | Equipo | — |
-| 10 | **API del BCE**: comprobar que es pública y sin registro, y qué hacer en fines de semana y festivos (no hay tipo publicado) | Anaí (#20, moneda) | Conversión probada con una factura en dólares |
+| 10 | **Tipo de cambio**: la API del BCE se usa para proponer el tipo; en fines de semana y festivos se toma el último publicado antes (#20). **[Pendiente]** Confirmar con una gestoría el tipo y la fecha de devengo aplicables (PR #46) | Ana (#20, moneda) | Conversión probada con una factura en otra moneda |
 
 ### Si cambiara el público objetivo (#2)
 
@@ -191,4 +191,5 @@ IA
 
 Móvil y moneda
 - caniuse · `share_target`: https://caniuse.com/mdn-manifests_webapp_share_target
-- BCE · Tipos de referencia del euro: https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+- BCE · Tipos de referencia del euro (solo informativos): https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
+- BOE · Ley 37/1992 del IVA, artículo 79: https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740

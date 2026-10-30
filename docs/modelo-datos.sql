@@ -1,13 +1,15 @@
 -- =====================================================================
--- Ticketon · Modelo de datos · BORRADOR SQL
--- Issue #29 (orden 07) · Bloque 2 · Responsable: Mireia
+-- Ticketon · Modelo de datos · SQL para Supabase
+-- Issue #29 (orden 07) e #18 · Bloque 2 · Responsable: Mireia
 --
--- [Propuesta] del 29/10/2026. NO EJECUTAR en Supabase todavía.
+-- Cómo usarlo: copiar el archivo entero en Supabase > SQL Editor y
+-- pulsar Run UNA sola vez, en un proyecto vacío (no se puede repetir:
+-- crea tablas y políticas que ya existirían). Guía: docs/supabase.md.
 -- Explicación de cada tabla y decisión en docs/modelo-datos.md.
 --
--- Se ha probado solo en un PostgreSQL 16 local de pruebas, con
--- imitaciones sencillas de auth.users, auth.uid() y storage.objects
--- (apartado 7 de docs/modelo-datos.md). No se ha probado en Supabase.
+-- Probado en un PostgreSQL 16 local de pruebas, con imitaciones de
+-- auth.users, auth.uid(), storage.buckets y storage.objects (apartado 7
+-- de docs/modelo-datos.md). [Pendiente] Comprobarlo en Supabase (#18).
 -- =====================================================================
 
 
@@ -130,11 +132,11 @@ create table public.facturas (
   retencion_importe     numeric(12,2) check (retencion_importe >= 0),
   total                 numeric(12,2),
   moneda                text not null default 'EUR' check (moneda ~ '^[A-Z]{3}$'),
-  -- Convención del BCE: unidades de la moneda por 1 euro (1 € = 1,1133 $).
+  -- Unidades de moneda extranjera por 1 euro. La fuente aplicable al IVA debe confirmarse conforme a la norma.
   -- total_eur = round(total / tipo_cambio, 2). Lo comprueba un CHECK.
   tipo_cambio           numeric(14,6) check (tipo_cambio > 0),
   tipo_cambio_fecha     date,
-  tipo_cambio_fuente    text check (tipo_cambio_fuente in ('BCE', 'manual')),
+  tipo_cambio_fuente    text check (tipo_cambio_fuente in ('BDE', 'manual')),
   total_eur             numeric(12,2),
   categoria_id          smallint references public.categorias (id),
   estado_revision       text not null default 'pendiente' check (estado_revision in ('pendiente', 'revisada')),
@@ -296,7 +298,13 @@ create policy "lineas: borrar"   on public.lineas_iva for delete to authenticate
 -- Cada usuario solo sube, ve y borra dentro de su carpeta '<user_id>/'.
 -- No hay política de UPDATE: un original no se sobrescribe (integridad).
 
-insert into storage.buckets (id, name, public) values ('originales', 'originales', false);
+-- Límites del bucket (#18, acordados en el PR #65): 10 MB por archivo y
+-- solo PDF, JPG, PNG y HEIC. Así lo controla también el servidor, no
+-- solo la pantalla. Al subir hay que indicar el tipo (contentType):
+-- si no, Supabase lo trata como texto y lo rechaza.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('originales', 'originales', false, 10485760,
+        array['application/pdf', 'image/jpeg', 'image/png', 'image/heic', 'image/heif']);
 
 create policy "originales: subir a mi carpeta" on storage.objects for insert to authenticated
   with check (bucket_id = 'originales' and (storage.foldername(name))[1] = (select auth.uid())::text);
