@@ -130,11 +130,11 @@ create table public.facturas (
   retencion_importe     numeric(12,2) check (retencion_importe >= 0),
   total                 numeric(12,2),
   moneda                text not null default 'EUR' check (moneda ~ '^[A-Z]{3}$'),
-  -- Convención del BCE: unidades de la moneda por 1 euro (1 € = 1,1133 $).
+  -- Unidades de moneda extranjera por 1 euro. La fuente aplicable al IVA debe confirmarse conforme a la norma.
   -- total_eur = round(total / tipo_cambio, 2). Lo comprueba un CHECK.
   tipo_cambio           numeric(14,6) check (tipo_cambio > 0),
   tipo_cambio_fecha     date,
-  tipo_cambio_fuente    text check (tipo_cambio_fuente in ('BCE', 'manual')),
+  tipo_cambio_fuente    text check (tipo_cambio_fuente in ('BDE', 'manual')),
   total_eur             numeric(12,2),
   categoria_id          smallint references public.categorias (id),
   estado_revision       text not null default 'pendiente' check (estado_revision in ('pendiente', 'revisada')),
