@@ -9,7 +9,8 @@
 | [Valores reales de los tickets](valores-reales-tickets.xlsx) | 06 (#6) | Mireia | Terminado |
 | [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Revisión solicitada; correcciones en PR #41 |
 | [Stack y arquitectura](arquitectura.md) | 05 (#5) | Mireia | Aprobado |
-| [Modelo de datos y base de datos](modelo-datos.md) y [borrador SQL](modelo-datos.sql) | 07 (#29) | Mireia | Aprobado |
+| [Modelo de datos y base de datos](modelo-datos.md) y [SQL para Supabase](modelo-datos.sql) | 07 (#29) | Mireia | Aprobado; SQL listo para ejecutar (#18) |
+| [Puesta en marcha de Supabase, Gemini y Vercel](supabase.md) | 15 (#18) | Mireia | En revisión |
 | [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Aprobado |
 | [Normativa aplicable](legal.md) | 09 (#4) | Javier | Aprobado |
 | [Funciones adicionales](funciones.md) | 04 (#7) | Ana | En revisión |
