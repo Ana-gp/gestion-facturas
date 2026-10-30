@@ -48,19 +48,21 @@ Uso permitido durante el curso (acordado en la revisión del PR #36, apartado 7 
 
 **[Supuesto]** En el plan gratuito Hobby, Vercel bloquea los despliegues de un repositorio privado cuando el autor del commit no es el dueño de la cuenta de Vercel. Los colaboradores necesitarían el plan Pro. Fuente: hilo de la comunidad de Vercel con respuesta de una persona de Vercel ("Collaboration has never been allowed on Hobby"), no documentación oficial: [Vercel Community](https://community.vercel.com/t/hobby-account-private-repo-collaborators-deployment-blocked/1030), consultado el 30/10/2026.
 
-**Decisión (30/10/2026): opción B.** Ana hace público el repositorio para que Mireia pueda conectar Vercel desde su cuenta. Antes de cambiar la visibilidad, comprobar el apartado 4.1.
+**Decisión (30/10/2026): opción A.** Ana conecta Vercel desde su cuenta y el repositorio sigue **privado**. Para el martes basta con que producción se despliegue al unir en `main`; las ramas se prueban en local. Así no se publican los tickets reales: algunos son de conocidos que dieron su consentimiento para el proyecto, no para publicarlos.
 
 Opciones que se compararon:
 
 | Opción | Cómo | A favor | En contra |
 |---|---|---|---|
-| A · Vercel en la cuenta de Ana | Ana importa el repositorio en su Vercel. Como es ella quien une los PR, los commits de `main` son suyos | Gratis; sin cambiar el repositorio; la producción se despliega sola | Puede que no haya vistas previas de las ramas de Mireia y Javier; las variables de entorno las configura Ana |
-| **B · Hacer público el repositorio (elegida)** | Ajustes de GitHub > cambiar visibilidad | Vercel Hobby permite colaborar en repositorios públicos | `tests/tickets/` tiene tickets reales: hay que revisarlos antes de publicarlo (apartado 4.1) |
+| **A · Vercel en la cuenta de Ana (elegida)** | Ana importa el repositorio en su Vercel. Como es ella quien une los PR, los commits de `main` son suyos | Gratis; sin cambiar el repositorio; la producción se despliega sola | Puede que no haya vistas previas de las ramas de Mireia y Javier; las variables de entorno las configura Ana |
+| B · Hacer público el repositorio | Ajustes de GitHub > cambiar visibilidad | Vercel Hobby permite colaborar en repositorios públicos | `tests/tickets/` tiene tickets reales con consentimiento solo para el proyecto (apartado 4.1) |
 | C · Vercel Pro | Pagar el plan Pro (20 $ al mes por persona, ver arquitectura) | Sin restricciones | Cuesta dinero y pide tarjeta; va contra el "coste fijo 0 €" de la arquitectura |
 
-Con la opción B, Mireia importa el repositorio en su Vercel siguiendo el apartado "Despliegue en Vercel" de [desarrollo local](desarrollo-local.md): región de funciones `fra1` y las variables `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` y `GEMINI_API_KEY`. Después, añadir la dirección de Vercel a las Redirect URLs de Supabase (apartado 1, paso 7).
+Con la opción A, Ana importa el repositorio en su Vercel siguiendo el apartado "Despliegue en Vercel" de [desarrollo local](desarrollo-local.md): región de funciones `fra1` y las variables `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY` y `GEMINI_API_KEY`. La clave de Gemini de producción la crea y la pone Ana directamente en Vercel; nadie la envía por mensajes. Para probar en local, cada persona usa su propia clave de AI Studio. Después, añadir la dirección de Vercel a las Redirect URLs de Supabase (apartado 1, paso 7).
 
-### 4.1 Antes de hacer público el repositorio
+### 4.1 Nota por si algún día se hace público el repositorio
+
+No aplica ahora (se eligió la opción A). Se deja para no repetir la revisión.
 
 Al hacerlo público se ve **todo**: los archivos actuales, el historial y los PR cerrados, aunque no se unieran.
 
