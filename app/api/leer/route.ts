@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { leerConGemini } from "@/lib/lectura/gemini";
-import { leerDocumentoGuardado } from "@/lib/lectura/leer-documento";
+import { MENSAJE_ERROR_LECTURA, leerDocumentoGuardado, paraLaPantalla } from "@/lib/lectura/leer-documento";
 import { clienteAdmin } from "@/lib/supabase/admin";
 import { configSupabase } from "@/lib/supabase/config";
 import { clienteServidor } from "@/lib/supabase/servidor";
@@ -9,7 +9,8 @@ import { clienteServidor } from "@/lib/supabase/servidor";
 // original (#18), y también «Volver a leer con IA» en la ficha.
 //   POST /api/leer   { "documentoId": "<uuid>" }
 // Respuesta: { estado: "leido", facturaId } | { estado: "sin-lecturas" } |
-//            { estado: "error", mensaje } (el original sigue guardado).
+//            { estado: "error", mensaje } con un mensaje fijo para el usuario;
+//            el detalle del error solo queda en el registro (console.error).
 
 export const runtime = "nodejs";
 // Funciones en Fráncfort, como acordó la arquitectura.
@@ -45,10 +46,11 @@ export async function POST(request: NextRequest) {
     if (resultado.estado === "no-encontrado") {
       return NextResponse.json({ estado: "error", mensaje: "No existe ese documento." }, { status: 404 });
     }
-    return NextResponse.json(resultado);
+    // El detalle del error (Gemini, Supabase) solo va al registro de Vercel.
+    return NextResponse.json(paraLaPantalla(resultado, (detalle) => console.error("[api/leer]", documentoId, detalle)));
   } catch (e) {
     // Errores antes de leer (permisos, contador). En el registro de Vercel queda el detalle.
     console.error("[api/leer]", e);
-    return NextResponse.json({ estado: "error", mensaje: "No se ha podido leer el documento. El original está guardado." }, { status: 500 });
+    return NextResponse.json({ estado: "error", mensaje: MENSAJE_ERROR_LECTURA }, { status: 500 });
   }
 }

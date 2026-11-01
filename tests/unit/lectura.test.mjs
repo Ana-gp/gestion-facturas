@@ -7,7 +7,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { aFilas, fecha, interpretarRespuesta, numero } from "../../lib/lectura/interpretar.ts";
-import { leerDocumentoGuardado } from "../../lib/lectura/leer-documento.ts";
+import { MENSAJE_ERROR_LECTURA, leerDocumentoGuardado, paraLaPantalla } from "../../lib/lectura/leer-documento.ts";
 import { CATEGORIAS_LECTURA, INSTRUCCION } from "../../lib/lectura/instruccion.ts";
 import { leerEnElServidor } from "../../lib/subida/servicios-supabase.ts";
 
@@ -267,4 +267,15 @@ test("la pantalla pide /api/leer y entiende las tres respuestas", async () => {
   assert.deepEqual(await leerEnElServidor("d1", con({ estado: "sin-lecturas" })), { estado: "sin-lecturas" });
   assert.deepEqual(await leerEnElServidor("d1", con({ estado: "error", mensaje: "x" })), { estado: "error", mensaje: "x" });
   assert.deepEqual(await leerEnElServidor("d1", async () => { throw new Error("sin red"); }), { estado: "error" });
+});
+
+test("la pantalla nunca ve el error interno: mensaje fijo y detalle solo en el registro", () => {
+  const registro = [];
+  const r = paraLaPantalla({ estado: "error", mensaje: "Gemini respondió 503. The model is overloaded." }, (d) => registro.push(d));
+  assert.deepEqual(r, { estado: "error", mensaje: MENSAJE_ERROR_LECTURA });
+  assert.equal(MENSAJE_ERROR_LECTURA, "No hemos podido leer este documento. El original está guardado.");
+  assert.deepEqual(registro, ["Gemini respondió 503. The model is overloaded."]);
+  // Lo que no es error pasa tal cual.
+  assert.deepEqual(paraLaPantalla({ estado: "leido", facturaId: "f1" }), { estado: "leido", facturaId: "f1" });
+  assert.deepEqual(paraLaPantalla({ estado: "sin-lecturas" }), { estado: "sin-lecturas" });
 });
