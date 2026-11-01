@@ -4,13 +4,15 @@
 // Las tres vías obligatorias juntas: foto con el móvil, arrastrar o elegir
 // archivos desde el ordenador y reenvío por correo (#16, pendiente).
 
-import { useMemo, useRef, useState, type DragEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./subir.module.css";
 import { ACEPTA, TAMANO_MAXIMO_MB, tamanoLegible, validarArchivo } from "@/lib/subida/archivos";
 import { huellaSha256, mensajeArchivoRepetido } from "@/lib/subida/huella";
-import { serviciosDePrueba, type DocumentoEncontrado, type OrigenSubida, type UsoDelPlan } from "@/lib/subida/contrato";
+import { serviciosDePrueba, type DocumentoEncontrado, type OrigenSubida, type ServiciosSubida, type UsoDelPlan } from "@/lib/subida/contrato";
+import { serviciosSupabase } from "@/lib/subida/servicios-supabase";
+import { clienteNavegadorSiHay } from "@/lib/supabase/cliente";
 
 type Props = {
   uso: UsoDelPlan;
@@ -51,8 +53,24 @@ let contador = 0;
 
 export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: Props) {
   const router = useRouter();
-  // [Pendiente] Cambiar por los servicios reales de #18 y #19 (mismo contrato).
-  const servicios = useMemo(() => serviciosDePrueba(), []);
+  // Con sesión iniciada, se guarda de verdad en Supabase (#18). Sin sesión o
+  // sin claves, siguen los servicios de prueba. [Pendiente] La lectura real (#19).
+  const prueba = useMemo(() => serviciosDePrueba(), []);
+  const [reales, setReales] = useState<ServiciosSubida | null>(null);
+  const servicios = reales ?? prueba;
+  const modoPrueba = datosDeEjemplo && !reales;
+
+  useEffect(() => {
+    const supabase = clienteNavegadorSiHay();
+    if (!supabase) return;
+    let activo = true;
+    void supabase.auth.getUser().then(({ data }) => {
+      if (activo && data.user) setReales(serviciosSupabase(supabase, data.user.id));
+    });
+    return () => {
+      activo = false;
+    };
+  }, []);
   const [elementos, setElementos] = useState<Elemento[]>([]);
   const [usados, setUsados] = useState(uso.usados);
   const [arrastrando, setArrastrando] = useState(false);
@@ -148,7 +166,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
   return (
     <main className={styles.pagina}>
       <div className={styles.contenido}>
-        {datosDeEjemplo && (
+        {modoPrueba && (
           <p className={styles.ejemplo}>
             Modo de prueba: los archivos no se guardan todavía y cualquier documento se lee como un ticket de ejemplo.
           </p>

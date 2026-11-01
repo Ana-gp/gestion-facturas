@@ -438,9 +438,8 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
           </div>
           <p className={styles.pieOriginal}>
             <span>{ficha.nombreArchivo}</span>
-            <a href={ficha.original} target="_blank" rel="noreferrer">
-              Ver original en grande
-            </a>
+            {/* P12 (#18). [Pendiente] Con datos reales, el id del documento en lugar del de la ficha. */}
+            <Link href={`/original/${ficha.id}`}>Ver original en grande</Link>
           </p>
         </section>
 
