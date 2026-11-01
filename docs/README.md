@@ -14,8 +14,9 @@
 | [Puesta en marcha de Supabase, Gemini y Vercel](supabase.md) | 15 (#18) | Mireia | En revisión |
 | [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Aprobado |
 | [Normativa aplicable](legal.md) | 09 (#4) | Javier | Aprobado |
-| [Funciones adicionales](funciones.md) | 04 (#7) | Ana | En revisión |
+| [Funciones adicionales](funciones.md) | 04 (#7) | Ana | Aprobado |
 | [Mapa de pantallas y flujos de usuario](mapa-pantallas.md) | 10 (#8) | Mireia | En revisión |
+| [Ejemplo de exportación a Excel](ejemplo-exportacion.xlsx) | 23 (#23) | Ana | Aprobado (PR #56); decisión de columnas en el issue #23. [Pendiente] Validar con una gestoría |
 | [Guía de estilo](guia-estilo.md) | Todas | Equipo | Aprobado |
 | [Desarrollo local de Ticketon](desarrollo-local.md) | 13 (#12) | Javier | En revisión (PR #39); despliegue en Vercel [Pendiente] |
 
