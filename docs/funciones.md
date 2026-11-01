@@ -10,7 +10,7 @@ Etiquetas según la [guía de estilo](guia-estilo.md): **[Confirmado]** comproba
 
 | Decisión | Funciones |
 |---|---|
-| Incluir en todos los planes | Instalación en el móvil (con compartir desde el móvil en los navegadores que lo permiten) y avisos dentro de la web (ticket sin NIF y trimestre a punto de cerrar) |
+| Incluir en todos los planes | Instalación en el móvil (con compartir desde el móvil en los navegadores que lo permiten) y avisos dentro de la web (ticket sin NIF del receptor y trimestre a punto de cerrar) |
 | Idea propia, en los planes de pago | **Cierre de trimestre**: prepara la entrega a la gestoría |
 | Si da tiempo | Panel con cifras |
 | Descartar por ahora | Conexión con Gmail u Outlook, Drive o Dropbox, banco y programa de contabilidad; varias empresas; equipos; kilometraje; dietas |
@@ -35,7 +35,7 @@ Etiquetas según la [guía de estilo](guia-estilo.md): **[Confirmado]** comproba
 | Función | Qué incluye | Por qué |
 |---|---|---|
 | **Instalación en el móvil** | La web se añade a la pantalla de inicio como una aplicación. En Chrome para Android, además, aparece en el menú Compartir para enviar un PDF directamente. | Esfuerzo bajo y útil para quien usa poco la tecnología: un icono en el móvil facilita subir el ticket en el momento. Compartir funciona en Chrome para Android, Samsung Internet y Chrome de escritorio, pero no en Safari de iPhone ni en Firefox **[Confirmado]** según la tabla de compatibilidad de [caniuse](https://caniuse.com/mdn-manifests_webapp_share_target), citada en la [arquitectura](arquitectura.md). Por eso la vía obligatoria para pasar un PDF del correo es el reenvío por correo (#16). |
-| **Avisos dentro de la web** | Ticket sin NIF del emisor y trimestre a punto de cerrar. | Usan datos que ya tenemos y ayudan a ver qué falta antes de entregar. Se muestran dentro de la web, no por correo, hasta que esté resuelto el envío de correos **[Propuesta]**. |
+| **Avisos dentro de la web** | Ticket sin NIF del receptor y trimestre a punto de cerrar. | Usan datos que ya tenemos y ayudan a ver qué falta antes de entregar. El NIF del receptor es el que suele faltar en los tickets y el que necesita la gestoría; el mismo criterio usan los requisitos de diseño (PR #52) y el [modelo de datos](modelo-datos.md). Se muestran dentro de la web, no por correo, hasta que esté resuelto el envío de correos **[Propuesta]**. |
 
 El aviso de factura duplicada no se cuenta como función adicional, porque ya es un requisito obligatorio (requisito 5, #22). El aviso de "cargo del banco sin justificante" queda fuera, porque necesita conexión con el banco.
 
@@ -43,7 +43,7 @@ El aviso de factura duplicada no se cuenta como función adicional, porque ya es
 
 Un botón, **"Prepara tu entrega a la gestoría"**, que reúne en un solo paso:
 
-1. **Lista de pendientes** del trimestre: tickets sin NIF, datos por revisar y posibles duplicados.
+1. **Lista de pendientes** del trimestre: tickets sin NIF del receptor, datos por revisar y posibles duplicados.
 2. **Resumen del trimestre**: total de gastos, IVA por tipo y gasto por categoría.
 3. **Paquete descargable**: el Excel del periodo y los originales ordenados en un archivo ZIP.
 
@@ -94,7 +94,7 @@ Planes y precios según el [modelo de negocio](modelo-negocio.md).
 |---|---|
 | 08 · Modelo de negocio (#3) | Completar la tabla de funciones por plan con el apartado 5. |
 | 25 · Compartir desde el móvil (#17) | Función adicional, incluida en la instalación en el móvil. No funciona en Safari de iPhone ni en Firefox. |
-| 30 · Avisos (#27) | Solo ticket sin NIF y trimestre a punto de cerrar, dentro de la web. El de duplicados va en el #22. |
+| 30 · Avisos (#27) | Solo ticket sin NIF del receptor y trimestre a punto de cerrar, dentro de la web. El de duplicados va en el #22. |
 | 29 · Panel con cifras (#26) | Si da tiempo. |
 | Nueva tarea | Crear el issue del cierre de trimestre, después del Excel (#23) y del control de duplicados (#22). |
 | 26 · Página de precios (#24) | Mostrar el cierre de trimestre como la diferencia de los planes de pago. |

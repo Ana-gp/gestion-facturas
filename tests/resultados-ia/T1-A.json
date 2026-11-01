@@ -1,33 +1,28 @@
 {
   "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
-  "herramienta": "Google AI Studio (web), chat temporal",
-  "fecha": "2026-10-29",
-  "ajustes": "Thinking level: Minimal (por defecto); Grounding with Google Search desactivado; misma instrucción del apartado 10 en una sola línea",
-  "ticket": "T1",
+  "herramienta": "Google AI Studio (web), ejecutado por el asistente de Claude en Chrome",
+  "fecha": "2026-10-30",
+  "ajustes": "Thinking level: Minimal; Grounding with Google Search y resto de herramientas desactivados; misma instrucción del apartado 10 en una sola línea",
+  "ticket": "T1 (T1-gasolinera-arrugado.jpg, versión con el correo pixelado; subido a AI Studio como image.jpg)",
   "respuesta": {
-    "fecha": "2026-09-08",
-    "emisor": "ALCAMPO SANTA NONIA",
-    "nif_emisor": null,
+    "fecha": "2026-03-07",
+    "emisor": "E.S. VILLIQUEJIDA - SUTECAL",
+    "nif_emisor": "B49268071",
     "nif_receptor": null,
-    "numero_factura": null,
+    "numero_factura": "2023018651",
     "lineas_iva": [
       {
-        "tipo": 4,
-        "base": 4.05,
-        "cuota": 0.15
-      },
-      {
         "tipo": 21,
-        "base": 1.31,
-        "cuota": 0.28
+        "base": 88.21,
+        "cuota": 18.53
       }
     ],
-    "base_imponible_total": 5.36,
-    "total": 5.79,
+    "base_imponible_total": 88.21,
+    "total": 106.74,
     "moneda": "EUR",
-    "categoria": "Alimentación"
+    "categoria": "Combustible y transporte"
   },
   "tokens_entrada": 1379,
-  "tokens_salida": 202,
-  "coste_estimado_usd": 0.000919
+  "tokens_salida": 197,
+  "coste_estimado_usd": 0.000906
 }

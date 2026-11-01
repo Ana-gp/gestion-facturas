@@ -1,0 +1,33 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), ejecutado por el asistente de Claude en Chrome",
+  "fecha": "2026-10-30",
+  "ajustes": "Thinking level: Minimal; Grounding with Google Search y resto de herramientas desactivados; misma instrucción del apartado 10 en una sola línea",
+  "ticket": "E5 (extra-bodega-aurrera-mxn.jpg, versión de main)",
+  "respuesta": {
+    "fecha": "2024-01-06",
+    "emisor": "NUEVA WAL MART DE MEXICO S DE RL DE CV",
+    "nif_emisor": "NWM9709244W4",
+    "nif_receptor": null,
+    "numero_factura": "01976",
+    "lineas_iva": [
+      {
+        "tipo": 8.0,
+        "base": 323.62,
+        "cuota": 25.89
+      },
+      {
+        "tipo": 8.0,
+        "base": 22.22,
+        "cuota": 1.78
+      }
+    ],
+    "base_imponible_total": 345.84,
+    "total": 635.02,
+    "moneda": "MXN",
+    "categoria": "Alimentación"
+  },
+  "tokens_entrada": 1343,
+  "tokens_salida": 235,
+  "coste_estimado_usd": 0.00099
+}

@@ -1,0 +1,240 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min(100%, 1100px);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 32px 16px 56px;
+}
+
+.ejemplo {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.explicacion {
+  margin: 0;
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.motivo {
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #e6c98a;
+  border-radius: 10px;
+  background: #fdf6e7;
+  color: #5c4310;
+  line-height: 1.5;
+}
+
+/* Escritorio: lado a lado. Móvil: uno sobre otro. */
+.pareja {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.documento {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.subtitulo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.archivo {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+  word-break: break-all;
+}
+
+.marco {
+  display: block;
+  overflow: hidden;
+  height: 360px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #e9ecf0;
+  cursor: zoom-in;
+}
+
+.imagen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.datos div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.datos dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.datos dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.coincide dd {
+  font-weight: 700;
+}
+
+.marca {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #f7e3b5;
+  color: #5c4310;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.secundaria,
+.peligro,
+.peligroLleno,
+.enlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.secundaria {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.peligro {
+  border: 1px solid #e3b8b1;
+  background: var(--surface);
+  color: #9b2c1f;
+}
+
+.peligroLleno {
+  border: 0;
+  background: #9b2c1f;
+  color: #ffffff;
+}
+
+.enlace {
+  padding: 0 4px;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.confirmar,
+.resultado {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.confirmar {
+  border: 1px solid #e3b8b1;
+  background: #fcefed;
+}
+
+.confirmar legend {
+  padding: 0 4px;
+  font-weight: 700;
+}
+
+.confirmar p,
+.resultado p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.opcion {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 36px;
+}
+
+.resultado {
+  border: 1px solid #b9dcc5;
+  background: #eef7f1;
+  color: #1f5c36;
+}
+
+@media (max-width: 760px) {
+  .pareja {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .marco {
+    height: 260px;
+  }
+
+  .datos div {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+}
