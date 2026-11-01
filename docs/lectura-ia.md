@@ -4,7 +4,7 @@ Tarea: #19 (orden 18) · Bloque 2 (subida y lectura) · Responsable: Mireia · �
 
 Depende de: #6 ([prueba de IA](prueba-ia.md)) y #18 (guardar el original) · Alimenta: #20 (moneda), #21 (revisar y corregir), #22 (duplicados) y #31 (límites del plan)
 
-**Estado:** código en el PR #69. **[Confirmado]** La instrucción nueva se probó en AI Studio con los cuatro tickets obligatorios el 01/11/2026 (apartado 3). **[Pendiente]** La prueba en la web, que necesita el login (#13) y Vercel (apartado 5).
+**Estado:** código en `main` (PR #69). **[Confirmado]** La instrucción nueva se probó en AI Studio con los cuatro tickets obligatorios el 01/11/2026 (apartado 3). **[Pendiente]** La prueba en la web, que necesita el login (#13) y Vercel (apartado 5).
 
 Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supuesto]**, **[Propuesta]** y **[Pendiente]**.
 
@@ -15,7 +15,7 @@ Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supues
 3. Llama a `reservar_lectura` (decisión D4 del [modelo de datos](modelo-datos.md)). Si no quedan lecturas en el plan, se para y el original sigue guardado. Volver a leer un documento no gasta otra lectura.
 4. Descarga el original del bucket privado y lo envía a **Gemini 3.5 Flash Lite** (`gemini-3.5-flash-lite`), con la misma configuración que la prueba del #6: razonamiento por defecto, sin búsqueda de Google y respuesta en JSON.
 5. Comprueba la respuesta antes de guardarla (`lib/lectura/interpretar.ts`): números con coma, fechas que existen, moneda de 3 letras, categoría de la lista y líneas de IVA con tipo. Lo que no se entiende se deja vacío. **Nunca se inventa un dato.**
-6. Guarda la factura y sus líneas de IVA y marca el documento como `leido`. Si algo falla, lo marca como `error` y el original sigue guardado.
+6. Guarda la factura y sus líneas de IVA y marca el documento como `leido`. Si algo falla, lo marca como `error` y el original sigue guardado. La pantalla enseña siempre "No hemos podido leer este documento. El original está guardado."; el detalle del error (de Gemini o de Supabase) solo queda en el registro de Vercel (revisión de Ana en el PR #69).
 
 La clave de Gemini y la clave secreta de Supabase solo están en el servidor. **[Confirmado]** el 01/11/2026: no aparecen en los archivos que llegan al navegador, y la compilación falla si una pantalla intenta importarlas.
 

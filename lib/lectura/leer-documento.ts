@@ -37,6 +37,21 @@ export type Dependencias = {
 
 export type ResultadoRuta = ResultadoLectura | { estado: "no-encontrado" };
 
+/** Lo que ve el usuario cuando la lectura falla, sea cual sea el motivo (revisión del PR #69). */
+export const MENSAJE_ERROR_LECTURA = "No hemos podido leer este documento. El original está guardado.";
+
+/**
+ * La respuesta que llega a la pantalla. Los errores internos (de Gemini o de
+ * Supabase) no se enseñan: se devuelve siempre el mismo mensaje y el detalle
+ * se pasa a `registrar` (en la ruta, console.error, que queda en el registro
+ * de Vercel).
+ */
+export function paraLaPantalla(resultado: ResultadoLectura, registrar: (detalle: string) => void = () => {}): ResultadoLectura {
+  if (resultado.estado !== "error") return resultado;
+  if (resultado.mensaje) registrar(resultado.mensaje);
+  return { estado: "error", mensaje: MENSAJE_ERROR_LECTURA };
+}
+
 export async function leerDocumentoGuardado(deps: Dependencias, documentoId: string): Promise<ResultadoRuta> {
   // 1. ¿Es suyo? Con RLS, si no lo es, no lo ve.
   const { data: doc, error: errorDoc } = await deps.usuario
