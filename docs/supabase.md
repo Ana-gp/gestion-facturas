@@ -50,14 +50,16 @@ Uso permitido durante el curso (acordado en la revisión del PR #36, apartado 7 
 
 **[Confirmado]** El plan gratuito Hobby bloquea los despliegues de un repositorio **privado** cuando el autor del commit no es el dueño de la cuenta de Vercel; en repositorios **públicos** la colaboración está permitida. Fuente: hilo de la comunidad de Vercel con respuesta de una persona de Vercel ("Collaboration has never been allowed on Hobby"), no documentación oficial: [Vercel Community](https://community.vercel.com/t/hobby-account-private-repo-collaborators-deployment-blocked/1030), consultado el 30/10/2026.
 
-**Decisión (30/10/2026): opción B.** El repositorio `Ana-gp/gestion-facturas` es **público desde el 30/10/2026** y Mireia conecta Vercel desde su cuenta.
+**Decisión (30/10/2026): opción B.** El repositorio `Ana-gp/gestion-facturas` es **público desde el 30/10/2026** y **Ana** conecta Vercel desde su cuenta (`Ana-gp`).
+
+**[Confirmado]** Se pensó que lo conectara Mireia, pero no es posible: si el repositorio es de una cuenta personal de GitHub, solo su dueña puede importarlo en Vercel; una colaboradora no puede ("If a personal account owns the repository, you must be the repository Owner. A Collaborator on a personal repository cannot import it"). Fuente: [Vercel · Unable to find GitHub repository](https://vercel.com/kb/guide/unable-to-find-github-repository), consultado el 30/10/2026. Como el repositorio es público, los commits de Mireia y Javier sí se despliegan desde el Vercel de Ana.
 
 Opciones que se compararon:
 
 | Opción | Cómo | A favor | En contra |
 |---|---|---|---|
 | A · Vercel en la cuenta de Ana | Ana importa el repositorio privado en su Vercel | Gratis; el repositorio sigue privado | Sin vistas previas de las ramas de los demás |
-| **B · Repositorio público y Vercel en la cuenta de Mireia (elegida)** | Ana cambia la visibilidad; Mireia importa el repositorio | Gratis; vistas previas de cada PR como comentario en GitHub | Todo el historial y los PR cerrados quedan a la vista (apartado 4.1) |
+| **B · Repositorio público y Vercel en la cuenta de Ana (elegida)** | Ana cambia la visibilidad e importa el repositorio en su Vercel | Gratis; vistas previas de cada PR como comentario en GitHub | Todo el historial y los PR cerrados quedan a la vista (apartado 4.1) |
 | C · Vercel Pro | Pagar el plan Pro (20 $ al mes por persona, ver arquitectura) | Sin restricciones | Cuesta dinero y pide tarjeta; va contra el "coste fijo 0 €" de la arquitectura |
 
 ### 4.1 Revisión antes de hacerlo público
@@ -67,20 +69,22 @@ Opciones que se compararon:
 - **Correos en los commits:** el historial muestra las direcciones de correo con las que se hicieron los commits, y eso no se puede cambiar en lo ya subido. Para los nuevos, cada persona activa en GitHub (Settings > Emails) "Keep my email addresses private" y "Block command line pushes that expose my email", y configura Git con la dirección privada `…@users.noreply.github.com` que da GitHub.
 - **A partir de ahora:** nunca subir claves (cualquiera podría usarlas) ni tickets de otras personas sin su permiso para publicarlos.
 
-### 4.2 Conectar Vercel (Mireia)
+### 4.2 Conectar Vercel (Ana)
 
 Requisito: tener ya Supabase creado (apartado 1), porque hacen falta su URL y sus claves.
 
-1. Entrar en vercel.com con **Continue with GitHub** (cuenta `mireiadiezzm23-web`), plan **Hobby**.
+1. Entrar en vercel.com con **Continue with GitHub** (cuenta `Ana-gp`), plan **Hobby**.
 2. **Add New** > **Project** > importar `Ana-gp/gestion-facturas`. Si no aparece, pulsar **Adjust GitHub App Permissions** y dar acceso a ese repositorio.
 3. Comprobar que detecta **Next.js**, que la raíz es la del repositorio y que el comando de build es `npm run build` ([desarrollo local](desarrollo-local.md), apartado "Despliegue en Vercel").
 4. **Environment Variables**, para Production y Preview: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY` y `GEMINI_API_KEY`. Solo en Vercel, nunca en el repositorio.
 5. Pulsar **Deploy** y esperar a que termine.
 6. **Settings** > **Functions**: región **Frankfurt (`fra1`)**, la acordada en la arquitectura. Volver a desplegar para que se aplique.
-7. Añadir la dirección de producción (`https://….vercel.app`) a Supabase: **Authentication** > **URL Configuration**. Cambiar la Site URL por ella y añadir `https://….vercel.app/**` a las Redirect URLs, sin quitar las de localhost.
+7. Ana pasa la dirección de producción (`https://….vercel.app`) a Mireia, que la añade en Supabase: **Authentication** > **URL Configuration**. Cambiar la Site URL por ella y añadir `https://….vercel.app/**` a las Redirect URLs, sin quitar las de localhost. Lo hace Mireia porque Ana tiene el rol Developer, que no deja cambiar la configuración de Auth.
 8. Pasar al equipo la dirección de producción.
 
-Con el plan gratuito **solo Mireia ve el panel de Vercel**: si un despliegue falla, ella copia el error y lo pasa al equipo. Las vistas previas de cada PR salen solas como comentario en GitHub.
+Con el plan gratuito **solo Ana ve el panel de Vercel**: si un despliegue falla, ella copia el error y lo pasa al equipo. Las vistas previas de cada PR salen solas como comentario en GitHub.
+
+**[Pendiente]** Antes de compartir la dirección de Vercel fuera del equipo, decidir cómo limitar el registro de cuentas: la clave de Gemini es gratuita y solo admite documentos ficticios o tapados (apartado 2). Lo planteó Ana en la revisión del PR #69.
 
 **Prueba tras el primer despliegue** (pedida por Ana): abrir `/api/tipo-cambio?moneda=MXN&fecha=2024-01-06`. Debe devolver un tipo con fecha **05/01/2024**, porque el 06/01/2024 fue sábado y se toma el último publicado antes. Es lo único de la conversión de moneda (#20) que no se ha podido probar con la API real del BCE.
 
@@ -112,9 +116,9 @@ El SQL se cargó en un PostgreSQL 16 local con imitaciones de Supabase (`auth.us
 | URL del proyecto y clave publicable localizadas | Mireia | 30/10/2026 | **[Confirmado]** Con las dos, una consulta de solo lectura a `planes` devuelve los 3 planes sin iniciar sesión. Se pasan por el grupo, no se suben a GitHub (apartado 3) |
 | Clave de Gemini creada | Mireia | 30/10/2026 | **[Confirmado]** Creada en Google AI Studio y guardada en un gestor de contraseñas. Nivel gratuito, sin facturación configurada ni tarjeta |
 | Aviso del Security Advisor sobre `al_crear_usuario` corregido | Mireia | 01/11/2026 | **[Confirmado]** El SQL se había ejecutado antes de añadir el `revoke execute` de esta función. Se ejecutó esa línea a mano en el SQL Editor ("Success. No rows returned") y el Security Advisor marca 0 errores, 0 avisos y 0 sugerencias |
-| Equipo con acceso a Supabase | | | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). **[Pendiente]** Faltan los correos de GitHub de Ana y Javier para enviar la invitación como Developer |
+| Equipo con acceso a Supabase | Mireia (invitaciones) y Ana | 01/11/2026 | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). Invitaciones enviadas como Developer; la primera caducó sin aceptar y se reenvió el 01/11/2026. Ana la aceptó el 01/11/2026 y ve el proyecto `ticketon`. **[Pendiente]** Javier |
 | Repositorio público (apartado 4) | Ana | 30/10/2026 | |
-| Vercel conectado y desplegando `main` | | | |
-| Región de funciones `fra1` | | | |
-| Dirección de Vercel en las Redirect URLs de Supabase | | | |
-| Prueba de `/api/tipo-cambio` con MXN y 06/01/2024 | | | |
+| Vercel conectado y desplegando `main` | Ana | | |
+| Región de funciones `fra1` | Ana | | |
+| Dirección de Vercel en las Redirect URLs de Supabase | Mireia, con la dirección que pase Ana | | |
+| Prueba de `/api/tipo-cambio` con MXN y 06/01/2024 | Ana | | |
