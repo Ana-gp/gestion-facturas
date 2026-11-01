@@ -51,6 +51,9 @@ const PASOS: { estado: Estado; texto: string }[] = [
 
 let contador = 0;
 
+// Los documentos reales tienen uuid; los del modo de prueba, no (no tienen página).
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: Props) {
   const router = useRouter();
   // Con sesión iniciada, se guarda de verdad en Supabase (#18). Sin sesión o
@@ -270,7 +273,7 @@ function EstadoElemento({ elemento: e, onReintentar }: { elemento: Elemento; onR
     return (
       <p className={styles.aviso}>
         {mensajeArchivoRepetido(e.repetido)} No se ha vuelto a subir ni ha gastado lectura.{" "}
-        <Link href={e.repetido.facturaId ? `/revisar/${e.repetido.facturaId}` : `/revisar/nuevo?documento=${e.repetido.documentoId}`}>
+        <Link href={e.repetido.facturaId ? `/revisar/${e.repetido.facturaId}` : `/original/${e.repetido.documentoId}`}>
           Ver el documento
         </Link>
       </p>
@@ -291,8 +294,8 @@ function EstadoElemento({ elemento: e, onReintentar }: { elemento: Elemento; onR
           <button type="button" className={styles.secundaria} onClick={onReintentar}>
             Volver a leer
           </button>
-          {/* Se pasa el documento para que la factura rellenada a mano quede enlazada a su original (requisito 6). */}
-          <Link href={`/revisar/nuevo?documento=${e.documentoId}`}>Rellenar los datos a mano</Link>
+          {/* [Pendiente] Rellenar los datos a mano. Mientras tanto, el original guardado (P12, #68). */}
+          {e.documentoId && UUID.test(e.documentoId) && <Link href={`/original/${e.documentoId}`}>Ver el original</Link>}
         </div>
       </div>
     );
