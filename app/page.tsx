@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HomePage() {
   return (
     <main className="page">
@@ -8,13 +10,14 @@ export default function HomePage() {
           Ticketon te ayudará a reunir tus justificantes, revisar los datos
           extraídos y preparar la documentación para tu gestoría.
         </p>
-        <div className="status" role="status">
-          <span className="status-dot" aria-hidden="true" />
-          Base técnica en preparación
-        </div>
+        <p>
+          <Link href="/gastos" className="boton-principal">
+            Ver mis gastos
+          </Link>
+        </p>
         <p className="note">
-          Esta pantalla es provisional. El registro, la subida de documentos y
-          la lectura automática se incorporarán en las siguientes tareas.
+          Portada provisional mientras se termina la definitiva (#25). Sin
+          iniciar sesión, la web enseña los tickets de prueba del equipo.
         </p>
       </section>
     </main>

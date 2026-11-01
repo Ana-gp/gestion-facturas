@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ConNavegacion from "@/app/_componentes/ConNavegacion";
 import Exportar from "./Exportar";
 import { GASTOS_EJEMPLO } from "@/lib/demo/gastos-ejemplo";
 import { CONSULTA_EXPORTACION, facturasDesdeSupabase, planVigente, type FilaExportacion } from "@/lib/exportacion/desde-supabase";
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 function ejemplo() {
-  return <Exportar facturas={GASTOS_EJEMPLO} titular="Cuenta de ejemplo" plan="gratis" datosDeEjemplo />;
+  return (
+    <ConNavegacion actual="exportar">
+      <Exportar facturas={GASTOS_EJEMPLO} titular="Cuenta de ejemplo" plan="gratis" datosDeEjemplo />
+    </ConNavegacion>
+  );
 }
 
 function hoyEnEspana(): string {
@@ -41,5 +46,9 @@ export default async function ExportarPage() {
 
   const titular = perfil.data?.nombre?.trim() || user.email || "Tu cuenta";
   const plan = planVigente((suscripciones.data ?? []) as { plan_id: string; desde: string; hasta: string | null }[], hoyEnEspana());
-  return <Exportar facturas={facturasDesdeSupabase((facturas.data ?? []) as unknown as FilaExportacion[])} titular={titular} plan={plan} />;
+  return (
+    <ConNavegacion actual="exportar">
+      <Exportar facturas={facturasDesdeSupabase((facturas.data ?? []) as unknown as FilaExportacion[])} titular={titular} plan={plan} />
+    </ConNavegacion>
+  );
 }

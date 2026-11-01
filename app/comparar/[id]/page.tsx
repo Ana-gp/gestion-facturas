@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ConNavegacion from "@/app/_componentes/ConNavegacion";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Comparar from "./Comparar";
@@ -41,7 +42,11 @@ export default async function CompararPage({ params }: { params: Promise<{ id: s
   if (ejemplo) {
     const otra = ejemplo.posibleDuplicadoDe ? FICHAS_EJEMPLO.find((f) => f.id === ejemplo.posibleDuplicadoDe) : undefined;
     if (!otra) notFound();
-    return <Comparar actual={ejemplo} otra={otra} datosDeEjemplo />;
+    return (
+      <ConNavegacion actual="gastos">
+        <Comparar actual={ejemplo} otra={otra} datosDeEjemplo />
+      </ConNavegacion>
+    );
   }
 
   if (!UUID.test(id) || !configSupabase()) notFound();
@@ -77,5 +82,9 @@ export default async function CompararPage({ params }: { params: Promise<{ id: s
       </main>
     );
   }
-  return <Comparar actual={actual} otra={otra} />;
+  return (
+    <ConNavegacion actual="gastos">
+      <Comparar actual={actual} otra={otra} />
+    </ConNavegacion>
+  );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ConNavegacion from "@/app/_componentes/ConNavegacion";
 import Gastos from "./Gastos";
 import { GASTOS_EJEMPLO } from "@/lib/demo/gastos-ejemplo";
 import { FICHAS_EJEMPLO } from "@/lib/demo/fichas-ejemplo";
@@ -21,7 +22,11 @@ export const dynamic = "force-dynamic";
 const IDS_CON_FICHA = FICHAS_EJEMPLO.map((f) => f.id);
 
 function ejemplo() {
-  return <Gastos gastos={desdeEjemplo(GASTOS_EJEMPLO)} idsConFicha={IDS_CON_FICHA} datosDeEjemplo />;
+  return (
+    <ConNavegacion actual="gastos">
+      <Gastos gastos={desdeEjemplo(GASTOS_EJEMPLO)} idsConFicha={IDS_CON_FICHA} datosDeEjemplo />
+    </ConNavegacion>
+  );
 }
 
 export default async function GastosPage() {
@@ -37,7 +42,15 @@ export default async function GastosPage() {
   const { data, error } = await supabase.from("documentos").select(CONSULTA_GASTOS).order("subido_en", { ascending: false });
   if (error) {
     console.error("[gastos]", error.message);
-    return <Gastos gastos={[]} error="No hemos podido cargar tus gastos. Prueba a recargar la página." />;
+    return (
+      <ConNavegacion actual="gastos">
+        <Gastos gastos={[]} error="No hemos podido cargar tus gastos. Prueba a recargar la página." />
+      </ConNavegacion>
+    );
   }
-  return <Gastos gastos={desdeSupabase((data ?? []) as unknown as FilaDocumento[])} />;
+  return (
+    <ConNavegacion actual="gastos">
+      <Gastos gastos={desdeSupabase((data ?? []) as unknown as FilaDocumento[])} />
+    </ConNavegacion>
+  );
 }
