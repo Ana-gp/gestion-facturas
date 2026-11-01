@@ -37,6 +37,8 @@ export type FichaRevision = {
   /** Fecha y fuente del tipo de cambio guardado, si lo hay. */
   origenTipo?: { fecha: string | null; fuente: FuenteTipoCambio } | null;
   estadoRevision?: "pendiente" | "revisada";
+  /** SHA-256 del original (`documentos.huella_sha256`), para explicar un duplicado. */
+  huella?: string | null;
 };
 
 export type OrigenTipo = { fecha: string | null; fuente: FuenteTipoCambio } | null;
@@ -50,7 +52,7 @@ export const CONSULTA_FICHA =
   "id, documento_id, tipo_documento, fecha, emisor_nombre, emisor_nif, receptor_nif, numero, " +
   "retencion_importe, total, moneda, tipo_cambio, tipo_cambio_fecha, tipo_cambio_fuente, total_eur, " +
   "estado_revision, campos_revision, posible_duplicado_de, duplicado_descartado, " +
-  "categorias(nombre), lineas_iva(orden, tipo_iva, base, cuota), documentos(nombre_archivo, tipo_mime)";
+  "categorias(nombre), lineas_iva(orden, tipo_iva, base, cuota), documentos(nombre_archivo, tipo_mime, huella_sha256)";
 
 export type FilaFicha = {
   id: string;
@@ -74,8 +76,10 @@ export type FilaFicha = {
   duplicado_descartado: boolean;
   categorias: { nombre: string } | { nombre: string }[] | null;
   lineas_iva: { orden: number; tipo_iva: number | string; base: number | string | null; cuota: number | string | null }[] | null;
-  documentos: { nombre_archivo: string | null; tipo_mime: string } | { nombre_archivo: string | null; tipo_mime: string }[] | null;
+  documentos: DocumentoDeLaFicha | DocumentoDeLaFicha[] | null;
 };
+
+type DocumentoDeLaFicha = { nombre_archivo: string | null; tipo_mime: string; huella_sha256?: string | null };
 
 function uno<T>(valor: T | T[] | null | undefined): T | null {
   if (Array.isArray(valor)) return valor[0] ?? null;
@@ -120,6 +124,7 @@ export function fichaDesdeFila(f: FilaFicha, original: string): FichaRevision {
     posibleDuplicadoDe: f.posible_duplicado_de && !f.duplicado_descartado ? f.posible_duplicado_de : null,
     origenTipo: fuente && numero(f.tipo_cambio) ? { fecha: f.tipo_cambio_fecha, fuente } : null,
     estadoRevision: f.estado_revision === "revisada" ? "revisada" : "pendiente",
+    huella: doc?.huella_sha256 ?? null,
   };
 }
 

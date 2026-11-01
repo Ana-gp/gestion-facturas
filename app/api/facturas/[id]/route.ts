@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { marcarPosibleDuplicado } from "@/lib/duplicados/marcar";
 import { filasParaGuardar, leerCambios } from "@/lib/revision/guardado";
+import { clienteAdmin } from "@/lib/supabase/admin";
 import { configSupabase } from "@/lib/supabase/config";
 import { clienteServidor } from "@/lib/supabase/servidor";
 
@@ -59,7 +61,17 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       if (error) throw new Error(error.message);
     }
 
-    return NextResponse.json({ ok: true, estado: cambios.estado });
+    // Al corregir el NIF, el número, la fecha o el total puede aparecer o
+    // desaparecer un posible duplicado (#22). La factura ya se ha comprobado
+    // como suya con la sesión; es un aviso, así que si falla no se para nada.
+    let duplicadoDe: string | null = null;
+    try {
+      duplicadoDe = (await marcarPosibleDuplicado(clienteAdmin(), id)).duplicadoDe;
+    } catch (e) {
+      console.error("[api/facturas] duplicados", id, e);
+    }
+
+    return NextResponse.json({ ok: true, estado: cambios.estado, duplicadoDe });
   } catch (e) {
     // El detalle solo va al registro de Vercel (igual que /api/leer, PR #70).
     console.error("[api/facturas]", id, e);
