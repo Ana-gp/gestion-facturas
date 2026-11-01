@@ -7,6 +7,7 @@
 | [Público objetivo y propuesta de valor](publico-objetivo.md) | 01 (#2) | Ana | Aprobado, con entrevista a una autónoma |
 | [Prueba de concepto de lectura con IA](prueba-ia.md) | 06 (#6) | Mireia | Terminado |
 | [Valores reales de los tickets](valores-reales-tickets.xlsx) | 06 (#6) | Mireia | Terminado |
+| [Lectura automática con IA](lectura-ia.md) | 18 (#19) | Mireia | En revisión (PR #69); prueba en la web [Pendiente] |
 | [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Revisión solicitada; correcciones en PR #41 |
 | [Stack y arquitectura](arquitectura.md) | 05 (#5) | Mireia | Aprobado |
 | [Modelo de datos y base de datos](modelo-datos.md) y [SQL para Supabase](modelo-datos.sql) | 07 (#29) | Mireia | Aprobado; SQL listo para ejecutar (#18) |

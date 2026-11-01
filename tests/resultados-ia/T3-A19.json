@@ -1,0 +1,31 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), chat nuevo por ticket",
+  "fecha": "2026-11-01",
+  "ajustes": "Thinking level: Minimal; Grounding with Google Search y Structured output desactivados; instrucción de lib/lectura/instruccion.ts (#19)",
+  "ticket": "T3 (tickets/tapados/T3-claude-pro-ingles.pdf)",
+  "respuesta": {
+    "tipo_documento": "ticket",
+    "fecha": "2026-10-14",
+    "emisor": "Anthropic Ireland, Limited",
+    "nif_emisor": "IE4276970QH",
+    "nif_receptor": null,
+    "numero_factura": "9BF0758D-8771996",
+    "lineas_iva": [
+      {
+        "tipo": 21,
+        "base": 18.0,
+        "cuota": 3.78
+      }
+    ],
+    "base_imponible_total": 18.0,
+    "retencion": null,
+    "total": 21.78,
+    "moneda": "EUR",
+    "categoria": "Software y suscripciones",
+    "campos_dudosos": []
+  },
+  "tokens_entrada": 1055,
+  "tokens_salida": 221,
+  "coste_estimado_usd": 0.000869
+}
