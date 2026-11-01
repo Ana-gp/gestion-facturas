@@ -9,8 +9,9 @@
  * - "retencion": la retención de IRPF, si la hay (D6).
  * - "campos_dudosos": los datos que la IA no ha podido leer con claridad (D2).
  *
- * [Pendiente] Estos tres añadidos no estaban en la prueba del #6: repetirla con
- * esta instrucción en AI Studio antes de cerrar el #19.
+ * Probada en AI Studio el 01/11/2026 con T1, T2, T3 y T4b: 54/56 aciertos
+ * (docs/lectura-ia.md, apartado 3). "campos_dudosos" salió vacío incluso donde
+ * falló: solo baja la confianza, nunca la sube.
  */
 
 /** Modelo elegido en el #6 (docs/prueba-ia.md, apartado 9). */

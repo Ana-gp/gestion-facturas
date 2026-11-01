@@ -61,6 +61,22 @@ test("T3 (factura en inglés): VAT irlandés y categoría de software", () => {
   assert.equal(factura.categoria_id, IDS.get("Software y suscripciones"));
 });
 
+test("respuestas con la instrucción del #19 (01/11/2026): datos nuevos y confianza", () => {
+  for (const f of ["T1-A19.json", "T2-A19.json", "T3-A19.json", "T4b-A19.json"]) {
+    const { factura } = aFilas(interpretarRespuesta(resultado(f)), IDS, {});
+    assert.equal(factura.tipo_documento, "ticket", f);
+    assert.equal(factura.retencion_importe, null, f);
+    assert.ok(factura.categoria_id !== null, f);
+  }
+  // La IA no marcó nada como dudoso, pero el NIF vacío de T4b queda en "baja" por nuestra regla.
+  const t4b = aFilas(interpretarRespuesta(resultado("T4b-A19.json")), IDS, {}).factura;
+  assert.equal(t4b.campos_revision.emisor_nif.confianza, "baja");
+  // T2: tres líneas que cuadran con el total.
+  const t2 = aFilas(interpretarRespuesta(resultado("T2-A19.json")), IDS, {}).factura;
+  assert.equal(t2.cuota_total, 8.69);
+  assert.equal(t2.campos_revision.total.confianza, "alta");
+});
+
 // ---------------------------------------------------------------------------
 // Respuestas con otra forma
 
