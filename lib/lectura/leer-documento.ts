@@ -8,7 +8,8 @@
  * 4. Leerlo con Gemini y comprobar la respuesta (interpretar.ts).
  * 5. Guardar la factura y sus líneas de IVA. Si ya existía (volver a leer),
  *    se sustituyen sus datos.
- * 6. Marcar el documento como `leido`, o `error` si algo ha fallado.
+ * 6. Marcar el posible duplicado (#22, lib/duplicados/marcar.ts).
+ * 7. Marcar el documento como `leido`, o `error` si algo ha fallado.
  *
  * Los clientes y la llamada a Gemini se pasan desde fuera para poder probarlo
  * sin conectarse a nada (tests/unit/lectura.test.mjs).
@@ -18,6 +19,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ResultadoLectura } from "../subida/contrato";
 import { BUCKET_ORIGINALES } from "../subida/originales.ts";
 import { aFilas, interpretarRespuesta } from "./interpretar.ts";
+import { marcarPosibleDuplicado } from "../duplicados/marcar.ts";
 
 export type Leer = (archivo: { bytes: ArrayBuffer; tipo: string }) => Promise<{
   texto: string;
@@ -129,7 +131,14 @@ export async function leerDocumentoGuardado(deps: Dependencias, documentoId: str
       if (error) throw new Error(`No se han podido guardar las líneas de IVA: ${error.message}`);
     }
 
-    // 6. Listo.
+    // 6. Posible duplicado (#22). Es un aviso: si falla, la lectura sigue siendo buena.
+    try {
+      await marcarPosibleDuplicado(admin, facturaId);
+    } catch (e) {
+      console.error("[leer] duplicados", facturaId, e instanceof Error ? e.message : e);
+    }
+
+    // 7. Listo.
     await marcar("leido");
     return { estado: "leido", facturaId };
   } catch (e) {
