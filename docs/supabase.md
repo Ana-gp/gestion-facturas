@@ -1,6 +1,6 @@
 # Puesta en marcha de Supabase, Gemini y Vercel
 
-Tarea: #18 (orden 15) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 30/10/2026
+Tarea: #18 (orden 15) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 01/11/2026
 
 **Estado:** Supabase y la clave de Gemini creados el 30/10/2026 (apartado 6). **[Pendiente]** Invitar a Ana y Javier, conectar Vercel y repetir en Supabase las pruebas con dos cuentas reales (apartado 5).
 
@@ -111,7 +111,7 @@ El SQL se cargó en un PostgreSQL 16 local con imitaciones de Supabase (`auth.us
 | URL de Auth configuradas | Mireia | 30/10/2026 | **[Confirmado]** Site URL `http://localhost:3000` (venía por defecto) y una sola Redirect URL, `http://localhost:3000/**`. Falta añadir la de Vercel (apartado 4.2, paso 7) |
 | URL del proyecto y clave publicable localizadas | Mireia | 30/10/2026 | **[Confirmado]** Con las dos, una consulta de solo lectura a `planes` devuelve los 3 planes sin iniciar sesión. Se pasan por el grupo, no se suben a GitHub (apartado 3) |
 | Clave de Gemini creada | Mireia | 30/10/2026 | **[Confirmado]** Creada en Google AI Studio y guardada en un gestor de contraseñas. Nivel gratuito, sin facturación configurada ni tarjeta |
-| Aviso del Security Advisor sobre `al_crear_usuario` corregido | | | **[Pendiente]** El SQL se ejecutó antes de añadir el `revoke execute` de esta función: hay que ejecutar esa línea a mano en el SQL Editor y comprobar que el Security Advisor ya no la marca |
+| Aviso del Security Advisor sobre `al_crear_usuario` corregido | Mireia | 01/11/2026 | **[Confirmado]** El SQL se había ejecutado antes de añadir el `revoke execute` de esta función. Se ejecutó esa línea a mano en el SQL Editor ("Success. No rows returned") y el Security Advisor marca 0 errores, 0 avisos y 0 sugerencias |
 | Equipo con acceso a Supabase | | | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). **[Pendiente]** Faltan los correos de GitHub de Ana y Javier para enviar la invitación como Developer |
 | Repositorio público (apartado 4) | Ana | 30/10/2026 | |
 | Vercel conectado y desplegando `main` | | | |
