@@ -517,3 +517,10 @@
 .propuesta p {
   margin: 0;
 }
+
+.sinOriginal {
+  margin: 0;
+  padding: 24px;
+  color: var(--muted);
+  text-align: center;
+}
