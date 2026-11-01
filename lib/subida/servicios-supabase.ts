@@ -7,9 +7,8 @@
  * `documentos` y del bucket `originales` hacen que cada usuario solo vea y
  * guarde lo suyo.
  *
- * La lectura con IA (`leerDocumento`) es del #19. Mientras no esté, devuelve
- * un error de lectura: el original ya ha quedado guardado y la pantalla lo
- * dice ("No hemos podido leer este documento. El original está guardado").
+ * La lectura con IA (`leerDocumento`, #19) la hace el servidor: se llama a la
+ * ruta /api/leer, que es la única que conoce la clave de Gemini.
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -17,7 +16,7 @@ import type { DocumentoEncontrado, OrigenSubida, ResultadoLectura, ServiciosSubi
 import { BUCKET_ORIGINALES, rutaDelOriginal, tipoDelOriginal } from "./originales.ts";
 
 type Opciones = {
-  /** Lectura con IA (#19). Si no se pasa, la lectura da error y el original queda guardado. */
+  /** Para las pruebas: sustituye la llamada a /api/leer. */
   leerDocumento?: (documentoId: string) => Promise<ResultadoLectura>;
   /** Para las pruebas: genera el nombre del archivo. Por defecto, crypto.randomUUID(). */
   nuevoId?: () => string;
@@ -90,7 +89,24 @@ export function serviciosSupabase(supabase: SupabaseClient, userId: string, opci
 
     async leerDocumento(documentoId: string): Promise<ResultadoLectura> {
       if (opciones.leerDocumento) return opciones.leerDocumento(documentoId);
-      return { estado: "error", mensaje: "La lectura con IA todavía no está conectada (#19). El original está guardado." };
+      return leerEnElServidor(documentoId);
     },
   };
+}
+
+/** Pide la lectura a la ruta del servidor (#19). Cualquier fallo es un error de lectura: el original ya está guardado. */
+export async function leerEnElServidor(documentoId: string, pedir: typeof fetch = fetch): Promise<ResultadoLectura> {
+  try {
+    const respuesta = await pedir("/api/leer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ documentoId }),
+    });
+    const cuerpo = (await respuesta.json()) as ResultadoLectura;
+    if (cuerpo.estado === "leido" && typeof cuerpo.facturaId === "string") return cuerpo;
+    if (cuerpo.estado === "sin-lecturas") return cuerpo;
+    return { estado: "error", mensaje: cuerpo.estado === "error" ? cuerpo.mensaje : undefined };
+  } catch {
+    return { estado: "error" };
+  }
 }

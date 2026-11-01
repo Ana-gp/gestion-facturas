@@ -160,8 +160,7 @@ test("buscar por huella: devuelve el documento y su factura, o null", async () =
   assert.equal(await servicios.buscarPorHuella("b".repeat(64)), null);
 });
 
-test("leer: hasta que esté #19, error de lectura con el original guardado", async () => {
-  const servicios = serviciosSupabase(supabaseFalso(), USUARIO);
-  const r = await servicios.leerDocumento("doc-1");
-  assert.equal(r.estado, "error");
+test("leer: se puede sustituir la lectura (la real llama a /api/leer, ver lectura.test.mjs)", async () => {
+  const servicios = serviciosSupabase(supabaseFalso(), USUARIO, { leerDocumento: async () => ({ estado: "sin-lecturas" }) });
+  assert.deepEqual(await servicios.leerDocumento("doc-1"), { estado: "sin-lecturas" });
 });

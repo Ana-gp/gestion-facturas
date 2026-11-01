@@ -1,0 +1,31 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), chat nuevo por ticket",
+  "fecha": "2026-11-01",
+  "ajustes": "Thinking level: Minimal; Grounding with Google Search y Structured output desactivados; instrucción de lib/lectura/instruccion.ts (#19)",
+  "ticket": "T1 (tickets/tapados/T1-gasolinera-arrugado.jpg)",
+  "respuesta": {
+    "tipo_documento": "ticket",
+    "fecha": "2026-03-07",
+    "emisor": "E.S. VILLAQUEJIDA - SUTECAL",
+    "nif_emisor": "B49268071",
+    "nif_receptor": null,
+    "numero_factura": "2023018651",
+    "lineas_iva": [
+      {
+        "tipo": 21,
+        "base": 88.21,
+        "cuota": 18.53
+      }
+    ],
+    "base_imponible_total": 88.21,
+    "retencion": null,
+    "total": 106.74,
+    "moneda": "EUR",
+    "categoria": "Combustible y transporte",
+    "campos_dudosos": []
+  },
+  "tokens_entrada": 1595,
+  "tokens_salida": 227,
+  "coste_estimado_usd": 0.001046
+}

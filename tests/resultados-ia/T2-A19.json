@@ -1,0 +1,41 @@
+{
+  "motor": "A · Gemini 3.5 Flash Lite (gemini-3.5-flash-lite)",
+  "herramienta": "Google AI Studio (web), chat nuevo por ticket",
+  "fecha": "2026-11-01",
+  "ajustes": "Thinking level: Minimal; Grounding with Google Search y Structured output desactivados; instrucción de lib/lectura/instruccion.ts (#19)",
+  "ticket": "T2 (tickets/tapados/T2-eroski-varios-iva.jpg)",
+  "respuesta": {
+    "tipo_documento": "ticket",
+    "fecha": "2025-09-02",
+    "emisor": "VEGO SUPERMERCADOS S.A.U.",
+    "nif_emisor": "A36651313",
+    "nif_receptor": null,
+    "numero_factura": "3274 2765 03 1756805107",
+    "lineas_iva": [
+      {
+        "tipo": 10.0,
+        "base": 44.58,
+        "cuota": 4.46
+      },
+      {
+        "tipo": 21.0,
+        "base": 10.29,
+        "cuota": 2.16
+      },
+      {
+        "tipo": 4.0,
+        "base": 51.64,
+        "cuota": 2.07
+      }
+    ],
+    "base_imponible_total": 106.51,
+    "retencion": null,
+    "total": 115.2,
+    "moneda": "EUR",
+    "categoria": "Alimentación",
+    "campos_dudosos": []
+  },
+  "tokens_entrada": 1595,
+  "tokens_salida": 317,
+  "coste_estimado_usd": 0.001271
+}
