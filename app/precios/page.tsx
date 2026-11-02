@@ -13,11 +13,11 @@ const planes = [
     nombre: "Gratis",
     descripcion: "Para empezar a organizar tus justificantes.",
     precio: "0 €",
-    periodo: "para siempre",
+    periodo: "/ mes",
     limite: "10 documentos al mes",
     destacado: false,
     cierre: false,
-    cta: "Crear cuenta gratis",
+    cta: "Empezar gratis",
   },
   {
     nombre: "Autónomo",
@@ -27,7 +27,7 @@ const planes = [
     limite: "Hasta 100 documentos al mes",
     destacado: true,
     cierre: true,
-    cta: "Próximamente",
+    cta: "Elegir plan",
   },
   {
     nombre: "Autónomo Plus",
@@ -43,10 +43,12 @@ const planes = [
 
 const funcionesComunes = [
   "Subir tickets y facturas en PDF o imagen",
-  "Conservar el documento original",
-  "Extraer los datos con lectura automática",
-  "Revisar y corregir los datos",
-  "Exportar los gastos a Excel para tu gestoría",
+  "Conservar los documentos originales",
+  "Lectura automática y corrección de datos",
+  "Detección de posibles documentos duplicados",
+  "Exportación básica a Excel por periodo",
+  "Instalación en el móvil",
+  "Avisos dentro de la web",
 ];
 
 export default function PreciosPage() {
@@ -71,9 +73,9 @@ export default function PreciosPage() {
           Elige el espacio que necesitas para guardar tus tickets y facturas,
           revisar sus datos y preparar la documentación para tu gestoría.
         </p>
-        <a className={styles.enlaceHero} href="#planes">
+        <Link className={styles.enlaceHero} href="#planes">
           Comparar planes <span aria-hidden="true">↓</span>
-        </a>
+        </Link>
       </section>
 
       <section className={styles.planes} id="planes" aria-labelledby="titulo-planes">
@@ -83,7 +85,7 @@ export default function PreciosPage() {
             <h2 id="titulo-planes">Empieza a tu ritmo</h2>
           </div>
           <p className={styles.notaPrecio}>
-            Precios orientativos. La contratación todavía no está habilitada.
+            Precios provisionales. La contratación todavía no está habilitada.
           </p>
         </div>
 
@@ -108,7 +110,7 @@ export default function PreciosPage() {
 
               <div className={styles.separador} />
 
-              <p className={styles.tituloLista}>Todo lo esencial para organizar tus gastos</p>
+              <p className={styles.tituloLista}>Incluido en todos los planes</p>
               <ul className={styles.lista}>
                 {funcionesComunes.map((funcion) => (
                   <li key={funcion}>
@@ -121,7 +123,7 @@ export default function PreciosPage() {
                     {plan.cierre ? "✓" : "—"}
                   </span>
                   <span>
-                    Cierre de trimestre: pendientes, resumen y paquete para tu gestoría
+                    Cierre de trimestre: pendientes, resumen y paquete ZIP para tu gestoría
                     {!plan.cierre && <span className={styles.aclaracion}> (no incluido)</span>}
                   </span>
                 </li>
@@ -132,16 +134,20 @@ export default function PreciosPage() {
                   {plan.cta}
                 </Link>
               ) : (
-                <button className={styles.botonProximamente} type="button" disabled>
+                <button className={styles.botonProximamente} type="button" disabled aria-describedby={`aviso-${plan.nombre.toLowerCase().replaceAll(" ", "-")}`}>
                   {plan.cta}
                 </button>
+              )}
+              {plan.nombre !== "Gratis" && (
+                <p className={styles.avisoContratacion} id={`aviso-${plan.nombre.toLowerCase().replaceAll(" ", "-")}`}>
+                  Próximamente. No se realizará ningún pago.
+                </p>
               )}
             </article>
           ))}
         </div>
         <p className={styles.notaPlanes}>
-          La exportación básica a Excel está incluida también en el plan Gratis.
-          El cierre de trimestre es una función adicional prevista para los planes de pago.
+          La exportación básica a Excel está incluida en los tres planes. El cierre de trimestre es la función adicional prevista para los planes de pago.
         </p>
       </section>
 
@@ -196,8 +202,7 @@ export default function PreciosPage() {
         <div className={styles.pregunta}>
           <h3>¿Puedo contratar ahora un plan de pago?</h3>
           <p>
-            Todavía no. Los pagos y la contratación no están habilitados en esta versión.
-            Los importes mostrados son orientativos.
+            Todavía no. Los pagos y la contratación no están habilitados en esta versión. Los importes son provisionales y pueden cambiar.
           </p>
         </div>
         <div className={styles.pregunta}>
