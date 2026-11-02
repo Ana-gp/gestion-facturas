@@ -1,0 +1,118 @@
+.fondo {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 32px 18px;
+  background: #f6f7f9;
+}
+.tarjeta {
+  width: min(100%, 460px);
+  padding: clamp(26px, 6vw, 44px);
+  border: 1px solid #dce2e9;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 48px rgb(24 34 48 / 6%);
+}
+.marca {
+  display: inline-block;
+  margin-bottom: 30px;
+  color: #182230;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+.eyebrow {
+  margin: 0 0 12px;
+  color: #2459a9;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+}
+.tarjeta h1 {
+  margin: 0;
+  color: #182230;
+  font-size: clamp(1.8rem, 6vw, 2.35rem);
+  line-height: 1.12;
+  letter-spacing: -.045em;
+}
+.intro {
+  margin: 14px 0 26px;
+  color: #5d6878;
+  font-size: .98rem;
+  line-height: 1.6;
+}
+.formulario {
+  display: grid;
+  gap: 10px;
+}
+.formulario label {
+  margin-top: 7px;
+  color: #253244;
+  font-size: .9rem;
+  font-weight: 650;
+}
+.formulario input {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 13px;
+  border: 1px solid #cbd3de;
+  border-radius: 9px;
+  background: #fff;
+  color: #182230;
+  font: inherit;
+}
+.formulario input:focus {
+  border-color: #2459a9;
+  outline: 3px solid rgb(36 89 169 / 15%);
+}
+.formulario small, .legal {
+  color: #687587;
+  font-size: .8rem;
+  line-height: 1.5;
+}
+.alineado {
+  display: flex;
+  justify-content: flex-end;
+  margin: 3px 0 10px;
+  font-size: .85rem;
+}
+.tarjeta a:not(.marca) {
+  color: #2459a9;
+  font-weight: 600;
+  text-decoration: none;
+}
+.tarjeta a:not(.marca):hover { text-decoration: underline; }
+.boton {
+  min-height: 49px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: #2459a9;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.boton:hover { background: #1c4788; }
+.boton:disabled { cursor: wait; opacity: .7; }
+.pie, .legal {
+  margin: 22px 0 0;
+  color: #5d6878;
+  font-size: .87rem;
+  line-height: 1.6;
+  text-align: center;
+}
+.error, .exito {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: .87rem;
+  line-height: 1.5;
+}
+.error { border: 1px solid #f2c7c3; background: #fff2f0; color: #8c2118; }
+.exito { border: 1px solid #b9dfca; background: #effaf3; color: #17633a; }
+@media (max-width: 420px) {
+  .fondo { padding: 16px 12px; }
+  .tarjeta { padding: 25px 21px; }
+}
