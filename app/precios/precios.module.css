@@ -494,3 +494,20 @@
     transition: none;
   }
 }
+
+
+.avisoContratacion {
+  margin: 10px 0 0;
+  color: var(--gris);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.botonPrincipal:focus-visible,
+.navegacion a:focus-visible,
+.enlaceHero:focus-visible,
+.pie a:focus-visible {
+  outline: 3px solid #6d9be8;
+  outline-offset: 4px;
+}
