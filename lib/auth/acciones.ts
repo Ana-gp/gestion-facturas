@@ -9,7 +9,7 @@ function destinoSeguro(valor: FormDataEntryValue | null, porDefecto = "/gastos")
 }
 
 function errorEn(ruta: string, mensaje: string): never {
-  redirect(\`${ruta}?error=${encodeURIComponent(mensaje)}\`);
+  redirect(ruta + "?error=" + encodeURIComponent(mensaje));
 }
 
 function campo(formData: FormData, nombre: string): string {
@@ -61,7 +61,7 @@ export async function registrar(formData: FormData): Promise<void> {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: \`${origen}/auth/callback?next=/gastos\` },
+    options: { emailRedirectTo: origen + "/auth/callback?next=/gastos" },
   });
   if (error) {
     console.error("[auth/registro]", error.message);
@@ -78,7 +78,7 @@ export async function solicitarRecuperacion(formData: FormData): Promise<void> {
   const supabase = await clienteServidor();
   const origen = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: \`${origen}/auth/callback?next=/nueva-contrasena\`,
+    redirectTo: origen + "/auth/callback?next=/nueva-contrasena",
   });
   if (error) {
     console.error("[auth/recuperar]", error.message);
