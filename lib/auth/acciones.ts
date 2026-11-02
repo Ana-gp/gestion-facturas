@@ -27,7 +27,7 @@ function validarPassword(password: string): boolean {
 
 export async function entrar(formData: FormData): Promise<void> {
   const email = campo(formData, "email").toLowerCase();
-  const password = campo(formData, "password");
+  const password = passwordCampo(formData, "password");
   const next = destinoSeguro(formData.get("next"));
   if (!validarEmail(email) || !password) errorEn("/entrar", "Introduce un correo y una contraseña válidos.");
 
@@ -45,7 +45,7 @@ export async function entrar(formData: FormData): Promise<void> {
 export async function registrar(formData: FormData): Promise<void> {
   const email = campo(formData, "email").toLowerCase();
   const password = campo(formData, "password");
-  const repetir = campo(formData, "passwordConfirm");
+  const repetir = passwordCampo(formData, "passwordConfirm");
   if (!validarEmail(email)) errorEn("/registro", "Introduce un correo electrónico válido.");
   if (!validarPassword(password)) errorEn("/registro", "La contraseña debe tener al menos 8 caracteres.");
   if (password !== repetir) errorEn("/registro", "Las contraseñas no coinciden.");
