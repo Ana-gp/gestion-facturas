@@ -209,10 +209,11 @@ export function aDatosRevision(d: DatosLeidos): DatosRevision {
 }
 
 /** Confianza de cada campo: la IA marca los dudosos y nuestras reglas (D2) los vacíos y los que no cuadran. */
-export function camposRevision(d: DatosLeidos): CamposRevision {
+export function camposRevision(d: DatosLeidos, referencia: string = new Date().toISOString().slice(0, 10)): CamposRevision {
   const deLaIa: CamposRevision = {};
   for (const c of d.dudosos) deLaIa[c] = { confianza: "baja", corregido: false };
-  const confianza = confianzaPorReglas(aDatosRevision(d), deLaIa);
+  // `referencia`: el día de la lectura, para avisar si el día y el mes pueden estar cruzados.
+  const confianza = confianzaPorReglas(aDatosRevision(d), deLaIa, { referencia });
   const resultado: CamposRevision = {};
   for (const [campo, nivel] of Object.entries(confianza) as [Campo, (typeof confianza)[Campo]][]) {
     resultado[campo] = { confianza: nivel, corregido: false };

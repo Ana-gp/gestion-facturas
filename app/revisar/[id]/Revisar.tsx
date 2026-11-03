@@ -14,6 +14,7 @@ import {
   ETIQUETAS,
   avisosDeLaFicha,
   camposARevisar,
+  fechaQuizaCruzada,
   faltaParaRevisada,
   lineasQueNoCuadran,
   marcarCorregido,
@@ -116,7 +117,10 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const [buscando, setBuscando] = useState(false);
   const [errorTipo, setErrorTipo] = useState<string | null>(null);
 
-  const aRevisar = new Set(camposARevisar(datos, revision));
+  // Hoy, para avisar si el día y el mes de la fecha pueden estar cruzados.
+  const hoy = new Date().toISOString().slice(0, 10);
+  const fechaCruzada = fechaQuizaCruzada(datos.fecha, hoy);
+  const aRevisar = new Set(camposARevisar(datos, revision, { referencia: hoy }));
   const avisos = avisosDeLaFicha(datos, { posibleDuplicado: ficha.posibleDuplicadoDe !== null });
   const falta = faltaParaRevisada(datos);
   const cuotasRaras = new Map(lineasQueNoCuadran(datos).map((l) => [l.indice, l.cuotaEsperada]));
@@ -273,6 +277,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const fecha: DefinicionCampo = {
     clave: "fecha", etiqueta: ETIQUETAS.fecha, campo: "fecha", tipo: "fecha",
     valor: mostrarFecha(datos.fecha),
+    ayuda: fechaCruzada && !revision.fecha?.corregido ? `¿Es el ${mostrarFecha(fechaCruzada)}? Comprueba el día y el mes: puede que estén cruzados.` : undefined,
     inicial: datos.fecha ?? "",
     guardar: (t) => {
       if (t && !/^\d{4}-\d{2}-\d{2}$/.test(t)) return "Elige una fecha del calendario.";
