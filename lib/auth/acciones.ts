@@ -40,6 +40,9 @@ export async function entrar(formData: FormData): Promise<void> {
   const supabase = await clienteServidor();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
+    // Solo la causa (sin correo ni contraseña), para ver en Vercel por qué falla:
+    // contraseña mal, demasiados intentos, conexión… (prueba desde el móvil, 03/11/2026).
+    console.error("[entrar]", error.status ?? "-", error.code ?? "-", error.message);
     if (error.message.toLowerCase().includes("email not confirmed")) {
       errorEn("/entrar", "Todavía tienes que confirmar tu correo. Revisa tu bandeja de entrada.");
     }
