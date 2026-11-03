@@ -3,8 +3,7 @@
  * "middleware"). La sesión de Supabase caduca cada poco y hay que renovarla
  * antes de que la página la lea; si no, el usuario "se sale" solo.
  *
- * [Pendiente] Conectarlo en el login (#13, Javier): crear `proxy.ts` en la raíz
- * del proyecto con:
+ * Conectado en `proxy.ts` (login, #13, PR #78), de esta forma:
  *
  *   import type { NextRequest } from "next/server";
  *   import { actualizarSesion } from "@/lib/supabase/sesion";
@@ -16,7 +15,7 @@
  *   };
  *
  * Aquí no se redirige a nadie a la página de entrar: qué páginas exigen
- * login lo decide #13.
+ * login lo decide `proxy.ts`.
  */
 
 import { createServerClient } from "@supabase/ssr";

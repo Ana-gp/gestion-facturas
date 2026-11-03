@@ -56,8 +56,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: Props) {
   const router = useRouter();
-  // Con sesión iniciada, se guarda de verdad en Supabase (#18). Sin sesión o
-  // sin claves, siguen los servicios de prueba. [Pendiente] La lectura real (#19).
+  // Con sesión iniciada, se guarda de verdad en Supabase (#18) y se lee con IA
+  // en /api/leer (#19). Sin sesión o sin claves, siguen los servicios de prueba.
   const prueba = useMemo(() => serviciosDePrueba(), []);
   const [reales, setReales] = useState<ServiciosSubida | null>(null);
   const servicios = reales ?? prueba;

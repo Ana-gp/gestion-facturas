@@ -4,6 +4,15 @@
 
 Aplicación web por suscripción para que autónomos organicen sus tickets y facturas, conserven los originales y preparen la documentación que enviarán a su gestoría. El MVP no sustituye el criterio fiscal de la gestoría ni garantiza que un gasto sea deducible. Proyecto final en equipo.
 
+## Web publicada
+
+**https://gestion-facturas-xi.vercel.app** (Vercel, funciones en Fráncfort).
+
+- Para probarla: **Crear cuenta** con un correo y una contraseña de 8 caracteres o más. En la demo no se pide confirmar el correo ([arquitectura](docs/arquitectura.md), apartado 7, punto 11).
+- **Solo documentos de prueba o con los datos tapados**: la lectura usa la clave gratuita de Gemini ([puesta en marcha](docs/supabase.md), apartado 2). Hay tickets de prueba en `tests/tickets/`.
+- Recorrido: Subir (foto, arrastrar o elegir archivos, o reenviar por correo a la dirección que sale en Subir) → lectura con IA → Revisar y corregir junto al original → Mis gastos → Exportar el Excel del periodo para la gestoría.
+- Probado en producción el 03/11/2026: registro, entrar, subir, aviso de archivo repetido, lectura con IA, corrección, tipo de cambio y Excel. **[Pendiente]** El reenvío por correo. La prueba con los 4 tickets del enunciado y dos cuentas está en [pruebas-lectura.md](docs/pruebas-lectura.md) (#28).
+
 ## Equipo
 
 | Integrante | Bloque |
@@ -60,10 +69,16 @@ Detalle, motivos, alternativas, diagrama y pendientes en [`docs/arquitectura.md`
 - [Normativa aplicable](docs/legal.md)
 - [Arquitectura](docs/arquitectura.md)
 - [Prueba de concepto de IA](docs/prueba-ia.md)
-- [Modelo de datos](docs/modelo-datos.md) y [borrador SQL](docs/modelo-datos.sql)
+- [Modelo de datos](docs/modelo-datos.md) y [SQL para Supabase](docs/modelo-datos.sql)
+- [Mapa de pantallas](docs/mapa-pantallas.md)
+- [Puesta en marcha de Supabase, Gemini y Vercel](docs/supabase.md)
+- [Lectura con IA en la web](docs/lectura-ia.md) y [prueba con tickets reales](docs/pruebas-lectura.md)
 - [Guía de estilo](docs/guia-estilo.md)
 
 ## Estructura
+- `app/` pantallas y rutas de la web (Next.js)
+- `lib/` lógica: subida, lectura con IA, revisión, moneda, duplicados, exportación y cliente de Supabase
+- `tests/unit/` pruebas automáticas (`npm test`)
 - `docs/` documentos del proyecto y guía de estilo
 - `tests/tickets/` tickets y facturas reales para las pruebas de lectura, con los datos personales tapados
 - `tests/resultados-ia/` respuestas completas de cada motor de IA en la prueba de lectura

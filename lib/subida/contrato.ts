@@ -40,10 +40,10 @@ function esperar(ms: number) {
 }
 
 /**
- * Versión de prueba para enseñar la pantalla mientras no estén #18 y #19.
+ * Versión de prueba: la usa la pantalla sin sesión o sin claves de Supabase.
  * No guarda nada. Cualquier archivo se "lee" como el ticket T4b, salvo si su
- * nombre contiene "error", que simula un fallo de lectura.
- * [Pendiente] Sustituir por la implementación real de Mireia (#18 y #19).
+ * nombre contiene "error", que simula un fallo de lectura. La implementación
+ * real es lib/subida/servicios-supabase.ts (#18 y #19).
  */
 export function serviciosDePrueba(existentes: DocumentoEncontrado[] = []): ServiciosSubida {
   const subidos = [...existentes];
