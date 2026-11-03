@@ -48,7 +48,7 @@ Los nombres P00 a P17 son los del [mapa de pantallas](../mapa-pantallas.md). Los
 
 Enlaces:
 
-- **Prototipo de Mireia (Figma):** https://www.figma.com/design/1NQCSZmjxYgBC8g8XcquXp/Ticketon-%E2%80%93-Prototipo--Mireia--%E2%80%93-Issue-11?node-id=4-2
+- **Prototipo de Mireia (Figma):** https://www.figma.com/design/1NQCSZmjxYgBC8g8XcquXp/Ticketon-%E2%80%93-Prototipo--Mireia--%E2%80%93-Issue-11?node-id=0-1
 - **Prototipo de Javier (Stitch):** https://stitch.google.com/projects/12186838903003075119
 
 **[Pendiente]** Comprobar que los dos enlaces se abren sin iniciar sesión con otra cuenta (ventana de incógnito).
