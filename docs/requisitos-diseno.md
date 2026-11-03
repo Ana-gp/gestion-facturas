@@ -1,230 +1,335 @@
 # 11 · Requisitos de diseño de Ticketon
 
-Tarea: #9 (orden 11) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Última actualización: 29/10/2026
+Tarea: #9 (orden 11) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Última actualización: 03/11/2026
 
-**Estado:** **[Propuesta]** base de diseño para revisión del equipo. Debe contrastarse con el mapa de pantallas y flujos de #8 antes de cerrar los requisitos y comenzar el prototipo de #11.
+**Estado:** **[Propuesta]**. Documento contrastado con el mapa de pantallas aprobado (PR #54, #8) y con las funciones adicionales de `docs/funciones.md` (#7). Pendiente de revisión final del equipo y de comprobar la propuesta visual en el prototipo #11.
 
-Leyenda: **[Confirmado]** requisito respaldado por el enunciado o documentos del proyecto · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta decisión o validación.
+Leyenda: **[Confirmado]** requisito respaldado por el enunciado o documentos aprobados · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta decisión o validación.
 
-## 1. Objetivo y principios
+## 1. Objetivo y alcance
 
 Ticketon ayuda a autónomos que trabajan con una gestoría a guardar y ordenar justificantes, revisar los datos extraídos y preparar la documentación para su gestoría. La tarea principal debe poder hacerse desde el móvil en pocos pasos: fotografiar o subir un justificante, comprobar los datos, corregir lo necesario y guardarlo junto con el original.
 
-Principios de diseño:
-1. **Móvil primero [Propuesta].** La captura con cámara es una acción principal; el flujo debe funcionar también en escritorio.
-2. **Una acción principal por pantalla [Propuesta].** Evitar menús y llamadas a la acción que compitan entre sí.
-3. **Lenguaje cotidiano [Propuesta].** Usar “Subir justificante”, “Revisar datos” y “Exportar para la gestoría”.
-4. **La IA no decide por la persona [Confirmado].** Presentar los datos extraídos como una propuesta editable.
-5. **Conservar y recuperar el original [Confirmado].** Mostrar qué archivo se ha guardado y permitir abrirlo o descargarlo.
-6. **Errores recuperables [Propuesta].** Si la lectura falla, conservar el archivo y ofrecer reintentar o introducir los datos manualmente.
-7. **Privacidad visible [Propuesta].** No mostrar documentos ni importes de otra cuenta ni incluir datos fiscales en avisos o URL.
-8. **Accesibilidad básica [Propuesta].** Contraste legible, foco visible, etiquetas persistentes, navegación por teclado y mensajes que no dependan solo del color.
+El diseño debe cubrir las **18 pantallas P00–P17** del mapa aprobado en #8, sus estados y los flujos de móvil, escritorio, reenvío por correo, revisión, duplicados, exportación y cierre de trimestre. Que una pantalla esté especificada no significa que esté construida ni probada.
 
-Ticketon organiza documentos; no determina si un gasto es deducible ni sustituye a la gestoría.
+Ticketon organiza documentos; no determina si un gasto es deducible, no presenta impuestos y no sustituye a la gestoría.
 
-## 2. Identidad visual
+## 2. Principios de diseño
 
-### 2.1. Paleta [Propuesta]
+1. **Móvil primero [Propuesta].** La captura con cámara es el flujo principal. La experiencia debe funcionar también en escritorio.
+2. **Corrección directa en dos clics [Confirmado].** Desde P10, un clic activa la edición del campo y el segundo confirma el dato. No debe exigirse abrir un formulario aparte ni guardar toda la ficha para cada corrección.
+3. **El original y los datos se consultan juntos [Confirmado].** En escritorio se muestran en paralelo; en móvil, la foto aparece encima de los datos y se puede ampliar con un toque.
+4. **La IA propone, la persona revisa [Confirmado].** Los datos extraídos son editables. Los campos dudosos o vacíos se identifican con texto.
+5. **El original se conserva [Confirmado].** La subida y el guardado del original no deben depender de que el OCR funcione.
+6. **Una acción principal clara por pantalla [Propuesta].** Evitar llamadas a la acción que compitan entre sí.
+7. **Lenguaje cotidiano [Propuesta].** Usar expresiones como “Mis gastos”, “Hacer foto”, “Revisar datos” y “Exportar para la gestoría”.
+8. **Errores recuperables [Propuesta].** Explicar qué ha ocurrido, qué se ha guardado y cómo continuar.
+9. **Privacidad y seguridad [Confirmado].** Cada persona solo ve sus documentos. Los enlaces a originales respetan permisos y no exponen datos fiscales en URL ni avisos.
+10. **Accesibilidad [Propuesta].** Contraste suficiente, foco visible, etiquetas persistentes, navegación por teclado y mensajes que no dependan solo del color.
+
+## 3. Identidad visual
+
+Los siguientes valores son una **propuesta inicial**, no una identidad visual aprobada. Deben contrastarse con el prototipo y la guía de estilo. No se deben presentar como decisiones definitivas antes de esa revisión.
+
+### 3.1. Paleta [Propuesta]
 
 | Uso | Color | Aplicación |
 |---|---|---|
 | Fondo general | #F7F8FA | Fondo de la aplicación |
-| Superficie | #FFFFFF | Tarjetas, formularios y tablas |
+| Superficie | #FFFFFF | Tarjetas, formularios y paneles |
 | Texto principal | #17202A | Títulos y datos |
-| Texto secundario | #52606D | Ayuda, etiquetas y metadatos |
-| Color principal | #2457A7 | Botón principal, enlaces y foco |
-| Color principal oscuro | #19447F | Estado activo/hover |
+| Texto secundario | #52606D | Ayudas, etiquetas y metadatos |
+| Color principal | #2457A7 | Acción principal, enlaces y foco |
+| Color principal oscuro | #19447F | Estados activos |
 | Bordes | #D8DEE6 | Campos, separadores y tarjetas |
 | Éxito | #18794E | Siempre acompañado de texto |
 | Aviso | #8A5200 | Datos dudosos, duplicados o pendientes |
 | Error | #B42318 | Errores que requieren actuación |
 
-No usar el color como único indicador. Comprobar contraste y foco con el prototipo antes de cerrar la paleta.
+No usar el color como único indicador. Comprobar contraste de texto, controles y foco con el prototipo antes de aprobar la paleta.
 
-### 2.2. Tipografía y composición [Propuesta]
+### 3.2. Tipografía y composición [Propuesta]
 
 - Tipografía: Inter, con una sans-serif del sistema como alternativa.
-- Texto de formularios: 16 px; ayudas y metadatos no deben bajar de 14 px.
+- Texto de formularios: 16 px; ayudas y metadatos: al menos 14 px.
 - Jerarquía clara de títulos, campos alineados y espaciado basado en múltiplos de 8 px.
-- Bordes discretos, radios moderados y sombras mínimas; evitar decoración innecesaria.
-- Diseño adaptable desde 320 px. En escritorio, limitar el ancho del contenido y permitir revisar documento y datos en paralelo.
+- Bordes discretos, radios moderados y sombras mínimas.
+- Diseño adaptable desde 320 px.
+- En escritorio, limitar el ancho del contenido y aprovechar el espacio para mostrar original y datos en paralelo.
 
-### 2.3. Componentes compartidos [Propuesta]
+### 3.3. Componentes compartidos [Propuesta]
 
-- Barra superior con Ticketon y navegación mínima: Documentos, Subir justificante y Cuenta.
+- Navegación móvil inferior: Mis gastos, Foto, Exportar y Cuenta. El botón Foto destaca y abre la cámara directamente.
+- Navegación de escritorio en columna lateral: Mis gastos, Subir, Exportar y Cuenta.
+- Contador mensual de documentos visible en la zona superior.
 - Botón principal sólido; acciones secundarias neutras o como enlaces.
-- Campos con etiqueta visible, ayuda cuando sea necesaria y error debajo del campo.
-- Estados con texto: Pendiente, Revisada, Confirmada, Error y Posible duplicado.
-- Avisos con título y explicación; nunca depender solo del color o de un icono.
-- Listado adaptable: en móvil, tarjetas o filas resumidas; evitar tablas que requieran desplazamiento horizontal.
+- Campos con etiqueta persistente, ayuda cuando sea necesaria y error junto al campo.
+- Estados con texto: Pendiente de revisar, Revisada, Error de lectura, Posible duplicado y Llegó por correo.
+- Avisos con título y explicación; no depender solo del color o de un icono.
+- Tarjetas o filas compactas en móvil; evitar tablas que exijan desplazamiento horizontal.
 - Estados de carga, vacío, error y éxito para acciones asíncronas.
-- Confirmación para acciones irreversibles. No sobrescribir el original por accidente.
-
-## 3. Navegación propuesta
-
-La navegación autenticada tendrá:
-- **Documentos:** listado y búsqueda de justificantes.
-- **Subir justificante:** cámara, selector de archivo o arrastrar y soltar.
-- **Cuenta:** datos básicos, recuperación de contraseña y cierre de sesión.
-- **Precios:** accesible desde el límite del plan y la web pública.
-
-La landing y las páginas legales son públicas. El MVP no incluye acceso de gestorías a varios clientes, equipos ni espacios multiempresa.
+- Confirmación para acciones irreversibles. No sobrescribir ni borrar el original por accidente.
 
 ## 4. Requisitos por pantalla
 
-### 4.1. Landing pública
+Los códigos y nombres corresponden al mapa aprobado de #8. Se mantienen para que diseño, prototipo y desarrollo hablen de las mismas pantallas.
 
-**Objetivo:** explicar rápidamente para quién es Ticketon y permitir crear cuenta o iniciar sesión.
+### 4.1. P00 · Portada pública
 
-Debe mostrar la propuesta de valor, tres pasos sencillos (subir, revisar, exportar), el alcance real del producto, acciones “Crear cuenta” e “Iniciar sesión” y enlaces legales. No afirmar que Ticketon certifica documentos o decide deducibilidad. En móvil, el mensaje y la acción principal deben verse pronto; evitar una página de marketing larga.
+Explicar en pocas líneas para quién es Ticketon, qué problema resuelve y el recorrido básico: subir, revisar y exportar. Incluir accesos claros a Precios, Entrar y Crear cuenta. No prometer deducibilidad, presentación de impuestos ni funciones no implementadas.
 
-### 4.2. Registro e inicio de sesión
+### 4.2. P01 · Precios
 
-- Registro con correo y contraseña.
-- Inicio de sesión con mensajes claros ante credenciales incorrectas.
-- Enlace “He olvidado mi contraseña”.
-- Estados de envío, error y éxito.
-- Mensajes de recuperación neutrales que no revelen si una dirección está registrada.
-- No mostrar documentos antes de comprobar la sesión. La autorización también debe aplicarse en servidor y base de datos.
+Mostrar los tres planes (Gratis, Autónomo y Autónomo Plus), precio mensual, límite mensual de lecturas y funciones incluidas. Los precios vigentes en el modelo de negocio siguen siendo provisionales hasta su aprobación definitiva.
 
-### 4.3. Recuperación de contraseña
+Destacar que instalación en el móvil y avisos internos están incluidos en todos los planes. El Cierre de trimestre se identifica como función de pago. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
 
-Permitir solicitar un enlace, mostrar confirmación neutral y ofrecer volver al inicio de sesión. Contemplar enlace caducado o inválido sin revelar si la cuenta existe.
+### 4.3. P02 · Crear cuenta
 
-### 4.4. Panel inicial
+Solicitar correo y contraseña, repetir contraseña y mostrar enlaces a privacidad y condiciones de uso. Incluir errores de validación, envío y éxito. No mostrar documentos hasta que la sesión esté autenticada y autorizada.
 
-Debe ofrecer una acción principal “Subir justificante”, resumen sencillo de documentos pendientes y guardados, últimos documentos con fecha/emisor/total/estado cuando estén disponibles, y aviso del límite mensual solo cuando sea relevante. Si no hay documentos, mostrar un estado vacío con explicación breve y una acción para subir el primero. No priorizar gráficos que no ayuden a la tarea principal.
+### 4.4. P03 · Entrar
 
-### 4.5. Subir justificante
+Solicitar correo y contraseña. Mostrar mensajes claros ante credenciales incorrectas y acceso a “¿Has olvidado la contraseña?” y “Crear cuenta”. No revelar información de otras cuentas.
 
-Debe admitir, según el dispositivo:
-- Hacer una foto con la cámara del móvil.
-- Elegir un PDF o imagen del dispositivo.
-- Arrastrar y soltar o seleccionar archivos en escritorio.
-- La recepción por correo se concretará con el mapa de #8 y la implementación real.
+### 4.5. P04 · Recuperar contraseña
 
-Mostrar formatos admitidos y límite de tamaño cuando estén definidos, progreso y errores recuperables. No afirmar que el archivo está guardado hasta que lo confirme el servidor. Si existe una posible duplicidad, avisar sin bloquear automáticamente. Si falla el OCR, conservar el original.
+Permitir introducir el correo y solicitar el enlace de recuperación. Mostrar siempre un mensaje neutral, exista o no la cuenta, para no revelar qué direcciones están registradas. Contemplar error de envío.
 
-### 4.6. Revisar y corregir datos — pantalla prioritaria
+### 4.6. P05 · Nueva contraseña
 
-**Objetivo:** comprobar los datos propuestos por la IA antes de confirmar el justificante.
+Abrir desde el enlace recibido por correo. Solicitar la nueva contraseña dos veces, validar los requisitos reales y contemplar enlace caducado, inválido o ya utilizado. Tras completar el cambio, permitir continuar al acceso según el comportamiento implementado.
 
-**Escritorio:** original visible junto al formulario; permitir ampliarlo y mantener accesible la acción de guardar/confirmar.
+### 4.7. P06 · Textos legales
 
-**Móvil:** organizar el contenido en una columna; permitir alternar entre consultar el original y editar datos sin perder cambios. No reducir original y formulario a dos columnas estrechas.
+Permitir consultar política de privacidad, aviso legal, cookies y condiciones de uso. Los textos deben estar revisados antes de pruebas externas. No presentar el documento de análisis normativo como garantía automática de cumplimiento.
 
-Campos revisables:
+### 4.8. P07 · Mis gastos
+
+Es la pantalla inicial tras iniciar sesión.
+
+- Mostrar los documentos del usuario, el más reciente primero.
+- Cada elemento presenta fecha, emisor, total en euros cuando exista, categoría y estado.
+- Mostrar etiquetas cuando correspondan: Pendiente de revisar, Posible duplicado, Sin NIF del receptor, Conversión pendiente y Llegó por correo.
+- Mostrar una franja de avisos cuando haya avisos pendientes.
+- Dar acceso a revisar el documento y consultar su original.
+- En móvil, usar tarjetas o filas compactas; en escritorio, una lista legible.
+- Incluir el contador mensual de documentos.
+- Si no hay documentos, explicar brevemente las vías para añadir el primero.
+- El mapa contempla filtros y búsqueda como mejora posterior al listado básico; no deben retrasar el flujo principal.
+
+En escritorio, permitir arrastrar archivos sobre la lista si está implementado.
+
+### 4.9. P08 · Subir documento
+
+Presentar las vías de entrada:
+
+- Hacer foto con la cámara del móvil.
+- Elegir PDF o imagen del dispositivo.
+- Arrastrar y soltar o elegir archivos en escritorio.
+- Consultar y copiar la dirección personal de reenvío por correo.
+
+Indicar formatos y tamaño máximo cuando estén fijados. Mostrar progreso y errores recuperables. No indicar que el original está guardado hasta recibir confirmación del servidor. Si el archivo ya estaba guardado con la misma huella, informar de ello y enlazar al documento existente; no iniciar otra lectura.
+
+### 4.10. P09 · Subiendo y leyendo
+
+Mostrar el progreso por archivo y distinguir las fases: subida, original guardado, lectura con IA y resultado. Si hay varios archivos, mostrar el estado de cada uno.
+
+Contemplar:
+- Error de subida: no afirmar que se ha guardado.
+- Error de lectura: indicar que el original sí está guardado y ofrecer reintentar o rellenar los datos manualmente.
+- Archivo repetido: informar de que ya existe y no se vuelve a leer ni consume cupo.
+- Límite del plan: el original se guarda, pero queda pendiente de lectura hasta que haya cupo o se cambie de plan.
+- Lectura completada: continuar a P10.
+
+### 4.11. P10 · Revisar y corregir
+
+Es la pantalla prioritaria del producto y debe cumplir literalmente el requisito de ver el original junto a los datos y corregir un campo en dos clics.
+
+**Distribución:**
+- Escritorio: original a la izquierda, con zoom; datos a la derecha.
+- Móvil: foto arriba y datos debajo. La foto se amplía con un toque. No separar original y datos en pestañas que impidan verlos juntos.
+
+**Campos que se muestran cuando existan:**
 - Tipo de documento: factura o ticket.
 - Fecha.
 - Nombre y NIF del emisor.
-- NIF del destinatario, opcional si no aparece.
-- Número de factura/ticket, si existe.
-- Categoría de gasto.
+- NIF del receptor.
+- Número de factura o ticket.
+- Categoría.
 - Una o varias líneas de IVA con tipo, base y cuota.
-- Retención de IRPF cuando exista.
-- Total y moneda original; cuando corresponda, conversión a euros, tipo de cambio y fecha aplicada.
+- Retención de IRPF, si existe.
+- Total y moneda original.
+- Tipo de cambio, fecha aplicada y total en euros cuando corresponda.
 
-Reglas de interacción:
-- Marcar campos vacíos o de baja confianza con un texto como “Revisar”, no solo con color.
-- Distinguir datos extraídos de datos corregidos o confirmados.
+**Corrección en dos clics [Confirmado]:**
+1. Primer clic sobre el dato: se activa su edición y aparece el control adecuado (teclado numérico, calendario o selector, según el campo).
+2. Segundo clic: confirmar el dato con “Listo” o la acción equivalente junto al campo. El cambio se guarda sin exigir un botón general al final de la ficha.
+
+Escribir el valor no cuenta como clic. No debe añadirse un paso intermedio de “Editar”. “Guardar como revisada” es una acción distinta: confirma que la ficha completa está comprobada, no cada campo individual.
+
+**Reglas y avisos:**
+- Resaltar campos vacíos o dudosos con texto, no solo con color.
+- Distinguir datos extraídos de datos corregidos y de una ficha revisada.
 - Permitir añadir, editar y eliminar líneas de IVA.
 - Avisar si bases, cuotas, retención y total no cuadran; nunca modificar importes silenciosamente.
-- Si falta el tipo de cambio, mostrar “Conversión pendiente”; no inventar un importe en euros ni permitir confirmar como revisada una factura que requiera conversión.
-- Si el ticket no incluye NIF del destinatario, permitir guardarlo y mostrar un aviso neutral. Ticketon no decide si el IVA es deducible.
-- Si hay un posible duplicado, enlazar al documento coincidente y permitir continuar si no es duplicado.
-- Diferenciar “Guardar cambios” y “Confirmar revisión”. Confirmar debe respetar las validaciones reales del backend.
-- Si falla el OCR, conservar el original y permitir introducir datos manualmente o reintentar.
-- Advertir de cambios sin guardar antes de abandonar la pantalla.
+- Si falta conversión a euros, mostrar “Conversión pendiente” y no permitir marcar como revisada una factura que requiera conversión.
+- Si falta el NIF del receptor en un ticket, permitir guardarlo y mostrar el aviso interno correspondiente. No convertir ese aviso en un juicio sobre la deducibilidad.
+- Si hay un posible duplicado, mostrar el motivo y permitir abrir P11. El aviso no bloquea por sí solo la revisión ni la exportación.
+- Permitir abrir P12 para consultar el original a pantalla completa.
+- Permitir volver a leer con IA si la función está disponible.
+- Advertir de cambios sin guardar antes de abandonar la ficha.
+- El botón “Guardar como revisada” respeta las validaciones reales del backend: fecha, emisor, total, total en euros y categoría, según el modelo de datos.
 
-**[Pendiente]** Los campos mínimos para confirmar una revisión deben coincidir con las validaciones del backend; el diseño no debe inventar reglas fiscales.
+### 4.12. P11 · Comparar posible duplicado
 
-### 4.7. Listado de documentos
+Mostrar los dos documentos y sus datos clave. En móvil, uno encima del otro; en escritorio, lado a lado. Explicar por qué se ha detectado la coincidencia (misma huella, mismo NIF/número/total o mismo emisor/fecha/total, según la regla aplicada).
 
-Mostrar fecha, emisor, número cuando exista, total, moneda, categoría y estado. Destacar revisión pendiente, error o posible duplicado. Incluir acceso a la revisión y al original; búsqueda y filtros por periodo, estado y categoría si están disponibles. Definir estados vacío, carga y error.
+Permitir borrar uno con confirmación, marcar “No es un duplicado” o volver sin decidir. El aviso no debe bloquear el uso normal. Antes de borrar, informar de las consecuencias sobre el documento y el cupo cuando corresponda.
 
-En móvil, usar tarjetas o filas compactas que destaquen fecha, emisor, total y estado. No depender de un NIF o número que puede faltar en un ticket.
+### 4.13. P12 · Original a pantalla completa
 
-### 4.8. Detalle del documento y original
+Mostrar el archivo original sin sustituirlo por una versión procesada. Permitir ampliar, descargar y volver a P10. El acceso debe respetar la autorización del usuario; no utilizar enlaces públicos permanentes.
 
-Permitir consultar los datos, abrir/descargar el original, editar si procede y ver el estado de revisión. Los enlaces al archivo deben respetar permisos y no ser públicos permanentes. Mostrar avisos de ticket sin NIF, conversión pendiente y posible duplicado cuando correspondan.
+### 4.14. P13 · Exportar
 
-### 4.9. Exportar para la gestoría
+Permitir elegir mes, trimestre o año. Mostrar un resumen del periodo: número de documentos, total en euros y documentos con avisos. Permitir descargar el Excel incluso si existen documentos pendientes, sin ocultar que hay datos sin revisar o conversiones pendientes.
 
-Permitir elegir un periodo y, si está disponible, filtrar por estado/categoría. Mostrar resumen del periodo y acción “Exportar Excel”. La exportación debe contemplar una fila por cada tipo de IVA de cada factura, los importes para gestoría, moneda original, conversión aplicada cuando proceda, avisos pertinentes y referencia al original según la decisión de #23.
+La exportación ordinaria por periodo está disponible en todos los planes, incluido Gratis. El Excel debe respetar las columnas y reglas aprobadas en #23: una fila por cada tipo de IVA cuando corresponda, importes y moneda original, conversión aplicada y estado. No prometer enlaces a originales ni columnas no acordadas.
 
-Antes de exportar, avisar si hay documentos con errores, pendientes o conversiones pendientes. Explicar qué se incluye y qué queda fuera; no bloquear silenciosamente. Tras exportar, mostrar confirmación.
+El estado vacío debe indicar que no hay gastos en el periodo. Tras exportar, mostrar confirmación solo cuando el archivo se haya generado correctamente.
 
-**[Pendiente]** El formato definitivo y cómo entregar/enlazar originales se decidirán en #23. No prometer enlaces permanentes antes de esa decisión.
+### 4.15. P14 · Cierre de trimestre
 
-### 4.10. Precios y límite del plan
+Función adicional de los planes Autónomo y Autónomo Plus. En Gratis se muestra bloqueada con una explicación breve y enlace a P01; no se bloquea la exportación normal a Excel.
 
-Los precios deben mostrarse como provisionales hasta su aprobación. No simular una contratación o un pago que no exista.
+La pantalla debe guiar por tres pasos:
+1. Pendientes del trimestre: tickets sin NIF del receptor, datos por revisar y posibles duplicados. Permitir abrir el documento correspondiente en P10.
+2. Resumen: total de gastos, IVA por tipo y gasto por categoría.
+3. Paquete descargable: Excel del periodo y originales ordenados en un ZIP.
 
-Al alcanzar el límite, explicar que no pueden iniciarse nuevas lecturas automáticas hasta el siguiente periodo o cambio de plan. Los documentos ya guardados, la corrección manual y la exportación básica deben seguir accesibles. Nunca sugerir que los documentos se han perdido ni bloquear al usuario en la pantalla. Los importes de negocio actuales no son tarifas definitivas.
+Permitir continuar aunque queden pendientes, dejando claro qué falta. No presentar el paquete como declaración fiscal ni afirmar que los gastos son deducibles. La generación del ZIP en el navegador es una propuesta del mapa que debe comprobarse en la implementación de #50.
 
-### 4.11. Cuenta y páginas legales
+### 4.16. P15 · Cuenta y plan
 
-Cuenta: mostrar correo, nombre/NIF si están disponibles, recuperación de contraseña y cierre de sesión. No permitir alterar el plan o los contadores desde la interfaz.
+Mostrar nombre, NIF propio si está disponible, correo, plan actual y documentos usados durante el mes. Permitir editar los datos personales previstos, cerrar sesión, acceder a P16 y encontrar la opción de instalar Ticketon en el móvil.
 
-Páginas legales: incluir enlaces al aviso legal y privacidad; revisar los textos antes de pruebas con personas externas. El documento de análisis normativo no debe presentarse como garantía de cumplimiento.
+**Instalación en el móvil [Propuesta incluida en todos los planes]:**
+- Explicar cómo añadir Ticketon a la pantalla de inicio.
+- Mostrar la opción solo cuando el navegador/dispositivo lo permita.
+- Puede aparecer un aviso discreto la primera vez que se entra desde un móvil.
+- No presentarla como una aplicación nativa si es una PWA.
 
-## 5. Estados y mensajes comunes
+No permitir modificar desde la interfaz los contadores ni datos internos del plan. La baja y eliminación de cuenta siguen pendientes de concretar en las tareas correspondientes.
 
-Cada pantalla debe contemplar carga, vacío, éxito y error. Ejemplos:
-- Subida: “Subiendo archivo…” / “Original guardado” / “No se ha podido subir. Inténtalo de nuevo”.
-- Lectura: “Leyendo el documento…” / “No hemos podido leerlo. El original sigue guardado”.
-- Revisión: “Hay datos que conviene comprobar” / “Cambios guardados” / “Revisión confirmada”.
-- Duplicados: “Este documento podría estar repetido”, con acceso a la coincidencia y opción de continuar.
-- Exportación: “Preparando Excel…” / “Exportación preparada” / explicación si falla.
-- Sin conexión: indicar que no se ha confirmado el guardado; no descartar cambios sin avisar.
+### 4.17. P16 · Reenvío por correo
+
+Pantalla obligatoria: el reenvío es la vía rápida para incorporar facturas recibidas por correo sin descargar el PDF y volver a subirlo manualmente.
+
+Mostrar:
+- Dirección personal y única de recepción del usuario.
+- Botón para copiarla.
+- Lista de direcciones de correo autorizadas para reenviar.
+- Acciones para añadir o quitar remitentes autorizados.
+- Instrucciones breves para reenviar desde Gmail u Outlook.
+- Aviso claro de que los correos de remitentes no autorizados se descartan.
+
+La pantalla debe estar accesible desde P08 y P15. No confundir esta vía con una conexión directa a Gmail u Outlook: esas integraciones están descartadas para el MVP.
+
+Cuando un adjunto se recibe correctamente, debe aparecer en P07 con la etiqueta “Llegó por correo”. Si ya existe por su huella, no debe duplicarse ni volver a leerse. El comportamiento de aviso al usuario ante un adjunto repetido queda como mejora posterior, no como requisito para alterar el resultado de la recepción.
+
+### 4.18. P17 · Panel con cifras
+
+Función secundaria “si da tiempo”. Puede mostrar gasto del mes, gasto por categoría y comparación con el mes anterior, con acceso al listado correspondiente. No debe retrasar ni sustituir Mis gastos, la captura, la revisión o la exportación. El plan en que se incluiría está pendiente de decisión.
+
+## 5. Avisos y estados comunes
+
+Los avisos se muestran dentro de la web, no por correo, según #7.
+
+- **Posible duplicado:** obligatorio; aparece en P07 y P10 y permite comparar en P11.
+- **Ticket sin NIF del receptor:** función adicional incluida en todos los planes; aparece en P07 y P10.
+- **Trimestre próximo a cerrar:** función adicional incluida en todos los planes; aparece dentro de la web. La propuesta del mapa es mostrarlo desde 15 días antes del cierre.
+- **Límite del plan:** informar de lecturas disponibles y qué ocurre al alcanzar el límite. El original se conserva aunque quede pendiente de lectura.
+- **Conversión pendiente:** identificar la factura y el dato que falta; no inventar importes.
+- **Llegó por correo:** etiqueta de procedencia visible en P07.
+
+Todos los estados deben incluir carga, vacío, éxito y error cuando proceda. Ejemplos:
+- “Subiendo archivo…” / “Original guardado” / “No se ha podido subir. Inténtalo de nuevo”.
+- “Leyendo tu documento…” / “No hemos podido leerlo. El original sigue guardado”.
+- “Hay datos que conviene comprobar” / “Revisión guardada”.
+- “Este documento podría estar repetido”, con acceso a la coincidencia.
+- “Preparando Excel…” / “Exportación preparada”.
+- Si no hay conexión, indicar que el guardado no está confirmado y no descartar cambios sin avisar.
 
 No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acción.
 
 ## 6. Accesibilidad y adaptación
 
 - Comprobar contraste de texto y controles; foco visible y navegación con teclado.
-- Etiquetas persistentes en los campos; el texto de ejemplo no sustituye a la etiqueta.
+- Etiquetas persistentes; el texto de ejemplo no sustituye a la etiqueta.
 - Errores junto al campo y resumen si hay varios.
 - Botones con nombres descriptivos.
-- No depender solo del rojo/verde.
+- No depender solo del rojo/verde ni de iconos.
 - Controles táctiles cómodos y acciones destructivas separadas de las principales.
-- Probar al menos una anchura móvil y una de escritorio.
+- Probar al menos 320 px de ancho móvil y una resolución de escritorio.
+- En P10, comprobar que el original y los datos siguen siendo consultables sin zoom excesivo ni desplazamientos confusos.
+- En P10, verificar mediante prueba de uso que la corrección de un campo requiere como máximo dos clics, además de escribir el valor.
 
-## 7. Alcance y prioridades del prototipo (#11)
+## 7. Alcance del prototipo navegable (#11)
 
-**Imprescindible:**
-1. Subida de justificante.
-2. Revisión con original visible y campos editables.
-3. Guardado/confirmación y estados de error.
-4. Listado de documentos con estados.
-5. Exportación por periodo.
-6. Panel inicial sencillo.
-7. Registro, inicio de sesión y recuperación.
-8. Página de precios sencilla y páginas legales enlazadas.
+**Imprescindible para representar el flujo y revisar el diseño:**
+1. P02–P05: crear cuenta, entrar y recuperar contraseña.
+2. P07–P10: Mis gastos, subir, progreso/lectura y revisión.
+3. P11–P12: comparación de duplicados y original a pantalla completa.
+4. P13: exportación normal a Excel.
+5. P15–P16: cuenta/plan y reenvío por correo.
+6. P00, P01 y P06: portada, precios y textos legales.
+7. P14: cierre de trimestre, al menos con el flujo de los tres pasos y el bloqueo del plan Gratis.
+8. Estados de error, vacío, carga, archivo repetido, límite y conversión pendiente.
 
-**Puede representarse de forma sencilla:** recepción por correo mientras se concreta la configuración; límite mensual; posible duplicado; conversión de moneda y varios tipos de IVA con datos de ejemplo identificados.
+**Secundario si el tiempo lo permite:** P17, panel con cifras. No debe desplazar los requisitos obligatorios ni las funciones adicionales decididas para todos los planes.
 
-**Fuera del MVP:** acceso de gestorías a varios clientes, equipos, contabilidad completa, emisión de facturas, presentación de impuestos, pagos reales no implementados, gráficos avanzados y personalización extensa.
+**Fuera del MVP:** acceso de gestorías a varios clientes, equipos, contabilidad completa, emisión de facturas, presentación de impuestos, pagos reales no implementados, conexiones directas con Gmail/Outlook, Drive/Dropbox, bancos o programas contables, kilometraje, dietas y personalización extensa.
 
 ## 8. Criterios de aceptación
 
+- [ ] El documento cubre las 18 pantallas P00–P17 del mapa aprobado.
 - [ ] El flujo móvil foto → datos → corregir → guardar se entiende sin explicación externa.
-- [ ] Las vistas clave están diseñadas para móvil y escritorio.
-- [ ] La revisión muestra el original junto a los datos en escritorio y permite consultarlo fácilmente en móvil.
-- [ ] Se distinguen campos dudosos, vacíos, errores, confirmación y posibles duplicados.
-- [ ] La persona puede recuperar el original y entender qué se exportará.
-- [ ] Listado y exportación incluyen estados vacío, carga y error.
+- [ ] En P10, original y datos se ven juntos en móvil y escritorio según el mapa.
+- [ ] Corregir un campo requiere como máximo dos clics: activar el campo y confirmar el dato.
+- [ ] Se distinguen datos extraídos, corregidos y ficha revisada.
+- [ ] Se muestran los avisos de duplicado, ticket sin NIF del receptor y trimestre próximo a cerrar con su alcance correcto por plan.
+- [ ] El reenvío por correo está diseñado como vía obligatoria, con dirección personal y remitentes autorizados.
+- [ ] La instalación móvil está contemplada en todos los planes; compartir desde el móvil se limita a los navegadores compatibles.
+- [ ] El cierre de trimestre está diferenciado de la exportación Excel normal y solo es de pago.
+- [ ] P17 se mantiene secundario y no bloquea el MVP.
+- [ ] Los originales se conservan y pueden recuperarse con permisos.
+- [ ] Los estados de carga, vacío, error y éxito están contemplados.
 - [ ] Los textos no prometen deducibilidad, digitalización certificada ni funciones no implementadas.
-- [ ] Paleta, tipografía, componentes y accesibilidad están documentados.
-- [ ] El equipo compara este documento con el mapa de #8 y resuelve contradicciones antes de cerrar #9.
+- [ ] La paleta, tipografía, componentes y accesibilidad se comprueban con el prototipo antes de aprobar la identidad visual.
+- [ ] El equipo revisa y aprueba este documento antes de cerrar #9 y comenzar el prototipo definitivo.
 
 ## 9. Dependencias y decisiones pendientes
 
-- **#8 · Mapa de pantallas y flujos:** Mireia debe confirmar el recorrido y las pantallas. Este documento es una base de requisitos y no sustituye ese entregable.
-- **#11 · Prototipo navegable:** el equipo debe construir y revisar las vistas prioritarias antes de programar.
-- **#19 · Corrección y lectura IA:** confirmar campos y reglas de validación que soportará el backend.
-- **#20 · Moneda:** confirmar el criterio de conversión antes de presentarlo como decisión definitiva.
-- **#23 · Excel:** decidir columnas y entrega de originales.
-- **#26–29 · Web pública y cuenta:** comprobar el alcance real de precios, límites, landing y panel.
-- **Accesibilidad:** verificar contrastes y tamaños con el prototipo.
+- **#8 · Mapa de pantallas y flujos:** aprobado y unido a `main` mediante PR #54. Este documento sigue sus 18 pantallas P00–P17.
+- **#7 · Funciones adicionales:** documento unido a `main`; recoge instalación móvil y avisos en todos los planes, cierre de trimestre en planes de pago y panel “si da tiempo”. La confirmación final de Javier en ese documento sigue pendiente.
+- **#11 · Prototipo navegable:** debe comprobar distribución, legibilidad, adaptación móvil/escritorio y requisito de dos clics.
+- **#19 y #21 · Lectura IA y corrección:** los campos y validaciones visuales deben coincidir con lo que realmente devuelve y permite guardar el backend.
+- **#20 · Moneda:** respetar el criterio aprobado de conversión; no inventar tipo de cambio ni total en euros.
+- **#23 · Excel:** respetar las columnas y el tratamiento del original acordados en esa tarea.
+- **#16 · Reenvío por correo:** dirección personal, remitentes autorizados y recepción de adjuntos.
+- **#17 · Instalación móvil y compartir:** contemplar PWA para todos y las limitaciones de compatibilidad de compartir.
+- **#27 · Avisos:** avisos internos de ticket sin NIF del receptor y trimestre próximo a cerrar.
+- **#50 · Cierre de trimestre:** confirmar generación del ZIP y su contenido.
+- **#24 y #31 · Precios y límites:** no presentar precios, pagos o reglas de cupo como definitivos si siguen pendientes.
+- **Accesibilidad:** verificar contraste, tamaños, teclado y uso real con el prototipo.
 
+## 10. Fuentes
+
+- Enunciado del proyecto: “Proyecto final: Plataforma para gestión de facturas”, requisitos obligatorios 1–7 y funciones adicionales.
+- [Mapa de pantallas y flujos](mapa-pantallas.md), aprobado en PR #54 y actualizado el 03/11/2026.
+- [Funciones adicionales](funciones.md), PR #47, unido a `main`.
+- [Modelo de datos](modelo-datos.md), para estados, campos y validaciones.
+- [Modelo de negocio](modelo-negocio.md), para planes, límites y precios.
+- [Guía de estilo](guia-estilo.md), para el uso de etiquetas, tono y formato.
+- Issues #9, #11, #13–17, #19–23, #24, #26–27, #31 y #50.
