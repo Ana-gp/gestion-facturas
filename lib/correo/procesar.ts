@@ -5,10 +5,14 @@
  * 2. Buscar al usuario por el código de la dirección `facturas-<código>@…`.
  * 3. Descartar el correo si el remitente no es el de su cuenta ni uno de sus
  *    correos autorizados (DP5 del mapa de pantallas). No se guarda nada.
- * 4. Si ese correo ya se procesó (Resend repite el aviso si tardamos), no hacer nada.
- * 5. Cada adjunto PDF, JPG, PNG o HEIC de hasta 10 MB se guarda como original
+ * 4. Cada adjunto PDF, JPG, PNG o HEIC de hasta 10 MB se guarda como original
  *    (#18, origen "correo") y se lee con IA (#19). Si el mismo archivo ya
  *    estaba (misma huella), no se vuelve a guardar ni gasta lectura.
+ *
+ * Avisos repetidos: Resend repite el aviso si respondemos con error o tarde.
+ * No se descarta el correo entero por su Message-ID: si falló el segundo de
+ * dos adjuntos, el reintento tiene que guardar el segundo. La huella de cada
+ * adjunto ya evita guardar dos veces el que entró a la primera.
  *
  * Todo con la clave secreta (no hay sesión: el aviso llega de Resend), pero
  * siempre con el user_id del dueño de la dirección.
@@ -37,7 +41,7 @@ export type DependenciasCorreo = {
 };
 
 export type ResultadoCorreo =
-  | { estado: "ignorado"; motivo: "sin-direccion" | "usuario-desconocido" | "remitente-no-autorizado" | "ya-procesado" | "sin-adjuntos" }
+  | { estado: "ignorado"; motivo: "sin-direccion" | "usuario-desconocido" | "remitente-no-autorizado" | "sin-adjuntos" }
   | { estado: "procesado"; guardados: number; repetidos: number; descartados: number };
 
 /** ¿Se guarda este adjunto? Solo PDF e imágenes admitidas, hasta 10 MB, y no las imágenes incrustadas en la firma. */
@@ -73,10 +77,9 @@ export async function procesarCorreo(deps: DependenciasCorreo, emailId: string):
   }
   if (!autorizado) return { estado: "ignorado", motivo: "remitente-no-autorizado" };
 
-  // Resend repite el aviso si no respondemos a tiempo: no duplicar.
+  // Se guarda para saber de qué correo vino cada original. No se usa para
+  // descartar avisos repetidos: de eso se encarga la huella de cada adjunto.
   const messageId = correo.message_id ?? emailId;
-  const { data: yaEsta } = await admin.from("documentos").select("id").eq("user_id", userId).eq("correo_message_id", messageId).limit(1).maybeSingle();
-  if (yaEsta) return { estado: "ignorado", motivo: "ya-procesado" };
 
   const adjuntos = (await deps.listarAdjuntos(emailId)).map((a) => ({ a, tipo: adjuntoAdmitido(a) }));
   const validos = adjuntos.filter((x) => x.tipo !== null).slice(0, MAX_ADJUNTOS);

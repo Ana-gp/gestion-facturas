@@ -57,8 +57,10 @@ test("adjuntos: PDF e imágenes admitidas; fuera logos de firma, otros formatos 
 
 // ---------------------------------------------------------------------------
 
-function falso({ perfil = { id: USUARIO }, correoCuenta = "mireia@correo.com", autorizados = [], yaProcesado = false, huellaRepetida = false } = {}) {
+function falso({ perfil = { id: USUARIO }, correoCuenta = "mireia@correo.com", autorizados = [], huellaRepetida = false, fallaSubida = () => false } = {}) {
   const log = [];
+  const huellas = new Set(); // documentos ya guardados en esta base falsa
+  const mensajes = new Set();
   const tabla = (nombre) => {
     const q = {
       f: {},
@@ -68,12 +70,13 @@ function falso({ perfil = { id: USUARIO }, correoCuenta = "mireia@correo.com", a
       async maybeSingle() {
         if (nombre === "perfiles") return { data: q.f.codigo_correo === CODIGO ? perfil : null, error: null };
         if (nombre === "remitentes_autorizados") return { data: autorizados.includes(q.f.email) ? { id: "r1" } : null, error: null };
-        if (nombre === "documentos" && q.f.correo_message_id) return { data: yaProcesado ? { id: "viejo" } : null, error: null };
-        if (nombre === "documentos" && q.f.huella_sha256) return { data: huellaRepetida ? { id: "igual" } : null, error: null };
+        if (nombre === "documentos" && q.f.correo_message_id) return { data: mensajes.has(q.f.correo_message_id) ? { id: "viejo" } : null, error: null };
+        if (nombre === "documentos" && q.f.huella_sha256) return { data: huellaRepetida || huellas.has(q.f.huella_sha256) ? { id: "igual" } : null, error: null };
         return { data: null, error: null };
       },
       insert(fila) {
         log.push(["insert", nombre, fila]);
+        if (nombre === "documentos") { huellas.add(fila.huella_sha256); if (fila.correo_message_id) mensajes.add(fila.correo_message_id); }
         return { select: () => ({ single: async () => ({ data: { id: `doc-${log.length}` }, error: null }) }) };
       },
     };
@@ -82,7 +85,7 @@ function falso({ perfil = { id: USUARIO }, correoCuenta = "mireia@correo.com", a
   const admin = {
     from: tabla,
     auth: { admin: { getUserById: async () => ({ data: { user: { email: correoCuenta } } }) } },
-    storage: { from: () => ({ upload: async (ruta, blob, op) => { log.push(["upload", ruta, op.contentType, blob.size]); return { error: null }; }, remove: async () => ({ error: null }) }) },
+    storage: { from: () => ({ upload: async (ruta, blob, op) => { if (fallaSubida(ruta)) return { error: { message: "fallo simulado" } }; log.push(["upload", ruta, op.contentType, blob.size]); return { error: null }; }, remove: async () => ({ error: null }) }) },
   };
   return { admin, log };
 }
@@ -136,11 +139,36 @@ test("remitente no autorizado: se descarta sin guardar nada", async () => {
 
 test("código que no existe, aviso repetido o mismo archivo: no se guarda dos veces", async () => {
   assert.deepEqual(await procesarCorreo(deps(falso({ perfil: null }).admin), "e1"), { estado: "ignorado", motivo: "usuario-desconocido" });
-  const repetido = falso({ yaProcesado: true });
-  assert.deepEqual(await procesarCorreo(deps(repetido.admin), "e1"), { estado: "ignorado", motivo: "ya-procesado" });
-  assert.equal(repetido.log.length, 0);
+  // Aviso repetido de un correo que ya entró entero: nada nuevo.
+  const repetido = falso();
+  await procesarCorreo(deps(repetido.admin), "e1");
+  const antes = repetido.log.length;
+  assert.deepEqual(await procesarCorreo(deps(repetido.admin), "e1"), { estado: "procesado", guardados: 0, repetidos: 1, descartados: 1 });
+  assert.equal(repetido.log.length, antes);
   const mismo = falso({ huellaRepetida: true });
   const leidos = [];
   assert.deepEqual(await procesarCorreo(deps(mismo.admin, { leidos }), "e1"), { estado: "procesado", guardados: 0, repetidos: 1, descartados: 1 });
   assert.equal(leidos.length, 0);
+});
+
+test("reintento a medias: si falló el segundo adjunto, el reintento lo guarda y no repite el primero", async () => {
+  const DOS = [
+    { filename: "a.pdf", content_type: "application/pdf", content_disposition: "attachment", size: 4, download_url: "https://descarga/a" },
+    { filename: "b.pdf", content_type: "application/pdf", content_disposition: "attachment", size: 4, download_url: "https://descarga/b" },
+  ];
+  let primerIntento = true;
+  const base = falso({ fallaSubida: (ruta) => primerIntento && ruta.endsWith("2.pdf") });
+  const leidos = [];
+  const d = { ...deps(base.admin, { leidos }), listarAdjuntos: async () => DOS, descargar: async (url) => new TextEncoder().encode(url).buffer };
+
+  // 1.er aviso: entra a.pdf y falla b.pdf → error (la ruta responde 500 y Resend repite).
+  await assert.rejects(procesarCorreo(d, "e1"));
+  assert.equal(base.log.filter((x) => x[0] === "insert").length, 1);
+
+  // 2.º aviso (mismo correo, mismo Message-ID): a.pdf se reconoce por su huella y b.pdf se guarda.
+  primerIntento = false;
+  assert.deepEqual(await procesarCorreo(d, "e1"), { estado: "procesado", guardados: 1, repetidos: 1, descartados: 0 });
+  const insertados = base.log.filter((x) => x[0] === "insert").map((x) => x[2].nombre_archivo);
+  assert.deepEqual(insertados, ["a.pdf", "b.pdf"]);
+  assert.equal(leidos.length, 2);
 });
