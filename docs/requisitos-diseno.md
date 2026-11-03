@@ -81,7 +81,7 @@ Explicar en pocas líneas para quién es Ticketon, qué problema resuelve y el r
 
 Mostrar los tres planes (Gratis, Autónomo y Autónomo Plus), precio mensual, límite mensual de lecturas y funciones incluidas. Los precios vigentes en el modelo de negocio siguen siendo provisionales hasta su aprobación definitiva.
 
-Destacar que la instalación en el móvil ya está implementada y que los avisos internos activos están incluidos en todos los planes. El Cierre de trimestre es una función de pago prevista, pero está aplazada y no forma parte del alcance imprescindible actual. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
+Destacar que la instalación en el móvil ya está implementada y que los avisos internos activos están incluidos en todos los planes. El Cierre de trimestre es una función de pago prevista, pero está aplazada y no forma parte del alcance imprescindible actual. En Precios debe aparecer como «Próximamente», sin permitir contratarla todavía. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
 
 ### 4.3. P02 · Crear cuenta
 
@@ -196,7 +196,7 @@ Permitir elegir mes, trimestre o año. Mostrar un resumen del periodo: número d
 
 La exportación ordinaria por periodo está disponible en todos los planes, incluido Gratis. El Excel debe respetar las columnas y reglas aprobadas en #23: una fila por cada tipo de IVA cuando corresponda, importes y moneda original, conversión aplicada y estado. No prometer enlaces a originales ni columnas no acordadas.
 
-El estado vacío debe indicar que no hay gastos en el periodo. Tras exportar, mostrar confirmación solo cuando el archivo se haya generado correctamente.
+El estado vacío debe indicar que no hay gastos en el periodo. El acceso al Cierre de trimestre debe identificarse como «Próximamente» mientras siga aplazado, sin activar un flujo inexistente ni bloquear la exportación normal. Tras exportar, mostrar confirmación solo cuando el archivo se haya generado correctamente.
 
 ### 4.15. P14 · Cierre de trimestre [Aplazado]
 
