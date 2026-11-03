@@ -4,7 +4,7 @@ Tarea: #9 (orden 11) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Ú
 
 **Estado:** **[Propuesta]**. Documento contrastado con el mapa de pantallas aprobado (PR #54, #8) y con las funciones adicionales de `docs/funciones.md` (#7). Pendiente de revisión final del equipo y de comprobar la propuesta visual en el prototipo #11.
 
-Leyenda: **[Confirmado]** requisito respaldado por el enunciado o documentos aprobados · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta decisión o validación.
+Leyenda: **[Confirmado]** requisito respaldado por el enunciado, documentos aprobados o implementación comprobada · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta construir, decidir o validar · **[Aplazado]** decisión explícita del equipo de posponerlo.
 
 ## 1. Objetivo y alcance
 
@@ -29,9 +29,9 @@ Ticketon organiza documentos; no determina si un gasto es deducible, no presenta
 
 ## 3. Identidad visual
 
-Los siguientes valores son una **propuesta inicial**, no una identidad visual aprobada. Deben contrastarse con el prototipo y la guía de estilo. No se deben presentar como decisiones definitivas antes de esa revisión.
+La paleta ya está aplicada en la web y sus valores se consideran **[Confirmado]**. La tipografía y la composición que no estén verificadas en la web continúan siendo propuestas.
 
-### 3.1. Paleta [Propuesta]
+### 3.1. Paleta [Confirmado]
 
 | Uso | Color | Aplicación |
 |---|---|---|
@@ -42,11 +42,11 @@ Los siguientes valores son una **propuesta inicial**, no una identidad visual ap
 | Color principal | #2457A7 | Acción principal, enlaces y foco |
 | Color principal oscuro | #19447F | Estados activos |
 | Bordes | #D8DEE6 | Campos, separadores y tarjetas |
-| Éxito | #18794E | Siempre acompañado de texto |
-| Aviso | #8A5200 | Datos dudosos, duplicados o pendientes |
+| Éxito | #1F5C36 | Siempre acompañado de texto |
+| Aviso | #6B4508 | Datos dudosos, duplicados o pendientes |
 | Error | #B42318 | Errores que requieren actuación |
 
-No usar el color como único indicador. Comprobar contraste de texto, controles y foco con el prototipo antes de aprobar la paleta.
+No usar el color como único indicador. Aunque la paleta ya está aplicada, comprobar que texto, controles y foco mantienen contraste suficiente.
 
 ### 3.2. Tipografía y composición [Propuesta]
 
@@ -59,8 +59,7 @@ No usar el color como único indicador. Comprobar contraste de texto, controles 
 
 ### 3.3. Componentes compartidos [Propuesta]
 
-- Navegación móvil inferior: Mis gastos, Foto, Exportar y Cuenta. El botón Foto destaca y abre la cámara directamente.
-- Navegación de escritorio en columna lateral: Mis gastos, Subir, Exportar y Cuenta.
+- Navegación principal de la web [Confirmado]: Gastos, Subir y Exportar. Mantener estas tres entradas como navegación principal; cualquier acceso adicional (por ejemplo, Cuenta) se considera propuesta secundaria y no debe alterar esa estructura.
 - Contador mensual de documentos visible en la zona superior.
 - Botón principal sólido; acciones secundarias neutras o como enlaces.
 - Campos con etiqueta persistente, ayuda cuando sea necesaria y error junto al campo.
@@ -137,7 +136,7 @@ Mostrar el progreso por archivo y distinguir las fases: subida, original guardad
 
 Contemplar:
 - Error de subida: no afirmar que se ha guardado.
-- Error de lectura: indicar que el original sí está guardado y ofrecer reintentar o rellenar los datos manualmente.
+- Error de lectura: indicar que el original sí está guardado y ofrecer reintentar. **Rellenar los datos manualmente [Pendiente]:** esta opción no está construida; no debe mostrarse como disponible ni darse por parte del flujo implementado hasta que se desarrolle.
 - Archivo repetido: informar de que ya existe y no se vuelve a leer ni consume cupo.
 - Límite del plan: el original se guarda, pero queda pendiente de lectura hasta que haya cupo o se cambie de plan.
 - Lectura completada: continuar a P10.
@@ -199,9 +198,9 @@ La exportación ordinaria por periodo está disponible en todos los planes, incl
 
 El estado vacío debe indicar que no hay gastos en el periodo. Tras exportar, mostrar confirmación solo cuando el archivo se haya generado correctamente.
 
-### 4.15. P14 · Cierre de trimestre
+### 4.15. P14 · Cierre de trimestre [Aplazado]
 
-Función adicional de los planes Autónomo y Autónomo Plus. En Gratis se muestra bloqueada con una explicación breve y enlace a P01; no se bloquea la exportación normal a Excel.
+Función prevista para los planes Autónomo y Autónomo Plus, pero **aplazada por decisión del equipo**. No forma parte de los imprescindibles actuales ni debe bloquear la revisión o entrega del MVP. En Gratis se muestra bloqueada con una explicación breve y enlace a P01; no se bloquea la exportación normal a Excel.
 
 La pantalla debe guiar por tres pasos:
 1. Pendientes del trimestre: tickets sin NIF del receptor, datos por revisar y posibles duplicados. Permitir abrir el documento correspondiente en P10.
@@ -210,17 +209,13 @@ La pantalla debe guiar por tres pasos:
 
 Permitir continuar aunque queden pendientes, dejando claro qué falta. No presentar el paquete como declaración fiscal ni afirmar que los gastos son deducibles. La generación del ZIP en el navegador es una propuesta del mapa que debe comprobarse en la implementación de #50.
 
-### 4.16. P15 · Cuenta y plan
+### 4.16. P15 · Cuenta y plan [Pendiente]
 
-Mostrar nombre, NIF propio si está disponible, correo, plan actual y documentos usados durante el mes. Permitir editar los datos personales previstos, cerrar sesión, acceder a P16 y encontrar la opción de instalar Ticketon en el móvil.
+La pantalla y sus funciones de gestión de cuenta y plan no están construidas todavía. Mantenerlas identificadas como **[Pendiente]**; no presentarlas como implementadas ni como requisito imprescindible para cerrar esta revisión del diseño. Los campos previstos (nombre, NIF propio si está disponible, correo, plan y documentos usados) quedan como alcance por concretar.
 
-**Instalación en el móvil [Propuesta incluida en todos los planes]:**
-- Explicar cómo añadir Ticketon a la pantalla de inicio.
-- Mostrar la opción solo cuando el navegador/dispositivo lo permita.
-- Puede aparecer un aviso discreto la primera vez que se entra desde un móvil.
-- No presentarla como una aplicación nativa si es una PWA.
+**Instalación en el móvil [Confirmado · implementada]:** la instalación como PWA ya está implementada en la web mediante el PR #80. No debe figurar como una función pendiente de construir dentro de P15. La ayuda o acceso visual desde Cuenta podrá definirse cuando se trabaje esa pantalla.
 
-No permitir modificar desde la interfaz los contadores ni datos internos del plan. La baja y eliminación de cuenta siguen pendientes de concretar en las tareas correspondientes.
+La baja y eliminación de cuenta siguen pendientes de concretar en las tareas correspondientes.
 
 ### 4.17. P16 · Reenvío por correo
 
@@ -238,9 +233,9 @@ La pantalla debe estar accesible desde P08 y P15. No confundir esta vía con una
 
 Cuando un adjunto se recibe correctamente, debe aparecer en P07 con la etiqueta “Llegó por correo”. Si ya existe por su huella, no debe duplicarse ni volver a leerse. El comportamiento de aviso al usuario ante un adjunto repetido queda como mejora posterior, no como requisito para alterar el resultado de la recepción.
 
-### 4.18. P17 · Panel con cifras
+### 4.18. P17 · Panel con cifras [Aplazado]
 
-Función secundaria “si da tiempo”. Puede mostrar gasto del mes, gasto por categoría y comparación con el mes anterior, con acceso al listado correspondiente. No debe retrasar ni sustituir Mis gastos, la captura, la revisión o la exportación. El plan en que se incluiría está pendiente de decisión.
+Función aplazada por decisión del equipo. No forma parte de los imprescindibles actuales ni debe retrasar la entrega del MVP. Puede mostrar gasto del mes, gasto por categoría y comparación con el mes anterior, con acceso al listado correspondiente. No debe retrasar ni sustituir Mis gastos, la captura, la revisión o la exportación. El plan en que se incluiría está pendiente de decisión.
 
 ## 5. Avisos y estados comunes
 
@@ -277,17 +272,21 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 
 ## 7. Alcance del prototipo navegable (#11)
 
-**Imprescindible para representar el flujo y revisar el diseño:**
+**Imprescindible para representar el flujo principal y revisar el diseño:**
 1. P02–P05: crear cuenta, entrar y recuperar contraseña.
 2. P07–P10: Mis gastos, subir, progreso/lectura y revisión.
 3. P11–P12: comparación de duplicados y original a pantalla completa.
 4. P13: exportación normal a Excel.
-5. P15–P16: cuenta/plan y reenvío por correo.
+5. P16: reenvío por correo.
 6. P00, P01 y P06: portada, precios y textos legales.
-7. P14: cierre de trimestre, al menos con el flujo de los tres pasos y el bloqueo del plan Gratis.
 8. Estados de error, vacío, carga, archivo repetido, límite y conversión pendiente.
 
-**Secundario si el tiempo lo permite:** P17, panel con cifras. No debe desplazar los requisitos obligatorios ni las funciones adicionales decididas para todos los planes.
+**Aplazado por decisión del equipo (no imprescindible para esta entrega):**
+- P14 · Cierre de trimestre (#50).
+- P17 · Panel con cifras (#26).
+- Compartir desde el móvil (#17). La instalación PWA es distinta y ya está implementada mediante el PR #80.
+
+**Pendiente de construir:** P15 · Cuenta y plan, y la opción de rellenar manualmente los datos tras un error de lectura. Se documentan para mantener trazabilidad, pero no se presentan como funciones disponibles ni como bloqueantes del alcance actual.
 
 **Fuera del MVP:** acceso de gestorías a varios clientes, equipos, contabilidad completa, emisión de facturas, presentación de impuestos, pagos reales no implementados, conexiones directas con Gmail/Outlook, Drive/Dropbox, bancos o programas contables, kilometraje, dietas y personalización extensa.
 
@@ -298,15 +297,15 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - [ ] En P10, original y datos se ven juntos en móvil y escritorio según el mapa.
 - [ ] Corregir un campo requiere como máximo dos clics: activar el campo y confirmar el dato.
 - [ ] Se distinguen datos extraídos, corregidos y ficha revisada.
-- [ ] Se muestran los avisos de duplicado, ticket sin NIF del receptor y trimestre próximo a cerrar con su alcance correcto por plan.
+- [ ] Se muestran los avisos de duplicado y ticket sin NIF del receptor. El aviso de trimestre próximo a cerrar queda aplazado junto con #50.
 - [ ] El reenvío por correo está diseñado como vía obligatoria, con dirección personal y remitentes autorizados.
-- [ ] La instalación móvil está contemplada en todos los planes; compartir desde el móvil se limita a los navegadores compatibles.
-- [ ] El cierre de trimestre está diferenciado de la exportación Excel normal y solo es de pago.
-- [ ] P17 se mantiene secundario y no bloquea el MVP.
+- [ ] La instalación móvil está implementada (PR #80). Compartir desde el móvil (#17) queda aplazado.
+- [ ] El cierre de trimestre (#50) está identificado como aplazado y no se considera imprescindible para esta entrega.
+- [ ] El panel P17 (#26) está identificado como aplazado y no bloquea el MVP.
 - [ ] Los originales se conservan y pueden recuperarse con permisos.
 - [ ] Los estados de carga, vacío, error y éxito están contemplados.
 - [ ] Los textos no prometen deducibilidad, digitalización certificada ni funciones no implementadas.
-- [ ] La paleta, tipografía, componentes y accesibilidad se comprueban con el prototipo antes de aprobar la identidad visual.
+- [ ] La paleta aplicada en la web está marcada como confirmada; tipografía, componentes y accesibilidad se verifican por separado.
 - [ ] El equipo revisa y aprueba este documento antes de cerrar #9 y comenzar el prototipo definitivo.
 
 ## 9. Dependencias y decisiones pendientes
@@ -314,13 +313,16 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - **#8 · Mapa de pantallas y flujos:** aprobado y unido a `main` mediante PR #54. Este documento sigue sus 18 pantallas P00–P17.
 - **#7 · Funciones adicionales:** documento unido a `main`; recoge instalación móvil y avisos en todos los planes, cierre de trimestre en planes de pago y panel “si da tiempo”. La confirmación final de Javier en ese documento sigue pendiente.
 - **#11 · Prototipo navegable:** debe comprobar distribución, legibilidad, adaptación móvil/escritorio y requisito de dos clics.
+- **#26 · Panel con cifras:** aplazado por decisión del equipo.
+- **P15 · Cuenta y plan:** pendiente de construcción.
+- **Rellenado manual de datos:** pendiente de construcción; no debe describirse como opción ya disponible.
 - **#19 y #21 · Lectura IA y corrección:** los campos y validaciones visuales deben coincidir con lo que realmente devuelve y permite guardar el backend.
 - **#20 · Moneda:** respetar el criterio aprobado de conversión; no inventar tipo de cambio ni total en euros.
 - **#23 · Excel:** respetar las columnas y el tratamiento del original acordados en esa tarea.
 - **#16 · Reenvío por correo:** dirección personal, remitentes autorizados y recepción de adjuntos.
-- **#17 · Instalación móvil y compartir:** contemplar PWA para todos y las limitaciones de compatibilidad de compartir.
+- **#17 · Compartir desde el móvil:** aplazado por decisión del equipo. La instalación PWA ya está implementada mediante PR #80.
 - **#27 · Avisos:** avisos internos de ticket sin NIF del receptor y trimestre próximo a cerrar.
-- **#50 · Cierre de trimestre:** confirmar generación del ZIP y su contenido.
+- **#50 · Cierre de trimestre:** aplazado por decisión del equipo; no es imprescindible para la entrega actual.
 - **#24 y #31 · Precios y límites:** no presentar precios, pagos o reglas de cupo como definitivos si siguen pendientes.
 - **Accesibilidad:** verificar contraste, tamaños, teclado y uso real con el prototipo.
 
