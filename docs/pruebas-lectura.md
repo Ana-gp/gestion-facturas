@@ -4,7 +4,7 @@ Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mir
 
 Depende de: #19 ([lectura con IA](lectura-ia.md)), #21 (revisar y corregir), #20 (moneda), #13 (login) y el despliegue en Vercel
 
-**Estado:** en curso. **[Confirmado]** Lectura en la web de los 4 tickets y E5, reenvío por correo de T3, «Listo» tras el PR #90 y Excel del 4.º trimestre (03/11/2026, apartados 4 a 8). **[Pendiente]** Separación entre dos cuentas, subida desde el móvil y arrastrar. **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
+**Estado:** en curso. **[Confirmado]** Lectura en la web de los 4 tickets y E5, reenvío por correo de T3, «Listo» tras el PR #90 y Excel del 4.º trimestre (03/11/2026, apartados 4 a 8). **[Confirmado]** Separación entre dos cuentas. **[Pendiente]** Subida desde el móvil y arrastrar. **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
 
 Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supuesto]**, **[Propuesta]** y **[Pendiente]**. En las tablas de resultados: **Correcto**, **Incorrecto**, **Vacío**, **No aplica**, **No evaluable** y **No probado**.
 
@@ -29,7 +29,7 @@ Rellenar antes de empezar:
 | Versión probada (commit de `main`) | [Pendiente] |
 | Modelo de IA | `gemini-3.5-flash-lite` (el de `lib/lectura/gemini.ts`) |
 | Cuenta A | Correo de Mireia, plan Gratis |
-| Cuenta B (para la separación de datos) | Correo de otra persona del equipo |
+| Cuenta B (para la separación de datos) | Otra cuenta de Mireia, creada el 03/11/2026 con su mismo Gmail y "+prueba" (para la web es otro usuario) |
 | Ordenador y navegador | [Pendiente] |
 | Móvil y navegador | [Pendiente] |
 
@@ -193,10 +193,12 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Comprobación | Resultado | Notas |
 |---|---|---|
-| Con la cuenta B, Mis gastos no muestra ningún documento de la cuenta A | No probado |  |
-| Con la cuenta B, abrir la dirección de una ficha de la cuenta A (`/revisar/<id>`) no enseña sus datos ni su original | No probado |  |
-| Con la cuenta B, el Excel no incluye documentos de la cuenta A | No probado |  |
+| Con la cuenta B, Mis gastos no muestra ningún documento de la cuenta A | Correcto | "Todavía no has subido ningún justificante" (`tests/resultados-web/Separacion-1-mis-gastos-vacio.jpg`). Uso del plan: 0 de 10 |
+| Con la cuenta B, abrir la dirección de una ficha de la cuenta A (`/revisar/<id>`) no enseña sus datos ni su original | Correcto | Ficha de T4b: error 404, sin datos ni foto (`Separacion-3-ficha-T4b-404.jpg`). También el enlace directo al original de T4b: 404, sin imagen (`Separacion-4-foto-original-T4b-404.jpg`) |
+| Con la cuenta B, el Excel no incluye documentos de la cuenta A | Correcto | Exportar, 4.º trimestre de 2026: "No hay gastos en este periodo" (`Separacion-2-exportar-4T-2026-vacio.jpg`). La cuenta B tiene su propia dirección de reenvío y solo su correo como autorizado |
 | Un correo reenviado desde una dirección no autorizada no se guarda en ninguna cuenta | No probado |  |
+
+**Límite:** se comprobaron Mis gastos, Exportar y la ficha y el original de T4b; no el resto de documentos ni todas las rutas. No sustituye a una revisión de seguridad.
 
 ## 8. Prueba adicional: otra moneda
 
