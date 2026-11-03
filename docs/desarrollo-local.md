@@ -53,10 +53,12 @@ No añadas una clave `service_role` de Supabase al navegador ni a variables `NEX
 - [ ] Crear y probar las cuentas de servicios.
 - [ ] Configurar las variables reales en el entorno de despliegue.
 - [ ] Conectar Supabase Auth después de coordinar el modelo de datos de la issue #29.
-- [ ] Confirmar el despliegue automático desde `main`.
+- [x] Confirmar el despliegue automático desde `main` (03/11/2026, ver [puesta en marcha](supabase.md), apartado 6).
 
 
-## Despliegue en Vercel [Pendiente]
+## Despliegue en Vercel
+
+**[Confirmado]** Conectado el 03/11/2026 en la cuenta de Ana (plan Hobby), con las funciones en Fráncfort (`fra1`). Dirección de producción: https://gestion-facturas-xi.vercel.app. Cada unión a `main` se despliega sola. Detalle y registro en [puesta en marcha](supabase.md), apartados 4 y 6. Pasos que se siguieron:
 
 1. Un miembro del equipo con permisos debe importar el repositorio de GitHub en Vercel y autorizar la integración.
 2. Confirmar que el framework detectado es Next.js, que la raíz del proyecto es la raíz del repositorio y que el comando de build es `npm run build`.

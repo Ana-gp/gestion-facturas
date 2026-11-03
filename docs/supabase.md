@@ -1,8 +1,8 @@
 # Puesta en marcha de Supabase, Gemini y Vercel
 
-Tarea: #18 (orden 15) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 01/11/2026
+Tarea: #18 (orden 15) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 03/11/2026
 
-**Estado:** Supabase y la clave de Gemini creados el 30/10/2026 (apartado 6). **[Pendiente]** Invitar a Ana y Javier, conectar Vercel y repetir en Supabase las pruebas con dos cuentas reales (apartado 5).
+**Estado:** Supabase, Gemini, Vercel y Resend configurados; la web está publicada en https://gestion-facturas-xi.vercel.app desde el 03/11/2026 (apartado 6). **[Pendiente]** Repetir en Supabase las pruebas con dos cuentas reales (apartado 5), dentro de la prueba de lectura en la web (#28, [pruebas-lectura.md](pruebas-lectura.md)).
 
 Leyenda (según la [guía de estilo](guia-estilo.md)): **[Confirmado]** comprobado en una fuente o en una prueba; **[Supuesto]** se da por bueno para avanzar; **[Propuesta]** decisión del equipo que se puede cambiar; **[Pendiente]** falta información o falta hacerlo.
 
@@ -118,9 +118,11 @@ El SQL se cargó en un PostgreSQL 16 local con imitaciones de Supabase (`auth.us
 | URL del proyecto y clave publicable localizadas | Mireia | 30/10/2026 | **[Confirmado]** Con las dos, una consulta de solo lectura a `planes` devuelve los 3 planes sin iniciar sesión. Se pasan por el grupo, no se suben a GitHub (apartado 3) |
 | Clave de Gemini creada | Mireia | 30/10/2026 | **[Confirmado]** Creada en Google AI Studio y guardada en un gestor de contraseñas. Nivel gratuito, sin facturación configurada ni tarjeta |
 | Aviso del Security Advisor sobre `al_crear_usuario` corregido | Mireia | 01/11/2026 | **[Confirmado]** El SQL se había ejecutado antes de añadir el `revoke execute` de esta función. Se ejecutó esa línea a mano en el SQL Editor ("Success. No rows returned") y el Security Advisor marca 0 errores, 0 avisos y 0 sugerencias |
-| Equipo con acceso a Supabase | Mireia (invitaciones) y Ana | 01/11/2026 | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). Invitaciones enviadas como Developer; la primera caducó sin aceptar y se reenvió el 01/11/2026. Ana la aceptó el 01/11/2026 y ve el proyecto `ticketon`. **[Pendiente]** Javier |
+| Equipo con acceso a Supabase | Mireia (invitaciones) y Ana | 01/11/2026 | **[Confirmado]** El plan Free deja invitar (apartado 1, paso 9). Invitaciones enviadas como Developer; la primera caducó sin aceptar y se reenvió el 01/11/2026. Ana la aceptó el 01/11/2026 y ve el proyecto `ticketon`. **[Confirmado]** El 03/11/2026 Project Settings > General indica "All 3 organization members can access this project" |
 | Repositorio público (apartado 4) | Ana | 30/10/2026 | |
-| Vercel conectado y desplegando `main` | Ana | | |
-| Región de funciones `fra1` | Ana | | |
-| Dirección de Vercel en las Redirect URLs de Supabase | Mireia, con la dirección que pase Ana | | |
-| Prueba de `/api/tipo-cambio` con MXN y 06/01/2024 | Ana | | |
+| Vercel conectado y desplegando `main` | Ana | 03/11/2026 | **[Confirmado]** Proyecto `gestion-facturas` en la cuenta de Ana (plan Hobby), importado desde `Ana-gp/gestion-facturas`, rama `main`. Dirección de producción: https://gestion-facturas-xi.vercel.app. Cada unión a `main` se despliega sola (estado "Vercel: Deployment has completed" en GitHub) |
+| Región de funciones `fra1` | Ana | 03/11/2026 | **[Confirmado]** Settings > Functions > Function Region: Frankfurt, Germany (West) `eu-central-1` `fra1`, guardado y vuelto a desplegar. Variables de entorno en Production: las cuatro públicas como Config y `SUPABASE_SECRET_KEY`, `GEMINI_API_KEY`, `RESEND_API_KEY` y `RESEND_WEBHOOK_SECRET` como Secret |
+| Dirección de Vercel en las Redirect URLs de Supabase | Mireia, con la dirección que pasó Ana | 03/11/2026 | **[Confirmado]** Site URL https://gestion-facturas-xi.vercel.app y Redirect URL https://gestion-facturas-xi.vercel.app/auth/callback. Webhook de Resend creado con el evento `email.received` hacia `/api/correo-entrante` |
+| Prueba de `/api/tipo-cambio` con MXN y 06/01/2024 | Mireia | 03/11/2026 | **[Confirmado]** En producción devuelve fecha 2024-01-05 (el 06/01/2024 fue sábado) y tipo 18,6066 MXN por euro, fuente `BDE` |
+| Primera prueba del recorrido en producción | Ana | 03/11/2026 | **[Confirmado]** Sin sesión, las pantallas mandan a Entrar; crear cuenta entra en Mis gastos; subir guarda el original y rechaza el mismo archivo por la huella; leer con IA, corregir y exportar el Excel del 4.º trimestre con un ticket propio (3 tipos de IVA y 73,13 €, cuadra con el papel). Fallos encontrados y corregidos: `SUPABASE_SECRET_KEY` mal pegada en Vercel (lo dijo el registro de `/api/leer`); documento "Sin leer" sin forma de leerlo (PR #84); fecha con día y mes cruzados sin aviso (PR #88) |
+| Prueba del reenvío por correo | Mireia | 03/11/2026 | **[Confirmado]** Factura T3 (Anthropic, PDF) reenviada desde el correo de la cuenta a su dirección de Ticketon: el webhook respondió 200 a la primera y apareció en Mis gastos con "Llegó por correo" (14/10/2026, 21,78 €, pendiente de revisar). Un archivo ya guardado no se vuelve a guardar (huella), pero por correo no se avisa: [Propuesta] avisarlo en la pantalla de reenvío después de la entrega |
