@@ -25,6 +25,8 @@ Stack y regiones acordados en [arquitectura](arquitectura.md). Tablas, permisos 
 7. **Authentication** > **URL Configuration**:
    - Site URL: `http://localhost:3000` mientras no haya dirección de Vercel. Se cambia por la de Vercel cuando exista.
    - Redirect URLs: añadir `http://localhost:3000/**`. Necesario para el enlace de recuperar contraseña (#13).
+   - **[Pendiente]** Con la dirección de Vercel: cambiar la Site URL por la de producción y añadir en Redirect URLs `https://<dirección de producción>/auth/callback` (la ruta del #13). Debe coincidir con `NEXT_PUBLIC_SITE_URL` en Vercel.
+   - **Authentication** > **Sign In / Providers** > **Email**: **Confirm email desactivado** para la demo (hecho por Mireia el 03/11/2026). El correo de serie de Supabase solo envía a direcciones del equipo y como máximo 2 por hora, así que sin esto no se pueden registrar cuentas en la demo. **Antes de tener clientes reales hay que volver a activarlo** (con un SMTP propio): ver [arquitectura](arquitectura.md), apartado 7, punto 11.
 8. **Project Settings** > **API Keys**: copiar la **URL del proyecto** y la **clave publicable** (`sb_publishable_…`). Son las dos variables `NEXT_PUBLIC_…` de [`.env.example`](../.env.example).
    - La **clave secreta** (`sb_secret_…`) solo la usa el servidor. Nunca va en el navegador, en variables `NEXT_PUBLIC_…` ni en GitHub.
 9. Dar acceso al equipo: en la organización **TICKETON**, **Team** > **Invite members** (en español, "Invitar a los miembros"). Se ponen los correos de GitHub de Ana y Javier separados por comas, se elige el rol **Developer** y se pulsa enviar.

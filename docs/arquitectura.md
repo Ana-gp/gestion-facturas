@@ -143,6 +143,7 @@ Cómo leerlo: el usuario solo habla con la web. La web guarda el original direct
 | 8 | **Límite de tamaño** de las peticiones a las funciones de Vercel. **[Supuesto]**: es bajo (unos pocos MB), por eso el original se sube directo a Supabase y no pasa por la función | Mireia (#18) | Probado con una foto de móvil de más de 5 MB |
 | 9 | **Pausa de Supabase** tras 1 semana sin uso: acordarse de entrar antes de la presentación | Equipo | — |
 | 10 | **Tipo de cambio**: la API del BCE se usa para proponer el tipo; en fines de semana y festivos se toma el último publicado antes (#20). **[Pendiente]** Confirmar con una gestoría el tipo y la fecha de devengo aplicables (PR #46) | Ana (#20, moneda) | Conversión probada con una factura en otra moneda |
+| 11 | **Confirmación del correo al registrarse.** Desactivada en Supabase para la demo (03/11/2026): el correo de serie solo envía al equipo y 2 por hora. Sin ella, cualquiera podría registrarse con un correo que no es suyo. **Volver a activar "Confirm email" antes de tener clientes reales**, junto con el SMTP propio del punto 3 | Mireia (Supabase) | "Confirm email" activado y un registro de prueba recibe el correo de confirmación |
 
 ### Si cambiara el público objetivo (#2)
 
