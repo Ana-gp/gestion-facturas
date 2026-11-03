@@ -46,7 +46,6 @@ const funcionesComunes = [
   "Exportación básica a Excel por periodo",
   "Instalación en el móvil",
   "Avisos dentro de la web",
-  "Cierre de trimestre (próximamente)",
 ];
 
 export default function PreciosPage() {
@@ -116,7 +115,8 @@ export default function PreciosPage() {
                     <span>{funcion}</span>
                   </li>
                 ))}
-                              </ul>
+              </ul>
+              <p className={styles.proximamente}>Cierre de trimestre: próximamente.</p>
 
               {plan.nombre === "Gratis" ? (
                 <Link className={styles.botonPrincipal} href="/registro">
