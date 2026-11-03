@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import styles from "./navegacion.module.css";
+import { configSupabase } from "@/lib/supabase/config";
+import { clienteServidor } from "@/lib/supabase/servidor";
 
 // Navegación común de la web (diseño unificado, tableros "Gastos" y
 // "GastosMovil"): columna a la izquierda en el ordenador y barra abajo en el
@@ -15,7 +17,22 @@ const ENLACES: { seccion: Seccion; href: string; texto: string }[] = [
   { seccion: "exportar", href: "/exportar", texto: "Exportar" },
 ];
 
-export default function ConNavegacion({ actual, children }: { actual?: Seccion; children: ReactNode }) {
+/** ¿Hay sesión? Solo entonces se enseña «Cerrar sesión» (#13, PR #78). */
+async function haySesion(): Promise<boolean> {
+  if (!configSupabase()) return false;
+  try {
+    const supabase = await clienteServidor();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return Boolean(user);
+  } catch {
+    return false;
+  }
+}
+
+export default async function ConNavegacion({ actual, children }: { actual?: Seccion; children: ReactNode }) {
+  const conSesion = await haySesion();
   return (
     <div className={styles.marco}>
       <nav className={styles.navegacion} aria-label="Navegación principal">
@@ -41,6 +58,14 @@ export default function ConNavegacion({ actual, children }: { actual?: Seccion; 
             </Link>
           ))}
         </div>
+        {conSesion && (
+          // POST /cuenta/salir (PR #78): cierra la sesión y lleva a Entrar.
+          <form action="/cuenta/salir" method="post" className={styles.salir}>
+            <button type="submit" className={styles.enlace}>
+              Cerrar sesión
+            </button>
+          </form>
+        )}
       </nav>
       <div className={styles.zona}>{children}</div>
     </div>

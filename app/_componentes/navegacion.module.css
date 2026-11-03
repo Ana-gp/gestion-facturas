@@ -116,3 +116,35 @@
     flex: 1;
   }
 }
+
+.salir {
+  margin-top: auto;
+}
+
+.salir button {
+  width: 100%;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .navegacion {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .enlaces {
+    flex: 1;
+  }
+
+  .salir {
+    margin: 0;
+  }
+
+  .salir button {
+    padding: 0 10px;
+    font-size: 0.85rem;
+  }
+}
