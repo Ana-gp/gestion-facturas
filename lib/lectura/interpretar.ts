@@ -212,7 +212,7 @@ export function aDatosRevision(d: DatosLeidos): DatosRevision {
 export function camposRevision(d: DatosLeidos, referencia: string = new Date().toISOString().slice(0, 10)): CamposRevision {
   const deLaIa: CamposRevision = {};
   for (const c of d.dudosos) deLaIa[c] = { confianza: "baja", corregido: false };
-  // `referencia`: el día de la lectura, para avisar si el día y el mes pueden estar cruzados.
+  // `referencia`: el día de la subida, para avisar si el día y el mes pueden estar cruzados.
   const confianza = confianzaPorReglas(aDatosRevision(d), deLaIa, { referencia });
   const resultado: CamposRevision = {};
   for (const [campo, nivel] of Object.entries(confianza) as [Campo, (typeof confianza)[Campo]][]) {
@@ -254,7 +254,7 @@ export type FilaLinea = { orden: number; tipo_iva: number; base: number | null; 
  *   vacíos hasta convertirla (#20); así lo exige el CHECK de la tabla.
  * - Base total: la impresa o, si no está, la suma de las bases.
  */
-export function aFilas(d: DatosLeidos, idsCategorias: Map<string, number>, datosIa: unknown): { factura: FilaFactura; lineas: FilaLinea[] } {
+export function aFilas(d: DatosLeidos, idsCategorias: Map<string, number>, datosIa: unknown, referencia?: string): { factura: FilaFactura; lineas: FilaLinea[] } {
   const monedaFinal = d.moneda ?? "EUR";
   const suma = (valores: (number | null)[]) =>
     valores.some((v) => v !== null) ? Math.round(valores.reduce<number>((s, v) => s + (v ?? 0), 0) * 100) / 100 : null;
@@ -279,7 +279,7 @@ export function aFilas(d: DatosLeidos, idsCategorias: Map<string, number>, datos
       total_eur: monedaFinal === "EUR" ? d.total : null,
       categoria_id: d.categoria ? (idsCategorias.get(d.categoria) ?? null) : null,
       estado_revision: "pendiente",
-      campos_revision: camposRevision(d),
+      campos_revision: camposRevision(d, referencia),
       datos_ia: datosIa,
     },
     lineas: d.lineas.map((l, i) => ({ orden: i + 1, tipo_iva: l.tipo, base: l.base, cuota: l.cuota, origen: "impreso" })),

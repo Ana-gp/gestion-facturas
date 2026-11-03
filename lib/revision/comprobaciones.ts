@@ -216,11 +216,17 @@ function controlCifValido(cif: string): boolean {
  *
  * Devuelve la fecha con el día y el mes cambiados si:
  * - los dos son 12 o menos y distintos (si no, no hay duda posible),
- * - la fecha cambiada no es posterior a `referencia` (normalmente hoy),
+ * - la fecha cambiada cae en los 90 días anteriores a `referencia` (el día de
+ *   la subida), sin pasarse de ese día,
  * - y está más cerca de `referencia` que la leída (un ticket suele subirse poco
  *   después de la compra).
+ * Con solo «más cerca», un ticket bien leído de hace meses avisaba casi siempre
+ * (revisión de Mireia en el PR #88: T1, 07/03/2026, y E5, 06/01/2024).
  * Si no, null. Solo avisa: nunca cambia la fecha por su cuenta.
  */
+/** Ventana del aviso de día y mes cruzados (días antes de la subida). [Propuesta] de Mireia, PR #88. */
+export const DIAS_AVISO_FECHA_CRUZADA = 90;
+
 export function fechaQuizaCruzada(fecha: string | null, referencia: string | null | undefined): string | null {
   if (!fecha || !referencia) return null;
   const r = /^(\d{4})-(\d{2})-(\d{2})$/.exec(fecha);
@@ -231,6 +237,7 @@ export function fechaQuizaCruzada(fecha: string | null, referencia: string | nul
   if (cruzada > referencia) return null;
   const dias = (iso: string) => Date.UTC(Number(iso.slice(0, 4)), Number(iso.slice(5, 7)) - 1, Number(iso.slice(8, 10))) / 86_400_000;
   const ref = dias(referencia);
+  if (ref - dias(cruzada) > DIAS_AVISO_FECHA_CRUZADA) return null;
   return Math.abs(ref - dias(cruzada)) < Math.abs(ref - dias(fecha)) ? cruzada : null;
 }
 

@@ -117,10 +117,11 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const [buscando, setBuscando] = useState(false);
   const [errorTipo, setErrorTipo] = useState<string | null>(null);
 
-  // Hoy, para avisar si el día y el mes de la fecha pueden estar cruzados.
-  const hoy = new Date().toISOString().slice(0, 10);
-  const fechaCruzada = fechaQuizaCruzada(datos.fecha, hoy);
-  const aRevisar = new Set(camposARevisar(datos, revision, { referencia: hoy }));
+  // El día de la subida (el mismo que usa la lectura), para avisar si el día y
+  // el mes pueden estar cruzados. Así el aviso no cambia según cuándo se abra la ficha.
+  const referencia = ficha.subidoEn?.slice(0, 10) ?? new Date().toISOString().slice(0, 10);
+  const fechaCruzada = fechaQuizaCruzada(datos.fecha, referencia);
+  const aRevisar = new Set(camposARevisar(datos, revision, { referencia }));
   const avisos = avisosDeLaFicha(datos, { posibleDuplicado: ficha.posibleDuplicadoDe !== null });
   const falta = faltaParaRevisada(datos);
   const cuotasRaras = new Map(lineasQueNoCuadran(datos).map((l) => [l.indice, l.cuotaEsperada]));

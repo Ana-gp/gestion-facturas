@@ -39,6 +39,8 @@ export type FichaRevision = {
   estadoRevision?: "pendiente" | "revisada";
   /** SHA-256 del original (`documentos.huella_sha256`), para explicar un duplicado. */
   huella?: string | null;
+  /** Cuándo se subió el original (`documentos.subido_en`): referencia del aviso de día y mes cruzados. */
+  subidoEn?: string | null;
 };
 
 export type OrigenTipo = { fecha: string | null; fuente: FuenteTipoCambio } | null;
@@ -52,7 +54,7 @@ export const CONSULTA_FICHA =
   "id, documento_id, tipo_documento, fecha, emisor_nombre, emisor_nif, receptor_nif, numero, " +
   "retencion_importe, total, moneda, tipo_cambio, tipo_cambio_fecha, tipo_cambio_fuente, total_eur, " +
   "estado_revision, campos_revision, posible_duplicado_de, duplicado_descartado, " +
-  "categorias(nombre), lineas_iva(orden, tipo_iva, base, cuota), documentos(nombre_archivo, tipo_mime, huella_sha256)";
+  "categorias(nombre), lineas_iva(orden, tipo_iva, base, cuota), documentos(nombre_archivo, tipo_mime, huella_sha256, subido_en)";
 
 export type FilaFicha = {
   id: string;
@@ -79,7 +81,7 @@ export type FilaFicha = {
   documentos: DocumentoDeLaFicha | DocumentoDeLaFicha[] | null;
 };
 
-type DocumentoDeLaFicha = { nombre_archivo: string | null; tipo_mime: string; huella_sha256?: string | null };
+type DocumentoDeLaFicha = { nombre_archivo: string | null; tipo_mime: string; huella_sha256?: string | null; subido_en?: string | null };
 
 function uno<T>(valor: T | T[] | null | undefined): T | null {
   if (Array.isArray(valor)) return valor[0] ?? null;
@@ -125,6 +127,7 @@ export function fichaDesdeFila(f: FilaFicha, original: string): FichaRevision {
     origenTipo: fuente && numero(f.tipo_cambio) ? { fecha: f.tipo_cambio_fecha, fuente } : null,
     estadoRevision: f.estado_revision === "revisada" ? "revisada" : "pendiente",
     huella: doc?.huella_sha256 ?? null,
+    subidoEn: doc?.subido_en ?? null,
   };
 }
 
