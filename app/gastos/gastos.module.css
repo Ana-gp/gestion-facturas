@@ -14,81 +14,14 @@
   --ambar: #6b4508;
   --ambar-linea: #e6c98a;
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
   min-height: 100svh;
   background: #f7f8fa;
   color: #17202a;
 }
 
-/* Navegación: columna a la izquierda en el ordenador, barra abajo en el móvil. */
-
-.navegacion {
-  flex: 1 1 220px;
-  max-width: 260px;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  padding: 24px 16px;
-  border-right: 1px solid var(--linea);
-  background: #ffffff;
-}
-
-.marca {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 8px;
-  color: #17202a;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--azul);
-}
-
-.enlaces {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.enlace,
-.enlaceActual {
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 12px;
-  border-radius: 8px;
-  color: var(--gris-oscuro);
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.enlaceActual {
-  background: var(--azul-suave);
-  color: var(--azul-oscuro);
-  font-weight: 600;
-}
-
-.enlace:hover {
-  background: #f1f4f8;
-}
-
 /* Contenido */
 
 .pagina {
-  flex: 999 1 560px;
-  min-width: 0;
   padding: 36px 44px 48px;
 }
 
@@ -156,8 +89,6 @@
 }
 
 .subir:focus-visible,
-.enlace:focus-visible,
-.enlaceActual:focus-visible,
 .cifraAviso:focus-visible,
 .filtro:focus-visible,
 .filtroActivo:focus-visible,
@@ -456,39 +387,7 @@ a.cifraAviso:hover {
 /* Móvil: la navegación pasa abajo y cada fila es una tarjeta. */
 
 @media (max-width: 760px) {
-  .marco {
-    flex-direction: column-reverse;
-    flex-wrap: nowrap;
-  }
-
-  .navegacion {
-    position: sticky;
-    bottom: 0;
-    z-index: 2;
-    max-width: none;
-    flex: none;
-    padding: 6px 8px;
-    border-top: 1px solid var(--linea);
-    border-right: 0;
-  }
-
-  .marca {
-    display: none;
-  }
-
-  .enlaces {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .enlace,
-  .enlaceActual {
-    flex: 1;
-    justify-content: center;
-  }
-
   .pagina {
-    flex: 1;
     padding: 20px 16px 24px;
   }
 
