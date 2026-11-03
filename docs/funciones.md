@@ -14,7 +14,7 @@ El enunciado dice que las funciones adicionales que se incluyan "tienen que func
 
 | Función adicional | Estado en la entrega | Dónde se ve |
 |---|---|---|
-| Instalación en el móvil | **[Confirmado]** Construida (PR #80) | Desde el navegador del móvil: "Añadir a pantalla de inicio" |
+| Instalación en el móvil | **[Confirmado]** Construida (PR #80) y probada en iPhone con Safari el 03/11/2026 ([prueba de lectura](pruebas-lectura.md)): sale el icono de Ticketon y se abre como una app, sin la barra del navegador. En Android, **[Pendiente]** probarla | Desde el navegador del móvil: "Añadir a pantalla de inicio" (en iPhone, "Compartir" → "Añadir a pantalla de inicio") |
 | Aviso de ticket sin NIF del receptor | **[Confirmado]** Construido (PR #55 y #72; #27 cerrada) | Revisar (P10) y Mis gastos (P07) |
 | Aviso de trimestre a punto de cerrar | **[Confirmado]** Construido (PR #58 y #63; #27 cerrada) | Exportar (P13) |
 | Cierre de trimestre (idea propia, planes de pago) | **[Pendiente]** Aplazado para después de la entrega (#50) | Sale como "Próximamente" en Exportar y en Precios |
