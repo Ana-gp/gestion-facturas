@@ -34,7 +34,7 @@ export default async function RevisarPage({ params }: { params: Promise<{ id: st
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    // [Pendiente] Mandar a la pantalla de entrar cuando exista (#13).
+    // Sin sesión, proxy.ts (#13) ya manda a /entrar; esto solo queda por si se llega sin pasar por él.
     return (
       <main className="page">
         <section className="welcome">

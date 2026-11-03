@@ -34,7 +34,7 @@ export default async function ExportarPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  // [Pendiente] Mandar a la pantalla de entrar cuando exista (#13).
+  // Sin sesión, proxy.ts (#13) ya manda a /entrar; esto solo queda por si se llega sin pasar por él.
   if (!user) return ejemplo();
 
   const [facturas, perfil, suscripciones] = await Promise.all([
