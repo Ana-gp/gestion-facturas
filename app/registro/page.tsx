@@ -28,7 +28,7 @@ export default async function RegistroPage({ searchParams }: Props) {
           <input id="passwordConfirm" name="passwordConfirm" type="password" autoComplete="new-password" minLength={8} maxLength={72} required />
           <button type="submit" className={styles.boton}>Crear cuenta</button>
         </form>
-        <p className={styles.legal}>Al crear una cuenta, aceptas consultar la <Link href="/legales">información legal</Link> aplicable al servicio.</p>
+        <p className={styles.legal}>Antes de crear una cuenta, consulta nuestra <Link href="/privacidad">política de privacidad</Link> y el <Link href="/aviso-legal">aviso legal</Link>.</p>
         <p className={styles.pie}>¿Ya tienes cuenta? <Link href="/entrar">Entrar</Link></p>
       </section>
     </main>
