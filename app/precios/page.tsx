@@ -16,7 +16,6 @@ const planes = [
     periodo: "/ mes",
     limite: "Hasta 10 documentos procesados al mes",
     destacado: false,
-    cierre: false,
     cta: "Empezar gratis",
   },
   {
@@ -26,7 +25,6 @@ const planes = [
     periodo: "/ mes",
     limite: "Hasta 100 documentos procesados al mes",
     destacado: true,
-    cierre: true,
     cta: "Elegir plan",
   },
   {
@@ -49,6 +47,7 @@ const funcionesComunes = [
   "Exportación básica a Excel por periodo",
   "Instalación en el móvil",
   "Avisos dentro de la web",
+  "Cierre de trimestre (próximamente)",
 ];
 
 export default function PreciosPage() {
@@ -56,8 +55,8 @@ export default function PreciosPage() {
     <main className={styles.pagina}>
       <header className={styles.cabecera}>
         <Link className={styles.marca} href="/" aria-label="Ticketon, inicio">
-          <span className={styles.logo} aria-hidden="true">T</span>
-          <span>ticketon</span>
+          <svg className={styles.logoIcon} viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" /><path d="M13 4v12" stroke="currentColor" strokeDasharray="2 2" /></svg>
+          <span>Ticketon</span>
         </Link>
         <nav className={styles.navegacion} aria-label="Navegación principal">
           <Link href="#planes">Planes</Link>
@@ -118,16 +117,7 @@ export default function PreciosPage() {
                     <span>{funcion}</span>
                   </li>
                 ))}
-                <li className={plan.cierre ? "" : styles.noIncluido}>
-                  <span className={styles.check} aria-hidden="true">
-                    {plan.cierre ? "✓" : "—"}
-                  </span>
-                  <span>
-                    Cierre de trimestre: pendientes, resumen y paquete ZIP para tu gestoría
-                    {!plan.cierre && <span className={styles.aclaracion}> (no incluido)</span>}
-                  </span>
-                </li>
-              </ul>
+                              </ul>
 
               {plan.nombre === "Gratis" ? (
                 <Link className={styles.botonPrincipal} href="/registro">
@@ -195,8 +185,8 @@ export default function PreciosPage() {
         <div className={styles.pregunta}>
           <h3>¿Qué añade el cierre de trimestre?</h3>
           <p>
-            Reúne los documentos pendientes de revisar, muestra un resumen del trimestre
-            y prepara un paquete descargable con el Excel y los documentos originales.
+            Está previsto para una próxima versión. Por ahora, puedes exportar tus gastos
+            a Excel por periodo desde la sección Exportar.
           </p>
         </div>
         <div className={styles.pregunta}>
@@ -216,10 +206,15 @@ export default function PreciosPage() {
 
       <footer className={styles.pie}>
         <Link className={styles.marca} href="/">
-          <span className={styles.logo} aria-hidden="true">T</span>
-          <span>ticketon</span>
+          <svg className={styles.logoIcon} viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" /><path d="M13 4v12" stroke="currentColor" strokeDasharray="2 2" /></svg>
+          <span>Ticketon</span>
         </Link>
         <p>Organiza tus justificantes. Simplifica el trabajo con tu gestoría.</p>
+        <nav className={styles.legalNav} aria-label="Enlaces legales">
+          <Link href="/aviso-legal">Aviso legal</Link>
+          <Link href="/privacidad">Privacidad</Link>
+          <Link href="/cookies">Cookies</Link>
+        </nav>
         <Link href="/">Volver al inicio</Link>
       </footer>
     </main>
