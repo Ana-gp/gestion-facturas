@@ -1,0 +1,150 @@
+/* Navegación común (diseño unificado del equipo). */
+
+.marco {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 100svh;
+  background: #f7f8fa;
+}
+
+.navegacion {
+  flex: 1 1 220px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px 16px;
+  border-right: 1px solid #d8dee6;
+  background: #ffffff;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  color: #17202a;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #2457a7;
+}
+
+.enlaces {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.enlace,
+.enlaceActual {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: #3a4552;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.enlaceActual {
+  background: #e8effa;
+  color: #19447f;
+  font-weight: 600;
+}
+
+.enlace:hover {
+  background: #f1f4f8;
+}
+
+.marca:focus-visible,
+.enlace:focus-visible,
+.enlaceActual:focus-visible {
+  outline: 3px solid #8fb4f0;
+  outline-offset: 2px;
+}
+
+.zona {
+  flex: 999 1 560px;
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .marco {
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+  }
+
+  .navegacion {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    max-width: none;
+    flex: none;
+    padding: 6px 8px;
+    border-top: 1px solid #d8dee6;
+    border-right: 0;
+  }
+
+  .marca {
+    display: none;
+  }
+
+  .enlaces {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .enlace,
+  .enlaceActual {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .zona {
+    flex: 1;
+  }
+}
+
+.salir {
+  margin-top: auto;
+}
+
+.salir button {
+  width: 100%;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .navegacion {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .enlaces {
+    flex: 1;
+  }
+
+  .salir {
+    margin: 0;
+  }
+
+  .salir button {
+    padding: 0 10px;
+    font-size: 0.85rem;
+  }
+}

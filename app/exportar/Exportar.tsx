@@ -316,9 +316,8 @@ export default function Exportar({ facturas, titular, plan, hoy, datosDeEjemplo 
               Disponible en los planes Autónomo y Autónomo Plus. <Link href="/precios">Ver planes</Link>
             </p>
           ) : (
-            <Link className={styles.secundario} href="/cierre-trimestre">
-              Abrir el cierre de trimestre
-            </Link>
+            // [Pendiente] El cierre de trimestre (#50) se ha dejado para después de la entrega.
+            <p className={styles.proximamente}>Próximamente: lo estamos preparando.</p>
           )}
         </section>
 

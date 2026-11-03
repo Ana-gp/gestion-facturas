@@ -8,6 +8,7 @@
 
 import { useState, type KeyboardEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import styles from "./revisar.module.css";
 import {
   ETIQUETAS,
@@ -20,13 +21,17 @@ import {
   type CamposRevision,
   type DatosRevision,
 } from "@/lib/revision/comprobaciones";
-import { CATEGORIAS, type FichaEjemplo } from "@/lib/demo/fichas-ejemplo";
+import { CATEGORIAS } from "@/lib/demo/fichas-ejemplo";
+import type { FichaRevision } from "@/lib/revision/guardado";
 import { notaDeLaFecha, textoDelTipo, totalEnEuros, type FuenteTipoCambio, type TipoDeCambio } from "@/lib/moneda/conversion";
 
 type Props = {
-  ficha: FichaEjemplo;
+  ficha: FichaRevision;
+  /** Ficha de ejemplo: los cambios no se guardan. */
   datosDeEjemplo?: boolean;
 };
+
+type Guardado = { estado: "sin-cambios" | "guardando" | "guardado" | "error"; mensaje?: string };
 
 type TipoEntrada = "texto" | "fecha" | "importe" | "porcentaje" | "cambio" | "lista";
 
@@ -84,6 +89,8 @@ function conTotalEnEuros(d: DatosRevision): DatosRevision {
 }
 
 export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
+  const router = useRouter();
+  const real = !datosDeEjemplo && Boolean(ficha.documentoId);
   const [datos, setDatos] = useState<DatosRevision>(ficha.datos);
   const [tipoDocumento, setTipoDocumento] = useState(ficha.tipoDocumento);
   const [revision, setRevision] = useState<CamposRevision>(ficha.revisionIa);
@@ -91,9 +98,20 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const [borrador, setBorrador] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [ampliada, setAmpliada] = useState(false);
-  const [estado, setEstado] = useState<"editando" | "revisada" | "confirmar-borrado" | "borrado">("editando");
+  const [estado, setEstado] = useState<"editando" | "revisada" | "confirmar-borrado" | "borrado" | "confirmar-lectura">(
+    ficha.estadoRevision === "revisada" ? "revisada" : "editando",
+  );
+  const [guardado, setGuardado] = useState<Guardado>({ estado: "sin-cambios" });
+  // Estado al que se vuelve al cancelar una confirmación (borrar o volver a leer).
+  const [antes, setAntes] = useState<"editando" | "revisada">("editando");
+  function pedirConfirmacion(cual: "confirmar-borrado" | "confirmar-lectura") {
+    setAntes(estado === "revisada" ? "revisada" : "editando");
+    setEstado(cual);
+  }
+  const [ocupado, setOcupado] = useState<null | "borrando" | "leyendo">(null);
+  const [errorAccion, setErrorAccion] = useState<string | null>(null);
   // Tipo de cambio (#20): fecha y fuente del tipo aplicado, y la propuesta pendiente de aceptar.
-  const [origenTipo, setOrigenTipo] = useState<{ fecha: string | null; fuente: FuenteTipoCambio } | null>(null);
+  const [origenTipo, setOrigenTipo] = useState<{ fecha: string | null; fuente: FuenteTipoCambio } | null>(ficha.origenTipo ?? null);
   const [propuesta, setPropuesta] = useState<TipoDeCambio | null>(null);
   const [buscando, setBuscando] = useState(false);
   const [errorTipo, setErrorTipo] = useState<string | null>(null);
@@ -102,12 +120,95 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const avisos = avisosDeLaFicha(datos, { posibleDuplicado: ficha.posibleDuplicadoDe !== null });
   const falta = faltaParaRevisada(datos);
   const cuotasRaras = new Map(lineasQueNoCuadran(datos).map((l) => [l.indice, l.cuotaEsperada]));
-  const esPdf = ficha.original.toLowerCase().endsWith(".pdf");
+  const esPdf = ficha.tipoOriginal ? ficha.tipoOriginal === "application/pdf" : ficha.original.toLowerCase().split("?")[0].endsWith(".pdf");
 
   function actualizar(campo: Campo, cambio: (d: DatosRevision) => DatosRevision) {
     setDatos((d) => conTotalEnEuros(cambio(d)));
     setRevision((r) => marcarCorregido(r, campo));
     if (estado === "revisada") setEstado("editando");
+    setGuardado({ estado: "sin-cambios" });
+  }
+
+  // --- Guardar, borrar y volver a leer (#21; solo con datos reales) -----------
+
+  async function guardar(marcar: "pendiente" | "revisada") {
+    if (!real) {
+      // Ficha de ejemplo: no se guarda nada.
+      if (marcar === "revisada") setEstado("revisada");
+      setGuardado({ estado: "guardado" });
+      return;
+    }
+    setGuardado({ estado: "guardando" });
+    try {
+      const respuesta = await fetch(`/api/facturas/${ficha.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ datos, tipoDocumento, revision, origenTipo, estado: marcar }),
+      });
+      const cuerpo = (await respuesta.json().catch(() => ({}))) as { error?: string };
+      if (!respuesta.ok) {
+        setGuardado({ estado: "error", mensaje: cuerpo.error ?? "No hemos podido guardar los cambios. Inténtalo otra vez." });
+        return;
+      }
+      setGuardado({ estado: "guardado" });
+      setEstado(marcar === "revisada" ? "revisada" : "editando");
+      router.refresh();
+    } catch {
+      setGuardado({ estado: "error", mensaje: "No hay conexión. Tus cambios siguen en la pantalla: inténtalo otra vez." });
+    }
+  }
+
+  async function borrar() {
+    if (!real || !ficha.documentoId) {
+      setEstado("borrado");
+      return;
+    }
+    setOcupado("borrando");
+    setErrorAccion(null);
+    try {
+      const respuesta = await fetch(`/api/documentos/${ficha.documentoId}`, { method: "DELETE" });
+      const cuerpo = (await respuesta.json().catch(() => ({}))) as { error?: string };
+      if (!respuesta.ok) {
+        setErrorAccion(cuerpo.error ?? "No hemos podido borrar el documento. Inténtalo otra vez.");
+        setEstado(antes);
+      } else setEstado("borrado");
+    } catch {
+      setErrorAccion("No hay conexión. Inténtalo otra vez.");
+      setEstado(antes);
+    } finally {
+      setOcupado(null);
+    }
+  }
+
+  async function volverALeer() {
+    if (!real || !ficha.documentoId) return;
+    setOcupado("leyendo");
+    setErrorAccion(null);
+    try {
+      const respuesta = await fetch("/api/leer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ documentoId: ficha.documentoId }),
+      });
+      const cuerpo = (await respuesta.json().catch(() => ({}))) as { estado?: string; mensaje?: string };
+      if (cuerpo.estado === "leido") {
+        setEstado("editando");
+        // La página vuelve a cargar la factura con lo nuevo.
+        window.location.reload();
+        return;
+      }
+      setErrorAccion(
+        cuerpo.estado === "sin-lecturas"
+          ? "Ya has usado todas las lecturas de tu plan este mes. Tus datos no se han cambiado."
+          : (cuerpo.mensaje ?? "No hemos podido leer este documento. El original está guardado."),
+      );
+      setEstado(antes);
+    } catch {
+      setErrorAccion("No hay conexión. Tus datos no se han cambiado.");
+      setEstado(antes);
+    } finally {
+      setOcupado(null);
+    }
   }
 
   function abrir(def: DefinicionCampo) {
@@ -397,8 +498,10 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
       <main className={styles.pagina}>
         <div className={styles.borrado}>
           <h1 className={styles.titulo}>Documento borrado</h1>
-          <p>El original y sus datos se han borrado. La lectura gastada no se devuelve.</p>
-          <Link href="/exportar">Volver a tus gastos</Link>
+          <p>
+            {real ? "El original y sus datos se han borrado." : "En el ejemplo no se borra nada de verdad."} La lectura gastada no se devuelve.
+          </p>
+          <Link href="/gastos">Volver a tus gastos</Link>
         </div>
       </main>
     );
@@ -408,7 +511,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
     <main className={styles.pagina}>
       {datosDeEjemplo && (
         <p className={styles.ejemplo}>
-          Datos de ejemplo: lo que leyó la IA en la prueba con los tickets del equipo. Los cambios no se guardan todavía.
+          Datos de ejemplo: lo que leyó la IA en la prueba con los tickets del equipo. En el ejemplo los cambios no se guardan.
         </p>
       )}
 
@@ -422,7 +525,9 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
       <div className={styles.rejilla}>
         <section className={styles.original} aria-label="Documento original">
           <div className={`${styles.marco} ${ampliada ? styles.marcoAmpliado : ""}`}>
-            {esPdf ? (
+            {!ficha.original ? (
+              <p className={styles.sinOriginal}>No hemos podido abrir el original. Recarga la página para intentarlo otra vez.</p>
+            ) : esPdf ? (
               <iframe src={ficha.original} title={`Original: ${ficha.nombreArchivo}`} className={styles.pdf} />
             ) : (
               <button
@@ -438,8 +543,8 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
           </div>
           <p className={styles.pieOriginal}>
             <span>{ficha.nombreArchivo}</span>
-            {/* P12 (#18). [Pendiente] Con datos reales, el id del documento en lugar del de la ficha. */}
-            <Link href={`/original/${ficha.id}`}>Ver original en grande</Link>
+            {/* P12 (#18): con datos reales, por el id del documento. */}
+            <Link href={`/original/${ficha.documentoId ?? ficha.id}`}>Ver original en grande</Link>
           </p>
         </section>
 
@@ -573,32 +678,76 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
             <button
               type="button"
               className={styles.principal}
-              disabled={falta.length > 0 || editando !== null}
-              onClick={() => setEstado("revisada")}
+              disabled={falta.length > 0 || editando !== null || guardado.estado === "guardando"}
+              onClick={() => guardar("revisada")}
             >
-              Guardar como revisada
+              {guardado.estado === "guardando" ? "Guardando…" : "Guardar como revisada"}
             </button>
+            {real && (
+              <button
+                type="button"
+                className={styles.secundaria}
+                disabled={editando !== null || guardado.estado === "guardando"}
+                onClick={() => guardar("pendiente")}
+              >
+                Guardar cambios sin marcarla como revisada
+              </button>
+            )}
             <p role="status" className={styles.estado}>
-              {estado === "revisada" && "Guardada como revisada."}
+              {guardado.estado === "guardado" && estado === "revisada" && (real ? "Guardada como revisada." : "Guardada como revisada (en el ejemplo no se guarda de verdad).")}
+              {guardado.estado === "guardado" && estado !== "revisada" && "Cambios guardados. Sigue pendiente de revisar."}
+              {guardado.estado === "sin-cambios" && estado === "revisada" && "Esta factura ya está revisada."}
             </p>
+            {guardado.estado === "error" && (
+              <p className={styles.errorCampo} role="alert">
+                {guardado.mensaje}
+              </p>
+            )}
 
             <div className={styles.secundarias}>
-              <button type="button" className={styles.secundaria} disabled title="Disponible cuando esté conectada la lectura con IA (#19)">
-                Volver a leer con IA
+              <button
+                type="button"
+                className={styles.secundaria}
+                disabled={!real || ocupado !== null || editando !== null}
+                title={real ? undefined : "En el ejemplo no se puede volver a leer"}
+                onClick={() => pedirConfirmacion("confirmar-lectura")}
+              >
+                {ocupado === "leyendo" ? "Leyendo…" : "Volver a leer con IA"}
               </button>
-              <button type="button" className={styles.peligro} onClick={() => setEstado("confirmar-borrado")}>
-                Borrar documento
+              <button type="button" className={styles.peligro} disabled={ocupado !== null} onClick={() => pedirConfirmacion("confirmar-borrado")}>
+                {ocupado === "borrando" ? "Borrando…" : "Borrar documento"}
               </button>
             </div>
+            {errorAccion && (
+              <p className={styles.errorCampo} role="alert">
+                {errorAccion}
+              </p>
+            )}
+
+            {estado === "confirmar-lectura" && (
+              <div className={styles.confirmar} role="alertdialog" aria-labelledby="titulo-leer">
+                <p id="titulo-leer">
+                  ¿Volver a leer con IA? Los datos de esta ficha se sustituyen por la nueva lectura, también lo que hayas corregido. No gasta otra lectura de tu plan.
+                </p>
+                <div className={styles.secundarias}>
+                  <button type="button" className={styles.listo} onClick={volverALeer}>
+                    Sí, volver a leer
+                  </button>
+                  <button type="button" className={styles.secundaria} onClick={() => setEstado(antes)}>
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            )}
 
             {estado === "confirmar-borrado" && (
               <div className={styles.confirmar} role="alertdialog" aria-labelledby="titulo-borrar">
                 <p id="titulo-borrar">¿Borrar este documento? Se borran el original y sus datos. Borrar no devuelve la lectura gastada.</p>
                 <div className={styles.secundarias}>
-                  <button type="button" className={styles.peligroLleno} onClick={() => setEstado("borrado")}>
+                  <button type="button" className={styles.peligroLleno} onClick={borrar}>
                     Sí, borrar
                   </button>
-                  <button type="button" className={styles.secundaria} onClick={() => setEstado("editando")}>
+                  <button type="button" className={styles.secundaria} onClick={() => setEstado(antes)}>
                     Cancelar
                   </button>
                 </div>

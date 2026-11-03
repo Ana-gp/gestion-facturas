@@ -8,20 +8,24 @@ import { useState } from "react";
 import Link from "next/link";
 import styles from "./comparar.module.css";
 import { TEXTO_MOTIVO, motivoDuplicado, normalizar, type DocumentoComparable } from "@/lib/duplicados/motivo";
-import type { FichaEjemplo } from "@/lib/demo/fichas-ejemplo";
+import type { FichaRevision } from "@/lib/revision/guardado";
 
 type Props = {
   /** El documento que tiene el aviso. */
-  actual: FichaEjemplo;
+  actual: FichaRevision;
   /** El documento con el que coincide (`posible_duplicado_de`). */
-  otra: FichaEjemplo;
+  otra: FichaRevision;
   datosDeEjemplo?: boolean;
 };
 
 type Estado = "decidiendo" | "elegir-borrado" | "borrado" | "no-duplicado";
 
-function comparable(f: FichaEjemplo): DocumentoComparable {
+function comparable(f: FichaRevision): DocumentoComparable {
   return { ...f.datos, huella: f.huella };
+}
+
+function esPdf(f: FichaRevision): boolean {
+  return f.tipoOriginal ? f.tipoOriginal === "application/pdf" : f.original.toLowerCase().split("?")[0].endsWith(".pdf");
 }
 
 function fecha(iso: string | null): string {
@@ -37,6 +41,47 @@ function importe(valor: number | null, moneda: string): string {
 export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props) {
   const [estado, setEstado] = useState<Estado>("decidiendo");
   const [aBorrar, setABorrar] = useState<string>(actual.id);
+  const [ocupado, setOcupado] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  // Con datos reales cada ficha tiene su documento; las de ejemplo no guardan nada.
+  const real = !datosDeEjemplo && Boolean(actual.documentoId && otra.documentoId);
+
+  async function pedir(url: string, opciones: RequestInit): Promise<boolean> {
+    setOcupado(true);
+    setError(null);
+    try {
+      const respuesta = await fetch(url, opciones);
+      const cuerpo = (await respuesta.json().catch(() => ({}))) as { error?: string };
+      if (!respuesta.ok) setError(cuerpo.error ?? "No hemos podido guardarlo. Inténtalo otra vez.");
+      return respuesta.ok;
+    } catch {
+      setError("No hay conexión. Inténtalo otra vez.");
+      return false;
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  async function descartar(descartado: boolean) {
+    if (real) {
+      const ok = await pedir(`/api/facturas/${actual.id}/duplicado`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ descartado }),
+      });
+      if (!ok) return;
+    }
+    setEstado(descartado ? "no-duplicado" : "decidiendo");
+  }
+
+  async function borrarElegido() {
+    const ficha = aBorrar === actual.id ? actual : otra;
+    if (real && ficha.documentoId) {
+      const ok = await pedir(`/api/documentos/${ficha.documentoId}`, { method: "DELETE" });
+      if (!ok) return;
+    }
+    setEstado("borrado");
+  }
 
   const motivo = motivoDuplicado(comparable(otra), comparable(actual));
   const documentos = [
@@ -44,7 +89,7 @@ export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props
     { ficha: actual, letra: "B" },
   ];
 
-  const filas: { etiqueta: string; valor: (f: FichaEjemplo) => string; igual: boolean }[] = [
+  const filas: { etiqueta: string; valor: (f: FichaRevision) => string; igual: boolean }[] = [
     { etiqueta: "Fecha", valor: (f) => fecha(f.datos.fecha), igual: otra.datos.fecha === actual.datos.fecha },
     {
       etiqueta: "Emisor",
@@ -74,7 +119,7 @@ export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props
     <main className={styles.pagina}>
       {datosDeEjemplo && (
         <p className={styles.ejemplo}>
-          Datos de ejemplo: dos fotos reales del mismo ticket. Lo que decidas aquí no se guarda todavía.
+          Datos de ejemplo: dos fotos reales del mismo ticket. En el ejemplo lo que decidas no se guarda.
         </p>
       )}
 
@@ -99,8 +144,14 @@ export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props
               <span className={styles.archivo}>{ficha.nombreArchivo}</span>
             </h2>
             <a className={styles.marco} href={ficha.original} target="_blank" rel="noreferrer" aria-label={`Ver en grande el documento ${letra}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element -- el original se muestra tal cual */}
-              <img src={ficha.original} alt={`Original del documento ${letra}`} className={styles.imagen} />
+              {!ficha.original ? (
+                <span className={styles.archivo}>No hemos podido abrir el original.</span>
+              ) : esPdf(ficha) ? (
+                <iframe src={ficha.original} title={`Original del documento ${letra}`} className={styles.imagen} />
+              ) : (
+                /* eslint-disable-next-line @next/next/no-img-element -- el original se muestra tal cual */
+                <img src={ficha.original} alt={`Original del documento ${letra}`} className={styles.imagen} />
+              )}
             </a>
             <dl className={styles.datos}>
               {filas.map((f) => (
@@ -122,7 +173,7 @@ export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props
           <button type="button" className={styles.peligro} onClick={() => setEstado("elegir-borrado")}>
             Borrar uno de los dos
           </button>
-          <button type="button" className={styles.secundaria} onClick={() => setEstado("no-duplicado")}>
+          <button type="button" className={styles.secundaria} disabled={ocupado} onClick={() => descartar(true)}>
             No es un duplicado
           </button>
           <Link className={styles.enlace} href={`/revisar/${actual.id}`}>
@@ -142,8 +193,8 @@ export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props
           ))}
           <p>Se borran el original y sus datos. Borrar no devuelve la lectura gastada.</p>
           <div className={styles.acciones}>
-            <button type="button" className={styles.peligroLleno} onClick={() => setEstado("borrado")}>
-              Sí, borrar
+            <button type="button" className={styles.peligroLleno} disabled={ocupado} onClick={borrarElegido}>
+              {ocupado ? "Borrando…" : "Sí, borrar"}
             </button>
             <button type="button" className={styles.secundaria} onClick={() => setEstado("decidiendo")}>
               Cancelar
@@ -160,16 +211,21 @@ export default function Comparar({ actual, otra, datosDeEjemplo = false }: Props
               : "Marcados como documentos distintos. No volveremos a avisarte de estos dos."}
           </p>
           <div className={styles.acciones}>
-            <Link className={styles.enlace} href="/exportar">
-              Ir a exportar
+            <Link className={styles.enlace} href="/gastos">
+              Volver a tus gastos
             </Link>
             {estado === "no-duplicado" && (
-              <button type="button" className={styles.secundaria} onClick={() => setEstado("decidiendo")}>
+              <button type="button" className={styles.secundaria} disabled={ocupado} onClick={() => descartar(false)}>
                 Deshacer
               </button>
             )}
           </div>
         </div>
+      )}
+      {error && (
+        <p className={styles.error} role="alert">
+          {error}
+        </p>
       )}
     </main>
   );
