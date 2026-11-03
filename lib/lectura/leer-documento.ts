@@ -54,11 +54,16 @@ export function paraLaPantalla(resultado: ResultadoLectura, registrar: (detalle:
   return { estado: "error", mensaje: MENSAJE_ERROR_LECTURA };
 }
 
+/** AAAA-MM-DD de una marca de tiempo; si no hay, hoy. */
+function diaDe(marca: string | null | undefined): string {
+  return typeof marca === "string" && /^\d{4}-\d{2}-\d{2}/.test(marca) ? marca.slice(0, 10) : new Date().toISOString().slice(0, 10);
+}
+
 export async function leerDocumentoGuardado(deps: Dependencias, documentoId: string): Promise<ResultadoRuta> {
   // 1. ¿Es suyo? Con RLS, si no lo es, no lo ve.
   const { data: doc, error: errorDoc } = await deps.usuario
     .from("documentos")
-    .select("id, user_id, ruta_storage, tipo_mime")
+    .select("id, user_id, ruta_storage, tipo_mime, subido_en")
     .eq("id", documentoId)
     .maybeSingle();
   if (errorDoc) throw new Error(`No se ha podido buscar el documento: ${errorDoc.message}`);
@@ -101,7 +106,8 @@ export async function leerDocumentoGuardado(deps: Dependencias, documentoId: str
     const { data: cats, error: errorCats } = await admin.from("categorias").select("id, nombre");
     if (errorCats) throw new Error(`No se han podido leer las categorías: ${errorCats.message}`);
     const ids = new Map<string, number>((cats ?? []).map((c: { id: number; nombre: string }) => [c.nombre, c.id]));
-    const { factura, lineas } = aFilas(datos, ids, datosIa);
+    // Referencia del aviso de día y mes cruzados: el día de la subida.
+    const { factura, lineas } = aFilas(datos, ids, datosIa, diaDe(doc!.subido_en));
 
     const { data: existente, error: errorExistente } = await admin.from("facturas").select("id").eq("documento_id", doc.id).maybeSingle();
     if (errorExistente) throw new Error(`No se ha podido buscar la factura: ${errorExistente.message}`);

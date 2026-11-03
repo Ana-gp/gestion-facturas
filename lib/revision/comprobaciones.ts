@@ -210,17 +210,49 @@ function controlCifValido(cif: string): boolean {
 // ---------------------------------------------------------------------------
 
 /**
+ * ¿Puede que la IA haya cruzado el día y el mes? Pasa con fechas como
+ * 02/10/2026 (2 de octubre), que se leen como 10/02/2026 (10 de febrero):
+ * primera prueba en producción, 03/11/2026, con un ticket de Lidl.
+ *
+ * Devuelve la fecha con el día y el mes cambiados si:
+ * - los dos son 12 o menos y distintos (si no, no hay duda posible),
+ * - la fecha cambiada cae en los 90 días anteriores a `referencia` (el día de
+ *   la subida), sin pasarse de ese día,
+ * - y está más cerca de `referencia` que la leída (un ticket suele subirse poco
+ *   después de la compra).
+ * Con solo «más cerca», un ticket bien leído de hace meses avisaba casi siempre
+ * (revisión de Mireia en el PR #88: T1, 07/03/2026, y E5, 06/01/2024).
+ * Si no, null. Solo avisa: nunca cambia la fecha por su cuenta.
+ */
+/** Ventana del aviso de día y mes cruzados (días antes de la subida). [Propuesta] de Mireia, PR #88. */
+export const DIAS_AVISO_FECHA_CRUZADA = 90;
+
+export function fechaQuizaCruzada(fecha: string | null, referencia: string | null | undefined): string | null {
+  if (!fecha || !referencia) return null;
+  const r = /^(\d{4})-(\d{2})-(\d{2})$/.exec(fecha);
+  if (!r) return null;
+  const [a, m, d] = [Number(r[1]), Number(r[2]), Number(r[3])];
+  if (d > 12 || m > 12 || d === m) return null;
+  const cruzada = `${a}-${String(d).padStart(2, "0")}-${String(m).padStart(2, "0")}`;
+  if (cruzada > referencia) return null;
+  const dias = (iso: string) => Date.UTC(Number(iso.slice(0, 4)), Number(iso.slice(5, 7)) - 1, Number(iso.slice(8, 10))) / 86_400_000;
+  const ref = dias(referencia);
+  if (ref - dias(cruzada) > DIAS_AVISO_FECHA_CRUZADA) return null;
+  return Math.abs(ref - dias(cruzada)) < Math.abs(ref - dias(fecha)) ? cruzada : null;
+}
+
+/**
  * Confianza de cada campo según nuestras reglas (decisión D2, [Propuesta]):
  * vacío = baja; si las cuentas no cuadran, los importes = baja; NIF con formato
  * extraño = media. Si la IA da su propia confianza, se usa la más baja de las dos.
  * El NIF del receptor vacío no baja la confianza: los tickets no lo llevan.
  */
-export function confianzaPorReglas(d: DatosRevision, deLaIa: CamposRevision = {}): Record<Campo, Confianza> {
+export function confianzaPorReglas(d: DatosRevision, deLaIa: CamposRevision = {}, opciones: { referencia?: string } = {}): Record<Campo, Confianza> {
   const orden: Record<Confianza, number> = { baja: 0, media: 1, alta: 2 };
   const minimo = (a: Confianza, b: Confianza | undefined): Confianza => (b && orden[b] < orden[a] ? b : a);
 
   const reglas: Record<Campo, Confianza> = {
-    fecha: vacio(d.fecha) ? "baja" : "alta",
+    fecha: vacio(d.fecha) || fechaQuizaCruzada(d.fecha, opciones.referencia) ? "baja" : "alta",
     emisor_nombre: vacio(d.emisorNombre) ? "baja" : "alta",
     emisor_nif: vacio(d.emisorNif) ? "baja" : formatoNifValido(d.emisorNif as string) ? "alta" : "media",
     receptor_nif: vacio(d.receptorNif) ? "alta" : formatoNifValido(d.receptorNif as string) ? "alta" : "media",
@@ -249,8 +281,8 @@ export function confianzaPorReglas(d: DatosRevision, deLaIa: CamposRevision = {}
  * Campos que la pantalla marca con "Revisar dato": confianza baja que el
  * usuario todavía no ha corregido.
  */
-export function camposARevisar(d: DatosRevision, revision: CamposRevision = {}): Campo[] {
-  const confianza = confianzaPorReglas(d, revision);
+export function camposARevisar(d: DatosRevision, revision: CamposRevision = {}, opciones: { referencia?: string } = {}): Campo[] {
+  const confianza = confianzaPorReglas(d, revision, opciones);
   return (Object.keys(confianza) as Campo[]).filter(
     (campo) => confianza[campo] === "baja" && !revision[campo]?.corregido,
   );

@@ -67,6 +67,7 @@ Lee el documento adjunto y responde SOLO con un JSON con esta estructura:
 
 Reglas:
 - Si un dato no aparece en el documento, pon null. No te lo inventes.
+- En los tickets y facturas españoles la fecha va como día/mes/año: 02/10/2026 es el 2 de octubre de 2026 ("2026-10-02"), no el 10 de febrero.
 - Pon una línea en "lineas_iva" por cada tipo de IVA distinto.
 - Usa punto como separador decimal.
 - "tipo_documento" es "factura" si aparecen los datos fiscales del receptor (nombre y NIF); si no, "ticket".
