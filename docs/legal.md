@@ -117,6 +117,8 @@ Por tanto:
 
 - Los campos extraídos por OCR deben presentarse como datos detectados, no como una validación fiscal definitiva.
 - Los campos obligatorios pueden variar según el tipo de documento y sus circunstancias. No debemos exigir a todo ticket los mismos datos que a una factura completa.
+- **[Confirmado]** Para deducir IVA con una factura simplificada, la AEAT indica que deben constar el NIF y domicilio del destinatario y la cuota de IVA separada; el artículo 7.2 del Reglamento de facturación recoge esos requisitos cuando el empresario o profesional lo exige. Fuente: [AEAT, tipos de factura](https://sede.agenciatributaria.gob.es/Sede/iva/facturacion-registro/facturacion-iva/tipos-factura.html) y [BOE, RD 1619/2012, art. 7](https://www.boe.es/buscar/act.php?id=BOE-A-2012-14696).
+- Por tanto, un ticket sin NIF del cliente no debe marcarse automáticamente como deducible para IVA. Ticketon avisará de los datos ausentes; el usuario debe pedir factura completa o una factura simplificada que reúna los requisitos cuando corresponda, y su gestoría decidirá el tratamiento fiscal.
 - Un dato ausente o una discrepancia aritmética debe generar una advertencia de revisión, no un dictamen automático de deducibilidad.
 - La exportación debe distinguir valores extraídos de valores confirmados o corregidos por el usuario.
 - La aplicación debe conservar el documento original vinculado a los datos extraídos.
