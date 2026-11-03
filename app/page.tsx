@@ -13,11 +13,14 @@ export default function HomePage() {
         <p>
           <Link href="/gastos" className="boton-principal">
             Ver mis gastos
+          </Link>{" "}
+          <Link href="/registro" className="boton-secundario">
+            Crear cuenta
           </Link>
         </p>
         <p className="note">
-          Portada provisional mientras se termina la definitiva (#25). Sin
-          iniciar sesión, la web enseña los tickets de prueba del equipo.
+          Portada provisional mientras se termina la definitiva (#25). Para
+          ver tus gastos tienes que entrar con tu cuenta o crear una.
         </p>
       </section>
     </main>

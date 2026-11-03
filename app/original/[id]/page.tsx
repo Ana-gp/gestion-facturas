@@ -107,7 +107,8 @@ export default async function OriginalPage({ params }: { params: Promise<{ id: s
       urlDescarga={original.urlDescarga}
       modo={modo(original.tipo)}
       pie={pie(original.tipo, original.tamanoBytes, original.subidoEl)}
-      volver={original.facturaId ? `/revisar/${original.facturaId}` : "/subir"}
+      volver={original.facturaId ? `/revisar/${original.facturaId}` : "/gastos"}
+      documentoSinLeer={original.facturaId ? null : original.documentoId}
     />
   );
 }
