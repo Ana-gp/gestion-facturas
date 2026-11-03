@@ -1,10 +1,10 @@
 # Prueba de lectura con tickets reales en la web
 
-Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mireia · Última actualización: 03/11/2026
+Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mireia · Última actualización: 03/11/2026 (reenvío de T3)
 
 Depende de: #19 ([lectura con IA](lectura-ia.md)), #21 (revisar y corregir), #20 (moneda), #13 (login) y el despliegue en Vercel
 
-**Estado:** plantilla preparada. **[Pendiente]** Toda la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
+**Estado:** en curso. **[Confirmado]** El reenvío por correo de T3 (03/11/2026, apartado 6). **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
 
 Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supuesto]**, **[Propuesta]** y **[Pendiente]**. En las tablas de resultados: **Correcto**, **Incorrecto**, **Vacío**, **No aplica**, **No evaluable** y **No probado**.
 
@@ -24,8 +24,8 @@ Rellenar antes de empezar:
 
 | Dato | Valor |
 |---|---|
-| Fecha de la prueba | [Pendiente] |
-| Dirección de la web (Vercel) | [Pendiente] |
+| Fecha de la prueba | Reenvío de T3: 03/11/2026. Resto: [Pendiente] |
+| Dirección de la web (Vercel) | https://gestion-facturas-xi.vercel.app |
 | Versión probada (commit de `main`) | [Pendiente] |
 | Modelo de IA | `gemini-3.5-flash-lite` (el de `lib/lectura/gemini.ts`) |
 | Cuenta A | Correo de Mireia, plan Gratis |
@@ -164,13 +164,13 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Paso | Cómo se comprueba | T1 | T2 | T3 | T4b | Notas |
 |---|---|---|---|---|---|---|
-| Subida | El documento entra por la vía del apartado 2 sin errores | No probado | No probado | No probado | No probado |  |
+| Subida | El documento entra por la vía del apartado 2 sin errores | No probado | No probado | Correcto | No probado | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento |
 | Tiempo de lectura | Segundos desde que se sube hasta ver la ficha | No probado | No probado | No probado | No probado |  |
 | Uso del plan | El contador de Subir ("X de 10 documentos este mes") sube 1 | No probado | No probado | No probado | No probado |  |
 | Original junto a los datos | Revisar enseña la imagen o el PDF al lado de los datos y "Ver original en grande" lo abre | No probado | No probado | No probado | No probado |  |
 | Corrección | Corregir un dato (el que salió mal o, si no hay, la categoría), pulsar "Listo" y comprobar al volver a abrir que se ha guardado | No probado | No probado | No probado | No probado |  |
-| Mis gastos | Aparece en la lista con su total y su estado | No probado | No probado | No probado | No probado |  |
-| Duplicado | Subir otra vez el mismo archivo: avisa y no gasta lectura | No probado | No probado | No probado | No probado |  |
+| Mis gastos | Aparece en la lista con su total y su estado | No probado | No probado | Correcto | No probado | T3: «Anthropic Ireland, Limited · 14/10/2026 · 21,78 € · Pendiente de revisar», con la etiqueta «Llegó por correo». Se guarda como ticket por la regla de [lectura con IA](lectura-ia.md), apartado 4 (no trae NIF del receptor) |
+| Duplicado | Subir otra vez el mismo archivo: avisa y no gasta lectura | No probado | No probado | No probado | No probado | T3 por correo: reenviar el mismo PDF mientras la primera copia está guardada no crea otro documento (la huella lo reconoce), pero **no avisa**: el webhook responde 200 y el usuario no ve nada. Al borrar la primera copia, sí entra. Ver apartado 9. Falta probarlo por Subir |
 | Excel | Exportar el periodo del ticket: sale una fila por tipo de IVA, con los datos corregidos y el nombre del original | No probado | No probado | No probado | No probado |  |
 
 **Cámara del móvil:** hacer una foto nueva con "Hacer foto" a un ticket en papel sin datos personales y comprobar que se sube, se lee y abre su ficha. Solo se comprueba que la vía funciona; su lectura no entra en el resumen porque no hay valor real validado.
@@ -207,6 +207,7 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 
 | Fallo | Ticket | Gravedad | Issue | Estado |
 |---|---|---|---|---|
+| Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura; solo falta el aviso | [Pendiente] abrir issue | **[Propuesta]** Para después de la entrega: enseñar en la pantalla de reenvío "1 adjunto ya guardado antes" |
 | [Pendiente] |  |  |  |  |
 
 ## 10. Conclusión
