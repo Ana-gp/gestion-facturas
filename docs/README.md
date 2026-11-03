@@ -8,7 +8,7 @@
 | [Prueba de concepto de lectura con IA](prueba-ia.md) | 06 (#6) | Mireia | Terminado |
 | [Valores reales de los tickets](valores-reales-tickets.xlsx) | 06 (#6) | Mireia | Terminado |
 | [Lectura automática con IA](lectura-ia.md) | 18 (#19) | Mireia | Aprobado (PR #69 y #70); probada en la web el 03/11/2026 con un ticket propio |
-| [Prueba de lectura con tickets reales en la web](pruebas-lectura.md) | 31 (#28) | Mireia | Plantilla aprobada (PR #83); prueba con los 4 tickets [Pendiente] |
+| [Prueba de lectura con tickets reales en la web](pruebas-lectura.md) | 31 (#28) | Mireia | Terminado (03/11/2026): 62/66 campos bien (94 %), recorrido completo en la web publicada |
 | [Estudio de competencia](competencia.md) | 02 (#1) | Javier | Correcciones unidas en el PR #41 |
 | [Stack y arquitectura](arquitectura.md) | 05 (#5) | Mireia | Aprobado |
 | [Modelo de datos y base de datos](modelo-datos.md) y [SQL para Supabase](modelo-datos.sql) | 07 (#29) | Mireia | Aprobado; SQL listo para ejecutar (#18) |

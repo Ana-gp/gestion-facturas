@@ -4,7 +4,7 @@ Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mir
 
 Depende de: #19 ([lectura con IA](lectura-ia.md)), #21 (revisar y corregir), #20 (moneda), #13 (login) y el despliegue en Vercel
 
-**Estado:** en curso. **[Confirmado]** Lectura en la web de los 4 tickets y E5, reenvío por correo de T3, «Listo» tras el PR #90 y Excel del 4.º trimestre (03/11/2026, apartados 4 a 8). **[Confirmado]** Separación entre dos cuentas, subida desde el móvil (T4b) y arrastrando (T1). **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
+**Estado:** terminado (03/11/2026). **[Confirmado]** Probados en la web publicada los 4 tickets del enunciado y E5 (otra moneda), las tres vías de subida, la foto con la cámara del móvil, la corrección con «Listo», el aviso de archivo repetido, el Excel, la separación entre dos cuentas y la instalación en el móvil. Resultado y límites en el apartado 10.
 
 Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supuesto]**, **[Propuesta]** y **[Pendiente]**. En las tablas de resultados: **Correcto**, **Incorrecto**, **Vacío**, **No aplica**, **No evaluable** y **No probado**.
 
@@ -187,7 +187,7 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Comprobación | Resultado | Notas |
 |---|---|---|
-| "Hacer foto" abre la cámara trasera, sube la foto y abre la ficha | No probado |  |
+| "Hacer foto" abre la cámara trasera, sube la foto y abre la ficha | Correcto | Ana, 03/11/2026, iPhone: "Hacer foto" abrió la cámara directamente; se hizo la foto de un billete de autobús urbano, se leyó y la ficha enseña la foto encima de los datos. Emisor, fecha y categoría correctos; total 0,00 €, el del billete (validación de bono). Captura fuera del repositorio porque el billete lleva el número de la tarjeta de transporte |
 
 **Instalación en el móvil** (función adicional, PR #80): comprobada el 03/11/2026 por Mireia en un iPhone con Safari ("Compartir" → "Añadir a pantalla de inicio").
 
@@ -242,9 +242,27 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 | "Con avisos" de Mis gastos no coincide con los avisos de la ficha ni del Excel | E5 y T4b | Baja | — | Mis gastos solo cuenta duplicado, moneda sin convertir y lectura fallida (`lib/gastos/listado.ts`), a propósito. En cambio, el Excel cuenta "Sin NIF del receptor" ("Documentos con avisos: 2") y la ficha de E5 avisa "Las cuentas no cuadran". **[Propuesta]** Después de la entrega, usar el mismo criterio o cambiar el nombre del filtro |
 | T4b aparecía como "Revisada" sin que Mireia la marcara | T4b | **[Pendiente]** confirmar | — | La web permite guardarla como revisada con avisos (solo exige fecha, emisor, total y categoría), así que puede ser una prueba de otra persona. Preguntar al equipo |
 | El aviso de archivo repetido queda abajo de la pantalla y hay que bajar para verlo | T1 | Baja: el aviso sale y funciona; se puede pasar por alto | PR #93 | Al añadir un archivo, la pantalla baja sola hasta el resultado |
-| Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura | [Aplazado] | Se descarta sin duplicar ni consumir lectura; el aviso en la pantalla de reenvío queda como mejora posterior. |
-| [Pendiente] |  |  |  |  |
+| Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura | [Pendiente] para después de la entrega | Se descarta sin duplicar ni consumir lectura; el aviso en la pantalla de reenvío queda como mejora posterior. |
 
 ## 10. Conclusión
 
-**[Pendiente]** Se escribe cuando estén rellenos los apartados 4 a 9. Debe decir con qué tickets se ha probado, qué falló y cómo lo resuelve la pantalla de revisión. No se afirma más de lo que se haya comprobado.
+**[Confirmado]** Ticketon funciona con los cuatro tickets reales que pide el enunciado, dentro de la web publicada (03/11/2026):
+
+1. **Lectura:** 62 de 66 campos bien leídos (94 %), cerca del 54/56 (96 %) de la prueba fuera de la web (#19). E5, en pesos mexicanos, se leyó bien y la conversión a euros dio 34,13 € con el tipo oficial del 05/01/2024.
+2. **Qué falló:** cuatro campos en dos tickets.
+   - T4b: la fecha, con el día y el mes cruzados, y el NIF del emisor, vacío porque casi no se lee. La ficha marcó los dos con "Revisar dato".
+   - T2: una letra del emisor ("VEGES") y un dígito del número. La ficha no los marcó.
+3. **Cómo lo resuelve la pantalla de revisión:** Revisar enseña el original junto a los datos, marca los dudosos y deja corregir cada dato en dos clics: pulsarlo y «Listo», que lo guarda en ese momento (PR #90, comprobado en T2, T3 y T4b). Los errores que la IA no marca, como los de T2, solo se ven comparando con el original. Por eso la ficha se guarda como pendiente hasta que la persona la da por revisada.
+4. **Recorrido:**
+   - Subida por las tres vías: ordenador (arrastrar y elegir archivo), móvil (elegir archivo y "Hacer foto") y reenvío por correo.
+   - Aviso de archivo repetido, sin gastar lectura.
+   - Excel del 4.º trimestre con una fila por tipo de IVA.
+   - Separación entre dos cuentas.
+   - Instalación en el móvil.
+5. **Fallos de la web encontrados en la prueba y ya arreglados:** «Listo» no guardaba (PR #90), fecha cruzada sin aviso (PR #88) y aviso de repetido fuera de la pantalla (PR #93).
+
+**Límites:**
+- No se ha probado en la web el duplicado entre dos fotos distintas del mismo ticket (solo con el mismo archivo y con las pruebas automáticas).
+- Tampoco el correo de un remitente no autorizado, el tiempo de lectura ni Android.
+- Es una sola prueba, con un ticket de cada tipo: no mide la precisión con muchos documentos.
+- Quedan para después de la entrega las mejoras del apartado 9.
