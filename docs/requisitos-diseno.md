@@ -81,7 +81,7 @@ Explicar en pocas líneas para quién es Ticketon, qué problema resuelve y el r
 
 Mostrar los tres planes (Gratis, Autónomo y Autónomo Plus), precio mensual, límite mensual de lecturas y funciones incluidas. Los precios vigentes en el modelo de negocio siguen siendo provisionales hasta su aprobación definitiva.
 
-Destacar que instalación en el móvil y avisos internos están incluidos en todos los planes. El Cierre de trimestre se identifica como función de pago. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
+Destacar que la instalación en el móvil ya está implementada y que los avisos internos activos están incluidos en todos los planes. El Cierre de trimestre es una función de pago prevista, pero está aplazada y no forma parte del alcance imprescindible actual. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
 
 ### 4.3. P02 · Crear cuenta
 
@@ -243,7 +243,7 @@ Los avisos se muestran dentro de la web, no por correo, según #7.
 
 - **Posible duplicado:** obligatorio; aparece en P07 y P10 y permite comparar en P11.
 - **Ticket sin NIF del receptor:** función adicional incluida en todos los planes; aparece en P07 y P10.
-- **Trimestre próximo a cerrar:** función adicional incluida en todos los planes; aparece dentro de la web. La propuesta del mapa es mostrarlo desde 15 días antes del cierre.
+- **Trimestre próximo a cerrar [Aplazado]:** aviso pospuesto junto con la función #50; no debe tratarse como requisito activo de esta entrega.
 - **Límite del plan:** informar de lecturas disponibles y qué ocurre al alcanzar el límite. El original se conserva aunque quede pendiente de lectura.
 - **Conversión pendiente:** identificar la factura y el dato que falta; no inventar importes.
 - **Llegó por correo:** etiqueta de procedencia visible en P07.
@@ -321,7 +321,7 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - **#23 · Excel:** respetar las columnas y el tratamiento del original acordados en esa tarea.
 - **#16 · Reenvío por correo:** dirección personal, remitentes autorizados y recepción de adjuntos.
 - **#17 · Compartir desde el móvil:** aplazado por decisión del equipo. La instalación PWA ya está implementada mediante PR #80.
-- **#27 · Avisos:** avisos internos de ticket sin NIF del receptor y trimestre próximo a cerrar.
+- **#27 · Avisos:** mantener activos los avisos acordados que no se hayan aplazado; el aviso de trimestre próximo a cerrar queda aplazado.
 - **#50 · Cierre de trimestre:** aplazado por decisión del equipo; no es imprescindible para la entrega actual.
 - **#24 y #31 · Precios y límites:** no presentar precios, pagos o reglas de cupo como definitivos si siguen pendientes.
 - **Accesibilidad:** verificar contraste, tamaños, teclado y uso real con el prototipo.
