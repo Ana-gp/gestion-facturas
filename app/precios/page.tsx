@@ -34,7 +34,6 @@ const planes = [
     periodo: "/ mes",
     limite: "Hasta 300 documentos procesados al mes",
     destacado: false,
-    cierre: true,
     cta: "Elegir plan",
   },
 ];
