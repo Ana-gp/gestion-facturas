@@ -3,7 +3,7 @@
 Tarea: #8 (orden 10) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 03/11/2026
 Depende de: #2 (público objetivo) y #7 (funciones adicionales). Usa también #5 (arquitectura), #29 (modelo de datos), #3 (modelo de negocio) y #4 (normativa) · Alimenta: #9 (requisitos de diseño) y #11 (prototipo)
 
-**Estado:** Aprobado (PR #54, 30/10/2026). Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Aprobado por Ana el 29/10/2026 en el PR #54, con dos cambios incorporados el mismo día (apartado 9), y unido a `main` el 30/10/2026. No hay ninguna pantalla construida: este documento dice *qué pantallas habrá y cómo se pasa de una a otra*, no cómo se ven ni que funcionen.
+**Estado:** Aprobado (PR #54, 30/10/2026). Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Aprobado por Ana el 29/10/2026 en el PR #54, con dos cambios incorporados el mismo día (apartado 9), y unido a `main` el 30/10/2026. Este documento dice *qué pantallas hay y cómo se pasa de una a otra*, no cómo se ven (eso es el diseño, #9 y #11) ni cómo están programadas.
 
 Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
