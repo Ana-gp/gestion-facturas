@@ -4,7 +4,7 @@ Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mir
 
 Depende de: #19 ([lectura con IA](lectura-ia.md)), #21 (revisar y corregir), #20 (moneda), #13 (login) y el despliegue en Vercel
 
-**Estado:** en curso. **[Confirmado]** Lectura en la web de los 4 tickets y E5, reenvío por correo de T3, «Listo» tras el PR #90 y Excel del 4.º trimestre (03/11/2026, apartados 4 a 8). **[Confirmado]** Separación entre dos cuentas. **[Pendiente]** Subida desde el móvil y arrastrar. **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
+**Estado:** en curso. **[Confirmado]** Lectura en la web de los 4 tickets y E5, reenvío por correo de T3, «Listo» tras el PR #90 y Excel del 4.º trimestre (03/11/2026, apartados 4 a 8). **[Confirmado]** Separación entre dos cuentas, subida desde el móvil (T4b) y arrastrando (T1). **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
 
 Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supuesto]**, **[Propuesta]** y **[Pendiente]**. En las tablas de resultados: **Correcto**, **Incorrecto**, **Vacío**, **No aplica**, **No evaluable** y **No probado**.
 
@@ -62,10 +62,10 @@ Se rellena al final.
 
 | Ticket | Aciertos de lectura | Errores señalados para revisar | Recorrido completo | Notas |
 |---|---|---|---|---|
-| T1 · Gasolinera arrugado | 13/13 | Ningún error, ningún aviso | No: faltan arrastrar y el Excel | Aviso de archivo repetido: correcto |
-| T2 · Supermercado, varios IVA | 17/19 | 0 de 2 | No: falta repetir la corrección (PR #90, unido) y el Excel | Fallan el emisor (VEGES) y un dígito del número, sin "Revisar dato" |
-| T3 · PDF en inglés (por correo) | 14/14 | Ningún error, ningún aviso | No: falta repetir la corrección (PR #90, unido) y el Excel | Reenvío por correo superado |
-| T4b · Torcida y con poca luz | 18/20 | 2 de 2 | Sí, salvo subirlo desde el móvil | Fecha con día y mes cruzados y NIF vacío; los dos con "Revisar dato" |
+| T1 · Gasolinera arrugado | 13/13 | Ningún error, ningún aviso | Sí (no entra en el Excel del 4.º trimestre: es de marzo) | Aviso de archivo repetido: correcto |
+| T2 · Supermercado, varios IVA | 17/19 | 0 de 2 | Sí; «Listo» se repitió tras el #90 con T4b. No entra en el Excel del 4.º trimestre (es de 2025) | Fallan el emisor (VEGES) y un dígito del número, sin "Revisar dato" |
+| T3 · PDF en inglés (por correo) | 14/14 | Ningún error, ningún aviso | Sí, incluido el Excel del 4.º trimestre | Reenvío por correo superado |
+| T4b · Torcida y con poca luz | 18/20 | 2 de 2 | Sí | Fecha con día y mes cruzados y NIF vacío; los dos con "Revisar dato" |
 | **Total** | **62/66 (94 %)** | 2 de 4 errores señalados | | Fuera de la web (#19) fue 54/56. Los dos errores de T2 no se señalan |
 
 Referencia fuera de la web (#19, 01/11/2026): 54/56 aciertos (96 %). Fallaron el número de T2 y el NIF del emisor de T4b.
@@ -143,7 +143,7 @@ Leído en la web el 03/11/2026, tras llegar por correo. Capturas: `tests/resulta
 
 ### T4b · Foto torcida y con poca luz
 
-Leído en la web el 03/11/2026, subido desde el ordenador (no se pudo entrar desde el móvil: ver apartado 9). Capturas: `tests/resultados-web/T4b-0-antes-de-corregir.jpg`, y `T4b-1` y `T4b-2` (ya corregida con «Listo»).
+Leído en la web el 03/11/2026, subido por Mireia desde el móvil con "Elegir archivos" (el original se guarda con el nombre que le da el móvil, `c8671a73-….jpeg`); la ficha se comprobó después desde el ordenador. Capturas: `tests/resultados-web/T4b-0-antes-de-corregir.jpg`, y `T4b-1` y `T4b-2` (ya corregida con «Listo»).
 
 | Campo | Valor real | Lectura en la web | ¿Pide revisarlo? | Notas |
 |---|---|---|---|---|
@@ -174,7 +174,7 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Paso | Cómo se comprueba | T1 | T2 | T3 | T4b | Notas |
 |---|---|---|---|---|---|---|
-| Subida | El documento entra por la vía del apartado 2 sin errores | Correcto | Correcto | Correcto | Correcto | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento. T1 y T2 (03/11/2026): subidos con "Elegir archivos"; T1 no se probó arrastrando. T4b: subido desde el ordenador, no desde el móvil. |
+| Subida | El documento entra por la vía del apartado 2 sin errores | Correcto | Correcto | Correcto | Correcto | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento. T1 y T2 (03/11/2026): subidos con "Elegir archivos". T1 se volvió a subir **arrastrándolo** a la zona de Subir: llega bien y sale el aviso de repetido, aunque el archivo tenía otro nombre (compara el contenido, no el nombre). Captura: `tests/resultados-web/T1-arrastrar-repetido.jpg`, con la dirección de reenvío pixelada. T4b: subido desde el móvil, como prevé el apartado 2. |
 | Tiempo de lectura | Segundos desde que se sube hasta ver la ficha | No probado | No probado | No probado | No probado |  |
 | Uso del plan | El contador de Subir ("X de 10 documentos este mes") sube 1 | Correcto | Correcto | No probado | No probado | Marca 5 de 10 con 4 documentos en la lista: cuenta también el T3 que se borró. Es lo previsto: el contador solo sube (`uso_mensual`, #31), así que borrar no devuelve la lectura. |
 | Original junto a los datos | Revisar enseña la imagen o el PDF al lado de los datos y "Ver original en grande" lo abre | Correcto | Correcto | Correcto | Correcto | Se ve en todas las capturas, con el enlace "Ver original en grande". |
@@ -233,7 +233,6 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 | T2: emisor "VEGES" en vez de "VEGO" y un dígito del número (2508 en vez de 2509), sin marcarlos para revisar | T2 | Baja: se corrige en la ficha | — | Foto borrosa. La pantalla Revisar enseña el original al lado para comprobarlo. Como en el #19, la IA no avisa de sus propios errores |
 | "Con avisos" de Mis gastos no coincide con los avisos de la ficha ni del Excel | E5 y T4b | Baja | — | Mis gastos solo cuenta duplicado, moneda sin convertir y lectura fallida (`lib/gastos/listado.ts`), a propósito. En cambio, el Excel cuenta "Sin NIF del receptor" ("Documentos con avisos: 2") y la ficha de E5 avisa "Las cuentas no cuadran". **[Propuesta]** Después de la entrega, usar el mismo criterio o cambiar el nombre del filtro |
 | T4b aparecía como "Revisada" sin que Mireia la marcara | T4b | **[Pendiente]** confirmar | — | La web permite guardarla como revisada con avisos (solo exige fecha, emisor, total y categoría), así que puede ser una prueba de otra persona. Preguntar al equipo |
-| No se pudo entrar desde el móvil ("No hemos podido iniciar sesión") | T4b | **[Pendiente]** | — | Desde el ordenador, la misma cuenta entra. Probablemente la contraseña escrita o autorrellenada en el móvil; sin confirmar |
 | El aviso de archivo repetido queda abajo de la pantalla y hay que bajar para verlo | T1 | Baja: el aviso sale y funciona; se puede pasar por alto | PR #93 | Al añadir un archivo, la pantalla baja sola hasta el resultado |
 | Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura | [Aplazado] | Se descarta sin duplicar ni consumir lectura; el aviso en la pantalla de reenvío queda como mejora posterior. |
 | [Pendiente] |  |  |  |  |
