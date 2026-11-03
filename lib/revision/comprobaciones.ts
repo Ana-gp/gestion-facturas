@@ -262,6 +262,52 @@ export function marcarCorregido(revision: CamposRevision, campo: Campo): CamposR
   return { ...revision, [campo]: { confianza: actual?.confianza ?? "alta", corregido: true } };
 }
 
+/** Lo que vale un campo de `campos_revision` en los datos, para comparar dos versiones. */
+export function valorDelCampo(d: DatosRevision, campo: Campo): string {
+  switch (campo) {
+    case "fecha":
+      return d.fecha ?? "";
+    case "emisor_nombre":
+      return d.emisorNombre ?? "";
+    case "emisor_nif":
+      return d.emisorNif ?? "";
+    case "receptor_nif":
+      return d.receptorNif ?? "";
+    case "numero":
+      return d.numero ?? "";
+    case "categoria":
+      return d.categoria ?? "";
+    case "lineas_iva":
+      return JSON.stringify(d.lineas);
+    // La retención cuenta como parte del total (no tiene clave propia).
+    case "total":
+      return JSON.stringify([d.total, d.retencionImporte]);
+    case "moneda":
+      return d.moneda;
+    case "tipo_cambio":
+      return String(d.tipoCambio ?? "");
+  }
+}
+
+/**
+ * Marca de un campo tras un cambio del usuario: «corregido» si queda distinto
+ * de como estaba al abrir la ficha; si vuelve a ese valor, recupera la marca
+ * que tenía al abrirla (así «Corregido por ti» no se queda sin motivo).
+ */
+export function marcarTrasCambio(
+  revision: CamposRevision,
+  campo: Campo,
+  nuevos: DatosRevision,
+  alAbrir: { datos: DatosRevision; revision: CamposRevision },
+): CamposRevision {
+  if (valorDelCampo(nuevos, campo) !== valorDelCampo(alAbrir.datos, campo)) return marcarCorregido(revision, campo);
+  const siguiente = { ...revision };
+  const original = alAbrir.revision[campo];
+  if (original) siguiente[campo] = original;
+  else delete siguiente[campo];
+  return siguiente;
+}
+
 // ---------------------------------------------------------------------------
 // Avisos de la ficha
 // ---------------------------------------------------------------------------

@@ -3,10 +3,11 @@
 // Pantalla P10 · Revisar y corregir (#21). Es la pantalla central del MVP.
 // Requisito 4 del enunciado: el usuario ve la foto junto a los datos y arregla
 // lo que esté mal en dos clics. Clic 1: sobre el dato (se vuelve editable).
-// Clic 2: «Listo» (o Intro). Escribir el valor no cuenta como clic.
+// Clic 2: «Listo» (o Intro), que guarda el dato en ese momento (mapa de
+// pantallas, 3.4). Escribir el valor no cuenta como clic.
 // La IA propone; el usuario decide: nada se corrige solo.
 
-import { useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./revisar.module.css";
@@ -16,7 +17,7 @@ import {
   camposARevisar,
   faltaParaRevisada,
   lineasQueNoCuadran,
-  marcarCorregido,
+  marcarTrasCambio,
   type Campo,
   type CamposRevision,
   type DatosRevision,
@@ -104,6 +105,14 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const [guardado, setGuardado] = useState<Guardado>({ estado: "sin-cambios" });
   // Estado al que se vuelve al cancelar una confirmación (borrar o volver a leer).
   const [antes, setAntes] = useState<"editando" | "revisada">("editando");
+  // Cómo estaba la ficha al abrirla: si un dato vuelve a ese valor, recupera su marca.
+  const [alAbrir] = useState(() => ({ datos: ficha.datos, revision: ficha.revisionIa }));
+  // Cambios hechos con «Listo» que todavía no se han guardado en la base de datos.
+  const [sinGuardar, setSinGuardar] = useState(false);
+  // Cada «Listo» con un cambio sube este número; el efecto de abajo lo guarda.
+  const [cambiosConListo, setCambiosConListo] = useState(0);
+  // Los guardados van en fila, para que uno lento no pise a uno más nuevo.
+  const cola = useRef<Promise<void>>(Promise.resolve());
   function pedirConfirmacion(cual: "confirmar-borrado" | "confirmar-lectura") {
     setAntes(estado === "revisada" ? "revisada" : "editando");
     setEstado(cual);
@@ -122,16 +131,74 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   const cuotasRaras = new Map(lineasQueNoCuadran(datos).map((l) => [l.indice, l.cuotaEsperada]));
   const esPdf = ficha.tipoOriginal ? ficha.tipoOriginal === "application/pdf" : ficha.original.toLowerCase().split("?")[0].endsWith(".pdf");
 
-  function actualizar(campo: Campo, cambio: (d: DatosRevision) => DatosRevision) {
-    setDatos((d) => conTotalEnEuros(cambio(d)));
-    setRevision((r) => marcarCorregido(r, campo));
+  // Si el valor no cambia, no hace nada: ni marca, ni deja la ficha pendiente, ni guarda.
+  // Devuelve si ha cambiado algo.
+  function actualizar(campo: Campo, cambio: (d: DatosRevision) => DatosRevision): boolean {
+    const nuevos = conTotalEnEuros(cambio(datos));
+    if (JSON.stringify(nuevos) === JSON.stringify(datos)) return false;
+    setDatos(nuevos);
+    setRevision(marcarTrasCambio(revision, campo, nuevos, alAbrir));
+    avisarCambio();
+    return true;
+  }
+
+  function avisarCambio() {
+    // Una ficha revisada que se cambia vuelve a quedar pendiente hasta guardarla como revisada otra vez.
     if (estado === "revisada") setEstado("editando");
     setGuardado({ estado: "sin-cambios" });
+    setSinGuardar(true);
+    setCambiosConListo((n) => n + 1);
   }
 
   // --- Guardar, borrar y volver a leer (#21; solo con datos reales) -----------
 
-  async function guardar(marcar: "pendiente" | "revisada") {
+  // «Listo» guarda en ese momento (con datos reales). Se hace en un efecto
+  // para enviar los datos ya actualizados en la pantalla.
+  useEffect(() => {
+    if (cambiosConListo === 0 || !real) return;
+    const marcar = estado === "revisada" ? "revisada" : "pendiente";
+    encolar(marcar, true);
+    // Solo cuando hay un «Listo» nuevo; el resto ya va dentro de guardar().
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cambiosConListo]);
+
+  // Aviso al salir con algo sin guardar: cerrar la pestaña o recargar…
+  const hayQueAvisar = real && (sinGuardar || editando !== null);
+  useEffect(() => {
+    if (!hayQueAvisar) return;
+    const alSalir = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", alSalir);
+    return () => window.removeEventListener("beforeunload", alSalir);
+  }, [hayQueAvisar]);
+
+  // …o seguir un enlace de la web (el menú, «Volver a tus gastos»).
+  useEffect(() => {
+    if (!hayQueAvisar) return;
+    const alPulsar = (e: MouseEvent) => {
+      const enlace = (e.target as Element | null)?.closest?.("a[href]");
+      if (!enlace || enlace.getAttribute("target") === "_blank") return;
+      const mensaje =
+        editando !== null
+          ? "Estás corrigiendo un dato y no has pulsado «Listo». Si sales, se pierde. ¿Salir igualmente?"
+          : "Hay cambios sin guardar. Si sales ahora, se pueden perder. ¿Salir igualmente?";
+      if (!window.confirm(mensaje)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+    document.addEventListener("click", alPulsar, true);
+    return () => document.removeEventListener("click", alPulsar, true);
+  }, [hayQueAvisar, editando]);
+
+  // Todos los guardados pasan por aquí, también los de los botones de abajo.
+  function encolar(marcar: "pendiente" | "revisada", automatico = false) {
+    cola.current = cola.current.then(() => guardar(marcar, automatico));
+  }
+
+  async function guardar(marcar: "pendiente" | "revisada", automatico: boolean) {
     if (!real) {
       // Ficha de ejemplo: no se guarda nada.
       if (marcar === "revisada") setEstado("revisada");
@@ -151,8 +218,11 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
         return;
       }
       setGuardado({ estado: "guardado" });
-      setEstado(marcar === "revisada" ? "revisada" : "editando");
-      router.refresh();
+      setSinGuardar(false);
+      if (!automatico) {
+        setEstado(marcar === "revisada" ? "revisada" : "editando");
+        router.refresh();
+      }
     } catch {
       setGuardado({ estado: "error", mensaje: "No hay conexión. Tus cambios siguen en la pantalla: inténtalo otra vez." });
     }
@@ -287,7 +357,10 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
     valor: tipoDocumento === "factura" ? "Factura" : "Ticket",
     inicial: tipoDocumento === "factura" ? "Factura" : "Ticket",
     guardar: (t) => {
-      setTipoDocumento(t === "Factura" ? "factura" : "ticket");
+      const nuevo = t === "Factura" ? "factura" : "ticket";
+      if (nuevo === tipoDocumento) return null;
+      setTipoDocumento(nuevo);
+      avisarCambio();
       return null;
     },
   };
@@ -362,7 +435,8 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
     guardar: (t) => {
       const n = leerNumero(t);
       if (n === null || Number.isNaN(n) || n <= 0) return `Escribe cuántos ${datos.moneda} vale 1 euro, por ejemplo 1,1133.`;
-      actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: redondear(n, 6) }));
+      const cambio = actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: redondear(n, 6) }));
+      if (!cambio && origenTipo?.fuente !== "manual") avisarCambio();
       setOrigenTipo({ fecha: datos.fecha, fuente: "manual" });
       setPropuesta(null);
       setErrorTipo(null);
@@ -392,7 +466,8 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
 
   function aceptarPropuesta() {
     if (!propuesta) return;
-    actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: propuesta.tipo }));
+    const cambio = actualizar("tipo_cambio", (d) => ({ ...d, tipoCambio: propuesta.tipo }));
+    if (!cambio && (origenTipo?.fuente !== propuesta.fuente || origenTipo?.fecha !== propuesta.fecha)) avisarCambio();
     setOrigenTipo({ fecha: propuesta.fecha, fuente: propuesta.fuente });
     setPropuesta(null);
   }
@@ -679,7 +754,7 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
               type="button"
               className={styles.principal}
               disabled={falta.length > 0 || editando !== null || guardado.estado === "guardando"}
-              onClick={() => guardar("revisada")}
+              onClick={() => encolar("revisada")}
             >
               {guardado.estado === "guardando" ? "Guardando…" : "Guardar como revisada"}
             </button>
@@ -688,13 +763,14 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
                 type="button"
                 className={styles.secundaria}
                 disabled={editando !== null || guardado.estado === "guardando"}
-                onClick={() => guardar("pendiente")}
+                onClick={() => encolar("pendiente")}
               >
                 Guardar cambios sin marcarla como revisada
               </button>
             )}
             <p role="status" className={styles.estado}>
               {guardado.estado === "guardado" && estado === "revisada" && (real ? "Guardada como revisada." : "Guardada como revisada (en el ejemplo no se guarda de verdad).")}
+              {guardado.estado === "guardando" && "Guardando…"}
               {guardado.estado === "guardado" && estado !== "revisada" && "Cambios guardados. Sigue pendiente de revisar."}
               {guardado.estado === "sin-cambios" && estado === "revisada" && "Esta factura ya está revisada."}
             </p>
