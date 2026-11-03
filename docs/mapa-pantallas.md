@@ -441,7 +441,7 @@ Se pueden cambiar en la revisión del PR sin rehacer el mapa:
 | 29/10/2026 | DP1 a DP9: opción A en todas | Mireia |
 | 29/10/2026 | Aprobado en el PR #54 con dos cambios: aviso "ticket sin NIF del receptor" y nombre "Ana" | Ana |
 | 29/10/2026 | Propuestas para los pendientes: no volver a subir un archivo repetido (E4), aviso de trimestre desde 15 días antes del cierre (3.5) y .zip generado en el navegador (5.7) | Ana |
-| 30/10/2026 | Unido con la aprobación de Ana; Javier no lo revisó | Equipo |
+| 30/10/2026 | Unido a `main` (PR #54) con la aprobación de Ana | Equipo |
 | 03/11/2026 | Estado actualizado a "Aprobado" en el índice y en la cabecera | Mireia |
 
 ## 10. Fuentes
