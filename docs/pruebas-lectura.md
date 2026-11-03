@@ -1,10 +1,10 @@
 # Prueba de lectura con tickets reales en la web
 
-Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mireia · Última actualización: 03/11/2026 (reenvío de T3)
+Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mireia · Última actualización: 03/11/2026 (resultados de T1, T2 y E5)
 
 Depende de: #19 ([lectura con IA](lectura-ia.md)), #21 (revisar y corregir), #20 (moneda), #13 (login) y el despliegue en Vercel
 
-**Estado:** en curso. **[Confirmado]** El reenvío por correo de T3 y su lectura (03/11/2026, apartados 5 y 6). **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
+**Estado:** en curso. **[Confirmado]** Lectura en la web de los 4 tickets y E5, reenvío por correo de T3, «Listo» tras el PR #90 y Excel del 4.º trimestre (03/11/2026, apartados 4 a 8). **[Confirmado]** Separación entre dos cuentas, subida desde el móvil (T4b) y arrastrando (T1). **[Pendiente]** El resto de la prueba: se hace en la web publicada en Vercel, con sesión iniciada. Hasta que estén rellenas las tablas, no se puede afirmar que la lectura funciona con documentos reales en la web.
 
 Leyenda según la [guía de estilo](guia-estilo.md): **[Confirmado]**, **[Supuesto]**, **[Propuesta]** y **[Pendiente]**. En las tablas de resultados: **Correcto**, **Incorrecto**, **Vacío**, **No aplica**, **No evaluable** y **No probado**.
 
@@ -24,12 +24,12 @@ Rellenar antes de empezar:
 
 | Dato | Valor |
 |---|---|
-| Fecha de la prueba | Reenvío de T3: 03/11/2026. Resto: [Pendiente] |
+| Fecha de la prueba | 03/11/2026 |
 | Dirección de la web (Vercel) | https://gestion-facturas-xi.vercel.app |
 | Versión probada (commit de `main`) | [Pendiente] |
 | Modelo de IA | `gemini-3.5-flash-lite` (el de `lib/lectura/gemini.ts`) |
 | Cuenta A | Correo de Mireia, plan Gratis |
-| Cuenta B (para la separación de datos) | Correo de otra persona del equipo |
+| Cuenta B (para la separación de datos) | Otra cuenta de Mireia, creada el 03/11/2026 con su mismo Gmail y "+prueba" (para la web es otro usuario) |
 | Ordenador y navegador | [Pendiente] |
 | Móvil y navegador | [Pendiente] |
 
@@ -43,6 +43,8 @@ Rellenar antes de empezar:
 | T4b · Foto torcida y con poca luz | `T4b-mercadona-torcida-poca-luz.jpg` | Móvil: botón "Elegir archivos" de Subir, con la imagen guardada en el móvil |
 
 **Aviso:** se suben siempre los archivos tapados del repositorio, nunca tickets con datos personales.
+
+**Aviso:** el 03/11/2026, T1, T2 y E5 los subió un asistente del navegador con copias de las imágenes tapadas con otro nombre (`T1-villaquejida.jpg`, `T2-eroski.jpg`, `E5-aurrera-mxn.jpg`). **[Supuesto]** Son las mismas fotos que las de `tests/tickets/`; podrían estar recomprimidas.
 
 **Aviso:** el botón "Hacer foto" abre directamente la cámara (`capture="environment"`) y no deja elegir una imagen guardada. Por eso T4b entra por "Elegir archivos" desde el móvil, y la cámara se prueba aparte en el apartado 6 con una foto nueva de un ticket en papel sin datos personales.
 
@@ -60,11 +62,11 @@ Se rellena al final.
 
 | Ticket | Aciertos de lectura | Errores señalados para revisar | Recorrido completo | Notas |
 |---|---|---|---|---|
-| T1 · Gasolinera arrugado | No probado | No probado | No probado |  |
-| T2 · Supermercado, varios IVA | No probado | No probado | No probado |  |
-| T3 · PDF en inglés (por correo) | No probado | No probado | No probado |  |
-| T4b · Torcida y con poca luz (móvil) | No probado | No probado | No probado |  |
-| **Total** | **No probado** |  |  |  |
+| T1 · Gasolinera arrugado | 13/13 | Ningún error, ningún aviso | Sí (no entra en el Excel del 4.º trimestre: es de marzo) | Aviso de archivo repetido: correcto |
+| T2 · Supermercado, varios IVA | 17/19 | 0 de 2 | Sí; «Listo» se repitió tras el #90 con T4b. No entra en el Excel del 4.º trimestre (es de 2025) | Fallan el emisor (VEGES) y un dígito del número, sin "Revisar dato" |
+| T3 · PDF en inglés (por correo) | 14/14 | Ningún error, ningún aviso | Sí, incluido el Excel del 4.º trimestre | Reenvío por correo superado |
+| T4b · Torcida y con poca luz | 18/20 | 2 de 2 | Sí | Fecha con día y mes cruzados y NIF vacío; los dos con "Revisar dato" |
+| **Total** | **62/66 (94 %)** | 2 de 4 errores señalados | | Fuera de la web (#19) fue 54/56. Los dos errores de T2 no se señalan |
 
 Referencia fuera de la web (#19, 01/11/2026): 54/56 aciertos (96 %). Fallaron el número de T2 y el NIF del emisor de T4b.
 
@@ -72,93 +74,99 @@ Referencia fuera de la web (#19, 01/11/2026): 54/56 aciertos (96 %). Fallaron el
 
 ### T1 · Gasolinera arrugado
 
+Leído en la web el 03/11/2026, subido con "Elegir archivos" (no arrastrando). Capturas: `tests/resultados-web/T1-1-documento.jpg`, `T1-2-emisor-importes.jpg` y `T1-3-total-categoria.jpg` (ficha entera, sin correcciones). Ningún campo sale con "Revisar dato". No hubo nada que corregir.
+
 | Campo | Valor real | Lectura en la web | ¿Pide revisarlo? | Notas |
 |---|---|---|---|---|
-| Tipo de documento | ticket | No probado | No probado |  |
-| Fecha | 2026-03-07 | No probado | No probado |  |
-| Emisor | E.S. Villaquejida - Sutecal | No probado | No probado | En el #6 cambió una letra |
-| NIF del emisor | B49268071 | No probado | No probado |  |
-| NIF del receptor | No aplica | No probado | No probado |  |
-| Número de factura / ticket | 2023018651 | No probado | No probado |  |
-| IVA 1: tipo (%) | 21 | No probado | No probado |  |
-| IVA 1: base imponible | 88,21 | No probado | No probado |  |
-| IVA 1: cuota | 18,53 | No probado | No probado |  |
+| Tipo de documento | ticket | Correcto | No |  |
+| Fecha | 2026-03-07 | Correcto | No |  |
+| Emisor | E.S. Villaquejida - Sutecal | Correcto | No | Devolvió "E.S. VILLAQUEJIDA - SUTECAL". En el #6 cambió una letra; aquí no |
+| NIF del emisor | B49268071 | Correcto | No |  |
+| NIF del receptor | No aplica | Correcto | No |  |
+| Número de factura / ticket | 2023018651 | Correcto | No |  |
+| IVA 1: tipo (%) | 21 | Correcto | No |  |
+| IVA 1: base imponible | 88,21 | Correcto | No |  |
+| IVA 1: cuota | 18,53 | Correcto | No |  |
 | Base imponible total | 88,21 | No probado | No probado |  |
-| Retención | No aplica | No probado | No probado |  |
-| Total | 106,74 | No probado | No probado |  |
-| Moneda | EUR | No probado | No probado |  |
-| Categoría | Combustible y transporte | No probado | No probado |  |
+| Retención | No aplica | Correcto | No |  |
+| Total | 106,74 | Correcto | No |  |
+| Moneda | EUR | Correcto | No |  |
+| Categoría | Combustible y transporte | Correcto | No |  |
 
 ### T2 · Supermercado con varios tipos de IVA
 
+Leído en la web el 03/11/2026, subido con "Elegir archivos". Capturas: `tests/resultados-web/T2-0-antes-de-corregir.jpg` (parte superior, antes de corregir) y `T2-1` a `T2-3` (ficha ya corregida). La foto está borrosa: el NIF no se puede cotejar del todo en pantalla. Se corrigieron a mano el emisor y el número.
+
 | Campo | Valor real | Lectura en la web | ¿Pide revisarlo? | Notas |
 |---|---|---|---|---|
-| Tipo de documento | ticket | No probado | No probado |  |
-| Fecha | 2025-09-02 | No probado | No probado |  |
-| Emisor | Vego Supermercados S.A.U. | No probado | No probado |  |
-| NIF del emisor | A36651313 | No probado | No probado |  |
-| NIF del receptor | No aplica | No probado | No probado |  |
-| Número de factura / ticket | 132740032509026056 | No probado | No probado | En el #6 y el #19 tomó el número del código de barras |
-| IVA 1: tipo (%) | 10 | No probado | No probado |  |
-| IVA 1: base imponible | 44,58 | No probado | No probado |  |
-| IVA 1: cuota | 4,46 | No probado | No probado |  |
-| IVA 2: tipo (%) | 21 | No probado | No probado |  |
-| IVA 2: base imponible | 10,29 | No probado | No probado |  |
-| IVA 2: cuota | 2,16 | No probado | No probado |  |
-| IVA 3: tipo (%) | 4 | No probado | No probado |  |
-| IVA 3: base imponible | 51,64 | No probado | No probado |  |
-| IVA 3: cuota | 2,07 | No probado | No probado |  |
+| Tipo de documento | ticket | Correcto | No |  |
+| Fecha | 2025-09-02 | Correcto | No |  |
+| Emisor | Vego Supermercados S.A.U. | Incorrecto | No | Leyó "VEGES" en vez de "VEGO". Corregido a mano |
+| NIF del emisor | A36651313 | Correcto | No | Coincide con el valor real validado en el #6, aunque en pantalla se ve borroso |
+| NIF del receptor | No aplica | Correcto | No |  |
+| Número de factura / ticket | 132740032509026056 | Incorrecto | No | Leyó 132740032508026056: un dígito (2508 en vez de 2509). Ya no toma el número del código de barras, como en el #6 y el #19. Corregido a mano |
+| IVA 1: tipo (%) | 10 | Correcto | No |  |
+| IVA 1: base imponible | 44,58 | Correcto | No |  |
+| IVA 1: cuota | 4,46 | Correcto | No |  |
+| IVA 2: tipo (%) | 21 | Correcto | No |  |
+| IVA 2: base imponible | 10,29 | Correcto | No |  |
+| IVA 2: cuota | 2,16 | Correcto | No |  |
+| IVA 3: tipo (%) | 4 | Correcto | No |  |
+| IVA 3: base imponible | 51,64 | Correcto | No |  |
+| IVA 3: cuota | 2,07 | Correcto | No |  |
 | Base imponible total | 106,51 | No probado | No probado |  |
-| Retención | No aplica | No probado | No probado |  |
-| Total | 115,20 | No probado | No probado |  |
-| Moneda | EUR | No probado | No probado |  |
-| Categoría | Alimentación | No probado | No probado |  |
+| Retención | No aplica | Correcto | No |  |
+| Total | 115,20 | Correcto | No | Los tres tipos de IVA suman el total |
+| Moneda | EUR | Correcto | No |  |
+| Categoría | Alimentación | Correcto | No |  |
 
 ### T3 · Factura PDF de suscripción en inglés
 
-Leído en la web el 03/11/2026, tras llegar por correo. Capturas antes de corregir: `T3-revisar-1-documento.jpg` y `T3-revisar-2-emisor.jpg` (carpeta local de Mireia; [Pendiente] subirlas a `tests/resultados-web/`). Sin comprobar: NIF del receptor, retención, categoría y qué campos marca para revisar.
+Leído en la web el 03/11/2026, tras llegar por correo. Capturas: `tests/resultados-web/T3-0-antes-de-corregir-documento.jpg` y `T3-0-antes-de-corregir-emisor.jpg` (antes de corregir) y `T3-1` a `T3-3` (ficha actual; el "Corregido por ti" del emisor viene de la prueba de «Listo», aunque el texto es el original). Ningún campo sale con "Revisar dato".
 
 | Campo | Valor real | Lectura en la web | ¿Pide revisarlo? | Notas |
 |---|---|---|---|---|
-| Tipo de documento | ticket | Correcto | No probado | Sin NIF del receptor se guarda como ticket ([lectura con IA](lectura-ia.md), apartado 4) |
-| Fecha | 2026-10-14 | Correcto | No probado |  |
-| Emisor | Anthropic Ireland, Limited | Correcto | No probado |  |
-| NIF / VAT ID del emisor | IE4276970QH | Correcto | No probado | En pantalla se ve pequeño: cotejado con el valor real, no con el PDF |
-| NIF del receptor | No aplica | No probado | No probado |  |
-| Número de factura | 9BF0758D-8771996 | Correcto | No probado | Igual que el NIF |
-| IVA 1: tipo (%) | 21 | Correcto | No probado |  |
-| IVA 1: base imponible | 18,00 | Correcto | No probado |  |
-| IVA 1: cuota | 3,78 | Correcto | No probado |  |
-| Base imponible total | 18,00 | Correcto | No probado |  |
-| Retención | No aplica | No probado | No probado |  |
-| Total | 21,78 | Correcto | No probado |  |
-| Moneda | EUR | Correcto | No probado |  |
-| Categoría | Software y suscripciones | No probado | No probado | No se vio en la captura |
+| Tipo de documento | ticket | Correcto | No | Sin NIF del receptor se guarda como ticket ([lectura con IA](lectura-ia.md), apartado 4) |
+| Fecha | 2026-10-14 | Correcto | No |  |
+| Emisor | Anthropic Ireland, Limited | Correcto | No |  |
+| NIF / VAT ID del emisor | IE4276970QH | Correcto | No | En pantalla se ve pequeño: cotejado con el valor real, no con el PDF |
+| NIF del receptor | No aplica | Correcto | No |  |
+| Número de factura | 9BF0758D-8771996 | Correcto | No | Igual que el NIF |
+| IVA 1: tipo (%) | 21 | Correcto | No |  |
+| IVA 1: base imponible | 18,00 | Correcto | No |  |
+| IVA 1: cuota | 3,78 | Correcto | No |  |
+| Base imponible total | 18,00 | Correcto | No |  |
+| Retención | No aplica | Correcto | No |  |
+| Total | 21,78 | Correcto | No |  |
+| Moneda | EUR | Correcto | No |  |
+| Categoría | Software y suscripciones | Correcto | No |  |
 
 ### T4b · Foto torcida y con poca luz
 
+Leído en la web el 03/11/2026, subido por Mireia desde el móvil con "Elegir archivos" (el original se guarda con el nombre que le da el móvil, `c8671a73-….jpeg`); la ficha se comprobó después desde el ordenador. Capturas: `tests/resultados-web/T4b-0-antes-de-corregir.jpg`, y `T4b-1` y `T4b-2` (ya corregida con «Listo»).
+
 | Campo | Valor real | Lectura en la web | ¿Pide revisarlo? | Notas |
 |---|---|---|---|---|
-| Tipo de documento | ticket | No probado | No probado |  |
-| Fecha | 2026-10-09 | No probado | No probado | **Trampa:** la marca de la cámara pone 30/10/2026 |
-| Emisor | Mercadona, S.A. | No probado | No probado |  |
-| NIF del emisor | A46103834 | No probado | No probado | En el #6 y el #19 salió vacío: casi no se lee |
-| NIF del receptor | No aplica | No probado | No probado |  |
-| Número de factura / ticket | 2939-017-128100 | No probado | No probado |  |
-| IVA 1: tipo (%) | 4 | No probado | No probado |  |
-| IVA 1: base imponible | 10,66 | No probado | No probado |  |
-| IVA 1: cuota | 0,43 | No probado | No probado |  |
-| IVA 2: tipo (%) | 10 | No probado | No probado |  |
-| IVA 2: base imponible | 29,95 | No probado | No probado |  |
-| IVA 2: cuota | 2,99 | No probado | No probado |  |
-| IVA 3: tipo (%) | 21 | No probado | No probado |  |
-| IVA 3: base imponible | 10,33 | No probado | No probado |  |
-| IVA 3: cuota | 2,17 | No probado | No probado |  |
-| Base imponible total | 50,94 | No probado | No probado |  |
-| Retención | No aplica | No probado | No probado |  |
-| Total | 56,53 | No probado | No probado |  |
-| Moneda | EUR | No probado | No probado |  |
-| Categoría | Alimentación | No probado | No probado |  |
+| Tipo de documento | ticket | Correcto | No |  |
+| Fecha | 2026-10-09 | Incorrecto | Sí | Leyó 10/09/2026: **día y mes cruzados**, como el ticket de Lidl. No usó la marca de la cámara (30/10/2026). La ficha sí la marcó con "Revisar dato". Corregida con «Listo». En AI Studio (#19) la leyó bien |
+| Emisor | Mercadona, S.A. | Correcto | No | Devolvió "MERCADONA" (sin ", S.A."; no cuenta como error según el apartado 3) |
+| NIF del emisor | A46103834 | Vacío | Sí | Sin dato y marcado con "Revisar dato": en esta foto casi no se lee, igual que en el #6 y el #19. No se lo inventó. Corregido con «Listo» |
+| NIF del receptor | No aplica | Correcto | No |  |
+| Número de factura / ticket | 2939-017-128100 | Correcto | No |  |
+| IVA 1: tipo (%) | 4 | Correcto | No |  |
+| IVA 1: base imponible | 10,66 | Correcto | No |  |
+| IVA 1: cuota | 0,43 | Correcto | No |  |
+| IVA 2: tipo (%) | 10 | Correcto | No |  |
+| IVA 2: base imponible | 29,95 | Correcto | No |  |
+| IVA 2: cuota | 2,99 | Correcto | No |  |
+| IVA 3: tipo (%) | 21 | Correcto | No |  |
+| IVA 3: base imponible | 10,33 | Correcto | No |  |
+| IVA 3: cuota | 2,17 | Correcto | No |  |
+| Base imponible total | 50,94 | Correcto | No |  |
+| Retención | No aplica | Correcto | No |  |
+| Total | 56,53 | Correcto | No |  |
+| Moneda | EUR | Correcto | No |  |
+| Categoría | Alimentación | Correcto | No |  |
 
 ## 6. Recorrido en la web
 
@@ -166,14 +174,14 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Paso | Cómo se comprueba | T1 | T2 | T3 | T4b | Notas |
 |---|---|---|---|---|---|---|
-| Subida | El documento entra por la vía del apartado 2 sin errores | No probado | No probado | Correcto | No probado | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento |
+| Subida | El documento entra por la vía del apartado 2 sin errores | Correcto | Correcto | Correcto | Correcto | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento. T1 y T2 (03/11/2026): subidos con "Elegir archivos". T1 se volvió a subir **arrastrándolo** a la zona de Subir: llega bien y sale el aviso de repetido, aunque el archivo tenía otro nombre (compara el contenido, no el nombre). Captura: `tests/resultados-web/T1-arrastrar-repetido.jpg`, con la dirección de reenvío pixelada. T4b: subido desde el móvil, como prevé el apartado 2. |
 | Tiempo de lectura | Segundos desde que se sube hasta ver la ficha | No probado | No probado | No probado | No probado |  |
-| Uso del plan | El contador de Subir ("X de 10 documentos este mes") sube 1 | No probado | No probado | No probado | No probado |  |
-| Original junto a los datos | Revisar enseña la imagen o el PDF al lado de los datos y "Ver original en grande" lo abre | No probado | No probado | No probado | No probado |  |
-| Corrección | Corregir un dato (el que salió mal o, si no hay, la categoría), pulsar "Listo" y comprobar al volver a abrir que se ha guardado | No probado | No probado | Incorrecto | No probado | T3: al pulsar «Listo» sale «Corregido por ti», pero al salir y volver el cambio se ha perdido, sin aviso. Solo se guarda con «Guardar cambios sin marcarla como revisada» o «Guardar como revisada». Ver apartado 9 |
-| Mis gastos | Aparece en la lista con su total y su estado | No probado | No probado | Correcto | No probado | T3: «Anthropic Ireland, Limited · 14/10/2026 · 21,78 € · Pendiente de revisar», con la etiqueta «Llegó por correo». Se guarda como ticket por la regla de [lectura con IA](lectura-ia.md), apartado 4 (no trae NIF del receptor) |
-| Duplicado | Subir otra vez el mismo archivo: avisa y no gasta lectura | No probado | No probado | No probado | No probado | T3 por correo: reenviar el mismo PDF mientras la primera copia está guardada no crea otro documento (la huella lo reconoce), pero **no avisa**: el webhook responde 200 y el usuario no ve nada. Al borrar la primera copia, sí entra. Ver apartado 9. Falta probarlo por Subir |
-| Excel | Exportar el periodo del ticket: sale una fila por tipo de IVA, con los datos corregidos y el nombre del original | No probado | No probado | No probado | No probado |  |
+| Uso del plan | El contador de Subir ("X de 10 documentos este mes") sube 1 | Correcto | Correcto | No probado | No probado | Marca 5 de 10 con 4 documentos en la lista: cuenta también el T3 que se borró. Es lo previsto: el contador solo sube (`uso_mensual`, #31), así que borrar no devuelve la lectura. |
+| Original junto a los datos | Revisar enseña la imagen o el PDF al lado de los datos y "Ver original en grande" lo abre | Correcto | Correcto | Correcto | Correcto | Se ve en todas las capturas, con el enlace "Ver original en grande". |
+| Corrección | Corregir un dato, pulsar «Listo» y comprobar al volver a abrir que se ha guardado | No probado | Incorrecto (prueba anterior a #90) | Incorrecto (prueba anterior a #90) | Correcto | T2: «Listo» no guardaba el emisor corregido; con «Guardar cambios» sí. T3: «Listo» mostraba «Corregido por ti», pero el cambio se perdía al salir. PR #90 está fusionada y corrige el guardado; falta repetir ambas pruebas en producción. **Tras unir el PR #90 (14:22):** en T4b se corrigieron la fecha y el NIF solo con «Listo», se salió a Mis gastos y al volver seguían guardados, con "Corregido por ti". La ficha, que estaba como revisada, pasó a "Pendiente de revisar", como prevé el #90. |
+| Mis gastos | Aparece en la lista con su total y su estado | Correcto | Correcto | Correcto | Correcto | T3: «Anthropic Ireland, Limited · 14/10/2026 · 21,78 € · Pendiente de revisar», con la etiqueta «Llegó por correo». Se guarda como ticket por la regla de [lectura con IA](lectura-ia.md), apartado 4 (no trae NIF del receptor) |
+| Duplicado | Subir otra vez el mismo archivo: avisa y no gasta lectura | Correcto | No probado | No probado | No probado | T1: al repetir la subida con «Elegir archivos», aparece el aviso de archivo repetido y no consume lectura. Queda debajo del área visible; la PR #93 incorpora el desplazamiento automático para mostrar el resultado. T3 por correo: el webhook descarta el adjunto repetido y responde 200, pero no avisa al usuario; no duplica ni consume lectura. «Posibles duplicados» sigue en 0, correctamente: ese contador corresponde a facturas iguales en archivos distintos. |
+| Excel | Exportar el periodo del ticket: sale una fila por tipo de IVA, con los datos corregidos y el nombre del original | No probado | No probado | Correcto | Correcto | Resumen de Exportar (03/11/2026): 4.º trimestre de 2026, 1 documento, 21,78 €; año 2026, 2 documentos, 128,52 €; año 2025, 1 documento, 115,20 €; año 2024, 1 documento, 34,13 €. Los tickets son de tres años distintos, así que hay que exportar cada periodo. Captura del 4.º trimestre de 2026: `tests/resultados-web/Exportar-4T-2026.jpg` (1 documento, 21,78 €, 1 sin tus datos fiscales, 1 pendiente de revisar). Mis gastos: `Gastos-1-resumen.jpg` y `Gastos-2-lista.jpg` (4 pendientes, 0 posibles duplicados, los 4 documentos con su total). **[Pendiente]** Descargar el Excel y comprobar las filas. Excel del 4.º trimestre de 2026 descargado (`Ticketon_gastos_2026-T4.xlsx`; no se sube al repositorio porque el resumen lleva el correo de la titular): 2 documentos, 78,31 €. T4b ocupa tres filas (4 %: 10,66 + 0,43; 10 %: 29,95 + 2,99; 21 %: 10,33 + 2,17) con la fecha y el NIF corregidos, y el total 56,53 € solo en la primera; T3 una fila de 21,78 €. Resumen por tipo: 21 % 28,33 + 5,95; 10 % 29,95 + 2,99; 4 % 10,66 + 0,43. Cada fila lleva el nombre de su original (`001_2026-10-09_MERCADONA.jpeg`). |
 
 **Cámara del móvil:** hacer una foto nueva con "Hacer foto" a un ticket en papel sin datos personales y comprobar que se sube, se lee y abre su ficha. Solo se comprueba que la vía funciona; su lectura no entra en el resumen porque no hay valor real validado.
 
@@ -185,23 +193,27 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Comprobación | Resultado | Notas |
 |---|---|---|
-| Con la cuenta B, Mis gastos no muestra ningún documento de la cuenta A | No probado |  |
-| Con la cuenta B, abrir la dirección de una ficha de la cuenta A (`/revisar/<id>`) no enseña sus datos ni su original | No probado |  |
-| Con la cuenta B, el Excel no incluye documentos de la cuenta A | No probado |  |
+| Con la cuenta B, Mis gastos no muestra ningún documento de la cuenta A | Correcto | "Todavía no has subido ningún justificante" (`tests/resultados-web/Separacion-1-mis-gastos-vacio.jpg`). Uso del plan: 0 de 10 |
+| Con la cuenta B, abrir la dirección de una ficha de la cuenta A (`/revisar/<id>`) no enseña sus datos ni su original | Correcto | Ficha de T4b: error 404, sin datos ni foto (`Separacion-3-ficha-T4b-404.jpg`). También el enlace directo al original de T4b: 404, sin imagen (`Separacion-4-foto-original-T4b-404.jpg`) |
+| Con la cuenta B, el Excel no incluye documentos de la cuenta A | Correcto | Exportar, 4.º trimestre de 2026: "No hay gastos en este periodo" (`Separacion-2-exportar-4T-2026-vacio.jpg`). La cuenta B tiene su propia dirección de reenvío y solo su correo como autorizado |
 | Un correo reenviado desde una dirección no autorizada no se guarda en ninguna cuenta | No probado |  |
 
+**Límite:** se comprobaron Mis gastos, Exportar y la ficha y el original de T4b; no el resto de documentos ni todas las rutas. No sustituye a una revisión de seguridad.
+
 ## 8. Prueba adicional: otra moneda
+
+Leído en la web el 03/11/2026, subido con "Elegir archivos". Capturas: `tests/resultados-web/E5-0-antes-del-tipo-de-cambio.jpg` y `E5-1` a `E5-4` (con el tipo de cambio ya aceptado). Avisos de la ficha: "Las cuentas no cuadran" y "Factura en MXN: falta el tipo de cambio".
 
 **[Propuesta]** T3 está en euros, así que ninguno de los cuatro tickets prueba la conversión que pide el enunciado. Se añade E5 (`extra-bodega-aurrera-mxn.jpg`, pesos mexicanos), subido desde el ordenador.
 
 | Campo | Valor real | Resultado en la web | Notas |
 |---|---|---|---|
-| Moneda | MXN | No probado | **Trampa:** el "$" son pesos, no dólares |
-| Total | 635,02 | No probado |  |
-| Fecha | 2024-01-06 | No probado | 6 de enero, no 1 de junio |
-| IVA 1 (8 %): base y cuota | 323,62 y 25,89 | No probado | **Trampa:** el IEPS no es IVA; en el #6 lo metió como segunda línea |
-| Tipo de cambio propuesto y su fecha | [Pendiente] | No probado | Cambio del BCE del último día publicado antes de la fecha del ticket (#20). Apuntar el que propone la web |
-| Total en euros | [Pendiente] | No probado | Comprobar que es el total por el tipo de cambio |
+| Moneda | MXN | Correcto | **Trampa:** el "$" son pesos, no dólares |
+| Total | 635,02 | Correcto |  |
+| Fecha | 2024-01-06 | Correcto | 6 de enero, no 1 de junio |
+| IVA 1 (8 %): base y cuota | 323,62 y 25,89 | Correcto | Leyó el IVA y **no** metió el IEPS como IVA (en el #6 sí lo hizo). La ficha avisa "Las cuentas no cuadran: bases, cuotas y retención suman 349,51 y el total es 635,02" y marca para revisar las líneas de IVA y el total, porque el total incluye el IEPS y productos sin impuesto: el aviso es razonable |
+| Tipo de cambio propuesto y su fecha | 18,6066 (2024-01-05) | Correcto | El 06/01/2024 fue sábado: toma el viernes. La ficha dice "Tipo oficial del euro del BCE, el mismo que publica el Banco de España, del 05/01/2024"; la web guarda la fuente como "BDE". Al aceptarlo sale "Corregido por ti". Guardado con "Guardar cambios" |
+| Total en euros | 34,13 € | Correcto | 635,02 / 18,6066 |
 
 ### Otros documentos probados
 
@@ -215,10 +227,14 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 
 | Fallo | Ticket | Gravedad | Issue | Estado |
 |---|---|---|---|---|
-| «Listo» no guarda la corrección: se pierde al salir de la ficha, sin aviso. Incumple el apartado 3.4 del [mapa de pantallas](mapa-pantallas.md) ("se guarda en ese momento") y el requisito 4 (corregir en dos clics) | T3 | **Alta:** el usuario cree que ha corregido y pierde el dato | [Pendiente] | `confirmar()` en `Revisar.tsx` solo cambia la pantalla; el guardado está en `guardar()` |
-| La IA cruzó el día y el mes de la fecha (02/10 → 10/02) y no lo marcó para revisar | Lidl (Ana) | Media: fecha mal en el Excel; el trimestre sale vacío | PR #88 | Aviso "día y mes cruzados" en la ficha y regla en la instrucción. **[Pendiente]** Comprobar que no avisa en fechas bien leídas: con la regla del PR, T1 (07/03/2026) y E5 (06/01/2024) sacarían el aviso |
-| «Corregido por ti» se queda aunque se vuelva al valor original | T3 | Baja | [Pendiente] |  |
-| Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura; solo falta el aviso | [Pendiente] abrir issue | **[Propuesta]** Para después de la entrega: enseñar en la pantalla de reenvío "1 adjunto ya guardado antes" |
+| «Listo» no guardaba la corrección: se perdía al salir de la ficha, sin aviso. Incumplía el apartado 3.4 del [mapa de pantallas](mapa-pantallas.md) ("se guarda en ese momento") y el requisito 4 (corregir en dos clics) | T2 y T3 | **Alta:** la persona cree que ha corregido y puede perder el dato | PR #90 (fusionada) | `confirmar()` en `Revisar.tsx` solo cambiaba la pantalla. La PR #90 hace que «Listo» guarde en ese momento, avisa al salir con cambios sin guardar y devuelve a pendiente una ficha revisada cuando se corrige. **[Pendiente]** Repetir las pruebas de T2 y T3 en producción tras la fusión de #90. |
+| La IA cruzó el día y el mes de la fecha (02/10 → 10/02) y no lo marcó para revisar | Lidl (Ana) | Media: fecha mal en el Excel; el trimestre sale vacío | PR #88 | Aviso "día y mes cruzados" en la ficha y regla en la instrucción. Solo avisa si la fecha cruzada cae en los 90 días anteriores a la subida (`documentos.subido_en`). Comprobado con las fechas reales: T1, T2, T3, T4b y E5 no avisan; el Lidl mal leído sí |
+| «Corregido por ti» se queda aunque se vuelva al valor original | T3 | Baja | PR #90 (unido) | Se quita si el dato vuelve al valor que tenía al abrir la ficha |
+| T2: emisor "VEGES" en vez de "VEGO" y un dígito del número (2508 en vez de 2509), sin marcarlos para revisar | T2 | Baja: se corrige en la ficha | — | Foto borrosa. La pantalla Revisar enseña el original al lado para comprobarlo. Como en el #19, la IA no avisa de sus propios errores |
+| "Con avisos" de Mis gastos no coincide con los avisos de la ficha ni del Excel | E5 y T4b | Baja | — | Mis gastos solo cuenta duplicado, moneda sin convertir y lectura fallida (`lib/gastos/listado.ts`), a propósito. En cambio, el Excel cuenta "Sin NIF del receptor" ("Documentos con avisos: 2") y la ficha de E5 avisa "Las cuentas no cuadran". **[Propuesta]** Después de la entrega, usar el mismo criterio o cambiar el nombre del filtro |
+| T4b aparecía como "Revisada" sin que Mireia la marcara | T4b | **[Pendiente]** confirmar | — | La web permite guardarla como revisada con avisos (solo exige fecha, emisor, total y categoría), así que puede ser una prueba de otra persona. Preguntar al equipo |
+| El aviso de archivo repetido queda abajo de la pantalla y hay que bajar para verlo | T1 | Baja: el aviso sale y funciona; se puede pasar por alto | PR #93 | Al añadir un archivo, la pantalla baja sola hasta el resultado |
+| Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura | [Aplazado] | Se descarta sin duplicar ni consumir lectura; el aviso en la pantalla de reenvío queda como mejora posterior. |
 | [Pendiente] |  |  |  |  |
 
 ## 10. Conclusión
