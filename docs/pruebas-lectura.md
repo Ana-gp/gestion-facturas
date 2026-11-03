@@ -1,6 +1,6 @@
 # Prueba de lectura con tickets reales en la web
 
-Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mireia · Última actualización: 03/11/2026 (reenvío de T3)
+Tarea: #28 (orden 31) · Bloque 3 (revisión y exportación) · Responsable: Mireia · Última actualización: 03/11/2026 (resultados de T1, T2 y E5)
 
 Depende de: #19 ([lectura con IA](lectura-ia.md)), #21 (revisar y corregir), #20 (moneda), #13 (login) y el despliegue en Vercel
 
@@ -63,8 +63,8 @@ Se rellena al final.
 | Ticket | Aciertos de lectura | Errores señalados para revisar | Recorrido completo | Notas |
 |---|---|---|---|---|
 | T1 · Gasolinera arrugado | 13/13 | Ningún error, ningún aviso | No: faltan arrastrar y el Excel | Aviso de archivo repetido: correcto |
-| T2 · Supermercado, varios IVA | 17/19 | 0 de 2 | No: «Listo» no guarda (PR #90) y falta el Excel | Fallan el emisor (VEGES) y un dígito del número, sin "Revisar dato" |
-| T3 · PDF en inglés (por correo) | 14/14 | Ningún error, ningún aviso | No: «Listo» no guarda (PR #90) y falta el Excel | Reenvío por correo superado |
+| T2 · Supermercado, varios IVA | 17/19 | 0 de 2 | No: falta repetir la corrección (PR #90, unido) y el Excel | Fallan el emisor (VEGES) y un dígito del número, sin "Revisar dato" |
+| T3 · PDF en inglés (por correo) | 14/14 | Ningún error, ningún aviso | No: falta repetir la corrección (PR #90, unido) y el Excel | Reenvío por correo superado |
 | T4b · Torcida y con poca luz (móvil) | No probado | No probado | No probado |  |
 | **Total** | **44/46 hasta ahora (96 %)**; falta T4b |  |  |  |
 
@@ -102,7 +102,7 @@ Leído en la web el 03/11/2026, subido con "Elegir archivos". Capturas: `tests/r
 | Tipo de documento | ticket | Correcto | No |  |
 | Fecha | 2025-09-02 | Correcto | No |  |
 | Emisor | Vego Supermercados S.A.U. | Incorrecto | No | Leyó "VEGES" en vez de "VEGO". Corregido a mano |
-| NIF del emisor | A36651313 | Correcto | No | En pantalla se ve borroso: podría haber un 8, sin confirmar |
+| NIF del emisor | A36651313 | Correcto | No | Coincide con el valor real validado en el #6, aunque en pantalla se ve borroso |
 | NIF del receptor | No aplica | Correcto | No |  |
 | Número de factura / ticket | 132740032509026056 | Incorrecto | No | Leyó 132740032508026056: un dígito (2508 en vez de 2509). Ya no toma el número del código de barras, como en el #6 y el #19. Corregido a mano |
 | IVA 1: tipo (%) | 10 | Correcto | No |  |
@@ -172,13 +172,13 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Paso | Cómo se comprueba | T1 | T2 | T3 | T4b | Notas |
 |---|---|---|---|---|---|---|
-| Subida | El documento entra por la vía del apartado 2 sin errores | Correcto | Correcto | Correcto | No probado | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento T1 y T2 (03/11/2026): subidos con "Elegir archivos"; T1 no se probó arrastrando. |
+| Subida | El documento entra por la vía del apartado 2 sin errores | Correcto | Correcto | Correcto | No probado | T3 (03/11/2026): reenviado con «Reenviar» desde el correo de la cuenta A. Resend lo recibió con el PDF adjunto y el webhook respondió 200 `{"ok":true}` al primer intento. T1 y T2 (03/11/2026): subidos con "Elegir archivos"; T1 no se probó arrastrando. |
 | Tiempo de lectura | Segundos desde que se sube hasta ver la ficha | No probado | No probado | No probado | No probado |  |
 | Uso del plan | El contador de Subir ("X de 10 documentos este mes") sube 1 | Correcto | Correcto | No probado | No probado | Marca 5 de 10 con 4 documentos en la lista: cuenta también el T3 que se borró. Es lo previsto: el contador solo sube (`uso_mensual`, #31), así que borrar no devuelve la lectura. |
 | Original junto a los datos | Revisar enseña la imagen o el PDF al lado de los datos y "Ver original en grande" lo abre | No probado | No probado | No probado | No probado |  |
-| Corrección | Corregir un dato (el que salió mal o, si no hay, la categoría), pulsar "Listo" y comprobar al volver a abrir que se ha guardado | No probado | Incorrecto | Incorrecto | No probado | T3: al pulsar «Listo» sale «Corregido por ti», pero al salir y volver el cambio se ha perdido, sin aviso. Solo se guarda con «Guardar cambios sin marcarla como revisada» o «Guardar como revisada». Ver apartado 9 T2: igual que en T3, «Listo» no guarda el emisor corregido; con «Guardar cambios» sí. Lo arregla el PR #90. |
+| Corrección | Corregir un dato (el que salió mal o, si no hay, la categoría), pulsar "Listo" y comprobar al volver a abrir que se ha guardado | No probado | Incorrecto | Incorrecto | No probado | T3: al pulsar «Listo» sale «Corregido por ti», pero al salir y volver el cambio se ha perdido, sin aviso. Solo se guarda con «Guardar cambios sin marcarla como revisada» o «Guardar como revisada». Ver apartado 9. T2: igual que en T3, «Listo» no guardó el emisor corregido; con «Guardar cambios» sí. Arreglado en el PR #90, ya unido: falta repetir la prueba de T3. |
 | Mis gastos | Aparece en la lista con su total y su estado | Correcto | Correcto | Correcto | No probado | T3: «Anthropic Ireland, Limited · 14/10/2026 · 21,78 € · Pendiente de revisar», con la etiqueta «Llegó por correo». Se guarda como ticket por la regla de [lectura con IA](lectura-ia.md), apartado 4 (no trae NIF del receptor) |
-| Duplicado | Subir otra vez el mismo archivo: avisa y no gasta lectura | Correcto | No probado | No probado | No probado | T3 por correo: reenviar el mismo PDF mientras la primera copia está guardada no crea otro documento (la huella lo reconoce), pero **no avisa**: el webhook responde 200 y el usuario no ve nada. Al borrar la primera copia, sí entra. Ver apartado 9. Falta probarlo por Subir T1 (03/11/2026): subido otra vez con "Elegir archivos": sale "Ya subiste este archivo el 03/11/2026. No se ha vuelto a subir ni ha gastado lectura. Ver el documento" (`tests/resultados-web/Repetido-T1-aviso.jpg`, con la dirección de reenvío pixelada). "Posibles duplicados" sigue en 0, como debe: ese contador es para facturas iguales en archivos distintos. |
+| Duplicado | Subir otra vez el mismo archivo: avisa y no gasta lectura | Correcto | No probado | No probado | No probado | T3 por correo: reenviar el mismo PDF mientras la primera copia está guardada no crea otro documento (la huella lo reconoce), pero **no avisa**: el webhook responde 200 y el usuario no ve nada. Al borrar la primera copia, sí entra. Ver apartado 9. T1 por Subir (03/11/2026): subido otra vez con "Elegir archivos": sale "Ya subiste este archivo el 03/11/2026. No se ha vuelto a subir ni ha gastado lectura. Ver el documento" (`tests/resultados-web/Repetido-T1-aviso.jpg`, con la dirección de reenvío pixelada). El aviso queda abajo de la pantalla y hay que bajar para verlo (apartado 9). "Posibles duplicados" sigue en 0, como debe: ese contador es para facturas iguales en archivos distintos. |
 | Excel | Exportar el periodo del ticket: sale una fila por tipo de IVA, con los datos corregidos y el nombre del original | No probado | No probado | No probado | No probado | Resumen de Exportar (03/11/2026): 4.º trimestre de 2026, 1 documento, 21,78 €; año 2026, 2 documentos, 128,52 €; año 2025, 1 documento, 115,20 €; año 2024, 1 documento, 34,13 €. Los tickets son de tres años distintos, así que hay que exportar cada periodo. Captura del 4.º trimestre de 2026: `tests/resultados-web/Exportar-4T-2026.jpg` (1 documento, 21,78 €, 1 sin tus datos fiscales, 1 pendiente de revisar). Mis gastos: `Gastos-1-resumen.jpg` y `Gastos-2-lista.jpg` (4 pendientes, 0 posibles duplicados, los 4 documentos con su total). **[Pendiente]** Descargar el Excel y comprobar las filas. |
 
 **Cámara del móvil:** hacer una foto nueva con "Hacer foto" a un ticket en papel sin datos personales y comprobar que se sube, se lee y abre su ficha. Solo se comprueba que la vía funciona; su lectura no entra en el resumen porque no hay valor real validado.
@@ -208,7 +208,7 @@ Leído en la web el 03/11/2026, subido con "Elegir archivos". Capturas: `tests/r
 | Total | 635,02 | Correcto |  |
 | Fecha | 2024-01-06 | Correcto | 6 de enero, no 1 de junio |
 | IVA 1 (8 %): base y cuota | 323,62 y 25,89 | Correcto | Leyó el IVA y **no** metió el IEPS como IVA (en el #6 sí lo hizo). La ficha avisa "Las cuentas no cuadran: bases, cuotas y retención suman 349,51 y el total es 635,02" y marca para revisar las líneas de IVA y el total, porque el total incluye el IEPS y productos sin impuesto: el aviso es razonable |
-| Tipo de cambio propuesto y su fecha | 18,6066 (2024-01-05) | Correcto | El 06/01/2024 fue sábado: toma el viernes. La ficha dice "Tipo oficial del euro del BCE, el mismo que publica el Banco de España, del 05/01/2024". Al aceptarlo sale "Corregido por ti". Guardado con "Guardar cambios" |
+| Tipo de cambio propuesto y su fecha | 18,6066 (2024-01-05) | Correcto | El 06/01/2024 fue sábado: toma el viernes. La ficha dice "Tipo oficial del euro del BCE, el mismo que publica el Banco de España, del 05/01/2024"; la web guarda la fuente como "BDE". Al aceptarlo sale "Corregido por ti". Guardado con "Guardar cambios" |
 | Total en euros | 34,13 € | Correcto | 635,02 / 18,6066 |
 
 ### Otros documentos probados
@@ -223,11 +223,12 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 
 | Fallo | Ticket | Gravedad | Issue | Estado |
 |---|---|---|---|---|
-| «Listo» no guarda la corrección: se pierde al salir de la ficha, sin aviso. Incumple el apartado 3.4 del [mapa de pantallas](mapa-pantallas.md) ("se guarda en ese momento") y el requisito 4 (corregir en dos clics) | T3 | **Alta:** el usuario cree que ha corregido y pierde el dato | PR #90 | `confirmar()` en `Revisar.tsx` solo cambiaba la pantalla. Con el #90, «Listo» guarda en ese momento, avisa al salir con algo sin guardar y una ficha revisada vuelve a pendiente al corregirla. **[Pendiente]** Repetir la prueba de T3 cuando se una |
+| «Listo» no guarda la corrección: se pierde al salir de la ficha, sin aviso. Incumple el apartado 3.4 del [mapa de pantallas](mapa-pantallas.md) ("se guarda en ese momento") y el requisito 4 (corregir en dos clics) | T3 | **Alta:** el usuario cree que ha corregido y pierde el dato | PR #90 (unido) | **Falta repetir la prueba de T3.** `confirmar()` en `Revisar.tsx` solo cambiaba la pantalla. Con el #90, «Listo» guarda en ese momento, avisa al salir con algo sin guardar y una ficha revisada vuelve a pendiente al corregirla. **[Pendiente]** Repetir la prueba de T3 cuando se una |
 | La IA cruzó el día y el mes de la fecha (02/10 → 10/02) y no lo marcó para revisar | Lidl (Ana) | Media: fecha mal en el Excel; el trimestre sale vacío | PR #88 | Aviso "día y mes cruzados" en la ficha y regla en la instrucción. Solo avisa si la fecha cruzada cae en los 90 días anteriores a la subida (`documentos.subido_en`). Comprobado con las fechas reales: T1, T2, T3, T4b y E5 no avisan; el Lidl mal leído sí |
-| «Corregido por ti» se queda aunque se vuelva al valor original | T3 | Baja | PR #90 | Se quita si el dato vuelve al valor que tenía al abrir la ficha |
+| «Corregido por ti» se queda aunque se vuelva al valor original | T3 | Baja | PR #90 (unido) | Se quita si el dato vuelve al valor que tenía al abrir la ficha |
 | T2: emisor "VEGES" en vez de "VEGO" y un dígito del número (2508 en vez de 2509), sin marcarlos para revisar | T2 | Baja: se corrige en la ficha | — | Foto borrosa. La pantalla Revisar enseña el original al lado para comprobarlo. Como en el #19, la IA no avisa de sus propios errores |
 | "Con avisos" de Mis gastos no cuenta "Las cuentas no cuadran" | E5 | Baja | — | Es lo previsto en `lib/gastos/listado.ts` (solo duplicado, moneda sin convertir y lectura fallida). **[Propuesta]** Valorar incluirlo después de la entrega |
+| El aviso de archivo repetido queda abajo de la pantalla y hay que bajar para verlo | T1 | Baja: el aviso sale y funciona; se puede pasar por alto | PR #93 | Al añadir un archivo, la pantalla baja sola hasta el resultado |
 | Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura; solo falta el aviso | [Pendiente] abrir issue | **[Propuesta]** Para después de la entrega: enseñar en la pantalla de reenvío "1 adjunto ya guardado antes" |
 | [Pendiente] |  |  |  |  |
 
