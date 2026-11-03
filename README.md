@@ -11,7 +11,8 @@ Aplicación web por suscripción para que autónomos organicen sus tickets y fac
 - Para probarla: **Crear cuenta** con un correo y una contraseña de 8 caracteres o más. En la demo no se pide confirmar el correo ([arquitectura](docs/arquitectura.md), apartado 7, punto 11).
 - **Solo documentos de prueba o con los datos tapados**: la lectura usa la clave gratuita de Gemini ([puesta en marcha](docs/supabase.md), apartado 2). Hay tickets de prueba en `tests/tickets/`.
 - Recorrido: Subir (foto, arrastrar o elegir archivos, o reenviar por correo a la dirección que sale en Subir) → lectura con IA → Revisar y corregir junto al original → Mis gastos → Exportar el Excel del periodo para la gestoría.
-- Probado en producción el 03/11/2026: registro, entrar, subir, aviso de archivo repetido, reenvío por correo, lectura con IA, corrección, tipo de cambio y Excel. La prueba con los 4 tickets del enunciado y dos cuentas está en [pruebas-lectura.md](docs/pruebas-lectura.md) (#28).
+- Probado en producción el 03/11/2026: registro, entrar, subir, aviso de archivo repetido, reenvío por correo, lectura con IA, tipo de cambio y Excel. Corrección: se guarda con «Guardar como revisada» o «Guardar cambios»; «Listo» todavía no guardaba el dato (fallo de la prueba de T3, arreglo en el PR #90).
+- Las variables de entorno solo están en Production: las vistas previas de los PR (Preview) no tienen las claves y el registro da error en ellas. Para probar, usar la web publicada. [Propuesta] Añadirlas también a Preview después de la entrega. La prueba con los 4 tickets del enunciado y dos cuentas está en [pruebas-lectura.md](docs/pruebas-lectura.md) (#28).
 
 ## Equipo
 
