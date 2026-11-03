@@ -513,3 +513,4 @@
 }
 
 .logoIcon{display:block;width:34px;height:34px;flex:0 0 34px;padding:7px;border-radius:9px;background:var(--azul);color:#fff;fill:currentColor;stroke:currentColor;stroke-width:0}.logoIcon path+path{fill:none;stroke:#fff;stroke-width:1.4}.legalNav{display:flex;flex-wrap:wrap;gap:18px}.legalNav a{color:var(--gris);font-size:.86rem;text-decoration:none}.legalNav a:hover{color:var(--azul)}
+.proximamente{margin:-12px 0 24px;color:#77818d;font-size:.82rem;line-height:1.5}
