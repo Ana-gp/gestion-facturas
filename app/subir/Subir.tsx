@@ -75,6 +75,18 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
     };
   }, []);
   const [elementos, setElementos] = useState<Elemento[]>([]);
+  // Al añadir archivos, la pantalla baja hasta «Subiendo y leyendo»: en el
+  // móvil queda debajo de las formas de subir y el resultado (por ejemplo,
+  // «archivo repetido») pasaba desapercibido (prueba de Mireia, 03/11/2026).
+  const progreso = useRef<HTMLElement>(null);
+  const cuantos = useRef(0);
+  useEffect(() => {
+    if (elementos.length > cuantos.current) {
+      const reducido = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      progreso.current?.scrollIntoView({ behavior: reducido ? "auto" : "smooth", block: "start" });
+    }
+    cuantos.current = elementos.length;
+  }, [elementos.length]);
   const [usados, setUsados] = useState(uso.usados);
   const [arrastrando, setArrastrando] = useState(false);
   const [copiado, setCopiado] = useState(false);
@@ -244,7 +256,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
         </section>
 
         {elementos.length > 0 && (
-          <section className={styles.progreso} aria-labelledby="titulo-progreso">
+          <section ref={progreso} className={styles.progreso} aria-labelledby="titulo-progreso">
             <h2 id="titulo-progreso" className={styles.subtitulo}>
               Subiendo y leyendo
             </h2>
