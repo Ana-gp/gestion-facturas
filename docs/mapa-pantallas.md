@@ -1,9 +1,9 @@
 # 10 · Mapa de pantallas y flujos de usuario
 
-Tarea: #8 (orden 10) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 29/10/2026
+Tarea: #8 (orden 10) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 03/11/2026
 Depende de: #2 (público objetivo) y #7 (funciones adicionales). Usa también #5 (arquitectura), #29 (modelo de datos), #3 (modelo de negocio) y #4 (normativa) · Alimenta: #9 (requisitos de diseño) y #11 (prototipo)
 
-**Estado:** **[Propuesta]**. Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Aprobado por Ana el 29/10/2026 en el PR #54, con dos cambios incorporados el mismo día (apartado 9). Pendiente de la revisión de Javier. No hay ninguna pantalla construida: este documento dice *qué pantallas habrá y cómo se pasa de una a otra*, no cómo se ven ni que funcionen.
+**Estado:** Aprobado (PR #54, 30/10/2026). Las nueve decisiones del apartado 6 las tomó Mireia el 29/10/2026, eligiendo la opción recomendada en todas. Aprobado por Ana el 29/10/2026 en el PR #54, con dos cambios incorporados el mismo día (apartado 9), y unido a `main` el 30/10/2026. Este documento dice *qué pantallas hay y cómo se pasa de una a otra*, no cómo se ven (eso es el diseño, #9 y #11) ni cómo están programadas.
 
 Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
@@ -441,7 +441,8 @@ Se pueden cambiar en la revisión del PR sin rehacer el mapa:
 | 29/10/2026 | DP1 a DP9: opción A en todas | Mireia |
 | 29/10/2026 | Aprobado en el PR #54 con dos cambios: aviso "ticket sin NIF del receptor" y nombre "Ana" | Ana |
 | 29/10/2026 | Propuestas para los pendientes: no volver a subir un archivo repetido (E4), aviso de trimestre desde 15 días antes del cierre (3.5) y .zip generado en el navegador (5.7) | Ana |
-| [Pendiente] | Revisión | Javier |
+| 30/10/2026 | Unido a `main` (PR #54) con la aprobación de Ana | Equipo |
+| 03/11/2026 | Estado actualizado a "Aprobado" en el índice y en la cabecera | Mireia |
 
 ## 10. Fuentes
 
