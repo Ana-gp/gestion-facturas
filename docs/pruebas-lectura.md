@@ -265,4 +265,5 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 - No se ha probado en la web el duplicado entre dos fotos distintas del mismo ticket (solo con el mismo archivo y con las pruebas automáticas).
 - Tampoco el correo de un remitente no autorizado, el tiempo de lectura ni Android.
 - Es una sola prueba, con un ticket de cada tipo: no mide la precisión con muchos documentos.
+- T4b apareció como «Revisada» sin que Mireia la marcara. La web solo lo hace con «Guardar como revisada»; **[Supuesto]** lo pulsó el asistente del navegador que hizo parte de la subida. Sin confirmar (apartado 9).
 - Quedan para después de la entrega las mejoras del apartado 9.
