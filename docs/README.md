@@ -15,7 +15,7 @@
 | [Puesta en marcha de Supabase, Gemini y Vercel](supabase.md) | 15 (#18) | Mireia | Aprobado (PR #66); Vercel conectado el 03/11/2026 |
 | [Modelo de negocio, planes y coste por cliente](modelo-negocio.md) | 08 (#3) | Javier | Aprobado |
 | [Normativa aplicable](legal.md) | 09 (#4) | Javier | Aprobado |
-| [Funciones adicionales](funciones.md) | 04 (#7) | Ana | Aprobado |
+| [Funciones adicionales](funciones.md) | 04 (#7) | Ana | Aprobado; estado en la entrega en el apartado 1.1 (03/11/2026) |
 | [Mapa de pantallas y flujos de usuario](mapa-pantallas.md) | 10 (#8) | Mireia | Aprobado (PR #54) |
 | [Prototipo y diseño unificado](prototipo/README.md) | 12 (#11) | Los tres | Diseño unificado del 30/10/2026, con los enlaces de Figma y Stitch |
 | [Ejemplo de exportación a Excel](ejemplo-exportacion.xlsx) | 23 (#23) | Ana | Aprobado (PR #56); decisión de columnas en el issue #23. [Pendiente] Validar con una gestoría |

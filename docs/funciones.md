@@ -1,12 +1,29 @@
 # 04 · Funciones adicionales
 
-Tarea: #7 (orden 04) · Bloque 3 (revisión y exportación) · Responsable: Ana · Última actualización: 29/10/2026
+Tarea: #7 (orden 04) · Bloque 3 (revisión y exportación) · Responsable: Ana · Última actualización: 03/11/2026
 
 **Estado:** **[Propuesta]** de Ana, aceptada por Mireia el 29/10/2026. Pendiente de la confirmación de Javier.
 
 Etiquetas según la [guía de estilo](guia-estilo.md): **[Confirmado]** comprobado en una fuente o en el enunciado · **[Supuesto]** lo damos por bueno para avanzar sin haberlo comprobado · **[Propuesta]** decisión del equipo, se puede cambiar · **[Pendiente]** falta información.
 
 ## 1. Resumen
+
+### 1.1. Qué hay en la web publicada (03/11/2026)
+
+El enunciado dice que las funciones adicionales que se incluyan "tienen que funcionar". Por eso, para la entrega solo se presentan como incluidas las que están construidas y probadas en https://gestion-facturas-xi.vercel.app. El resto de este documento recoge la decisión del 29/10/2026 y queda como plan para después de la entrega.
+
+| Función adicional | Estado en la entrega | Dónde se ve |
+|---|---|---|
+| Instalación en el móvil | **[Confirmado]** Construida (PR #80) | Desde el navegador del móvil: "Añadir a pantalla de inicio" |
+| Aviso de ticket sin NIF del receptor | **[Confirmado]** Construido (PR #55 y #72; #27 cerrada) | Revisar (P10) y Mis gastos (P07) |
+| Aviso de trimestre a punto de cerrar | **[Confirmado]** Construido (PR #58 y #63; #27 cerrada) | Exportar (P13) |
+| Cierre de trimestre (idea propia, planes de pago) | **[Pendiente]** Aplazado para después de la entrega (#50) | Sale como "Próximamente" en Exportar y en Precios |
+| Compartir desde el móvil | **[Pendiente]** Aplazado para después de la entrega (#17) | No está activo. Para pasar un PDF del correo se usa el reenvío (#16), que es la vía obligatoria |
+| Panel con cifras | **[Pendiente]** Aplazado para después de la entrega (#26) | Mis gastos ya enseña tres cifras: pendientes, posibles duplicados y total del trimestre |
+
+Motivo del aplazamiento **[Propuesta]**, decidido por el equipo el 03/11/2026: se dio prioridad a que todo lo obligatorio funcionara y estuviera probado en la web publicada ([prueba de lectura](pruebas-lectura.md), #28). El cierre de trimestre es la función más grande (pantalla de tres pasos y paquete ZIP con los originales) y los planes de pago no están activos; compartir solo funciona en Android.
+
+### 1.2. Decisión del 29/10/2026
 
 | Decisión | Funciones |
 |---|---|
@@ -106,6 +123,7 @@ Planes y precios según el [modelo de negocio](modelo-negocio.md).
 | 29/10/2026 | Propuesta de funciones adicionales | Ana |
 | 29/10/2026 | De acuerdo con el cierre de trimestre como idea propia y fuera del plan gratis, manteniendo el Excel en el gratis; panel para "si da tiempo"; reenvío por correo como vía obligatoria y compartir como extra; avisos dentro de la web | Mireia |
 | [Pendiente] | Confirmación | Javier |
+| 03/11/2026 | Para la entrega, solo se presentan como incluidas las funciones construidas y probadas (apartado 1.1). Cierre de trimestre (#50), compartir desde el móvil (#17) y panel (#26), aplazados para después de la entrega | Equipo |
 
 ## 8. Fuentes
 
