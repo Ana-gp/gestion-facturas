@@ -4,7 +4,7 @@ Tarea: #9 (orden 11) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Ú
 
 **Estado:** **[Propuesta]**. Documento contrastado con el mapa de pantallas aprobado (PR #54, #8) y con las funciones adicionales de `docs/funciones.md` (#7). Pendiente de revisión final del equipo y de comprobar la propuesta visual en el prototipo #11.
 
-Leyenda: **[Confirmado]** requisito respaldado por el enunciado, documentos aprobados o implementación comprobada · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta construir, decidir o validar · **[Aplazado]** decisión explícita del equipo de posponerlo.
+Leyenda: **[Confirmado]** requisito respaldado por el enunciado, documentos aprobados o implementación comprobada · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta construir, decidir o validar. Las funciones pospuestas se identifican como **[Pendiente] Aplazado (#número)**, sin crear una quinta etiqueta.
 
 ## 1. Objetivo y alcance
 
@@ -81,7 +81,7 @@ Explicar en pocas líneas para quién es Ticketon, qué problema resuelve y el r
 
 Mostrar los tres planes (Gratis, Autónomo y Autónomo Plus), precio mensual, límite mensual de lecturas y funciones incluidas. Los precios vigentes en el modelo de negocio siguen siendo provisionales hasta su aprobación definitiva.
 
-Destacar que la instalación en el móvil ya está implementada y que los avisos internos activos están incluidos en todos los planes. El Cierre de trimestre es una función de pago prevista, pero está aplazada y no forma parte del alcance imprescindible actual. En Precios debe aparecer como «Próximamente», sin permitir contratarla todavía. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
+Destacar que la instalación en el móvil ya está implementada y que los avisos internos activos están incluidos en todos los planes. La pantalla y el flujo de cierre de trimestre (P14, #50) están **[Pendiente] Aplazado (#50)** y no forman parte del alcance imprescindible actual; en Precios, esa función puede aparecer como «Próximamente», sin permitir contratarla. Esto no afecta al aviso «Trimestre próximo a cerrar», que sí está implementado en Exportar (PR #58 y #63) y forma parte de los avisos activos de #27. La exportación normal a Excel por periodo sigue disponible en el plan Gratis. No simular un pago o contratación real si no existe.
 
 ### 4.3. P02 · Crear cuenta
 
@@ -196,9 +196,9 @@ Permitir elegir mes, trimestre o año. Mostrar un resumen del periodo: número d
 
 La exportación ordinaria por periodo está disponible en todos los planes, incluido Gratis. El Excel debe respetar las columnas y reglas aprobadas en #23: una fila por cada tipo de IVA cuando corresponda, importes y moneda original, conversión aplicada y estado. No prometer enlaces a originales ni columnas no acordadas.
 
-El estado vacío debe indicar que no hay gastos en el periodo. El acceso al Cierre de trimestre debe identificarse como «Próximamente» mientras siga aplazado, sin activar un flujo inexistente ni bloquear la exportación normal. Tras exportar, mostrar confirmación solo cuando el archivo se haya generado correctamente.
+El estado vacío debe indicar que no hay gastos en el periodo. El acceso a P14 (Cierre de trimestre, #50) debe identificarse como «Próximamente» mientras siga aplazado, sin activar un flujo inexistente ni bloquear la exportación normal. El aviso «Trimestre próximo a cerrar» sí está implementado y debe seguir mostrándose cuando corresponda. Tras exportar, mostrar confirmación solo cuando el archivo se haya generado correctamente.
 
-### 4.15. P14 · Cierre de trimestre [Aplazado]
+### 4.15. P14 · Cierre de trimestre [Pendiente] Aplazado (#50)
 
 Función prevista para los planes Autónomo y Autónomo Plus, pero **aplazada por decisión del equipo**. No forma parte de los imprescindibles actuales ni debe bloquear la revisión o entrega del MVP. En Gratis se muestra bloqueada con una explicación breve y enlace a P01; no se bloquea la exportación normal a Excel.
 
@@ -233,7 +233,7 @@ La pantalla debe estar accesible desde P08 y, cuando se construya P15, también 
 
 Cuando un adjunto se recibe correctamente, debe aparecer en P07 con la etiqueta “Llegó por correo”. Si ya existe por su huella, no debe duplicarse ni volver a leerse. El comportamiento de aviso al usuario ante un adjunto repetido queda como mejora posterior, no como requisito para alterar el resultado de la recepción.
 
-### 4.18. P17 · Panel con cifras [Aplazado]
+### 4.18. P17 · Panel con cifras [Pendiente] Aplazado (#26)
 
 Función aplazada por decisión del equipo. No forma parte de los imprescindibles actuales ni debe retrasar la entrega del MVP. Puede mostrar gasto del mes, gasto por categoría y comparación con el mes anterior, con acceso al listado correspondiente. No debe retrasar ni sustituir Mis gastos, la captura, la revisión o la exportación. El plan en que se incluiría está pendiente de decisión.
 
@@ -243,7 +243,7 @@ Los avisos se muestran dentro de la web, no por correo, según #7.
 
 - **Posible duplicado:** obligatorio; aparece en P07 y P10 y permite comparar en P11.
 - **Ticket sin NIF del receptor:** función adicional incluida en todos los planes; aparece en P07 y P10.
-- **Trimestre próximo a cerrar [Aplazado]:** aviso pospuesto junto con la función #50; no debe tratarse como requisito activo de esta entrega.
+- **Trimestre próximo a cerrar [Confirmado]:** aviso implementado en Exportar mediante PR #58 y #63, y recogido en la issue #27, cerrada. Es un aviso activo; no confundirlo con la pantalla y el flujo P14 de cierre de trimestre (#50), que sí están **[Pendiente] Aplazado (#50)**.
 - **Límite del plan:** informar de lecturas disponibles y qué ocurre al alcanzar el límite. El original se conserva aunque quede pendiente de lectura.
 - **Conversión pendiente:** identificar la factura y el dato que falta; no inventar importes.
 - **Llegó por correo:** etiqueta de procedencia visible en P07.
@@ -297,16 +297,16 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - [ ] En P10, original y datos se ven juntos en móvil y escritorio según el mapa.
 - [ ] Corregir un campo requiere como máximo dos clics: activar el campo y confirmar el dato.
 - [ ] Se distinguen datos extraídos, corregidos y ficha revisada.
-- [ ] Se muestran los avisos de duplicado y ticket sin NIF del receptor. El aviso de trimestre próximo a cerrar queda aplazado junto con #50.
+- [ ] Se muestran los avisos activos de duplicado, ticket sin NIF del receptor y «Trimestre próximo a cerrar» (implementado en Exportar, PR #58 y #63; #27).
 - [ ] El reenvío por correo está diseñado como vía obligatoria, con dirección personal y remitentes autorizados.
 - [ ] La instalación móvil está implementada (PR #80). Compartir desde el móvil (#17) queda aplazado.
-- [ ] El cierre de trimestre (#50) está identificado como aplazado y no se considera imprescindible para esta entrega.
+- [ ] La pantalla y el flujo P14 de cierre de trimestre (#50) están identificados como **[Pendiente] Aplazado (#50)** y no se consideran imprescindibles para esta entrega. El aviso «Trimestre próximo a cerrar» permanece activo.
 - [ ] El panel P17 (#26) está identificado como aplazado y no bloquea el MVP.
 - [ ] Los originales se conservan y pueden recuperarse con permisos.
 - [ ] Los estados de carga, vacío, error y éxito están contemplados.
 - [ ] Los textos no prometen deducibilidad, digitalización certificada ni funciones no implementadas.
 - [ ] La paleta aplicada en la web está marcada como confirmada; tipografía, componentes y accesibilidad se verifican por separado.
-- [ ] El equipo revisa y aprueba este documento antes de cerrar #9 y comenzar el prototipo definitivo.
+- [ ] El equipo revisa y aprueba este documento antes de cerrar #9. El prototipo ya está documentado en la PR #91.
 
 ## 9. Dependencias y decisiones pendientes
 
@@ -321,8 +321,8 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - **#23 · Excel:** respetar las columnas y el tratamiento del original acordados en esa tarea.
 - **#16 · Reenvío por correo:** dirección personal, remitentes autorizados y recepción de adjuntos.
 - **#17 · Compartir desde el móvil:** aplazado por decisión del equipo. La instalación PWA ya está implementada mediante PR #80.
-- **#27 · Avisos:** mantener activos los avisos acordados que no se hayan aplazado; el aviso de trimestre próximo a cerrar queda aplazado.
-- **#50 · Cierre de trimestre:** aplazado por decisión del equipo; no es imprescindible para la entrega actual.
+- **#27 · Avisos:** cerrada. Mantener activos los avisos acordados, incluido «Trimestre próximo a cerrar», implementado en Exportar mediante PR #58 y #63. No confundir este aviso con P14.
+- **#50 · Cierre de trimestre:** la pantalla y el flujo P14 están **[Pendiente] Aplazado (#50)** por decisión del equipo; no son imprescindibles para la entrega actual. El aviso de proximidad al cierre sí está construido y activo.
 - **#24 y #31 · Precios y límites:** no presentar precios, pagos o reglas de cupo como definitivos si siguen pendientes.
 - **Accesibilidad:** verificar contraste, tamaños, teclado y uso real con el prototipo.
 
