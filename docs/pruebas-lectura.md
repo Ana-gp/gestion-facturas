@@ -215,9 +215,9 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 
 | Fallo | Ticket | Gravedad | Issue | Estado |
 |---|---|---|---|---|
-| «Listo» no guarda la corrección: se pierde al salir de la ficha, sin aviso. Incumple el apartado 3.4 del [mapa de pantallas](mapa-pantallas.md) ("se guarda en ese momento") y el requisito 4 (corregir en dos clics) | T3 | **Alta:** el usuario cree que ha corregido y pierde el dato | [Pendiente] | `confirmar()` en `Revisar.tsx` solo cambia la pantalla; el guardado está en `guardar()` |
-| La IA cruzó el día y el mes de la fecha (02/10 → 10/02) y no lo marcó para revisar | Lidl (Ana) | Media: fecha mal en el Excel; el trimestre sale vacío | PR #88 | Aviso "día y mes cruzados" en la ficha y regla en la instrucción. **[Pendiente]** Comprobar que no avisa en fechas bien leídas: con la regla del PR, T1 (07/03/2026) y E5 (06/01/2024) sacarían el aviso |
-| «Corregido por ti» se queda aunque se vuelva al valor original | T3 | Baja | [Pendiente] |  |
+| «Listo» no guarda la corrección: se pierde al salir de la ficha, sin aviso. Incumple el apartado 3.4 del [mapa de pantallas](mapa-pantallas.md) ("se guarda en ese momento") y el requisito 4 (corregir en dos clics) | T3 | **Alta:** el usuario cree que ha corregido y pierde el dato | PR #90 | `confirmar()` en `Revisar.tsx` solo cambiaba la pantalla. Con el #90, «Listo» guarda en ese momento, avisa al salir con algo sin guardar y una ficha revisada vuelve a pendiente al corregirla. **[Pendiente]** Repetir la prueba de T3 cuando se una |
+| La IA cruzó el día y el mes de la fecha (02/10 → 10/02) y no lo marcó para revisar | Lidl (Ana) | Media: fecha mal en el Excel; el trimestre sale vacío | PR #88 | Aviso "día y mes cruzados" en la ficha y regla en la instrucción. Solo avisa si la fecha cruzada cae en los 90 días anteriores a la subida (`documentos.subido_en`). Comprobado con las fechas reales: T1, T2, T3, T4b y E5 no avisan; el Lidl mal leído sí |
+| «Corregido por ti» se queda aunque se vuelva al valor original | T3 | Baja | PR #90 | Se quita si el dato vuelve al valor que tenía al abrir la ficha |
 | Un adjunto repetido por correo se descarta sin avisar al usuario | T3 (correo) | Baja: no se pierde nada ni se gasta lectura; solo falta el aviso | [Pendiente] abrir issue | **[Propuesta]** Para después de la entrega: enseñar en la pantalla de reenvío "1 adjunto ya guardado antes" |
 | [Pendiente] |  |  |  |  |
 
