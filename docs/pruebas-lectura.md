@@ -189,6 +189,14 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 |---|---|---|
 | "Hacer foto" abre la cámara trasera, sube la foto y abre la ficha | No probado |  |
 
+**Instalación en el móvil** (función adicional, PR #80): comprobada el 03/11/2026 por Mireia en un iPhone con Safari ("Compartir" → "Añadir a pantalla de inicio").
+
+| Comprobación | Resultado | Notas |
+|---|---|---|
+| Aparece el icono de Ticketon en la pantalla de inicio | Correcto | Icono azul con el ticket blanco y el nombre "Ticketon" (`tests/resultados-web/Instalacion-1-icono-iphone.jpg`) |
+| Al abrirlo se ve como una app, sin la barra del navegador, y entra en Mis gastos | Correcto | Con la sesión iniciada: 4.º trimestre de 2026, 2 documentos, 78,31 € (`Instalacion-2-app-abierta-iphone.jpg`) |
+| Android (Chrome) | No probado | Ana dejó como supuesto en el #80 que Chrome no exige service worker para instalar |
+
 ## 7. Separación de datos entre cuentas
 
 | Comprobación | Resultado | Notas |
