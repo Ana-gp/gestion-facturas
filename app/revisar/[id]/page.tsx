@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ConNavegacion from "@/app/_componentes/ConNavegacion";
 import { notFound } from "next/navigation";
 import Revisar from "./Revisar";
 import { FICHAS_EJEMPLO } from "@/lib/demo/fichas-ejemplo";
@@ -20,7 +21,12 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export default async function RevisarPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const ejemplo = FICHAS_EJEMPLO.find((f) => f.id === id);
-  if (ejemplo) return <Revisar ficha={ejemplo} datosDeEjemplo />;
+  if (ejemplo)
+    return (
+      <ConNavegacion actual="gastos">
+        <Revisar ficha={ejemplo} datosDeEjemplo />
+      </ConNavegacion>
+    );
 
   if (!UUID.test(id) || !configSupabase()) notFound();
   const supabase = await clienteServidor();
@@ -51,5 +57,9 @@ export default async function RevisarPage({ params }: { params: Promise<{ id: st
     original = enlace?.signedUrl ?? "";
   }
 
-  return <Revisar ficha={fichaDesdeFila(fila, original)} />;
+  return (
+    <ConNavegacion actual="gastos">
+      <Revisar ficha={fichaDesdeFila(fila, original)} />
+    </ConNavegacion>
+  );
 }

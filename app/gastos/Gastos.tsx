@@ -87,29 +87,6 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
 
   return (
     <div className={styles.marco}>
-      <nav className={styles.navegacion} aria-label="Navegación principal">
-        <Link href="/gastos" className={styles.marca}>
-          <span className={styles.logo} aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" />
-              <path d="M9 8h6" />
-              <path d="M9 12h6" />
-            </svg>
-          </span>
-          Ticketon
-        </Link>
-        <div className={styles.enlaces}>
-          <Link href="/gastos" aria-current="page" className={styles.enlaceActual}>
-            Gastos
-          </Link>
-          <Link href="/subir" className={styles.enlace}>
-            Subir
-          </Link>
-          <Link href="/exportar" className={styles.enlace}>
-            Exportar
-          </Link>
-        </div>
-      </nav>
 
       <main className={styles.pagina}>
         <div className={styles.contenido}>
