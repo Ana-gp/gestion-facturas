@@ -24,7 +24,7 @@ Aplicación web por suscripción para que autónomos organicen sus tickets y fac
 
 ## Entregables (milestones)
 1. Documentos MD previos: carpeta [`docs/`](docs/README.md)
-2. Requisitos para el diseño: [mapa de pantallas](docs/mapa-pantallas.md) y requisitos de diseño (#9)
+2. Requisitos para el diseño: [mapa de pantallas](docs/mapa-pantallas.md) y [requisitos de diseño](docs/requisitos-diseno.md)
 3. Prototipo: [diseño unificado y prototipos](docs/prototipo/README.md) (PDF de 21 pantallas, [Figma de Mireia](https://www.figma.com/design/1NQCSZmjxYgBC8g8XcquXp/Ticketon-%E2%80%93-Prototipo--Mireia--%E2%80%93-Issue-11?node-id=0-1) y [Stitch de Javier](https://stitch.google.com/projects/12186838903003075119))
 4. Web funcionando: https://gestion-facturas-xi.vercel.app
 
