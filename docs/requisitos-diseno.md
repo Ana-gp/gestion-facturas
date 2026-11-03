@@ -229,7 +229,7 @@ Mostrar:
 - Instrucciones breves para reenviar desde Gmail u Outlook.
 - Aviso claro de que los correos de remitentes no autorizados se descartan.
 
-La pantalla debe estar accesible desde P08 y P15. No confundir esta vía con una conexión directa a Gmail u Outlook: esas integraciones están descartadas para el MVP.
+La pantalla debe estar accesible desde P08 y, cuando se construya P15, también desde Cuenta. No confundir esta vía con una conexión directa a Gmail u Outlook: esas integraciones están descartadas para el MVP.
 
 Cuando un adjunto se recibe correctamente, debe aparecer en P07 con la etiqueta “Llegó por correo”. Si ya existe por su huella, no debe duplicarse ni volver a leerse. El comportamiento de aviso al usuario ante un adjunto repetido queda como mejora posterior, no como requisito para alterar el resultado de la recepción.
 
@@ -279,7 +279,7 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 4. P13: exportación normal a Excel.
 5. P16: reenvío por correo.
 6. P00, P01 y P06: portada, precios y textos legales.
-8. Estados de error, vacío, carga, archivo repetido, límite y conversión pendiente.
+7. Estados de error, vacío, carga, archivo repetido, límite y conversión pendiente.
 
 **Aplazado por decisión del equipo (no imprescindible para esta entrega):**
 - P14 · Cierre de trimestre (#50).
@@ -311,7 +311,7 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 ## 9. Dependencias y decisiones pendientes
 
 - **#8 · Mapa de pantallas y flujos:** aprobado y unido a `main` mediante PR #54. Este documento sigue sus 18 pantallas P00–P17.
-- **#7 · Funciones adicionales:** documento unido a `main`; recoge instalación móvil y avisos en todos los planes, cierre de trimestre en planes de pago y panel “si da tiempo”. La confirmación final de Javier en ese documento sigue pendiente.
+- **#7 · Funciones adicionales:** documento unido a `main`; recoge la instalación móvil y avisos adicionales. El cierre de trimestre y el panel se mantienen aplazados por la decisión actual del equipo; compartir desde el móvil también queda aplazado.
 - **#11 · Prototipo navegable:** debe comprobar distribución, legibilidad, adaptación móvil/escritorio y requisito de dos clics.
 - **#26 · Panel con cifras:** aplazado por decisión del equipo.
 - **P15 · Cuenta y plan:** pendiente de construcción.
