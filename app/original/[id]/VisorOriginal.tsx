@@ -5,6 +5,7 @@
 // pie «Original guardado tal como se subió · JPG · 296 KB · subido el …».
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./original.module.css";
 
@@ -18,13 +19,47 @@ type Props = {
   pie: string;
   volver: string;
   datosDeEjemplo?: boolean;
+  /** Documento guardado que todavía no tiene factura (lectura pendiente o fallida): se ofrece leerlo con IA. */
+  documentoSinLeer?: string | null;
 };
 
 const MIN = 25;
 const MAX = 400;
 const PASO = 25;
 
-export default function VisorOriginal({ nombreArchivo, resumen, url, urlDescarga, modo, pie, volver, datosDeEjemplo = false }: Props) {
+export default function VisorOriginal({ nombreArchivo, resumen, url, urlDescarga, modo, pie, volver, datosDeEjemplo = false, documentoSinLeer = null }: Props) {
+  const router = useRouter();
+  const [leyendo, setLeyendo] = useState(false);
+  const [errorLectura, setErrorLectura] = useState<string | null>(null);
+
+  // Lectura con IA de un documento que se quedó sin leer (#19). No gasta otra
+  // lectura si ya se contó (reservar_lectura). Al terminar, abre Revisar.
+  async function leer() {
+    if (!documentoSinLeer) return;
+    setLeyendo(true);
+    setErrorLectura(null);
+    try {
+      const respuesta = await fetch("/api/leer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ documentoId: documentoSinLeer }),
+      });
+      const cuerpo = (await respuesta.json().catch(() => ({}))) as { estado?: string; facturaId?: string; mensaje?: string };
+      if (cuerpo.estado === "leido" && cuerpo.facturaId) {
+        router.push(`/revisar/${cuerpo.facturaId}`);
+        return;
+      }
+      setErrorLectura(
+        cuerpo.estado === "sin-lecturas"
+          ? "Ya has usado todas las lecturas de tu plan este mes. El original sigue guardado."
+          : (cuerpo.mensaje ?? "No hemos podido leer este documento. El original está guardado."),
+      );
+    } catch {
+      setErrorLectura("No hay conexión. Inténtalo otra vez.");
+    } finally {
+      setLeyendo(false);
+    }
+  }
   const [zoom, setZoom] = useState(100);
   const [giro, setGiro] = useState(0);
   const conControles = modo === "imagen";
@@ -61,11 +96,22 @@ export default function VisorOriginal({ nombreArchivo, resumen, url, urlDescarga
               </button>
             </>
           )}
+          {documentoSinLeer && (
+            <button type="button" className={styles.leer} onClick={leer} disabled={leyendo}>
+              {leyendo ? "Leyendo…" : "Leer con IA"}
+            </button>
+          )}
           <a href={urlDescarga} download={nombreArchivo} className={styles.descargar}>
             Descargar original
           </a>
         </div>
       </header>
+
+      {documentoSinLeer && (
+        <p className={errorLectura ? styles.avisoError : styles.aviso} role={errorLectura ? "alert" : "status"}>
+          {errorLectura ?? "Este documento todavía no se ha leído. Pulsa «Leer con IA» para sacar sus datos y revisarlos."}
+        </p>
+      )}
 
       {datosDeEjemplo && <p className={styles.ejemplo}>Modo de prueba: es un documento de ejemplo, no uno tuyo.</p>}
 

@@ -130,3 +130,21 @@ h1 {
   outline: 3px solid #8fb4f0;
   outline-offset: 2px;
 }
+
+.boton-secundario {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin: 8px 0 0 8px;
+  padding: 0 22px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.boton-secundario:focus-visible {
+  outline: 3px solid #8fb4f0;
+  outline-offset: 2px;
+}
