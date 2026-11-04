@@ -92,6 +92,18 @@ Un botón, **"Prepara tu entrega a la gestoría"**, que reúne en un solo paso:
 | Kilometraje | Útil solo para algunos autónomos. Para el futuro. |
 | Dietas | Obliga a aplicar reglas fiscales, y la herramienta no decide sobre impuestos. |
 
+### Hoja de ruta después de la entrega **[Propuesta]**
+
+Ideas recogidas en la exposición del 04/11/2026 con el profesor, en el orden en que tendría sentido hacerlas:
+
+| Paso | Qué | Esfuerzo | Qué hace falta |
+|---|---|---|---|
+| 1 | **Dirección de reenvío con dominio propio** (por ejemplo `facturas-xxxx@ticketon.es`). La recepción ya funciona: cada usuario tiene su dirección y, si añade el correo de un proveedor en «Correos autorizados», sus facturas entran solas en Ticketon. Solo cambia la dirección, que hoy termina en `resend.app` | Bajo | Comprar el dominio y configurarlo en Resend **[Pendiente]** |
+| 2 | **Exportar en el formato que importa cada programa de contabilidad**, además del Excel, para que la gestoría lo cargue sin teclear | Medio, por programa | Saber qué programas usan las gestorías del público objetivo y su formato de importación **[Pendiente]** |
+| 3 | **Conexión directa con uno o dos programas** (Holded, A3, Sage), dentro de un plan para gestorías | Alto | Cuenta de desarrollador y permisos de cada programa; decidir el plan y su precio **[Pendiente]** |
+
+Mientras tanto, la conexión con el programa de contabilidad sigue en «Descartar por ahora» para el MVP.
+
 ## 5. Funciones por plan **[Propuesta]**
 
 Planes y precios según el [modelo de negocio](modelo-negocio.md).
@@ -124,6 +136,7 @@ Planes y precios según el [modelo de negocio](modelo-negocio.md).
 | 29/10/2026 | De acuerdo con el cierre de trimestre como idea propia y fuera del plan gratis, manteniendo el Excel en el gratis; panel para "si da tiempo"; reenvío por correo como vía obligatoria y compartir como extra; avisos dentro de la web | Mireia |
 | [Pendiente] | Confirmación | Javier |
 | 03/11/2026 | Para la entrega, solo se presentan como incluidas las funciones construidas y probadas (apartado 1.1). Cierre de trimestre (#50), compartir desde el móvil (#17) y panel (#26), aplazados para después de la entrega | Equipo |
+| 04/11/2026 | Hoja de ruta tras la exposición: dominio propio para el reenvío, exportación para programas de contabilidad y conexión directa (apartado 4) | Equipo |
 
 ## 8. Fuentes
 
