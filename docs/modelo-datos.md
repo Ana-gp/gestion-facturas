@@ -3,7 +3,7 @@
 Tarea: #29 (orden 07) · Bloque 2 (subida y lectura) · Responsable: Mireia
 Depende de: #5 (stack y arquitectura) · Alimenta: #13, #16, #18, #19, #20, #21, #22, #23 y #31
 
-**Estado:** **[Propuesta]** del 29/10/2026. Las decisiones del apartado 4 las tomó Mireia el 29/10/2026 a partir de las opciones comparadas. Revisado por Javier el 29/10/2026 (cambios pedidos en el PR #44, incorporados el mismo día: apartados 3.6, 3.7, 7 y 8). **No hay nada creado en Supabase**: el SQL de [`modelo-datos.sql`](modelo-datos.sql) es un borrador probado solo en una base de datos PostgreSQL local de pruebas (apartado 7).
+**Estado:** Aprobado (PR #44). **[Confirmado]** El SQL se ejecutó en Supabase y la web publicada lo usa desde el 03/11/2026 ([puesta en marcha](supabase.md)). Propuesta inicial del 29/10/2026. Las decisiones del apartado 4 las tomó Mireia el 29/10/2026 a partir de las opciones comparadas. Revisado por Javier el 29/10/2026 (cambios pedidos en el PR #44, incorporados el mismo día: apartados 3.6, 3.7, 7 y 8). Antes de ejecutarlo en Supabase, el SQL de [`modelo-datos.sql`](modelo-datos.sql) se probó en una base de datos PostgreSQL local (apartado 7).
 
 Etiquetas (según la [guía de estilo](guia-estilo.md)):
 
