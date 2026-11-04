@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./subir.module.css";
 import { ACEPTA, TAMANO_MAXIMO_MB, tamanoLegible, validarArchivo } from "@/lib/subida/archivos";
+import { MAXIMO_ARCHIVOS_ZIP, archivosDelZip, esZip, resumenDelZip } from "@/lib/subida/zip";
 import { huellaSha256, mensajeArchivoRepetido } from "@/lib/subida/huella";
 import { serviciosDePrueba, type DocumentoEncontrado, type OrigenSubida, type ServiciosSubida, type UsoDelPlan } from "@/lib/subida/contrato";
 import { serviciosSupabase } from "@/lib/subida/servicios-supabase";
@@ -75,18 +76,21 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
     };
   }, []);
   const [elementos, setElementos] = useState<Elemento[]>([]);
+  // Qué ha pasado con cada ZIP: cuántos archivos se suben y cuáles no.
+  const [avisosZip, setAvisosZip] = useState<string[]>([]);
   // Al añadir archivos, la pantalla baja hasta «Subiendo y leyendo»: en el
   // móvil queda debajo de las formas de subir y el resultado (por ejemplo,
   // «archivo repetido») pasaba desapercibido (prueba de Mireia, 03/11/2026).
   const progreso = useRef<HTMLElement>(null);
   const cuantos = useRef(0);
+  const cuantosHay = elementos.length + avisosZip.length;
   useEffect(() => {
-    if (elementos.length > cuantos.current) {
+    if (cuantosHay > cuantos.current) {
       const reducido = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
       progreso.current?.scrollIntoView({ behavior: reducido ? "auto" : "smooth", block: "start" });
     }
-    cuantos.current = elementos.length;
-  }, [elementos.length]);
+    cuantos.current = cuantosHay;
+  }, [cuantosHay]);
   const [usados, setUsados] = useState(uso.usados);
   const [arrastrando, setArrastrando] = useState(false);
   const [copiado, setCopiado] = useState(false);
@@ -150,7 +154,25 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
 
   async function anadir(lista: FileList | null, origen: OrigenSubida) {
     if (!lista || lista.length === 0) return;
-    const nuevos: Elemento[] = [...lista].map((archivo) => ({ clave: `a${++contador}`, archivo, origen, estado: "comprobando" }));
+    // Un ZIP se abre aquí y cada archivo de dentro se sube como uno suelto.
+    const sueltos: File[] = [];
+    const avisos: string[] = [];
+    for (const archivo of [...lista]) {
+      if (!esZip(archivo)) {
+        sueltos.push(archivo);
+        continue;
+      }
+      try {
+        const { archivos, omitidos } = await archivosDelZip(archivo);
+        sueltos.push(...archivos);
+        avisos.push(resumenDelZip(archivo.name, archivos.length, omitidos));
+      } catch (error) {
+        avisos.push(`«${archivo.name}»: ${error instanceof Error ? error.message : "no se ha podido abrir."}`);
+      }
+    }
+    if (avisos.length > 0) setAvisosZip((actuales) => [...avisos, ...actuales]);
+    if (sueltos.length === 0) return;
+    const nuevos: Elemento[] = sueltos.map((archivo) => ({ clave: `a${++contador}`, archivo, origen, estado: "comprobando" }));
     setElementos((actuales) => [...nuevos, ...actuales]);
     // De uno en uno, para que el contador del plan sea exacto.
     for (const e of nuevos) await procesar(e, nuevos.length === 1);
@@ -228,10 +250,10 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
               Elegir archivos
             </button>
             <p className={styles.ayuda}>
-              PDF, JPG, PNG o HEIC. Hasta {TAMANO_MAXIMO_MB} MB por archivo. Puedes subir varios a la vez.
+              PDF, JPG, PNG o HEIC. Hasta {TAMANO_MAXIMO_MB} MB por archivo. Puedes subir varios a la vez, o un ZIP con hasta {MAXIMO_ARCHIVOS_ZIP}.
             </p>
             {/* Elegir desde el equipo cuenta como «arrastrar»: es la vía del ordenador (#15). */}
-            <input ref={selector} type="file" accept={ACEPTA} multiple hidden onChange={(e) => { void anadir(e.target.files, "arrastrar"); e.target.value = ""; }} />
+            <input ref={selector} type="file" accept={`${ACEPTA},.zip,application/zip`} multiple hidden onChange={(e) => { void anadir(e.target.files, "arrastrar"); e.target.value = ""; }} />
           </div>
 
           <div className={styles.correo}>
@@ -255,11 +277,16 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
           </div>
         </section>
 
-        {elementos.length > 0 && (
+        {(elementos.length > 0 || avisosZip.length > 0) && (
           <section ref={progreso} className={styles.progreso} aria-labelledby="titulo-progreso">
             <h2 id="titulo-progreso" className={styles.subtitulo}>
               Subiendo y leyendo
             </h2>
+            {avisosZip.map((a, i) => (
+              <p key={i} className={styles.ayuda} role="status">
+                {a}
+              </p>
+            ))}
             <ul className={styles.lista}>
               {elementos.map((e) => (
                 <li key={e.clave} className={styles.elemento}>
