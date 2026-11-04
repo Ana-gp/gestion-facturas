@@ -204,9 +204,11 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Paso | Resultado | Evidencia |
 |---|---|---|
-| Abrir Ticketon en Chrome Android y consultar el menú | Aparece «Instalar y crear acceso directo» | `instalcion_desde_web.jpg` |
-| Instalar y comprobar el icono | Aparece el icono de Ticketon en la pantalla de inicio | `app_descargada_movil.jpg` |
-| Abrir desde el icono | Se abre «Mis gastos» en una ventana de aplicación, sin la barra ni los controles habituales de Chrome | `app_vista_desde_android.jpg` |
+| Abrir Ticketon en Chrome Android y consultar el menú | Aparece «Instalar y crear acceso directo» | Captura 1 del ZIP aportado por Javier |
+| Instalar y comprobar el icono | Aparece el icono de Ticketon en la pantalla de inicio | Captura 2 del ZIP aportado por Javier |
+| Abrir desde el icono | Se abre «Mis gastos» en una ventana de aplicación, sin la barra ni los controles habituales de Chrome | Captura 3 del ZIP aportado por Javier |
+
+**Evidencia:** archivo `Capturas_Android.zip`, con tres imágenes aportadas por Javier. Las capturas todavía no se han incorporado al repositorio; se identifican aquí por el orden en que aparecen en el ZIP.
 
 **Dispositivo:** Huawei, identificador de modelo `YAL-L21` (metadatos EXIF de las dos capturas de la aplicación).  
 **Fecha:** 04/11/2026 (metadatos EXIF de las capturas del icono y de la aplicación abierta).  
