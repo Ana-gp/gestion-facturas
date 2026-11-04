@@ -264,6 +264,7 @@ function Fila({ gasto: g, conFicha }: { gasto: GastoListado; conFicha?: (id: str
       </td>
       <td data-columna="Emisor" className={styles.emisor}>
         {g.emisor ?? g.nombreArchivo ?? "Documento sin leer"}
+        {g.concepto && <span className={styles.concepto}>{g.concepto}</span>}
       </td>
       <td data-columna="Categoría" className={styles.categoria}>
         {g.categoria ?? "—"}

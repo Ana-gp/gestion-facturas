@@ -28,6 +28,8 @@ export type DatosRevision = {
   tipoCambio: number | null;
   retencionImporte: number | null;
   lineas: LineaIva[];
+  /** Qué se compró o qué servicio es, en pocas palabras. Opcional. */
+  concepto?: string | null;
 };
 
 /** Claves de `campos_revision` (decisión D2 del modelo de datos). */
@@ -41,7 +43,8 @@ export type Campo =
   | "lineas_iva"
   | "total"
   | "moneda"
-  | "tipo_cambio";
+  | "tipo_cambio"
+  | "concepto";
 
 export type Confianza = "alta" | "media" | "baja";
 
@@ -59,6 +62,7 @@ export const ETIQUETAS: Record<Campo, string> = {
   total: "Total",
   moneda: "Moneda",
   tipo_cambio: "Tipo de cambio",
+  concepto: "Concepto",
 };
 
 /**
@@ -262,6 +266,8 @@ export function confianzaPorReglas(d: DatosRevision, deLaIa: CamposRevision = {}
     total: d.total === null ? "baja" : "alta",
     moneda: "alta",
     tipo_cambio: esEuro(d) || d.tipoCambio ? "alta" : "baja",
+    // Opcional: vacío no pide revisarlo.
+    concepto: "alta",
   };
 
   const cuadre = comprobarCuadre(d);
@@ -318,6 +324,8 @@ export function valorDelCampo(d: DatosRevision, campo: Campo): string {
       return d.moneda;
     case "tipo_cambio":
       return String(d.tipoCambio ?? "");
+    case "concepto":
+      return d.concepto ?? "";
   }
 }
 

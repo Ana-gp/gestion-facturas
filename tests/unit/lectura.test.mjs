@@ -279,3 +279,11 @@ test("la pantalla nunca ve el error interno: mensaje fijo y detalle solo en el r
   assert.deepEqual(paraLaPantalla({ estado: "leido", facturaId: "f1" }), { estado: "leido", facturaId: "f1" });
   assert.deepEqual(paraLaPantalla({ estado: "sin-lecturas" }), { estado: "sin-lecturas" });
 });
+
+test("concepto: lo lee de la respuesta de la IA, limpio y opcional", async () => {
+  const { interpretarRespuesta, aDatosRevision } = await import("../../lib/lectura/interpretar.ts");
+  const d = interpretarRespuesta({ fecha: "2026-10-14", total: 21.78, moneda: "EUR", concepto: "  Suscripción   mensual de software " });
+  assert.equal(d.concepto, "Suscripción mensual de software");
+  assert.equal(aDatosRevision(d).concepto, "Suscripción mensual de software");
+  assert.equal(interpretarRespuesta({ total: 1 }).concepto, null);
+});

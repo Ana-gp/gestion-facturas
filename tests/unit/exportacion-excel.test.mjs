@@ -184,3 +184,10 @@ test("genera un .xlsx válido y siempre igual para los mismos datos", () => {
 test("CRC32 conocido", () => {
   assert.equal(crc32(new TextEncoder().encode("123456789")), 0xcbf43926);
 });
+
+test("concepto: columna propia en la hoja Gastos, junto al emisor", () => {
+  const factura = { id: "c1", fecha: "2026-10-14", tipoDocumento: "ticket", numero: "1", emisorNombre: "Anthropic", concepto: "Suscripción de software", emisorNif: null, receptorNif: null, categoria: "Otros", moneda: "EUR", total: 21.78, totalEur: 21.78, tipoCambio: null, tipoCambioFecha: null, retencionImporte: null, estadoRevision: "revisada", posibleDuplicado: false, nombreArchivo: "t3.pdf", lineas: [{ tipoIva: 21, base: 18, cuota: 3.78 }] };
+  const [fila] = filasGastos([factura]);
+  assert.equal(fila.concepto, "Suscripción de software");
+  assert.equal(filasGastos([{ ...factura, concepto: undefined }])[0].concepto, null);
+});

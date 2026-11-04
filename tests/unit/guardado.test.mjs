@@ -116,3 +116,13 @@ test("leerCambios: no se fía del navegador", () => {
   assert.equal(c.origenTipo, null);
   assert.equal(c.tipoDocumento, "ticket");
 });
+
+test("concepto: se lee de la fila, viaja en los cambios y se guarda recortado", () => {
+  const ficha = fichaDesdeFila({ ...FILA_T4B, concepto: "Compra de alimentación" }, "u");
+  assert.equal(ficha.datos.concepto, "Compra de alimentación");
+  assert.equal(fichaDesdeFila(FILA_T4B, "u").datos.concepto, null);
+  const cambios = leerCambios({ datos: { ...ficha.datos, concepto: "  Gasolina " }, tipoDocumento: "ticket", revision: {}, origenTipo: null, estado: "pendiente" });
+  assert.equal(cambios.datos.concepto, "Gasolina");
+  const r = filasParaGuardar({ ...cambios, datos: { ...cambios.datos, concepto: "x".repeat(250) } }, 2, AHORA);
+  assert.equal(r.factura.concepto.length, 200);
+});

@@ -372,6 +372,11 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
   };
 
   const numero = texto("numero", ETIQUETAS.numero, "numero", datos.numero, (v) => (d) => ({ ...d, numero: v }));
+  const concepto = texto(
+    "concepto", ETIQUETAS.concepto, "concepto", datos.concepto ?? null,
+    (v) => (d) => ({ ...d, concepto: v }),
+    "Qué se compró, en pocas palabras. Sale en el Excel para la gestoría.",
+  );
   const emisor = texto("emisor", ETIQUETAS.emisor_nombre, "emisor_nombre", datos.emisorNombre, (v) => (d) => ({ ...d, emisorNombre: v }));
   const emisorNif = texto("emisor-nif", ETIQUETAS.emisor_nif, "emisor_nif", datos.emisorNif, (v) => (d) => ({ ...d, emisorNif: v?.toUpperCase() ?? null }));
   const receptorNif = texto(
@@ -746,7 +751,8 @@ export default function Revisar({ ficha, datosDeEjemplo = false }: Props) {
           </fieldset>
 
           <fieldset className={styles.grupo}>
-            <legend>Categoría</legend>
+            <legend>Concepto y categoría</legend>
+            {fila(concepto)}
             {fila(categoria)}
           </fieldset>
 

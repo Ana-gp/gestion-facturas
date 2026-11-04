@@ -51,7 +51,7 @@ export type OrigenTipo = { fecha: string | null; fuente: FuenteTipoCambio } | nu
 
 /** Columnas de la factura que necesita la pantalla, con sus líneas, su categoría y su documento. */
 export const CONSULTA_FICHA =
-  "id, documento_id, tipo_documento, fecha, emisor_nombre, emisor_nif, receptor_nif, numero, " +
+  "id, documento_id, tipo_documento, fecha, emisor_nombre, emisor_nif, receptor_nif, numero, concepto, " +
   "retencion_importe, total, moneda, tipo_cambio, tipo_cambio_fecha, tipo_cambio_fuente, total_eur, " +
   "estado_revision, campos_revision, posible_duplicado_de, duplicado_descartado, " +
   "categorias(nombre), lineas_iva(orden, tipo_iva, base, cuota), documentos(nombre_archivo, tipo_mime, huella_sha256, subido_en)";
@@ -65,6 +65,7 @@ export type FilaFicha = {
   emisor_nif: string | null;
   receptor_nif: string | null;
   numero: string | null;
+  concepto?: string | null;
   retencion_importe: number | string | null;
   total: number | string | null;
   moneda: string;
@@ -121,6 +122,7 @@ export function fichaDesdeFila(f: FilaFicha, original: string): FichaRevision {
       tipoCambio: numero(f.tipo_cambio),
       retencionImporte: numero(f.retencion_importe),
       lineas,
+      concepto: f.concepto ?? null,
     },
     revisionIa: f.campos_revision ?? {},
     posibleDuplicadoDe: f.posible_duplicado_de && !f.duplicado_descartado ? f.posible_duplicado_de : null,
@@ -189,6 +191,7 @@ export function filasParaGuardar(c: CambiosFicha, categoriaId: number | null, ah
       emisor_nif: d.emisorNif,
       receptor_nif: d.receptorNif,
       numero: d.numero,
+      concepto: d.concepto ? d.concepto.slice(0, 200) : null,
       base_total: baseTotal,
       cuota_total: cuotaTotal,
       retencion_importe: d.retencionImporte,
@@ -237,6 +240,7 @@ export function leerCambios(cuerpo: unknown): CambiosFicha | null {
       tipoCambio: num(d.tipoCambio),
       retencionImporte: num(d.retencionImporte),
       lineas,
+      concepto: texto(d.concepto),
     },
     tipoDocumento: c.tipoDocumento === "factura" ? "factura" : "ticket",
     revision: c.revision && typeof c.revision === "object" ? (c.revision as CamposRevision) : {},
