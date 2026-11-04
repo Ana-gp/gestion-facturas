@@ -7,6 +7,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./gastos.module.css";
+import { resumenMensual, compararMeses } from "@/lib/gastos/panel";
 import {
   TEXTO_AVISO,
   TEXTO_ESTADO,
