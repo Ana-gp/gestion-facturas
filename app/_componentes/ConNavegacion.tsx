@@ -6,15 +6,17 @@ import { clienteServidor } from "@/lib/supabase/servidor";
 
 // Navegación común de la web (diseño unificado, tableros "Gastos" y
 // "GastosMovil"): columna a la izquierda en el ordenador y barra abajo en el
-// móvil. La usan Mis gastos, Subir, Revisar, Comparar y Exportar. El original
-// a pantalla completa (P12) va sin ella a propósito.
+// móvil. La usan Mis gastos, Subir, Revisar, Comparar, Exportar y Mi cuenta.
+// El original a pantalla completa (P12) va sin ella a propósito.
 
-export type Seccion = "gastos" | "subir" | "exportar";
+export type Seccion = "gastos" | "subir" | "exportar" | "cuenta";
 
 const ENLACES: { seccion: Seccion; href: string; texto: string }[] = [
   { seccion: "gastos", href: "/gastos", texto: "Gastos" },
   { seccion: "subir", href: "/subir", texto: "Subir" },
   { seccion: "exportar", href: "/exportar", texto: "Exportar" },
+  // P15 · Mi cuenta: datos, contraseña, plan y reenvío.
+  { seccion: "cuenta", href: "/cuenta", texto: "Mi cuenta" },
 ];
 
 /** ¿Hay sesión? Solo entonces se enseña «Cerrar sesión» (#13, PR #78). */

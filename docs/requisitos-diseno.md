@@ -59,7 +59,7 @@ No usar el color como único indicador. Aunque la paleta ya está aplicada, comp
 
 ### 3.3. Componentes compartidos [Propuesta]
 
-- Navegación principal de la web [Confirmado]: Gastos, Subir y Exportar. Mantener estas tres entradas como navegación principal; cualquier acceso adicional (por ejemplo, Cuenta) se considera propuesta secundaria y no debe alterar esa estructura.
+- Navegación principal de la web [Confirmado]: Gastos, Subir, Exportar y Mi cuenta (añadida el 04/11/2026 con P15).
 - Contador mensual de documentos visible en la zona superior.
 - Botón principal sólido; acciones secundarias neutras o como enlaces.
 - Campos con etiqueta persistente, ayuda cuando sea necesaria y error junto al campo.
@@ -209,9 +209,9 @@ La pantalla debe guiar por tres pasos:
 
 Permitir continuar aunque queden pendientes, dejando claro qué falta. No presentar el paquete como declaración fiscal ni afirmar que los gastos son deducibles. La generación del ZIP en el navegador es una propuesta del mapa que debe comprobarse en la implementación de #50.
 
-### 4.16. P15 · Cuenta y plan [Pendiente]
+### 4.16. P15 · Cuenta y plan
 
-La pantalla y sus funciones de gestión de cuenta y plan no están construidas todavía. Mantenerlas identificadas como **[Pendiente]**; no presentarlas como implementadas ni como requisito imprescindible para cerrar esta revisión del diseño. Los campos previstos (nombre, NIF propio si está disponible, correo, plan y documentos usados) quedan como alcance por concretar.
+**[Confirmado]** Construida como «Mi cuenta» (`/cuenta`, 04/11/2026), a propuesta del profesor en la exposición: ver y cambiar el nombre y el NIF propio, ver el correo, cambiar la contraseña (pide la actual), ver el plan y los documentos usados este mes, la dirección de reenvío con el enlace a los correos autorizados (P16) y cerrar sesión. **[Pendiente]** Cambiar el correo (Supabase envía una confirmación y el correo de serie solo llega al equipo) y darse de baja o borrar la cuenta (falta decidir qué pasa con los documentos y los originales).
 
 **Instalación en el móvil [Confirmado · implementada]:** la instalación como PWA ya está implementada en la web mediante el PR #80. No debe figurar como una función pendiente de construir dentro de P15. La ayuda o acceso visual desde Cuenta podrá definirse cuando se trabaje esa pantalla.
 
@@ -229,7 +229,7 @@ Mostrar:
 - Instrucciones breves para reenviar desde Gmail u Outlook.
 - Aviso claro de que los correos de remitentes no autorizados se descartan.
 
-La pantalla debe estar accesible desde P08 y, cuando se construya P15, también desde Cuenta. No confundir esta vía con una conexión directa a Gmail u Outlook: esas integraciones están descartadas para el MVP.
+La pantalla debe estar accesible desde P08 y desde Mi cuenta (P15). No confundir esta vía con una conexión directa a Gmail u Outlook: esas integraciones están descartadas para el MVP.
 
 Cuando un adjunto se recibe correctamente, debe aparecer en P07 con la etiqueta “Llegó por correo”. Si ya existe por su huella, no debe duplicarse ni volver a leerse. El comportamiento de aviso al usuario ante un adjunto repetido queda como mejora posterior, no como requisito para alterar el resultado de la recepción.
 
@@ -286,7 +286,7 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - P17 · Panel con cifras (#26).
 - Compartir desde el móvil (#17). La instalación PWA es distinta y ya está implementada mediante el PR #80.
 
-**Pendiente de construir:** P15 · Cuenta y plan, y la opción de rellenar manualmente los datos tras un error de lectura. Se documentan para mantener trazabilidad, pero no se presentan como funciones disponibles ni como bloqueantes del alcance actual.
+**Pendiente de construir:** la opción de rellenar manualmente los datos tras un error de lectura. Se documentan para mantener trazabilidad, pero no se presentan como funciones disponibles ni como bloqueantes del alcance actual.
 
 **Fuera del MVP:** acceso de gestorías a varios clientes, equipos, contabilidad completa, emisión de facturas, presentación de impuestos, pagos reales no implementados, conexiones directas con Gmail/Outlook, Drive/Dropbox, bancos o programas contables, kilometraje, dietas y personalización extensa.
 
@@ -314,7 +314,7 @@ No culpar al usuario ni mostrar éxito antes de que el servidor confirme la acci
 - **#7 · Funciones adicionales:** documento unido a `main`; recoge la instalación móvil y avisos adicionales. El cierre de trimestre y el panel se mantienen aplazados por la decisión actual del equipo; compartir desde el móvil también queda aplazado.
 - **#11 · Prototipo navegable:** debe comprobar distribución, legibilidad, adaptación móvil/escritorio y requisito de dos clics.
 - **#26 · Panel con cifras:** aplazado por decisión del equipo.
-- **P15 · Cuenta y plan:** pendiente de construcción.
+- **P15 · Cuenta y plan:** construida como «Mi cuenta» (04/11/2026); cambiar el correo y borrar la cuenta, [Pendiente].
 - **Rellenado manual de datos:** pendiente de construcción; no debe describirse como opción ya disponible.
 - **#19 y #21 · Lectura IA y corrección:** los campos y validaciones visuales deben coincidir con lo que realmente devuelve y permite guardar el backend.
 - **#20 · Moneda:** respetar el criterio aprobado de conversión; no inventar tipo de cambio ni total en euros.

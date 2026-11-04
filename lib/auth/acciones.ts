@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { validarDatosCuenta } from "@/lib/cuenta/datos";
 import { clienteServidor } from "@/lib/supabase/servidor";
 
 function destinoSeguro(valor: FormDataEntryValue | null, porDefecto = "/gastos"): string {
@@ -112,4 +113,48 @@ export async function salir(): Promise<void> {
   const supabase = await clienteServidor();
   await supabase.auth.signOut();
   redirect("/entrar?mensaje=Has%20cerrado%20sesión.");
+}
+
+// --- P15 · Mi cuenta -------------------------------------------------------
+
+/** Guarda el nombre y el NIF de la persona (las reglas RLS solo dejan cambiar los suyos). */
+export async function guardarDatosCuenta(formData: FormData): Promise<void> {
+  const resultado = validarDatosCuenta(campo(formData, "nombre"), campo(formData, "nif"));
+  if ("error" in resultado) errorEn("/cuenta", resultado.error);
+
+  const supabase = await clienteServidor();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) errorEn("/entrar", "Tu sesión ha caducado. Vuelve a entrar.");
+  const { error } = await supabase.from("perfiles").update(resultado.datos).eq("id", user.id);
+  if (error) {
+    console.error("[cuenta/datos]", error.message);
+    errorEn("/cuenta", "No hemos podido guardar tus datos. Inténtalo de nuevo.");
+  }
+  redirect("/cuenta?mensaje=" + encodeURIComponent("Datos guardados."));
+}
+
+/** Cambia la contraseña desde Mi cuenta. Pide la actual para que nadie la cambie con una sesión abierta ajena. */
+export async function cambiarContrasenaCuenta(formData: FormData): Promise<void> {
+  const actual = passwordCampo(formData, "actual");
+  const password = passwordCampo(formData, "password");
+  const repetir = passwordCampo(formData, "passwordConfirm");
+  if (!actual) errorEn("/cuenta", "Escribe tu contraseña actual.");
+  if (!validarPassword(password)) errorEn("/cuenta", "La contraseña nueva debe tener al menos 8 caracteres.");
+  if (password !== repetir) errorEn("/cuenta", "Las contraseñas nuevas no coinciden.");
+  if (password === actual) errorEn("/cuenta", "La contraseña nueva tiene que ser distinta de la actual.");
+
+  const supabase = await clienteServidor();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user?.email) errorEn("/entrar", "Tu sesión ha caducado. Vuelve a entrar.");
+  const { error: errorActual } = await supabase.auth.signInWithPassword({ email: user.email, password: actual });
+  if (errorActual) {
+    console.error("[cuenta/contrasena] comprobar la actual", errorActual.status ?? "-", errorActual.code ?? "-");
+    errorEn("/cuenta", "La contraseña actual no es correcta.");
+  }
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    console.error("[cuenta/contrasena]", error.status ?? "-", error.code ?? "-", error.message);
+    errorEn("/cuenta", "No hemos podido cambiar la contraseña. Inténtalo de nuevo.");
+  }
+  redirect("/cuenta?mensaje=" + encodeURIComponent("Contraseña cambiada."));
 }

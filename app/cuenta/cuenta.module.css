@@ -1,0 +1,193 @@
+/* P15 · Mi cuenta. Mismos colores que Mis gastos y Subir. */
+
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 760px;
+  padding: 36px 44px 48px;
+  color: #17202a;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.explicacion {
+  margin: 4px 0 0;
+  color: #52606d;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 28px;
+  border: 1px solid #d8dee6;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.tarjeta h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.tarjeta a {
+  color: #2457a7;
+  font-weight: 600;
+}
+
+.formulario {
+  display: grid;
+  gap: 8px;
+}
+
+.formulario label {
+  margin-top: 6px;
+  color: #253244;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.formulario input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #cbd3de;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #17202a;
+  font: inherit;
+}
+
+.formulario input:focus {
+  border-color: #2457a7;
+  outline: 3px solid rgb(36 87 167 / 15%);
+}
+
+.formulario small,
+.nota {
+  margin: 0;
+  color: #52606d;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.boton,
+.botonSecundario {
+  justify-self: start;
+  min-height: 46px;
+  margin-top: 8px;
+  padding: 0 20px;
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.boton {
+  border: 0;
+  background: #2457a7;
+  color: #ffffff;
+}
+
+.boton:hover {
+  background: #19447f;
+}
+
+.botonSecundario {
+  border: 1px solid #cbd3de;
+  background: #ffffff;
+  color: #3a4552;
+}
+
+.boton:focus-visible,
+.botonSecundario:focus-visible,
+.tarjeta a:focus-visible {
+  outline: 3px solid #8fb4f0;
+  outline-offset: 2px;
+}
+
+.dato {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 20px;
+  margin: 0;
+}
+
+.dato dt {
+  color: #52606d;
+}
+
+.dato dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.barra {
+  height: 8px;
+  border-radius: 8px;
+  background: #e8edf5;
+  overflow: hidden;
+}
+
+.barra span {
+  display: block;
+  height: 100%;
+  background: #2457a7;
+}
+
+.direccion {
+  margin: 0;
+}
+
+.direccion code {
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #f1f4f8;
+  overflow-wrap: anywhere;
+}
+
+.error,
+.exito {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.error {
+  border-left: 4px solid #b42318;
+  background: #fdecea;
+  color: #7a1a12;
+}
+
+.exito {
+  border-left: 4px solid #1f5c36;
+  background: #e3f1e8;
+  color: #1f5c36;
+}
+
+@media (max-width: 760px) {
+  .pagina {
+    padding: 20px 16px 24px;
+  }
+
+  .tarjeta {
+    padding: 20px;
+  }
+
+  .dato {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .dato dd {
+    margin-bottom: 8px;
+  }
+}
