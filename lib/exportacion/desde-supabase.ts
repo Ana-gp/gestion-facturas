@@ -14,7 +14,7 @@ export type PlanExportacion = "gratis" | "autonomo" | "plus";
 
 /** Columnas de cada factura, con sus líneas, su categoría y el nombre del original. */
 export const CONSULTA_EXPORTACION =
-  "id, tipo_documento, fecha, numero, emisor_nombre, emisor_nif, receptor_nif, moneda, total, total_eur, " +
+  "id, tipo_documento, fecha, numero, emisor_nombre, concepto, emisor_nif, receptor_nif, moneda, total, total_eur, " +
   "tipo_cambio, tipo_cambio_fecha, retencion_importe, estado_revision, posible_duplicado_de, duplicado_descartado, " +
   "categorias(nombre), lineas_iva(orden, tipo_iva, base, cuota), documentos(nombre_archivo)";
 
@@ -26,6 +26,7 @@ export type FilaExportacion = {
   fecha: string | null;
   numero: string | null;
   emisor_nombre: string | null;
+  concepto?: string | null;
   emisor_nif: string | null;
   receptor_nif: string | null;
   moneda: string;
@@ -60,6 +61,7 @@ export function facturasDesdeSupabase(filas: FilaExportacion[]): FacturaExportab
     tipoDocumento: f.tipo_documento === "factura" ? "factura" : "ticket",
     numero: f.numero,
     emisorNombre: f.emisor_nombre,
+    concepto: f.concepto ?? null,
     emisorNif: f.emisor_nif,
     receptorNif: f.receptor_nif,
     categoria: uno(f.categorias)?.nombre ?? null,

@@ -31,6 +31,7 @@ export type DatosLeidos = {
   /** Null si la IA no la da o no es un código de 3 letras. */
   moneda: string | null;
   categoria: string | null;
+  concepto: string | null;
   dudosos: Campo[];
 };
 
@@ -114,6 +115,7 @@ const DUDOSO_A_CAMPO: Record<string, Campo> = {
   total: "total",
   moneda: "moneda",
   categoria: "categoria",
+  concepto: "concepto",
 };
 
 // ---------------------------------------------------------------------------
@@ -185,6 +187,7 @@ export function interpretarRespuesta(respuesta: unknown): DatosLeidos {
     total: importe(o.total),
     moneda: monedaLeida,
     categoria: categoriaLeida,
+    concepto: texto(o.concepto, 120),
     dudosos: [...dudosos],
   };
 }
@@ -205,6 +208,7 @@ export function aDatosRevision(d: DatosLeidos): DatosRevision {
     tipoCambio: null,
     retencionImporte: d.retencionImporte,
     lineas: d.lineas.map((l) => ({ tipoIva: l.tipo, base: l.base ?? 0, cuota: l.cuota ?? 0 })),
+    concepto: d.concepto,
   };
 }
 
@@ -240,6 +244,7 @@ export type FilaFactura = {
   tipo_cambio_fuente: null;
   total_eur: number | null;
   categoria_id: number | null;
+  concepto: string | null;
   estado_revision: "pendiente";
   campos_revision: CamposRevision;
   datos_ia: unknown;
@@ -278,6 +283,7 @@ export function aFilas(d: DatosLeidos, idsCategorias: Map<string, number>, datos
       tipo_cambio_fuente: null,
       total_eur: monedaFinal === "EUR" ? d.total : null,
       categoria_id: d.categoria ? (idsCategorias.get(d.categoria) ?? null) : null,
+      concepto: d.concepto,
       estado_revision: "pendiente",
       campos_revision: camposRevision(d, referencia),
       datos_ia: datosIa,

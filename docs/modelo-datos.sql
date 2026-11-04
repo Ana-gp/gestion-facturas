@@ -126,6 +126,7 @@ create table public.facturas (
   emisor_nif            text,                -- admite NIF español o VAT extranjero
   receptor_nif          text,                -- opcional: los tickets no lo llevan
   numero                text,                -- texto: '1 / 388087', '9BF0758D-8771996'
+  concepto              text check (char_length(concepto) <= 200), -- qué se compró, en pocas palabras (P10, 04/11/2026)
   base_total            numeric(12,2),
   cuota_total           numeric(12,2),
   retencion_tipo        numeric(5,2) check (retencion_tipo between 0 and 100),
@@ -268,7 +269,7 @@ create policy "documentos: borrar" on public.documentos for delete to authentica
 -- Facturas: las crea el servidor tras la lectura. El usuario las ve, corrige
 -- los datos (no datos_ia, que guarda lo que dijo la IA) y las borra.
 grant select, delete on public.facturas to authenticated;
-grant update (tipo_documento, fecha, emisor_nombre, emisor_nif, receptor_nif, numero,
+grant update (tipo_documento, fecha, emisor_nombre, emisor_nif, receptor_nif, numero, concepto,
               base_total, cuota_total, retencion_tipo, retencion_importe, total, moneda,
               tipo_cambio, tipo_cambio_fecha, tipo_cambio_fuente, total_eur, categoria_id,
               estado_revision, campos_revision, duplicado_descartado, actualizado_en)

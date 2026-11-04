@@ -31,6 +31,8 @@ export type GastoListado = {
   /** AAAA-MM-DD, o null si falta. */
   fecha: string | null;
   emisor: string | null;
+  /** Qué se compró, en pocas palabras. Opcional. */
+  concepto?: string | null;
   categoria: string | null;
   /** Total en la moneda original. */
   total: number | null;
@@ -94,6 +96,7 @@ export type FilaFactura = {
   id: string;
   fecha: string | null;
   emisor_nombre: string | null;
+  concepto?: string | null;
   receptor_nif: string | null;
   total: number | string | null;
   total_eur: number | string | null;
@@ -111,7 +114,7 @@ export type FilaFactura = {
  */
 export const CONSULTA_GASTOS =
   "id, nombre_archivo, origen, estado_lectura, subido_en, " +
-  "facturas(id, fecha, emisor_nombre, receptor_nif, total, total_eur, moneda, estado_revision, posible_duplicado_de, duplicado_descartado, categorias(nombre))";
+  "facturas(id, fecha, emisor_nombre, concepto, receptor_nif, total, total_eur, moneda, estado_revision, posible_duplicado_de, duplicado_descartado, categorias(nombre))";
 
 function uno<T>(valor: T | T[] | null | undefined): T | null {
   if (Array.isArray(valor)) return valor[0] ?? null;
@@ -160,6 +163,7 @@ export function desdeSupabase(documentos: FilaDocumento[]): GastoListado[] {
       facturaId: f.id,
       fecha: f.fecha,
       emisor: f.emisor_nombre,
+      concepto: f.concepto ?? null,
       categoria: uno(f.categorias)?.nombre ?? null,
       total: numero(f.total),
       moneda: f.moneda,

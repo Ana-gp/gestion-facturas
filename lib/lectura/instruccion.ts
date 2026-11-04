@@ -42,6 +42,7 @@ export const CAMPOS_DUDOSOS = [
   "total",
   "moneda",
   "categoria",
+  "concepto",
 ] as const;
 
 export const INSTRUCCION = `Eres un asistente que extrae datos de facturas y tickets de gasto españoles o extranjeros.
@@ -62,6 +63,7 @@ Lee el documento adjunto y responde SOLO con un JSON con esta estructura:
   "total": 0.00,
   "moneda": "código ISO 4217, por ejemplo EUR o USD",
   "categoria": "una de: ${CATEGORIAS_LECTURA.join(", ")}",
+  "concepto": "qué se compró o qué servicio es, en pocas palabras",
   "campos_dudosos": ["nombres de los campos que no se leen con claridad"]
 }
 
@@ -72,4 +74,5 @@ Reglas:
 - Usa punto como separador decimal.
 - "tipo_documento" es "factura" si aparecen los datos fiscales del receptor (nombre y NIF); si no, "ticket".
 - "retencion" es la retención de IRPF que se resta del total. Si no hay retención, pon null.
+- "concepto" resume en 2 a 8 palabras qué se compró o qué servicio es, en español (por ejemplo "Gasolina", "Compra de alimentación", "Suscripción mensual de software"). No copies la lista de productos.
 - En "campos_dudosos" pon solo nombres de esta lista: ${CAMPOS_DUDOSOS.join(", ")}. Si todo se lee con claridad, pon [].`;

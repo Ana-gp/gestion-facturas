@@ -38,6 +38,8 @@ export type FacturaExportable = {
   tipoDocumento: "factura" | "ticket";
   numero: string | null;
   emisorNombre: string | null;
+  /** Qué se compró, en pocas palabras. Opcional. */
+  concepto?: string | null;
   emisorNif: string | null;
   receptorNif: string | null;
   categoria: string | null;
@@ -84,6 +86,7 @@ export const COLUMNAS_GASTOS = [
   "Tipo de documento",
   "Nº de factura",
   "Emisor",
+  "Concepto",
   "NIF del emisor",
   "NIF del receptor",
   "Categoría",
@@ -107,6 +110,7 @@ export type FilaGasto = {
   tipoDocumento: string;
   numero: string | null;
   emisor: string | null;
+  concepto: string | null;
   emisorNif: string | null;
   receptorNif: string | null;
   categoria: string | null;
@@ -212,6 +216,7 @@ export function filasGastos(facturas: FacturaExportable[]): FilaGasto[] {
         tipoDocumento: f.tipoDocumento === "factura" ? "Factura" : "Ticket",
         numero: f.numero,
         emisor: f.emisorNombre,
+        concepto: f.concepto ?? null,
         emisorNif: f.emisorNif,
         receptorNif: f.receptorNif,
         categoria: f.categoria,
@@ -474,6 +479,7 @@ function hojaGastos(filas: FilaGasto[]): string {
     texto(f.tipoDocumento),
     texto(f.numero),
     texto(f.emisor),
+    texto(f.concepto),
     texto(f.emisorNif),
     texto(f.receptorNif),
     texto(f.categoria),
@@ -490,7 +496,7 @@ function hojaGastos(filas: FilaGasto[]): string {
     texto(f.avisos),
     texto(f.archivoOriginal),
   ]);
-  const anchos = [9, 11, 11, 22, 30, 14, 14, 22, 9, 12, 11, 11, 12, 9, 12, 10, 12, 18, 34, 40];
+  const anchos = [9, 11, 11, 22, 30, 30, 14, 14, 22, 9, 12, 11, 11, 12, 9, 12, 10, 12, 18, 34, 40];
   return hojaXml([titulos, ...datos], anchos, { congelarTitulos: true, filtro: true });
 }
 
