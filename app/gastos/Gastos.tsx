@@ -80,7 +80,10 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
   const visibles = delPeriodo.filter((g) => cumpleFiltro(g, filtro));
   // Las cifras de arriba siguen al periodo elegido, igual que la lista.
   const duplicados = delPeriodo.filter((g) => g.avisos.includes("duplicado")).length;
-  const trimestre = cifrasDelTrimestre(ordenados, fechaHoy);\n  const resumenMes = resumenMensual(gastos, fechaHoy);\n  const resumenAnterior = resumenMensual(gastos, `${resumenMes.anterior}-01`);\n  const comparacionMes = compararMeses(resumenMes, resumenAnterior);
+  const trimestre = cifrasDelTrimestre(ordenados, fechaHoy);
+  const resumenMes = resumenMensual(gastos, fechaHoy);
+  const resumenAnterior = resumenMensual(gastos, `${resumenMes.anterior}-01`);
+  const comparacionMes = compararMeses(resumenMes, resumenAnterior);
   const sinNif = visibles.filter((g) => g.sinNifReceptor).length;
   const conFicha = idsConFicha ? (id: string) => idsConFicha.includes(id) : undefined;
   const primerPendiente = delPeriodo.find((g) => g.estado !== "revisada" && accionDe(g, conFicha));
