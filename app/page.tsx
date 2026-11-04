@@ -47,7 +47,7 @@ export default function HomePage() {
           <p>Un proceso claro para que tus justificantes no se queden olvidados en el móvil, el correo o un cajón.</p>
         </div>
         <div className={styles.stepGrid}>
-          <article><span>1</span><h3>Sube tus documentos</h3><p>Haz una foto al ticket o añade una imagen o un PDF desde tu dispositivo.</p></article>
+          <article><span>1</span><h3>Sube tus documentos</h3><p>Haz una foto al ticket, añade una imagen o un PDF desde tu dispositivo, o reenvía por correo las facturas que te llegan por email.</p></article>
           <article><span>2</span><h3>Revisa la información</h3><p>Ticketon lee los datos disponibles para ayudarte a organizarlos. Tú puedes revisarlos y corregirlos.</p></article>
           <article><span>3</span><h3>Prepara la entrega</h3><p>Consulta tus gastos y exporta la información del periodo para compartirla con tu gestoría.</p></article>
         </div>

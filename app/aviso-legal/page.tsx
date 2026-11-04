@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "../legal.module.css";
+
+export const metadata: Metadata = {
+  title: "Aviso legal | Ticketon",
+  description: "Datos del titular de Ticketon y condiciones de uso del sitio.",
+};
 
 export default function AvisoLegalPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>ticketon<span>.</span></Link><Link href="/">Volver al inicio</Link></header>
+      <header className={styles.header}><Link href="/" className={styles.brand}>Ticketon</Link><Link href="/">Volver al inicio</Link></header>
       <article className={styles.content}>
         <p className={styles.eyebrow}>INFORMACIÓN LEGAL</p>
         <h1>Aviso legal</h1>

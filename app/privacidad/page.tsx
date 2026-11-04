@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "../legal.module.css";
+
+export const metadata: Metadata = {
+  title: "Política de privacidad | Ticketon",
+  description: "Cómo trata Ticketon los datos personales.",
+};
 
 export default function PrivacidadPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>ticketon<span>.</span></Link><Link href="/">Volver al inicio</Link></header>
+      <header className={styles.header}><Link href="/" className={styles.brand}>Ticketon</Link><Link href="/">Volver al inicio</Link></header>
       <article className={styles.content}>
         <p className={styles.eyebrow}>DATOS PERSONALES</p>
         <h1>Política de privacidad</h1>

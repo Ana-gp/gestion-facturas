@@ -40,6 +40,7 @@ const planes = [
 
 const funcionesComunes = [
   "Subir tickets y facturas en PDF o imagen",
+  "Reenviar facturas por correo a tu dirección de Ticketon",
   "Conservar los documentos originales",
   "Lectura automática y corrección de datos",
   "Detección de posibles documentos duplicados",
@@ -59,7 +60,7 @@ export default function PreciosPage() {
         <nav className={styles.navegacion} aria-label="Navegación principal">
           <Link href="#planes">Planes</Link>
           <Link href="#incluido">Qué incluye</Link>
-          <Link href="/entrar">Entrar</Link>
+          <Link href="/entrar">Iniciar sesión</Link>
         </nav>
       </header>
 

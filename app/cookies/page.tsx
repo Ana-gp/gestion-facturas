@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "../legal.module.css";
+
+export const metadata: Metadata = {
+  title: "Política de cookies | Ticketon",
+  description: "Qué cookies y tecnologías similares usa Ticketon.",
+};
 
 export default function CookiesPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>ticketon<span>.</span></Link><Link href="/">Volver al inicio</Link></header>
+      <header className={styles.header}><Link href="/" className={styles.brand}>Ticketon</Link><Link href="/">Volver al inicio</Link></header>
       <article className={styles.content}>
         <p className={styles.eyebrow}>TECNOLOGÍAS Y PREFERENCIAS</p>
         <h1>Política de cookies</h1>
