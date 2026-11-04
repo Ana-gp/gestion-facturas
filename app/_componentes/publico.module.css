@@ -1,7 +1,7 @@
 /* Cabecera y pie comunes de las páginas públicas: portada, Precios y textos legales. */
 .cabecera{height:78px;max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf0f4;font-family:Arial,Helvetica,sans-serif}
 .marca{display:inline-flex;align-items:center;gap:10px;font-size:1.65rem;font-weight:800;letter-spacing:-.03em;color:#172235;text-decoration:none}
-.logo{display:block;width:34px;height:34px;flex:0 0 34px;padding:7px;border-radius:9px;background:#2459a9;fill:#fff;stroke:#fff;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.logo{display:block;width:34px;height:34px;flex:0 0 34px;padding:8px;border-radius:9px;background:#2459a9;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .nav{display:flex;align-items:center;gap:28px}
 .nav a,.pie nav a{color:#46536a;text-decoration:none;font-size:.92rem}
 .nav a:hover,.pie nav a:hover{color:#2459a9}

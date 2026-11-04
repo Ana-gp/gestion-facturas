@@ -9,9 +9,11 @@ type Pagina = "inicio" | "precios" | "legal";
 function Marca() {
   return (
     <Link href="/" className={styles.marca} aria-label="Ticketon, inicio">
+      {/* El mismo recibo que el menú de la web (ConNavegacion) y el icono del móvil. */}
       <svg className={styles.logo} viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" />
-        <path d="M13 4v12" />
+        <path d="M6 3h12v18l-3-2-3 2-3-2-3 2z" />
+        <path d="M9 8h6" />
+        <path d="M9 12h6" />
       </svg>
       <span>Ticketon</span>
     </Link>
