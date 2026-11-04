@@ -44,11 +44,11 @@ function eurosDeCentimos(centimos: number): number {
   return centimos / 100;
 }
 
-/** Calcula el resumen de un mes natural, sin depender de la zona horaria del servidor. */
+/** Calcula el resumen de un mes natural hasta la fecha indicada, sin depender de la zona horaria del servidor. */
 export function resumenMensual(lista: GastoListado[], hoy: string): ResumenMensual {
   const clave = claveMes(hoy);
   const anterior = mesAnterior(clave);
-  const delMes = lista.filter((g) => g.fecha !== null && claveMes(g.fecha) === clave);
+  const delMes = lista.filter((g) => g.fecha !== null && claveMes(g.fecha) === clave && g.fecha <= hoy);
   const sumas = new Map<string, { documentos: number; centimos: number }>();
 
   for (const gasto of delMes) {
