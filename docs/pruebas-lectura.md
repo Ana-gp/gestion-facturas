@@ -204,17 +204,17 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 | Paso | Resultado | Evidencia |
 |---|---|---|
-| Abrir Ticketon en Chrome Android y consultar el menú | Aparece «Instalar y crear acceso directo» | Captura 1 del ZIP aportado por Javier |
-| Instalar y comprobar el icono | Aparece el icono de Ticketon en la pantalla de inicio | Captura 2 del ZIP aportado por Javier |
-| Abrir desde el icono | Se abre «Mis gastos» en una ventana de aplicación, sin la barra ni los controles habituales de Chrome | Captura 3 del ZIP aportado por Javier |
+| Abrir Ticketon en Chrome Android y consultar el menú | Aparece «Instalar y crear acceso directo». En el mismo menú también aparece «Compartir…», pero no se llegó a probar esa acción | `instalcion_desde_web.jpg` |
+| Instalar y comprobar el icono | Aparece el icono de Ticketon en la pantalla de inicio | `app_descargada_movil.jpg` |
+| Abrir desde el icono | Se abre «Mis gastos» en una ventana de aplicación, sin la barra ni los controles habituales de Chrome | `app_vista_desde_android.jpg` |
 
-**Evidencia:** archivo `Capturas_Android.zip`, con tres imágenes aportadas por Javier. Las capturas todavía no se han incorporado al repositorio; se identifican aquí por el orden en que aparecen en el ZIP.
+**Evidencia:** archivo `Capturas_Android.zip`, con las tres imágenes indicadas. Las capturas todavía no se han incorporado al repositorio; se conservan en el ZIP aportado por Javier.
 
-**Dispositivo:** Huawei, identificador de modelo `YAL-L21` (metadatos EXIF de las dos capturas de la aplicación).  
+**Dispositivo:** Huawei, identificador de modelo `YAL-L21` (metadatos EXIF de `app_descargada_movil.jpg` y `app_vista_desde_android.jpg`).  
 **Fecha:** 04/11/2026 (metadatos EXIF de las capturas del icono y de la aplicación abierta).  
-**Navegador:** Chrome para Android, identificado por el menú mostrado en la captura de instalación. No se ha registrado su versión.
+**Navegador:** Chrome para Android, identificado por el menú mostrado en `instalcion_desde_web.jpg`. No se ha registrado su versión.
 
-**Límites:** esta prueba acredita la instalación y apertura de Ticketon como PWA en ese dispositivo Android. No comprueba el funcionamiento sin conexión, las notificaciones, la subida de documentos ni la opción de compartir archivos desde el menú Compartir. La segunda función de la issue #17 sigue pendiente.
+**Límites:** esta prueba acredita la instalación y apertura de Ticketon como PWA en ese dispositivo Android. No comprueba el funcionamiento sin conexión, las notificaciones, la subida de documentos ni el envío de un archivo a Ticketon desde la opción «Compartir…». Ver esa opción en el menú de Chrome no demuestra que la integración de compartir de Ticketon funcione. La segunda función de la issue #17 sigue pendiente.
 
 ## 7. Separación de datos entre cuentas
 
