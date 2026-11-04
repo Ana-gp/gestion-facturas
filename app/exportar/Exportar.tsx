@@ -15,6 +15,7 @@ import {
   type FacturaExportable,
   type Periodo,
 } from "@/lib/exportacion/excel";
+import { generarPdf } from "@/lib/exportacion/pdf";
 import { avisoTrimestre, trimestreDe } from "@/lib/avisos/trimestre";
 
 export type Plan = "gratis" | "autonomo" | "plus";
@@ -66,6 +67,8 @@ export default function Exportar({ facturas, titular, plan, hoy, datosDeEjemplo 
   const [trimestre, setTrimestre] = useState(actual.trimestre);
   const [mes, setMes] = useState(mesActual);
   const [estado, setEstado] = useState<EstadoDescarga>("listo");
+  // Qué se está preparando o se ha descargado: el Excel o el PDF.
+  const [formato, setFormato] = useState<"Excel" | "PDF">("Excel");
 
   const periodo: Periodo =
     tipo === "mes" ? { tipo, anio, mes } : tipo === "trimestre" ? { tipo, anio, trimestre } : { tipo, anio };
@@ -94,12 +97,14 @@ export default function Exportar({ facturas, titular, plan, hoy, datosDeEjemplo 
     setEstado("listo");
   }
 
-  function descargar() {
+  function descargar(cual: "Excel" | "PDF" = "Excel") {
+    setFormato(cual);
     setEstado("preparando");
     try {
-      const { nombre, contenido } = generarExcel(facturas, { periodo, titular, fechaExportacion: fechaHoy });
+      const opciones = { periodo, titular, fechaExportacion: fechaHoy };
+      const { nombre, contenido } = cual === "PDF" ? generarPdf(facturas, opciones) : generarExcel(facturas, opciones);
       const blob = new Blob([contenido as Uint8Array<ArrayBuffer>], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        type: cual === "PDF" ? "application/pdf" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
       const url = URL.createObjectURL(blob);
       const enlace = document.createElement("a");
@@ -275,24 +280,31 @@ export default function Exportar({ facturas, titular, plan, hoy, datosDeEjemplo 
           {incluidas.length > 0 && (
             <>
               <details className={styles.detalle}>
-                <summary>Qué lleva el Excel</summary>
+                <summary>Qué lleva el Excel y el PDF</summary>
                 <p>
                   Una fila por cada tipo de IVA de cada documento, con fecha, número, emisor y su NIF, NIF del receptor,
                   categoría, tipo de IVA, base y cuota en euros, retención, total, moneda original y tipo de cambio,
                   estado, avisos y nombre del archivo original. Una segunda hoja resume el periodo por tipo de IVA.
                 </p>
+                <p>
+                  El PDF trae lo mismo para leerlo o imprimirlo: una primera página con el resumen y el IVA por tipo, y
+                  después la lista de gastos.
+                </p>
               </details>
 
               <div className={styles.acciones}>
-                <button type="button" className={styles.principal} onClick={descargar} disabled={estado === "preparando"}>
-                  {estado === "preparando" ? "Preparando el Excel…" : hayAvisos ? "Descargar igualmente" : "Descargar Excel"}
+                <button type="button" className={styles.principal} onClick={() => descargar("Excel")} disabled={estado === "preparando"}>
+                  {estado === "preparando" && formato === "Excel" ? "Preparando el Excel…" : hayAvisos ? "Descargar Excel igualmente" : "Descargar Excel"}
+                </button>
+                <button type="button" className={styles.secundario} onClick={() => descargar("PDF")} disabled={estado === "preparando"}>
+                  {estado === "preparando" && formato === "PDF" ? "Preparando el PDF…" : "Descargar PDF"}
                 </button>
                 <p className={styles.estado} role="status">
-                  {estado === "descargado" && "Excel descargado. Lo tienes en tu carpeta de descargas."}
+                  {estado === "descargado" && `${formato} descargado. Lo tienes en tu carpeta de descargas.`}
                   {estado === "error" && (
                     <>
-                      No se ha podido preparar el Excel.{" "}
-                      <button type="button" className={styles.enlace} onClick={descargar}>
+                      No se ha podido preparar el {formato}.{" "}
+                      <button type="button" className={styles.enlace} onClick={() => descargar(formato)}>
                         Inténtalo de nuevo
                       </button>
                     </>
