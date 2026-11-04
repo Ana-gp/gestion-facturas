@@ -496,3 +496,155 @@ a.cifraAviso:hover {
     padding: 12px 16px;
   }
 }
+
+
+/* Panel mensual (#26) */
+.panelMensual {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.panelCabecera h2,
+.panelCategorias h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.panelCabecera p {
+  margin: 4px 0 0;
+  color: var(--gris);
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.panelIndicadores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.panelIndicador {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 16px;
+  border-radius: 10px;
+  background: #f7f8fa;
+}
+
+.panelIndicador > span {
+  color: var(--gris);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.panelIndicador strong {
+  font-size: 26px;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.panelIndicador small,
+.panelCategorias li small {
+  color: var(--gris);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.variacionSube {
+  color: #9a3412;
+}
+
+.variacionBaja {
+  color: #1f5c36;
+}
+
+.panelCategorias {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panelCategorias ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panelCategorias li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.categoriaLinea {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.categoriaLinea span {
+  overflow-wrap: anywhere;
+}
+
+.categoriaLinea strong {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.barraFondo {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8edf3;
+}
+
+.barraFondo span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--azul);
+}
+
+.panelSinDatos {
+  margin: 0;
+  color: var(--gris);
+  font-size: 13px;
+}
+
+.panelAviso {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--ambar-fondo);
+  color: var(--ambar);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+  .panelMensual {
+    padding: 16px;
+  }
+
+  .panelIndicadores,
+  .panelCategorias ul {
+    grid-template-columns: 1fr;
+  }
+
+  .panelIndicador strong {
+    font-size: 23px;
+  }
+}
