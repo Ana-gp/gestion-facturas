@@ -208,6 +208,23 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 
 **Límite:** se comprobaron Mis gastos, Exportar y la ficha y el original de T4b; no el resto de documentos ni todas las rutas. No sustituye a una revisión de seguridad.
 
+
+### 7.1. Registro, acceso y recuperación de contraseña (#13)
+
+**[Confirmado]** Según la prueba realizada por Javier en producción el 04/11/2026, el recorrido de recuperación de contraseña llegó a completarse:
+
+1. Desde la pantalla de recuperación, solicitó el correo y abrió el enlace recibido de Supabase.
+2. El enlace abrió «Crea una contraseña nueva».
+3. Introdujo la nueva contraseña en los dos campos y pulsó el botón para guardarla.
+4. La aplicación le llevó a la pantalla de acceso con la contraseña todavía introducida, pero el campo del correo vacío.
+5. Pulsó primero el botón de acceso sin introducir el correo y la aplicación mostró el aviso de que faltaba ese dato.
+6. Introdujo manualmente su dirección de Gmail y pudo iniciar sesión con la nueva contraseña.
+
+**Resultado:** recuperación de contraseña y posterior acceso con la contraseña nueva, correctos en la prueba manual comunicada por Javier.
+
+**Límite de la evidencia:** no se ha adjuntado una captura de la pantalla de nueva contraseña ni del acceso posterior. Tampoco se registra el texto exacto de un posible mensaje de confirmación al guardar. El correo no se autocompletó en la pantalla de acceso; fue necesario introducirlo manualmente. Esto no impidió completar el inicio de sesión y se anota como comportamiento observado, no como fallo de recuperación.
+
+
 ## 8. Prueba adicional: otra moneda
 
 Leído en la web el 03/11/2026, subido con "Elegir archivos". Capturas: `tests/resultados-web/E5-0-antes-del-tipo-de-cambio.jpg` y `E5-1` a `E5-4` (con el tipo de cambio ya aceptado). Avisos de la ficha: "Las cuentas no cuadran" y "Factura en MXN: falta el tipo de cambio".
@@ -264,6 +281,7 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
 **Límites:**
 - No se ha probado en la web el duplicado entre dos fotos distintas del mismo ticket (solo con el mismo archivo y con las pruebas automáticas).
 - Tampoco el correo de un remitente no autorizado, el tiempo de lectura ni Android.
+- La recuperación de contraseña (#13) se completó en una prueba manual comunicada por Javier el 04/11/2026; no se adjuntaron capturas de los pasos 4 y 5. El correo no se autocompletó en el formulario de acceso y hubo que introducirlo manualmente (apartado 7.1).
 - Es una sola prueba, con un ticket de cada tipo: no mide la precisión con muchos documentos.
 - T4b apareció como «Revisada» sin que Mireia la marcara. La web solo lo hace con «Guardar como revisada»; **[Supuesto]** lo pulsó el asistente del navegador que hizo parte de la subida. Sin confirmar (apartado 9).
 - Quedan para después de la entrega las mejoras del apartado 9.
