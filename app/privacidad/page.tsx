@@ -44,7 +44,7 @@ export default function PrivacidadPage() {
           <li><strong>Supabase:</strong> autenticación, base de datos y almacenamiento. El proyecto está configurado en Fráncfort; esto no acredita que todos los tratamientos auxiliares ocurran exclusivamente en la UE.</li>
           <li><strong>Vercel:</strong> alojamiento y ejecución de la aplicación. Deben confirmarse plan, condiciones contractuales, registros y ubicaciones efectivas.</li>
           <li><strong>Proveedor OCR/IA (Gemini):</strong> lectura de documentos. No utilizar el plan gratuito con documentos personales reales; deben validarse modalidad contractual, retención, entrenamiento, región y transferencias.</li>
-          <li><strong>Resend:</strong> proveedor previsto para correo. Su uso y el tratamiento de contenido y adjuntos deben confirmarse antes de activar la recepción por email.</li>
+          <li><strong>Resend:</strong> recepción de las facturas que la persona reenvía por correo a su dirección de Ticketon. Debe confirmarse su tratamiento del contenido y los adjuntos.</li>
         </ul>
         <p><span className={styles.placeholder}>[PENDIENTE: completar proveedores realmente activos, roles, acuerdos, subencargados y transferencias internacionales]</span>. No se prevén cesiones comerciales de datos personales a terceros.</p>
         <h2>6. Conservación</h2>

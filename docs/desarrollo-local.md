@@ -1,8 +1,8 @@
 # Desarrollo local de Ticketon
 
-Tarea: #12 (orden 13) · Bloque 4 (web) · Responsable: Javier · Última actualización: 29/10/2026
+Tarea: #12 (orden 13) · Bloque 4 (web) · Responsable: Javier · Última actualización: 04/11/2026
 
-**Estado:** guía inicial de la base técnica. Todavía no acredita que el proyecto se haya instalado, compilado o desplegado.
+**Estado:** **[Confirmado]** la base técnica está en uso: el proyecto se compila y se despliega en Vercel desde `main` desde el 03/11/2026 (apartado «Despliegue en Vercel»).
 
 Leyenda: **[Confirmado]** dato respaldado por una fuente o resultado documentado; **[Supuesto]** hipótesis provisional que debe validarse; **[Propuesta]** decisión del equipo que puede cambiar; **[Pendiente]** información aún no resuelta. Etiquetas según `docs/guia-estilo.md`.
 
@@ -50,9 +50,9 @@ No añadas una clave `service_role` de Supabase al navegador ni a variables `NEX
 
 ## Pendiente [Pendiente]
 
-- [ ] Crear y probar las cuentas de servicios.
-- [ ] Configurar las variables reales en el entorno de despliegue.
-- [ ] Conectar Supabase Auth después de coordinar el modelo de datos de la issue #29.
+- [x] Crear y probar las cuentas de servicios: Supabase, Gemini, Vercel y Resend (03/11/2026, ver [puesta en marcha](supabase.md)).
+- [x] Configurar las variables reales en el entorno de despliegue: en Production (03/11/2026). **[Pendiente]** Añadirlas también a Preview.
+- [x] Conectar Supabase Auth (PR #78).
 - [x] Confirmar el despliegue automático desde `main` (03/11/2026, ver [puesta en marcha](supabase.md), apartado 6).
 
 

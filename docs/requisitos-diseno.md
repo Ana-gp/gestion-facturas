@@ -2,7 +2,7 @@
 
 Tarea: #9 (orden 11) · Bloque 1 (cuenta y negocio) · Responsable: Javier · Última actualización: 03/11/2026
 
-**Estado:** **[Propuesta]**. Documento contrastado con el mapa de pantallas aprobado (PR #54, #8) y con las funciones adicionales de `docs/funciones.md` (#7). Pendiente de revisión final del equipo y de comprobar la propuesta visual en el prototipo #11.
+**Estado:** Aprobado (PR #52, 03/11/2026). Documento contrastado con el mapa de pantallas aprobado (PR #54, #8), con las funciones adicionales de `docs/funciones.md` (#7) y con el [prototipo](prototipo/README.md) (#11).
 
 Leyenda: **[Confirmado]** requisito respaldado por el enunciado, documentos aprobados o implementación comprobada · **[Supuesto]** hipótesis pendiente de comprobar · **[Propuesta]** decisión revisable · **[Pendiente]** falta construir, decidir o validar. Las funciones pospuestas se identifican como **[Pendiente] Aplazado (#número)**, sin crear una quinta etiqueta.
 

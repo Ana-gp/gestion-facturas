@@ -2,7 +2,7 @@
 
 Tarea: #18 (orden 15) · Bloque 2 (subida y lectura) · Responsable: Mireia · Última actualización: 03/11/2026
 
-**Estado:** Supabase, Gemini, Vercel y Resend configurados; la web está publicada en https://gestion-facturas-xi.vercel.app desde el 03/11/2026 (apartado 6). **[Pendiente]** Repetir en Supabase las pruebas con dos cuentas reales (apartado 5), dentro de la prueba de lectura en la web (#28, [pruebas-lectura.md](pruebas-lectura.md)).
+**Estado:** Supabase, Gemini, Vercel y Resend configurados; la web está publicada en https://gestion-facturas-xi.vercel.app desde el 03/11/2026 (apartado 6). **[Confirmado]** La separación entre dos cuentas reales se probó en la web el 03/11/2026, dentro de la prueba de lectura (#28, [pruebas-lectura.md](pruebas-lectura.md), apartado 7).
 
 Leyenda (según la [guía de estilo](guia-estilo.md)): **[Confirmado]** comprobado en una fuente o en una prueba; **[Supuesto]** se da por bueno para avanzar; **[Propuesta]** decisión del equipo que se puede cambiar; **[Pendiente]** falta información o falta hacerlo.
 
