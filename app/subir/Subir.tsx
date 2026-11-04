@@ -165,7 +165,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
       try {
         const { archivos, omitidos } = await archivosDelZip(archivo);
         sueltos.push(...archivos);
-        avisos.push(resumenDelZip(archivo.name, archivos.length, omitidos));
+        avisos.push(resumenDelZip(archivo.name, archivos.length, omitidos, uso.limite - usadosRef.current - sueltos.length + archivos.length));
       } catch (error) {
         avisos.push(`«${archivo.name}»: ${error instanceof Error ? error.message : "no se ha podido abrir."}`);
       }
