@@ -7,6 +7,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./gastos.module.css";
+import { resumenMensual, compararMeses } from "@/lib/gastos/panel";
 import {
   TEXTO_AVISO,
   TEXTO_ESTADO,
@@ -80,6 +81,9 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
   // Las cifras de arriba siguen al periodo elegido, igual que la lista.
   const duplicados = delPeriodo.filter((g) => g.avisos.includes("duplicado")).length;
   const trimestre = cifrasDelTrimestre(ordenados, fechaHoy);
+  const resumenMes = resumenMensual(gastos, fechaHoy);
+  const resumenAnterior = resumenMensual(gastos, fechaComparacionAnterior(fechaHoy, resumenMes.anterior));
+  const comparacionMes = compararMeses(resumenMes, resumenAnterior);
   const sinNif = visibles.filter((g) => g.sinNifReceptor).length;
   const conFicha = idsConFicha ? (id: string) => idsConFicha.includes(id) : undefined;
   const primerPendiente = delPeriodo.find((g) => g.estado !== "revisada" && accionDe(g, conFicha));
@@ -116,6 +120,8 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
               {error}
             </p>
           )}
+
+          {!error && <PanelMensual resumen={resumenMes} comparacion={comparacionMes} />}
 
           {!error && gastos.length === 0 && (
             <section className={styles.vacio}>
@@ -294,5 +300,102 @@ function Fila({ gasto: g, conFicha }: { gasto: GastoListado; conFicha?: (id: str
         )}
       </td>
     </tr>
+  );
+}
+
+type PanelMensualProps = {
+  resumen: ReturnType<typeof resumenMensual>;
+  comparacion: ReturnType<typeof compararMeses>;
+};
+
+function fechaComparacionAnterior(hoy: string, claveAnterior: string): string {
+  const [anio, mes] = claveAnterior.split("-").map(Number);
+  const diaActual = Number(hoy.slice(8, 10));
+  const ultimoDia = new Date(Date.UTC(anio, mes, 0)).getUTCDate();
+  return `${claveAnterior}-${String(Math.min(diaActual, ultimoDia)).padStart(2, "0")}`;
+}
+
+function nombreMes(clave: string): string {
+  const [anio, mes] = clave.split("-").map(Number);
+  return new Intl.DateTimeFormat("es-ES", { month: "long", year: "numeric", timeZone: "UTC" })
+    .format(new Date(Date.UTC(anio, mes - 1, 1)));
+}
+
+function PanelMensual({ resumen, comparacion }: PanelMensualProps) {
+  const anterior = nombreMes(resumen.anterior);
+  const variacion = comparacion.porcentaje;
+  const descripcionVariacion =
+    variacion === null
+      ? "Sin base de comparación"
+      : variacion > 0
+        ? `${Math.abs(variacion).toFixed(1).replace(".", ",")}% más que en ${anterior} hasta el mismo día`
+        : variacion < 0
+          ? `${Math.abs(variacion).toFixed(1).replace(".", ",")}% menos que en ${anterior} hasta el mismo día`
+          : `Igual que en ${anterior}`;
+
+  return (
+    <section className={styles.panelMensual} aria-labelledby="titulo-panel-mensual">
+      <div className={styles.panelCabecera}>
+        <div>
+          <h2 id="titulo-panel-mensual">Resumen del mes</h2>
+          <p>{nombreMes(resumen.clave)}</p>
+        </div>
+      </div>
+
+      <div className={styles.panelIndicadores}>
+        <article className={styles.panelIndicador}>
+          <span>Gasto registrado</span>
+          <strong>{euros.format(resumen.totalEur)}</strong>
+          <small>
+            {resumen.documentos} {resumen.documentos === 1 ? "documento" : "documentos"}
+            {resumen.sinConvertir > 0 ? ` · ${resumen.sinConvertir} sin convertir a euros` : ""}
+            {resumen.sinImporte > 0 ? ` · ${resumen.sinImporte} sin importe` : ""}
+          </small>
+        </article>
+        <article className={styles.panelIndicador}>
+          <span>Comparación con {anterior} (mismo periodo)</span>
+          <strong className={comparacion.diferenciaEur > 0 ? styles.variacionSube : comparacion.diferenciaEur < 0 ? styles.variacionBaja : undefined}>
+            {comparacion.diferenciaEur > 0 ? "+" : comparacion.diferenciaEur < 0 ? "−" : ""}
+            {euros.format(Math.abs(comparacion.diferenciaEur))}
+          </strong>
+          <small>{descripcionVariacion}</small>
+        </article>
+      </div>
+
+      <div className={styles.panelCategorias}>
+        <h3>Gasto por categoría</h3>
+        {resumen.categorias.length === 0 ? (
+          <p className={styles.panelSinDatos}>Todavía no hay importes en euros para desglosar este mes.</p>
+        ) : (
+          <ul>
+            {resumen.categorias.map((categoria) => (
+              <li key={categoria.nombre}>
+                <div className={styles.categoriaLinea}>
+                  <span>{categoria.nombre}</span>
+                  <strong>{euros.format(categoria.totalEur)}</strong>
+                </div>
+                <div
+                  className={styles.barraFondo}
+                  role="progressbar"
+                  aria-label={`${categoria.nombre}: ${categoria.porcentaje.toFixed(1)} por ciento del gasto`}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round(categoria.porcentaje)}
+                >
+                  <span style={{ width: `${categoria.porcentaje}%` }} />
+                </div>
+                <small>{categoria.documentos} {categoria.documentos === 1 ? "documento" : "documentos"} · {categoria.porcentaje.toFixed(1).replace(".", ",")}%</small>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {resumen.posiblesDuplicados > 0 && (
+        <p className={styles.panelAviso}>
+          {resumen.posiblesDuplicados} {resumen.posiblesDuplicados === 1 ? "documento tiene" : "documentos tienen"} posible duplicado. Se mantienen en el cálculo hasta que confirmes si realmente lo son.
+        </p>
+      )}
+    </section>
   );
 }
