@@ -15,7 +15,8 @@ function gasto(id, fecha, total, totalEur, extras = {}) {
 test("mes actual: usa fecha de factura, suma en céntimos e incluye pendientes", () => {
   const datos = [
     gasto("a", "2026-11-01", 10.1, 10.1),
-    gasto("b", "2026-11-30", 20.2, 20.2, { estado: "revisada", categoria: "Viajes" }),
+    gasto("b", "2026-11-04", 20.2, 20.2, { estado: "revisada", categoria: "Viajes" }),
+    gasto("futuro", "2026-11-05", 70, 70),
     gasto("c", "2026-10-31", 99, 99),
     gasto("d", null, 50, 50),
   ];
@@ -57,7 +58,10 @@ test("cambio de año al calcular el mes anterior", () => {
 
 test("comparación: diferencia y porcentaje; sin base no inventa porcentaje", () => {
   const actual = resumenMensual([gasto("a", "2026-11-02", 15, 15)], "2026-11-04");
-  const anterior = resumenMensual([gasto("b", "2026-10-02", 10, 10)], "2026-10-04");
+  const anterior = resumenMensual([
+    gasto("b", "2026-10-02", 10, 10),
+    gasto("c", "2026-10-05", 100, 100),
+  ], "2026-10-04");
   assert.deepEqual(compararMeses(actual, anterior), { diferenciaEur: 5, porcentaje: 50 });
   const cero = resumenMensual([], "2026-10-04");
   assert.deepEqual(compararMeses(actual, cero), { diferenciaEur: 15, porcentaje: null });
