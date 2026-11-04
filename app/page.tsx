@@ -3,7 +3,7 @@ import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "./landing.module.css";
 
 const FUNCIONES = [
-  { titulo: "Tres formas de subir", texto: "Haz una foto con el móvil, arrastra un PDF desde el ordenador o reenvía la factura a tu dirección de Ticketon." },
+  { titulo: "Tres formas de subir", texto: "Haz una foto con el móvil, arrastra un PDF o un ZIP con varios desde el ordenador, o reenvía la factura a tu dirección de Ticketon." },
   { titulo: "Lectura con IA", texto: "Lee la fecha, el emisor, el NIF, las líneas de IVA, el total y la categoría. Tú decides si están bien." },
   { titulo: "El original, siempre guardado", texto: "Cada dato queda enlazado a su ticket o factura, que puedes ver a pantalla completa y descargar." },
   { titulo: "Corrige en dos clics", texto: "Pulsa el dato, escribe el valor bueno y pulsa «Listo». Los dudosos salen marcados para revisar." },
@@ -22,7 +22,7 @@ const PLANES = [
 const PREGUNTAS = [
   { pregunta: "¿Ticketon me dice qué gastos puedo deducir?", respuesta: "No. Ticketon organiza tus justificantes y sus datos. Qué se puede deducir lo decide tu gestoría." },
   { pregunta: "¿Y si la IA lee mal un dato?", respuesta: "Puede pasar, sobre todo con tickets arrugados o fotos con poca luz. Por eso siempre ves el original al lado de los datos y lo corriges en dos clics antes de exportar." },
-  { pregunta: "¿Qué documentos puedo subir?", respuesta: "Fotos y PDF de tickets y facturas: JPG, PNG, HEIC o PDF, de hasta 10 MB cada uno." },
+  { pregunta: "¿Qué documentos puedo subir?", respuesta: "Fotos y PDF de tickets y facturas: JPG, PNG, HEIC o PDF, de hasta 10 MB cada uno. También un ZIP con hasta 50 archivos, de hasta 10 MB cada uno." },
   { pregunta: "¿Quién ve mis documentos?", respuesta: "Solo tú. Cada cuenta ve únicamente sus documentos, y se guardan en servidores de la Unión Europea (Fráncfort)." },
   { pregunta: "¿Qué recibe mi gestoría?", respuesta: "Un Excel del periodo con una fila por cada tipo de IVA de cada gasto y una hoja de resumen. Tus originales siguen guardados en Ticketon." },
 ];
