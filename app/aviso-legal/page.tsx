@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "../legal.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function AvisoLegalPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>Ticketon</Link><Link href="/">Volver al inicio</Link></header>
+      <CabeceraPublica actual="legal" />
       <article className={styles.content}>
         <p className={styles.eyebrow}>INFORMACIÓN LEGAL</p>
         <h1>Aviso legal</h1>
@@ -43,7 +43,7 @@ export default function AvisoLegalPage() {
         <h2>8. Contacto</h2>
         <p>Para consultas relacionadas con este sitio: <span className={styles.placeholder}>[PENDIENTE: email de contacto]</span>.</p>
       </article>
-      <footer className={styles.footer}><Link href="/privacidad">Privacidad</Link> · <Link href="/cookies">Cookies</Link> · <Link href="/">Inicio</Link></footer>
+      <PiePublico />
     </main>
   );
 }

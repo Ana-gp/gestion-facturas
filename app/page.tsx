@@ -1,18 +1,11 @@
 import Link from "next/link";
+import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "./landing.module.css";
 
 export default function HomePage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="Ticketon, inicio"><svg className={styles.logoIcon} viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" /><path d="M13 4v12" /></svg><span>Ticketon</span></Link>
-        <nav className={styles.nav} aria-label="Navegación principal">
-          <Link href="#como-funciona">Cómo funciona</Link>
-          <Link href="/precios">Precios</Link>
-          <Link href="/entrar">Iniciar sesión</Link>
-          <Link href="/registro" className={styles.navCta}>Crear cuenta</Link>
-        </nav>
-      </header>
+      <CabeceraPublica actual="inicio" />
       <section className={styles.hero} aria-labelledby="hero-title">
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>MENOS PAPELES. MÁS ORDEN.</p>
@@ -56,12 +49,7 @@ export default function HomePage() {
         <div><p className={styles.eyebrow}>EMPIEZA CUANDO QUIERAS</p><h2>Tu documentación, bajo control.</h2><p>Organiza tus justificantes poco a poco y evita dejarlo todo para el último día.</p></div>
         <Link href="/registro" className={styles.primary}>Crear cuenta gratis <span aria-hidden="true">→</span></Link>
       </section>
-      <footer className={styles.footer}>
-        <Link href="/" className={styles.brand}><svg className={styles.logoIcon} viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" /><path d="M13 4v12" /></svg><span>Ticketon</span></Link>
-        <p>Organiza tus tickets y facturas. Prepara la información para tu gestoría.</p>
-        <nav aria-label="Enlaces legales"><Link href="/aviso-legal">Aviso legal</Link><Link href="/privacidad">Privacidad</Link><Link href="/cookies">Cookies</Link><Link href="/precios">Precios</Link></nav>
-        <small>© {new Date().getFullYear()} Ticketon. Todos los derechos reservados.</small>
-      </footer>
+      <PiePublico />
     </main>
   );
 }

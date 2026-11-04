@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "../legal.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacidadPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>Ticketon</Link><Link href="/">Volver al inicio</Link></header>
+      <CabeceraPublica actual="legal" />
       <article className={styles.content}>
         <p className={styles.eyebrow}>DATOS PERSONALES</p>
         <h1>Política de privacidad</h1>
@@ -65,7 +65,7 @@ export default function PrivacidadPage() {
         <h2>10. Cambios</h2>
         <p>La política se actualizará cuando cambien las funciones, proveedores o tratamientos. Se indicará la fecha de actualización y, cuando corresponda, se informará a las personas usuarias.</p>
       </article>
-      <footer className={styles.footer}><Link href="/aviso-legal">Aviso legal</Link> · <Link href="/cookies">Cookies</Link> · <Link href="/">Inicio</Link></footer>
+      <PiePublico />
     </main>
   );
 }
