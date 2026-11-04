@@ -197,6 +197,23 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 | Al abrirlo se ve como una app, sin la barra del navegador, y entra en Mis gastos | Correcto | Con la sesión iniciada: 4.º trimestre de 2026, 2 documentos, 78,31 € (`Instalacion-2-app-abierta-iphone.jpg`) |
 | Android (Chrome) | No probado | Ana dejó como supuesto en el #80 que Chrome no exige service worker para instalar |
 
+
+### 6.1. Instalación de la PWA en Android
+
+**[Confirmado]** Prueba manual documentada el 04/11/2026 a partir de tres capturas aportadas por Javier:
+
+| Paso | Resultado | Evidencia |
+|---|---|---|
+| Abrir Ticketon en Chrome Android y consultar el menú | Aparece «Instalar y crear acceso directo» | `instalcion_desde_web.jpg` |
+| Instalar y comprobar el icono | Aparece el icono de Ticketon en la pantalla de inicio | `app_descargada_movil.jpg` |
+| Abrir desde el icono | Se abre «Mis gastos» en una ventana de aplicación, sin la barra ni los controles habituales de Chrome | `app_vista_desde_android.jpg` |
+
+**Dispositivo:** Huawei, identificador de modelo `YAL-L21` (metadatos EXIF de las dos capturas de la aplicación).  
+**Fecha:** 04/11/2026 (metadatos EXIF de las capturas del icono y de la aplicación abierta).  
+**Navegador:** Chrome para Android, identificado por el menú mostrado en la captura de instalación. No se ha registrado su versión.
+
+**Límites:** esta prueba acredita la instalación y apertura de Ticketon como PWA en ese dispositivo Android. No comprueba el funcionamiento sin conexión, las notificaciones, la subida de documentos ni la opción de compartir archivos desde el menú Compartir. La segunda función de la issue #17 sigue pendiente.
+
 ## 7. Separación de datos entre cuentas
 
 | Comprobación | Resultado | Notas |
