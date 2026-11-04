@@ -82,7 +82,7 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
   const duplicados = delPeriodo.filter((g) => g.avisos.includes("duplicado")).length;
   const trimestre = cifrasDelTrimestre(ordenados, fechaHoy);
   const resumenMes = resumenMensual(gastos, fechaHoy);
-  const resumenAnterior = resumenMensual(gastos, `${resumenMes.anterior}-01`);
+  const resumenAnterior = resumenMensual(gastos, fechaComparacionAnterior(fechaHoy, resumenMes.anterior));
   const comparacionMes = compararMeses(resumenMes, resumenAnterior);
   const sinNif = visibles.filter((g) => g.sinNifReceptor).length;
   const conFicha = idsConFicha ? (id: string) => idsConFicha.includes(id) : undefined;
@@ -121,6 +121,8 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
             </p>
           )}
 
+          {!error && <PanelMensual resumen={resumenMes} comparacion={comparacionMes} />}
+
           {!error && gastos.length === 0 && (
             <section className={styles.vacio}>
               <h2>Todavía no has subido ningún justificante</h2>
@@ -133,8 +135,6 @@ export default function Gastos({ gastos, idsConFicha, datosDeEjemplo = false, ho
 
           {gastos.length > 0 && (
             <>
-              <PanelMensual resumen={resumenMes} comparacion={comparacionMes} />
-
               <div className={styles.cifras}>
                 <CifraEnlace
                   titulo="Pendientes de revisar"
@@ -307,6 +307,13 @@ type PanelMensualProps = {
   resumen: ReturnType<typeof resumenMensual>;
   comparacion: ReturnType<typeof compararMeses>;
 };
+
+function fechaComparacionAnterior(hoy: string, claveAnterior: string): string {
+  const [anio, mes] = claveAnterior.split("-").map(Number);
+  const diaActual = Number(hoy.slice(8, 10));
+  const ultimoDia = new Date(Date.UTC(anio, mes, 0)).getUTCDate();
+  return `${claveAnterior}-${String(Math.min(diaActual, ultimoDia)).padStart(2, "0")}`;
+}
 
 function nombreMes(clave: string): string {
   const [anio, mes] = clave.split("-").map(Number);
