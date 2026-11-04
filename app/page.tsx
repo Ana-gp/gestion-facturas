@@ -2,6 +2,31 @@ import Link from "next/link";
 import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "./landing.module.css";
 
+const FUNCIONES = [
+  { titulo: "Tres formas de subir", texto: "Haz una foto con el móvil, arrastra un PDF desde el ordenador o reenvía la factura a tu dirección de Ticketon." },
+  { titulo: "Lectura con IA", texto: "Lee la fecha, el emisor, el NIF, las líneas de IVA, el total y la categoría. Tú decides si están bien." },
+  { titulo: "El original, siempre guardado", texto: "Cada dato queda enlazado a su ticket o factura, que puedes ver a pantalla completa y descargar." },
+  { titulo: "Corrige en dos clics", texto: "Pulsa el dato, escribe el valor bueno y pulsa «Listo». Los dudosos salen marcados para revisar." },
+  { titulo: "Avisos antes de entregar", texto: "Documentos repetidos, fechas que pueden estar mal, tickets sin tu NIF y el trimestre a punto de cerrar." },
+  { titulo: "En cualquier moneda", texto: "Una factura en dólares o en pesos se pasa a euros con el tipo de cambio oficial del día de la factura." },
+  { titulo: "Excel para tu gestoría", texto: "Del mes, del trimestre o del año, con una fila por cada tipo de IVA." },
+  { titulo: "En tu móvil como una app", texto: "Añade Ticketon a la pantalla de inicio y sube el ticket en el momento." },
+];
+
+const PLANES = [
+  { nombre: "Gratis", precio: "0 €", documentos: "Hasta 10 documentos al mes", destacado: false },
+  { nombre: "Autónomo", precio: "4,99 €", documentos: "Hasta 100 documentos al mes", destacado: true },
+  { nombre: "Autónomo Plus", precio: "8,99 €", documentos: "Hasta 300 documentos al mes", destacado: false },
+];
+
+const PREGUNTAS = [
+  { pregunta: "¿Ticketon me dice qué gastos puedo deducir?", respuesta: "No. Ticketon organiza tus justificantes y sus datos. Qué se puede deducir lo decide tu gestoría." },
+  { pregunta: "¿Y si la IA lee mal un dato?", respuesta: "Puede pasar, sobre todo con tickets arrugados o fotos con poca luz. Por eso siempre ves el original al lado de los datos y lo corriges en dos clics antes de exportar." },
+  { pregunta: "¿Qué documentos puedo subir?", respuesta: "Fotos y PDF de tickets y facturas: JPG, PNG, HEIC o PDF, de hasta 10 MB cada uno." },
+  { pregunta: "¿Quién ve mis documentos?", respuesta: "Solo tú. Cada cuenta ve únicamente sus documentos, y se guardan en servidores de la Unión Europea (Fráncfort)." },
+  { pregunta: "¿Qué recibe mi gestoría?", respuesta: "Un Excel del periodo con una fila por cada tipo de IVA de cada gasto y una hoja de resumen. Tus originales siguen guardados en Ticketon." },
+];
+
 export default function HomePage() {
   return (
     <main className={styles.page}>
@@ -43,6 +68,57 @@ export default function HomePage() {
           <article><span>1</span><h3>Sube tus documentos</h3><p>Haz una foto al ticket, añade una imagen o un PDF desde tu dispositivo, o reenvía por correo las facturas que te llegan por email.</p></article>
           <article><span>2</span><h3>Revisa la información</h3><p>Ticketon lee los datos disponibles para ayudarte a organizarlos. Tú puedes revisarlos y corregirlos.</p></article>
           <article><span>3</span><h3>Prepara la entrega</h3><p>Consulta tus gastos y exporta la información del periodo para compartirla con tu gestoría.</p></article>
+        </div>
+      </section>
+      <section id="funciones" className={styles.features} aria-labelledby="titulo-funciones">
+        <div className={styles.sectionIntro}>
+          <p className={styles.eyebrow}>QUÉ INCLUYE</p>
+          <h2 id="titulo-funciones">Todo lo que necesitas para entregar el trimestre.</h2>
+          <p>Lo esencial para un autónomo, sin funciones de empresa que no vas a usar.</p>
+        </div>
+        <div className={styles.featureGrid}>
+          {FUNCIONES.map((f) => (
+            <article key={f.titulo}>
+              <h3>{f.titulo}</h3>
+              <p>{f.texto}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className={styles.plans} aria-labelledby="titulo-planes">
+        <div className={styles.sectionIntro}>
+          <p className={styles.eyebrow}>PLANES</p>
+          <h2 id="titulo-planes">Empieza gratis y cambia cuando lo necesites.</h2>
+          <p>Todos los planes incluyen todas las funciones. Cambia el número de documentos al mes.</p>
+        </div>
+        <div className={styles.planGrid}>
+          {PLANES.map((p) => (
+            <article key={p.nombre} className={p.destacado ? styles.planDestacado : undefined}>
+              <h3>{p.nombre}</h3>
+              <p className={styles.planPrecio}>
+                {p.precio}
+                <small> / mes</small>
+              </p>
+              <p>{p.documentos}</p>
+            </article>
+          ))}
+        </div>
+        <p className={styles.plansNota}>
+          Precios provisionales: la contratación todavía no está habilitada. <Link href="/precios">Comparar planes</Link>
+        </p>
+      </section>
+      <section className={styles.faq} aria-labelledby="titulo-preguntas">
+        <div className={styles.sectionIntro}>
+          <p className={styles.eyebrow}>PREGUNTAS FRECUENTES</p>
+          <h2 id="titulo-preguntas">Lo que suelen preguntarnos.</h2>
+        </div>
+        <div className={styles.faqList}>
+          {PREGUNTAS.map((q) => (
+            <details key={q.pregunta}>
+              <summary>{q.pregunta}</summary>
+              <p>{q.respuesta}</p>
+            </details>
+          ))}
         </div>
       </section>
       <section className={styles.callout}>
