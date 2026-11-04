@@ -328,9 +328,9 @@ function PanelMensual({ resumen, comparacion }: PanelMensualProps) {
     variacion === null
       ? "Sin base de comparación"
       : variacion > 0
-        ? `${Math.abs(variacion).toFixed(1).replace(".", ",")}% más que en ${anterior}`
+        ? `${Math.abs(variacion).toFixed(1).replace(".", ",")}% más que en ${anterior} hasta el mismo día`
         : variacion < 0
-          ? `${Math.abs(variacion).toFixed(1).replace(".", ",")}% menos que en ${anterior}`
+          ? `${Math.abs(variacion).toFixed(1).replace(".", ",")}% menos que en ${anterior} hasta el mismo día`
           : `Igual que en ${anterior}`;
 
   return (
@@ -353,7 +353,7 @@ function PanelMensual({ resumen, comparacion }: PanelMensualProps) {
           </small>
         </article>
         <article className={styles.panelIndicador}>
-          <span>Comparación con {anterior}</span>
+          <span>Comparación con {anterior} (mismo periodo)</span>
           <strong className={comparacion.diferenciaEur > 0 ? styles.variacionSube : comparacion.diferenciaEur < 0 ? styles.variacionBaja : undefined}>
             {comparacion.diferenciaEur > 0 ? "+" : comparacion.diferenciaEur < 0 ? "−" : ""}
             {euros.format(Math.abs(comparacion.diferenciaEur))}
