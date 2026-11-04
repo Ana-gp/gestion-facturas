@@ -197,6 +197,15 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 | Al abrirlo se ve como una app, sin la barra del navegador, y entra en Mis gastos | Correcto | Con la sesión iniciada: 4.º trimestre de 2026, 2 documentos, 78,31 € (`Instalacion-2-app-abierta-iphone.jpg`) |
 | Android (Chrome) | No probado | Ana dejó como supuesto en el #80 que Chrome no exige service worker para instalar |
 
+**Subir un ZIP** (PR #115): comprobado el 04/11/2026 por Ana en la web publicada con `tickets-prueba.zip` (T1, T2, T3 y un `notas.txt`), y por Mireia en su revisión.
+
+| Comprobación | Resultado | Notas |
+|---|---|---|
+| Los tickets de dentro se suben y se leen como si fueran sueltos | Correcto | T1, T2 y T3 terminan en «Listo», con su enlace a «Revisar y corregir» |
+| Avisa de lo que no se sube | Correcto | «Del ZIP «tickets-prueba.zip» se suben 3 archivos. No se sube: notas.txt (formato no admitido).» |
+| Un ZIP que se descomprime a mucho más de lo que pesa se corta y avisa | Correcto | Mireia: un ZIP de 200 KB que se descomprime a 200 MB se corta en 10 MB |
+| Nombres con ñ y tildes de un ZIP hecho con Windows | Corregido en el PR #116 | Salían como «Se�or»; ahora se leen en CP850 |
+
 ## 7. Separación de datos entre cuentas
 
 | Comprobación | Resultado | Notas |

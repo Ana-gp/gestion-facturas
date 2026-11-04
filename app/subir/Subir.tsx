@@ -165,7 +165,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
       try {
         const { archivos, omitidos } = await archivosDelZip(archivo);
         sueltos.push(...archivos);
-        avisos.push(resumenDelZip(archivo.name, archivos.length, omitidos));
+        avisos.push(resumenDelZip(archivo.name, archivos.length, omitidos, uso.limite - usadosRef.current - sueltos.length + archivos.length));
       } catch (error) {
         avisos.push(`«${archivo.name}»: ${error instanceof Error ? error.message : "no se ha podido abrir."}`);
       }
@@ -250,7 +250,7 @@ export default function Subir({ uso, direccionCorreo, datosDeEjemplo = false }: 
               Elegir archivos
             </button>
             <p className={styles.ayuda}>
-              PDF, JPG, PNG o HEIC. Hasta {TAMANO_MAXIMO_MB} MB por archivo. Puedes subir varios a la vez, o un ZIP con hasta {MAXIMO_ARCHIVOS_ZIP}.
+              PDF, JPG, PNG o HEIC, de hasta {TAMANO_MAXIMO_MB} MB cada uno. Puedes subir varios a la vez o un ZIP con hasta {MAXIMO_ARCHIVOS_ZIP} archivos (también de hasta {TAMANO_MAXIMO_MB} MB cada uno). Cada archivo cuenta como un documento de tu plan.
             </p>
             {/* Elegir desde el equipo cuenta como «arrastrar»: es la vía del ordenador (#15). */}
             <input ref={selector} type="file" accept={`${ACEPTA},.zip,application/zip`} multiple hidden onChange={(e) => { void anadir(e.target.files, "arrastrar"); e.target.value = ""; }} />
