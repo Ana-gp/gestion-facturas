@@ -195,7 +195,26 @@ Una fila por paso y una columna por ticket. "Correcto" si funciona como se descr
 |---|---|---|
 | Aparece el icono de Ticketon en la pantalla de inicio | Correcto | Icono azul con el ticket blanco y el nombre "Ticketon" (`tests/resultados-web/Instalacion-1-icono-iphone.jpg`) |
 | Al abrirlo se ve como una app, sin la barra del navegador, y entra en Mis gastos | Correcto | Con la sesión iniciada: 4.º trimestre de 2026, 2 documentos, 78,31 € (`Instalacion-2-app-abierta-iphone.jpg`) |
-| Android (Chrome) | No probado | Ana dejó como supuesto en el #80 que Chrome no exige service worker para instalar |
+| Android (Chrome) | Correcto | Instalación y apertura como PWA comprobadas el 04/11/2026 en Huawei YAL-L21; ver apartado 6.1 |
+
+
+### 6.1. Instalación de la PWA en Android
+
+**[Confirmado]** Prueba manual documentada el 04/11/2026 a partir de tres capturas aportadas por Javier:
+
+| Paso | Resultado | Evidencia |
+|---|---|---|
+| Abrir Ticketon en Chrome Android y consultar el menú | Aparece «Instalar y crear acceso directo». En el mismo menú también aparece «Compartir…», pero no se llegó a probar esa acción | `instalcion_desde_web.jpg` |
+| Instalar y comprobar el icono | Aparece el icono de Ticketon en la pantalla de inicio | `app_descargada_movil.jpg` |
+| Abrir desde el icono | Se abre «Mis gastos» en una ventana de aplicación, sin la barra ni los controles habituales de Chrome | `app_vista_desde_android.jpg` |
+
+**Evidencia:** archivo `Capturas_Android.zip`, con las tres imágenes indicadas. Las capturas todavía no se han incorporado al repositorio; se conservan en el ZIP aportado por Javier.
+
+**Dispositivo:** Huawei, identificador de modelo `YAL-L21` (metadatos EXIF de `app_descargada_movil.jpg` y `app_vista_desde_android.jpg`).  
+**Fecha:** 04/11/2026 (metadatos EXIF de las capturas del icono y de la aplicación abierta).  
+**Navegador:** Chrome para Android, identificado por el menú mostrado en `instalcion_desde_web.jpg`. No se ha registrado su versión.
+
+**Límites:** esta prueba acredita la instalación y apertura de Ticketon como PWA en ese dispositivo Android. No comprueba el funcionamiento sin conexión, las notificaciones ni la subida de documentos. La opción de compartir archivos desde el menú del móvil **no está implementada**: `app/manifest.ts` no declara `share_target` y la función figura como aplazada en `docs/funciones.md` (apartado 1.1). Por tanto, no procede marcarla como una prueba fallida ni afirmar que se ha probado.
 
 ## 7. Separación de datos entre cuentas
 
@@ -275,12 +294,12 @@ Cada fallo importante se abre como issue en GitHub y se enlaza aquí.
    - Aviso de archivo repetido, sin gastar lectura.
    - Excel del 4.º trimestre con una fila por tipo de IVA.
    - Separación entre dos cuentas.
-   - Instalación en el móvil.
+   - Instalación en el móvil: iPhone (Safari) y Android (Chrome), con instalación y apertura comprobadas.
 5. **Fallos de la web encontrados en la prueba y ya arreglados:** «Listo» no guardaba (PR #90), fecha cruzada sin aviso (PR #88) y aviso de repetido fuera de la pantalla (PR #93).
 
 **Límites:**
 - No se ha probado en la web el duplicado entre dos fotos distintas del mismo ticket (solo con el mismo archivo y con las pruebas automáticas).
-- Tampoco el correo de un remitente no autorizado, el tiempo de lectura ni Android.
+- Tampoco el correo de un remitente no autorizado ni el tiempo de lectura. La instalación y apertura de la PWA en Android sí se comprobaron el 04/11/2026 (apartado 6.1); la recepción de archivos desde «Compartir» no está implementada y permanece aplazada.
 - La recuperación de contraseña (#13) se completó en una prueba manual comunicada por Javier el 04/11/2026; no se adjuntaron capturas de los pasos 4 y 5. El correo no se autocompletó en el formulario de acceso y hubo que introducirlo manualmente (apartado 7.1).
 - Es una sola prueba, con un ticket de cada tipo: no mide la precisión con muchos documentos.
 - T4b apareció como «Revisada» sin que Mireia la marcara. La web solo lo hace con «Guardar como revisada»; **[Supuesto]** lo pulsó el asistente del navegador que hizo parte de la subida. Sin confirmar (apartado 9).
