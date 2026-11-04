@@ -1,0 +1,16 @@
+/* Cabecera y pie comunes de las páginas públicas: portada, Precios y textos legales. */
+.cabecera{height:78px;max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf0f4;font-family:Arial,Helvetica,sans-serif}
+.marca{display:inline-flex;align-items:center;gap:10px;font-size:1.65rem;font-weight:800;letter-spacing:-.03em;color:#172235;text-decoration:none}
+.logo{display:block;width:34px;height:34px;flex:0 0 34px;padding:7px;border-radius:9px;background:#2459a9;fill:#fff;stroke:#fff;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.nav{display:flex;align-items:center;gap:28px}
+.nav a,.pie nav a{color:#46536a;text-decoration:none;font-size:.92rem}
+.nav a:hover,.pie nav a:hover{color:#2459a9}
+.nav a[aria-current="page"]{color:#2459a9;font-weight:700}
+.nav .boton{padding:11px 17px;border-radius:9px;background:#2459a9;color:#fff;font-weight:700}
+.nav .boton:hover{background:#19447f;color:#fff}
+.pie{max-width:1160px;margin:0 auto;padding:35px 28px 28px;border-top:1px solid #edf0f4;font-family:Arial,Helvetica,sans-serif}
+.pie>p{color:#647187;font-size:.85rem}
+.pie nav{display:flex;gap:22px;flex-wrap:wrap;margin:24px 0}
+.pie small{color:#8994a4;font-size:.75rem}
+@media(max-width:760px){.cabecera{height:auto;min-height:72px;padding:15px 20px;gap:16px;flex-wrap:wrap}.nav{gap:14px;flex-wrap:wrap}.nav a{font-size:.82rem}.nav .boton{padding:9px 12px}.pie{padding:30px 22px}}
+@media(max-width:420px){.nav{width:100%;justify-content:space-between}.nav a{font-size:.78rem}}

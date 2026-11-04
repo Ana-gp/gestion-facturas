@@ -1,10 +1,16 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "../legal.module.css";
+
+export const metadata: Metadata = {
+  title: "Política de cookies | Ticketon",
+  description: "Qué cookies y tecnologías similares usa Ticketon.",
+};
 
 export default function CookiesPage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>ticketon<span>.</span></Link><Link href="/">Volver al inicio</Link></header>
+      <CabeceraPublica actual="legal" />
       <article className={styles.content}>
         <p className={styles.eyebrow}>TECNOLOGÍAS Y PREFERENCIAS</p>
         <h1>Política de cookies</h1>
@@ -22,7 +28,7 @@ export default function CookiesPage() {
         <h2>5. Actualizaciones y contacto</h2>
         <p>Esta política se actualizará cuando cambien las tecnologías utilizadas. Para consultas: <span className={styles.placeholder}>[PENDIENTE: email de contacto]</span>.</p>
       </article>
-      <footer className={styles.footer}><Link href="/aviso-legal">Aviso legal</Link> · <Link href="/privacidad">Privacidad</Link> · <Link href="/">Inicio</Link></footer>
+      <PiePublico />
     </main>
   );
 }

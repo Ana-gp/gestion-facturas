@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CabeceraPublica, PiePublico } from "@/app/_componentes/Publico";
 import styles from "./precios.module.css";
 
 export const metadata: Metadata = {
@@ -40,6 +41,7 @@ const planes = [
 
 const funcionesComunes = [
   "Subir tickets y facturas en PDF o imagen",
+  "Reenviar facturas por correo a tu dirección de Ticketon",
   "Conservar los documentos originales",
   "Lectura automática y corrección de datos",
   "Detección de posibles documentos duplicados",
@@ -51,17 +53,7 @@ const funcionesComunes = [
 export default function PreciosPage() {
   return (
     <main className={styles.pagina}>
-      <header className={styles.cabecera}>
-        <Link className={styles.marca} href="/" aria-label="Ticketon, inicio">
-          <svg className={styles.logoIcon} viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" /><path d="M13 4v12" stroke="currentColor" strokeDasharray="2 2" /></svg>
-          <span>Ticketon</span>
-        </Link>
-        <nav className={styles.navegacion} aria-label="Navegación principal">
-          <Link href="#planes">Planes</Link>
-          <Link href="#incluido">Qué incluye</Link>
-          <Link href="/entrar">Entrar</Link>
-        </nav>
-      </header>
+      <CabeceraPublica actual="precios" />
 
       <section className={styles.hero} aria-labelledby="titulo">
         <p className={styles.eyebrow}>PLANES Y PRECIOS</p>
@@ -203,19 +195,7 @@ export default function PreciosPage() {
         </div>
       </section>
 
-      <footer className={styles.pie}>
-        <Link className={styles.marca} href="/">
-          <svg className={styles.logoIcon} viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 0 4v4h18v-4a2 2 0 0 1 0-4V4H3z" /><path d="M13 4v12" stroke="currentColor" strokeDasharray="2 2" /></svg>
-          <span>Ticketon</span>
-        </Link>
-        <p>Organiza tus justificantes. Simplifica el trabajo con tu gestoría.</p>
-        <nav className={styles.legalNav} aria-label="Enlaces legales">
-          <Link href="/aviso-legal">Aviso legal</Link>
-          <Link href="/privacidad">Privacidad</Link>
-          <Link href="/cookies">Cookies</Link>
-        </nav>
-        <Link href="/">Volver al inicio</Link>
-      </footer>
+      <PiePublico />
     </main>
   );
 }
